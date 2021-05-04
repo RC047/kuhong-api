@@ -3304,7 +3304,7 @@ router.get('/ocr', async (req, res, next) => {
 	var enc = await imageToBase64(img)
 	var media = Buffer.from(enc, 'base64')
 	  await fs.writeFileSync(__path + '/tmp/ocr.png', media)
-   await recognize(`${__path}/tmp/ocr.png`, { lang: 'eng+ind', oem: 1, psm: 3 })
+          await recognize(__path + `/tmp/ocr.png`, { lang: 'eng+ind', oem: 1, psm: 3 })
         .then(hasil => {
 
              res.json({
@@ -3448,8 +3448,8 @@ router.get('/tomedia', async (req, res, next) => {
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-    if (!base64) return res.json(loghandler.notbase64)
-    if (base64.startsWith('data')) return res.json({ message : `Gunakan teks base64 tanpa data:image/jpeg!` })
+        if (!base64) return res.json(loghandler.notbase64)
+        if (base64.startsWith('data')) return res.json({ message : `Gunakan teks base64 tanpa data:image/jpeg!` })
 
  try {
            var result = Buffer.from(base64, 'base64')
