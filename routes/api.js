@@ -1767,7 +1767,7 @@ router.get('/halah', async (req, res, next) => {
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
 	if (!text) return res.json(loghandler.nottext)
 
-    var txt = 'halah'
+    var txt = 'a'
     var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, text.toUpperCase())
 
     res.json({
@@ -1787,7 +1787,7 @@ router.get('/hilih', async (req, res, next) => {
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
 	if (!text) return res.json(loghandler.nottext)
 
-    var txt = 'hilih'
+    var txt = 'i'
     var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, text.toUpperCase())
 
     res.json({
@@ -1807,7 +1807,7 @@ router.get('/huluh', async (req, res, next) => {
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
 	if (!text) return res.json(loghandler.nottext)
 
-    var txt = 'huluh'
+    var txt = 'u'
     var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, text.toUpperCase())
 
     res.json({
@@ -1827,7 +1827,7 @@ router.get('/heleh', async (req, res, next) => {
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
 	if (!text) return res.json(loghandler.nottext)
 
-    var txt = 'heleh'
+    var txt = 'e'
     var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, text.toUpperCase())
 
     res.json({
@@ -1847,7 +1847,7 @@ router.get('/holoh', async (req, res, next) => {
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
 	if (!text) return res.json(loghandler.nottext)
 
-    var txt = 'holoh'
+    var txt = 'o'
     var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, text.toUpperCase())
 
     res.json({
@@ -3190,7 +3190,9 @@ router.get('/ytsearch', async (req, res, next) => {
       res.json({
 	      status: true,
 	      creator: creator,
-	      json
+	      hasil:{
+                     json
+                    }
       })
 })
 
@@ -5265,6 +5267,9 @@ try {
             creator: creator,
 	    result:{
 		    title: title,
+                    duration: vid.timestamp,
+                    views: vid.views,
+                    uploaded: vid.ago,
 		    thumb: thumb,
 		    source: vid.url,
 		    size: filesizeF,
