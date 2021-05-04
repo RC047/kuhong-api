@@ -310,7 +310,7 @@ router.get('/removekey', (req, res, next) => {
     }
 })
 
-router.get('/tiktod', async (req, res, next) => {
+router.get('/tiktok', async (req, res, next) => {
 
     if (typeof req.query === 'undefined') return res.sendFile(notfound)
 
@@ -337,7 +337,7 @@ router.get('/tiktod', async (req, res, next) => {
          })
 })
 
-router.get('/tiktod/stalk', async (req, res, next) => {
+router.get('/tiktok/stalk', async (req, res, next) => {
 
     if (typeof req.query === 'undefined') return res.sendFile(notfound)
     var apikeyInput = req.query.apikey,
@@ -1758,29 +1758,28 @@ router.get('/fakedata', async (req, res, next) => {
 })
 
 
-router.get('/hilih', async (req, res, next) => {
+router.get('/hlh', async (req, res, next) => {
 
     if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
-            kata = req.query.kata
+	    tipe = req.query.tipe,
+            text = req.query.text;
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-        if(!kata) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kata"})
+	if (!tipe) return res.json({ message: `Silahkan masukan jenis tipenya. a, i, u, e, dan o` })
+	if (tipe !== 'a' || tipe !== 'i' || tipe !== 'u' || tipe !== 'e' || tipe !== 'o') return res.json({ message: `Masukan parameter tipe dengan satu huruf : a, i, u, e, o` })
+        if (!text) return res.json(loghandler.nottext)
 
-       fetch(encodeURI(`https://hilih-api-zhirrr.vercel.app/api/hilih?kata=${kata}`))
-        .then(response => response.json())
-        .then(data => {
-        var result = data;
-             res.json({
-                 result
-             })
+    var txt = tipe[1].toLowerCase()
+    var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, text.toUpperCase()))
+
+    res.json({
+	status: true,
+	creator: creator,
+	result: result
          })
-         .catch(e => {
-         	res.sendFile(error)
 })
-})
-
 
 router.get('/liriklagu', async (req, res, next) => {
 
@@ -1790,7 +1789,7 @@ router.get('/liriklagu', async (req, res, next) => {
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-        if(!lagu) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kata"})
+        if(!lagu) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kata" })
 
         var json = await (await fetch(`https://scrap.terhambar.com/lirik?word=${lagu}`)).json()
         var result = json.result
@@ -2825,7 +2824,7 @@ router.get('/textmaker/roses', async (req, res, next) => {
         }
 })
 
-router.get('/yutub/video', async (req, res, next) => {
+router.get('/ytmp4', async (req, res, next) => {
 
     if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
@@ -2833,24 +2832,25 @@ router.get('/yutub/video', async (req, res, next) => {
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-    if (!url) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter url"})
+        if (!url) return res.json(loghandler.noturl)
 
-       fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/ytv?url=${url}`))
-        .then(response => response.json())
-        .then(data => {
-        var result = data;
-             res.json({
-             	author: 'RC047',
-                 result
-             })
-         })
-         .catch(e => {
-         	res.sendFile(error)
+       var server = (url || 'id4').toLowerCase()
+       var { dl_link, thumb, title, filesize, filesizeF } = await ytv(url, servers.includes(server) ? server : 'id4')
+
+       res.json({
+            status: true,
+            creator: creator,
+	    result:{
+		    title: title,
+		    thumb: thumb,
+		    size: filesizeF,
+		    link: dl_link
+	    }
+        })
 })
-})
 
 
-router.get('/yutub/audio', async (req, res, next) => {
+router.get('/ytmp3', async (req, res, next) => {
 
     if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
@@ -2858,20 +2858,21 @@ router.get('/yutub/audio', async (req, res, next) => {
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-    if (!url) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter url"})
+        if (!url) return res.json(loghandler.noturl)
 
-       fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/yta?url=${url}`))
-        .then(response => response.json())
-        .then(data => {
-        var result = data;
-             res.json({
-             	author: 'RC047',
-                 result
-             })
-         })
-         .catch(e => {
-         	res.sendFile(error)
-})
+       var server = (url || 'id4').toLowerCase()
+       var { dl_link, thumb, title, filesize, filesizeF } = await ytv(url, servers.includes(server) ? server : 'id4')
+
+       res.json({
+            status: true,
+            creator: creator,
+	    result:{
+		    title: title,
+		    thumb: thumb,
+		    size: filesizeF,
+		    link: dl_link
+	    }
+        })
 })
 
 
@@ -3098,28 +3099,23 @@ router.get('/maker3d/no4', async (req, res, next) => {
 })
 
 
-router.get('/yutub/search', async (req, res, next) => {
+router.get('/ytsearch', async (req, res, next) => {
 
     if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
-            video = req.query.video
+            q = req.query.q
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-        if (!video) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter video"})
+        if (!q) return res.json(loghandler.notquery)
 
-       fetch(encodeURI(`https://yutub-api-zaahirr.herokuapp.com/search?q=${video}`))
-        .then(response => response.json())
-        .then(data => {
-        var result = data;
-             res.json({
-             	author: 'RC047',
-                 result
-             })
-         })
-         .catch(e => {
-         	res.sendFile(error)
-})
+    var json = await (await fetch(`https://api.zeks.xyz/api/yts?q=${q}&apikey=apivinz`)).json()
+
+      res.json({
+	      status: true,
+	      creator: creator,
+	      json
+      })
 })
 
 
@@ -5194,6 +5190,7 @@ try {
 	    result:{
 		    title: title,
 		    thumb: thumb,
+		    source: vid.url,
 		    size: filesizeF,
 		    audio: dl_link
 	    }
