@@ -1772,7 +1772,7 @@ router.get('/hlh', async (req, res, next) => {
         if (!text) return res.json(loghandler.nottext)
 
     var txt = tipe[1].toLowerCase()
-    var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, text.toUpperCase()))
+    var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, text.toUpperCase())
 
     res.json({
 	status: true,
