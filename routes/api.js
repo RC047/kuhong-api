@@ -6,7 +6,7 @@ var db = require(__path + '/database/db');
 try {
 var kuhong = db.get('RC047'); // jan diubah
 } catch (e) {
-	console.log('WELCOME TO RC047 API!') // boleh diubah
+   console.log('WELCOME TO RC047 API!') // boleh diubah
 }
 
 var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab
@@ -218,6 +218,7 @@ loghandler = {
 
 var error = __path + '/views/error.html' // Error
 var invalidKey = __path + '/views/invalidKey.html' // Apikey Invalid
+var notfound = __path + '/views/undefined.html' // Undefined web
 
 // Api Features :
         var len = 15
@@ -235,7 +236,7 @@ var invalidKey = __path + '/views/invalidKey.html' // Apikey Invalid
             randomlagi += arr[Math.floor(Math.random() * arr.length)];
         }
 
-        var randomTextNumber = random+randomlagi+'---------kuhong-api-storage'+'RC047';
+        var randomTextNumber = 'kuhong-api-storage/'+random+randomlagi;
 
 
 router.get('/cekapikey', async (req, res, next) => {
@@ -4516,6 +4517,54 @@ try {
    }
 })
 
+router.get('/slot', async (req, res, next) => {
+  var apikeyInput = req.query.apikey;
+
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+
+  var emojis = ["🍎", "🍌", "🍇", "♦️", "🥇", "💵"];
+    var a = Math.floor(Math.random() * emojis.length);
+    var b = Math.floor(Math.random() * emojis.length);
+    var c = Math.floor(Math.random() * emojis.length);
+    var x = [],
+        y = [],
+        z = [];
+    for (var i = 0; i < 3; i++) {
+        x[i] = emojis[a];
+        a++;
+        if (a == emojis.length) a = 0;
+    }
+    for (var i = 0; i < 3; i++) {
+        y[i] = emojis[b];
+        b++;
+        if (b == emojis.length) b = 0;
+    }
+    for (var i = 0; i < 3; i++) {
+        z[i] = emojis[c];
+        c++;
+        if (c == emojis.length) c = 0;
+    }
+    var end;
+    var poin;
+    if (a == b && b == c) {
+        end = "JACKPOT!!!";
+        poin = 10000;
+
+    } else if (a == b || a == c || b == c) {
+        end = "Dikit Lagi!",
+        poin = 500;
+    } else {
+        end = "Lose 😥, Sabar ya kak. Anggap aja nih Ujian :)";
+	poin = "5";
+    }
+      res.json({
+              status : true,
+              creator : creator,
+              hasil : `${end}\n\n${x[0]} ${y[0]} ${z[0]}\n${x[1]} ${y[1]} ${z[1]}\n${x[2]} ${y[2]} ${z[2]}`,
+	      poin : poin
+              })
+})
 
 // End of script
 module.exports = router
