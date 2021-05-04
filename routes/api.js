@@ -1757,21 +1757,97 @@ router.get('/fakedata', async (req, res, next) => {
 })
 })
 
-
-router.get('/hlh', async (req, res, next) => {
+router.get('/halah', async (req, res, next) => {
 
     if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
-	    tipe = req.query.tipe,
             text = req.query.text;
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-	if (!tipe) return res.json({ message: `Silahkan masukan jenis tipenya. a, i, u, e, dan o` })
-	if (tipe !== 'a' || tipe !== 'i' || tipe !== 'u' || tipe !== 'e' || tipe !== 'o') return res.json({ message: `Masukan parameter tipe dengan satu huruf : a, i, u, e, o` })
-        if (!text) return res.json(loghandler.nottext)
+	if (!text) return res.json(loghandler.nottext)
 
-    var txt = tipe[1].toLowerCase()
+    var txt = 'halah'
+    var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, text.toUpperCase())
+
+    res.json({
+	status: true,
+	creator: creator,
+	result: result
+         })
+})
+
+router.get('/hilih', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+            text = req.query.text;
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if (!text) return res.json(loghandler.nottext)
+
+    var txt = 'hilih'
+    var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, text.toUpperCase())
+
+    res.json({
+	status: true,
+	creator: creator,
+	result: result
+         })
+})
+
+router.get('/huluh', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+            text = req.query.text;
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if (!text) return res.json(loghandler.nottext)
+
+    var txt = 'huluh'
+    var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, text.toUpperCase())
+
+    res.json({
+	status: true,
+	creator: creator,
+	result: result
+         })
+})
+
+router.get('/heleh', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+            text = req.query.text;
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if (!text) return res.json(loghandler.nottext)
+
+    var txt = 'heleh'
+    var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, text.toUpperCase())
+
+    res.json({
+	status: true,
+	creator: creator,
+	result: result
+         })
+})
+
+router.get('/holoh', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+            text = req.query.text;
+            
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if (!text) return res.json(loghandler.nottext)
+
+    var txt = 'holoh'
     var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, text.toUpperCase())
 
     res.json({
