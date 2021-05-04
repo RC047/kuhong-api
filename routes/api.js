@@ -5201,6 +5201,115 @@ try {
    }
 })
 
+router.get('/wait', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+	    url = req.query.url;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!url) return res.json(loghandler.noturl)
+  if(!url.startsWith('http')) return res.json(loghandler.invalidLink)
+
+  var base64 = await imageToBase64(url)
+  var anime = `data:image/jpeg;base64,${base64}`
+  var response = await fetch("https://trace.moe/api/search", {
+                 method: "POST",
+                 body: JSON.stringify({ image: anime }),
+                 headers: { "Content-Type": "application/json" }})
+          if (!response.ok) return res.json({ error: `Saya tidak tau ini anime apa` })
+          var result = await response.json()
+          var { is_adult, title, title_chinese, title_romaji, episode, season, similarity, filename, at, tokenthumb, anilist_id } = result.docs[0]
+          var link = `https://media.trace.moe/video/${anilist_id}/${encodeURIComponent(filename)}?t=${at}&token=${tokenthumb}`
+
+  res.json({
+	  status: true,
+	  creator: creator,
+	  result:{
+                  title: title,
+                  title_romaji: title_romaji,
+                  similarity: `${(similarity * 100).toFixed(1)}%`,
+                  episode: episode.toString(),
+                  echi: `${is_adult ? 'yes' : 'no'}`,
+		  url: link
+	    }
+        })
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/wasted', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`https://some-random-api.ml/canvas/wasted?avatar=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/wasted.png', hasil)
+
+     res.sendFile(__path + '/tmp/wasted.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/rainbow', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`https://some-random-api.ml/canvas/gay?avatar=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/rainbow.png', hasil)
+
+     res.sendFile(__path + '/tmp/rainbow.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/glass', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`https://some-random-api.ml/canvas/glass?avatar=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/glass.png', hasil)
+
+     res.sendFile(__path + '/tmp/glass.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
 
 // End of script
 module.exports = router
