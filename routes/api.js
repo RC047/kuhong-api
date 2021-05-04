@@ -4902,5 +4902,273 @@ router.get('/slot', async (req, res, next) => {
               })
 })
 
+router.get('/joox', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+	    q = req.query.q;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if (!q) return res.json(loghandler.notquery)
+
+     var json = await (await fetch(`https://api.zeks.xyz/api/joox?apikey=apivinz&q=${q}`)).json()
+
+     res.json(json)
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/gdrive', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+	    url = req.query.url;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if (!url) return res.json(loghandler.noturl)
+  if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var json = await (await fetch(`https://api.zeks.xyz/api/gdbypass?url=${url}`)).json()
+
+     res.json(json)
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/soundcloud', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+	    url = req.query.url;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if (!url) return res.json(loghandler.noturl)
+  if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var json = await (await fetch(`https://api.zeks.xyz/api/soundcloud?apikey=apivinz&url=${url}`)).json()
+
+     res.json(json)
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/igstory', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+	    username = req.query.username;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if (!username) return res.json(loghandler.notnama)
+
+     var json = await (await fetch(`https://api.zeks.xyz/api/igs?apikey=apivinz&username=${username}`)).json()
+
+     res.json(json)
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/nickff', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+
+     var json = await (await fetch(`https://api.zeks.xyz/api/nickepep?apikey=apivinz`)).json()
+
+     res.json(json)
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/murothal', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+
+     var json = await (await fetch(`https://api.zeks.xyz/api/randomquran?apikey=apivinz`)).json()
+
+     res.json({
+             status: true,
+             creator: creator,
+             result: json.result.audio
+        })
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/randomquran', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+
+     var json = await (await fetch(`https://api.banghasan.com/quran/format/json/acak`)).json()
+
+     res.json(json)
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/ninja', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+	    nama = req.query.nama;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if (!nama) return res.json(loghandler.notnama)
+
+
+     var json = await (await fetch(`https://api.terhambar.com/ninja?nama=${nama}`)).json()
+
+     res.json(json)
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/resep', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+	    q = req.query.q;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if (!q) return res.json(loghandler.notquery)
+
+
+     var json = await (await fetch(`https://api.zeks.xyz/api/resep-masak?apikey=apivinz&q=${q}`)).json()
+
+     res.json(json)
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/readqr', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+	    url = req.query.url;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if (!url) return res.json(loghandler.noturl)
+  if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var json = await (await fetch(`https://api.zeks.xyz/api/qrdecode?apikey=apivinz&image=${url}`)).json()
+
+     res.json(json)
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/sticker', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+	    q = req.query.q;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if (!q) return res.json(loghandler.notquery)
+
+     var json = await (await fetch(`https://api.zeks.xyz/api/searchsticker?apikey=apivinz&q=${q}`)).json()
+
+     res.json(json)
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/tebakanime', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+
+     var json = await (await fetch(`http://zekais-api.herokuapp.com/tebakanime`)).json()
+
+     res.json(json)
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/ytcomment', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+    var img = req.query.img,
+      username = req.query.username,
+      comment = req.query.comment;
+      apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!img) return res.json(loghandler.notimg)
+  if(!username) return res.json(loghandler.notnama)
+  if(!comment) return res.json({ message: `Masukan parameter komentar` })
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`https://some-random-api.ml/canvas/youtube-comment?avatar=${img}&comment=${comment}&username=${nama}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/ytcomment.png', hasil)
+
+     res.sendFile(__path + '/tmp/ytcomment.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
 // End of script
 module.exports = router
