@@ -22,7 +22,8 @@
 - Update Maker Menu
 - Update Music Menu
 - Update Tools Menu
-- Update Others Menu
+- Delete Others Menu
+- Update Template 5% :v
 
 
 *Jangan ditembak yaa bang
@@ -88,6 +89,7 @@ window['CboxReady'] = function (Cbox) {
             <a class="collapse-item" href="api/ytsearch?video=Ustadz Abdul Somad&apikey=APIKEY">YouTube Search</a>
 	    <a class="collapse-item" href="api/gdrive?apikey=APIKEY&url=URL">Google Drive Downloader</a>
             <a class="collapse-item" href="api/mediafire?apikey=APIKEY&url=URL">MediaFire Downloader</a>
+	    <a class="collapse-item" href="api/infonpm?query=axios&hostname=axios&apikey=APIKEY">Info NPM</a>
             </div>
         </div>
       </li>
@@ -141,6 +143,7 @@ window['CboxReady'] = function (Cbox) {
                 <a class="collapse-item" href="/api/kuis/tebakgambar?apikey=APIKEY">Tebak Gambar</a>
 	        <a class="collapse-item" href="/api/tebakanime?apikey=APIKEY">Tebak Anime</a>
 		<a class="collapse-item" href="/api/slot?apikey=APIKEY">Slot Machine</a>
+		<a class="collapse-item" href="api/gabut?apikey=APIKEY">Gabut</a>
             </div>
             </div>
         </li>
@@ -166,19 +169,35 @@ window['CboxReady'] = function (Cbox) {
        <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKodepos" aria-expanded="true"
           aria-controls="collapseKodepos">
-          <i class="fas fa-image"></i>
-          <span>Images Menu</span>
+          <i class="fas fa-search"></i>
+          <span>Search Menu</span>
         </a>
         <div id="collapseKodepos" class="collapse" aria-labelledby="headingKodepos" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Images Menu</h6>
+            <h6 class="collapse-header">Search Menu</h6>
             <a class="collapse-item" href="api/googleimage?q=anjing&apikey=APIKEY">Google Image</a>
             <a class="collapse-item" href="api/pinterest?q=anjing&apikey=APIKEY">Pinterest Image</a>
-            <a class="collapse-item" href="api/wallpaper/teknologi?apikey=APIKEY">Wallpaper Teknologi</a>
-            <a class="collapse-item" href="api/wallpaper/programming?apikey=APIKEY">Wallpaper Programming</a>
-            <a class="collapse-item" href="api/wallpaper/cyberspace?apikey=APIKEY">Wallpaper CyberSpace</a>
-            <a class="collapse-item" href="api/wallpaper/muslim?apikey=APIKEY">Wallpaper Muslim</a>
-            <a class="collapse-item" href="api/wallpaper/pegunungan?apikey=APIKEY">Wallpaper Mountain View</a>
+	    <a class="collapse-item" href="/api/resep?apikey=APIKEY&q=nasi%20goreng">Resep Masakan</a>
+	    <a class="collapse-item" href="api/sticker?apikey=APIKEY&q=patrick">Sticker WhatsApp</a>
+	    <a class="collapse-item" href="api/wikipedia?search=jembatan&apikey=APIKEY">Wikipedia</a>
+            <a class="collapse-item" href="api/drakorasia?search=tale&apikey=APIKEY">Drakor Asia</a>
+            <a class="collapse-item" href="api/fakedata?country=en&apikey=APIKEY">Fake Data</a>
+            <a class="collapse-item" href="api/kbbi?kata=pohon&apikey=APIKEY">KBBI</a>
+	    <a class="collapse-item" href="api/anime/kusonime?search=planetarian&apikey=APIKEY">Kusonime</a>
+            <a class="collapse-item" href="api/manga?search=kimetsu no yaiba&apikey=APIKEY">Manga</a>
+	    <a class="collapse-item" href="/api/jadwal-bioskop?apikey=APIKEY">Jadwal Bioskop</a>
+            <a class="collapse-item" href="/api/filmapik/search?film=avenger&apikey=APIKEY">FilmApik</a>
+            <a class="collapse-item" href="/api/filmapik/kategori?film=action&apikey=APIKEY">Kategori FilmApik</a>
+            <a class="collapse-item" href="/api/filmapik/terbaru?apikey=APIKEY">FilmApik Terbaru</a>
+            <a class="collapse-item" href="/api/filmapik/play?id=142455&apikey=APIKEY">Play FilmApik</a>
+	    <a class="collapse-item" href="/api/lk21/search?film=avenger&apikey=APIKEY">Cari LK21</a>
+            <a class="collapse-item" href="/api/lk21/terbaru?apikey=APIKEY">LK21 Terbaru</a>
+            <a class="collapse-item" href="/api/lk21/comingsoon?apikey=APIKEY">LK21 News</a>
+            <a class="collapse-item" href="/api/lk21/tvseries?apikey=APIKEY">LK21 Series</a>
+            <a class="collapse-item" href="/api/lk21/year?tahun=2021&apikey=APIKEY">LK21 Tahunan</a>
+            <a class="collapse-item" href="/api/lk21/country?negara=indonesia&apikey=APIKEY">LK21 Negara</a>
+            <a class="collapse-item" href="/api/lk21/genr?tipe=action&apikey=APIKEY">LK21 Genre</a>
+	    <a class="collapse-item" href="api/wait?apikey=APIKEY&url=https:\/\/i.pinimg.com\/originals\/7f\/88\/e3\/7f88e3050911877e7bc65be0a517745f.jpg">What This Anime</a>
             </div>
             </div>
             </li>
@@ -205,6 +224,11 @@ window['CboxReady'] = function (Cbox) {
 	    <a class="collapse-item" href="api/memeindo?apikey=APIKEY">Meme Indo</a>
 	    <a class="collapse-item" href="api/darkjokes?apikey=APIKEY">Dark Jokes</a>
             <a class="collapse-item" href="api/random/wallpaper?apikey=APIKEY">Wallpaper</a>
+            <a class="collapse-item" href="api/wallpaper/teknologi?apikey=APIKEY">Wallpaper Teknologi</a>
+            <a class="collapse-item" href="api/wallpaper/programming?apikey=APIKEY">Wallpaper Programming</a>
+            <a class="collapse-item" href="api/wallpaper/cyberspace?apikey=APIKEY">Wallpaper CyberSpace</a>
+            <a class="collapse-item" href="api/wallpaper/muslim?apikey=APIKEY">Wallpaper Muslim</a>
+            <a class="collapse-item" href="api/wallpaper/pegunungan?apikey=APIKEY">Wallpaper Mountain View</a>
 	    <a class="collapse-item" href="api/bokep?apikey=APIKEY">Bokep</a>
           </div>
         </div>
@@ -256,11 +280,11 @@ window['CboxReady'] = function (Cbox) {
         <div id="collapseText" class="collapse" aria-labelledby="headingText" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Photooxy Menu</h6>
-	        <a class="collapse-item" href="api/flaming?apikey=APIKEY&text=Keren%20anjay">Flaming</a>
+	    <a class="collapse-item" href="api/flaming?apikey=APIKEY&text=Keren%20anjay">Flaming</a>
             <a class="collapse-item" href="api/matrix?apikey=APIKEY&text=Heker%20Nihh">Matrix</a>
             <a class="collapse-item" href="api/textmaker?text=halo&text2=hai&theme=glitch&apikey=APIKEY">Glitch</a>
             <a class="collapse-item" href="api/textmaker?text=halo&text2=hai&text3=gwganteng&theme=google-suggestion&apikey=APIKEY">Google Suggestion</a>
-	        <a class="collapse-item" href="api/neon?apikey=APIKEY&text=Anjayy">Dark Neon</a>
+	    <a class="collapse-item" href="api/neon?apikey=APIKEY&text=Anjayy">Dark Neon</a>
             <a class="collapse-item" href="api/textmaker/game?text=halo&text2=hai&theme=pubg&apikey=APIKEY">PUBG</a>
             <a class="collapse-item" href="api/textmaker/game?text=halo&text2=hai&theme=battlefield&apikey=APIKEY">BattleField</a>
             <a class="collapse-item" href="api/textmaker/senja?text=RendyGans&theme=coffee-cup&apikey=APIKEY">Coffee Cup</a>
@@ -285,7 +309,12 @@ window['CboxReady'] = function (Cbox) {
         <div id="collapseMaker" class="collapse" aria-labelledby="headingMaker" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Maker Menu</h6>
+	    <a class="collapse-item" href="api/attp?text=Keren%20Anjay&apikey=APIKEY">ATTP</a>
+            <a class="collapse-item" href="api/ttp?text=Keren%20Anjay&apikey=APIKEY">TTP</a>
+	    <a class="collapse-item" href="api/ttp2?text=Keren%20Anjay&apikey=APIKEY">TTP 2</a>
 	    <a class="collapse-item" href="api/quotemaker?quote=Ikan hiu makan tomat&author=Mang Oleh&theme=random&apikey=APIKEY">Quote Maker</a>
+	    <a class="collapse-item" href="api/nulis?text=RendyGanteng&apikey=APIKEY">Nulis Buku</a>
+            <a class="collapse-item" href="api/nulis2?text=RendyGanteng&apikey=APIKEY">Nulis Buku 2</a>
 	    <a class="collapse-item" href="api/tahta?text=MANTAN&apikey=APIKEY">Harta Tahta</a>
             <a class="collapse-item" href="api/customtahta?text=Rendy&apikey=APIKEY">Custom Tahta</a>
 	    <a class="collapse-item" href="api/qrcode?text=Keren%20Njerr&apikey=APIKEY">QR Maker</a>
@@ -303,56 +332,6 @@ window['CboxReady'] = function (Cbox) {
           </div>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAnime" aria-expanded="true"
-          aria-controls="collapseAnime">
-          <i class="fas fa-cat"></i>
-          <span>Anime/Manga Menu</span>
-        </a>
-        <div id="collapseAnime" class="collapse" aria-labelledby="headingAnime" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Anime/Manga Menu</h6>
-	    <a class="collapse-item" href="api/anime/random?apikey=APIKEY">Random Anime</a>
-            <a class="collapse-item" href="api/manga/random?apikey=APIKEY">Random Manga</a>
-            <a class="collapse-item" href="api/anime/kusonime?search=planetarian&apikey=APIKEY">Kusonime</a>
-            <a class="collapse-item" href="api/manga?search=kimetsu no yaiba&apikey=APIKEY">Manga</a>
-          </div>
-        </div>
-      </li>
-        <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFilmApik" aria-expanded="true" aria-controls="collapseForm">
-                    <i class="fas fa-film"></i>
-                    <span>Film Apik Menu</span>
-                </a>
-                <div id="collapseFilmApik" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
-                    <div class="py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Film Apik Menu</h6>
-	    <a class="collapse-item" href="/api/jadwal-bioskop?apikey=APIKEY">Jadwal Bioskop</a>
-            <a class="collapse-item" href="/api/filmapik/search?film=avenger&apikey=APIKEY">Cari Film</a>
-            <a class="collapse-item" href="/api/filmapik/kategori?film=action&apikey=APIKEY">Cari Kategori Film</a>
-            <a class="collapse-item" href="/api/filmapik/terbaru?apikey=APIKEY">Film Terbaru</a>
-            <a class="collapse-item" href="/api/filmapik/play?id=142455&apikey=APIKEY">Play Film</a>
-            </div>
-            </div>
-        </li>
-        <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLk21" aria-expanded="true" aria-controls="collapseForm">
-                    <i class="fas fa-fw fa-leaf"></i>
-                    <span>LK21 Menu</span>
-                </a>
-                <div id="collapseLk21" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
-                    <div class="py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">LK21 Menu</h6>
-            <a class="collapse-item" href="/api/lk21/search?film=avenger&apikey=APIKEY">Cari Film</a>
-            <a class="collapse-item" href="/api/lk21/terbaru?apikey=APIKEY">Film Terbaru</a>
-            <a class="collapse-item" href="/api/lk21/comingsoon?apikey=APIKEY">Film Yg Akan Datang</a>
-            <a class="collapse-item" href="/api/lk21/tvseries?apikey=APIKEY">Series TV</a>
-            <a class="collapse-item" href="/api/lk21/year?tahun=2021&apikey=APIKEY">Berdasarkan Tahun</a>
-            <a class="collapse-item" href="/api/lk21/country?negara=indonesia&apikey=APIKEY">Berdasarkan Negara</a>
-            <a class="collapse-item" href="/api/lk21/genr?tipe=action&apikey=APIKEY">Berdasarkan Genre</a>
-            </div>
-            </div>
-        </li>
         <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseForm">
                     <i class="fas fa-newspaper"></i>
@@ -434,10 +413,7 @@ window['CboxReady'] = function (Cbox) {
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Tools Menu</h6>
 		<a class="collapse-item" href="api/ssweb?apikey=APIKEY&url=https://www.youtube.com/c/RC047">Screenshot Web</a>
-		<a class="collapse-item" href="/api/resep?apikey=APIKEY&q=nasi%20goreng">Resep Masakan</a>
                 <a class="collapse-item" href="api/repeat?text=halo%20&jumlah=1000&apikey=APIKEY">Text Repeater</a>
-	        <a class="collapse-item" href="api/nulis?text=RendyGanteng&apikey=APIKEY">Nulis Buku</a>
-                <a class="collapse-item" href="api/nulis2?text=RendyGanteng&apikey=APIKEY">Nulis Buku 2</a>
 	        <a class="collapse-item" href="api/short/tiny?url=https://kuhong-api.herokuapp.com&apikey=APIKEY">Short Link</a>
                 <a class="collapse-item" href="api/kodepos?kota=jakarta&apikey=APIKEY">Kode Pos</a>
                 <a class="collapse-item" href="api/translate?kata=hi&apikey=APIKEY">Translate</a>
@@ -446,38 +422,19 @@ window['CboxReady'] = function (Cbox) {
 	        <a class="collapse-item" href="api/towebp?apikey=APIKEY&url=https://sdl-stickershop.line.naver.jp/products/0/0/1/3234393/android/animation/35532558.png">GIF To Webp</a>
 		<a class="collapse-item" href="api/toimg?webp=https://s3.getstickerpack.com/storage/uploads/sticker-pack/patrick-star-2/sticker_18.png?6a6b46b00c73fdd9a005030f315f2bdf&apikey=APIKEY">Webp To PNG/JPG</a>
 		<a class="collapse-item" href="api/tomp4?url=https://mathiasbynens.be/demo/animated-webp-supported.webp&apikey=APIKEY">Webp To MP4</a>
+	        <a class="collapse-item" href="api/tts?text=Rest%20Api%20Keren&lang=id&apikey=APIKEY">Text To Speech</a>
+	        <a class="collapse-item" href="api/emojitopng?apikey=APIKEY&emoji=😃">Emoji To Png</a>
+                <a class="collapse-item" href="api/wasted?img=https://i.ibb.co/frhZmyZ/pp.jpg&apikey=APIKEY">Wasted</a>
+	        <a class="collapse-item" href="api/rainbow?img=https://i.ibb.co/frhZmyZ/pp.jpg&apikey=APIKEY">Rainbow</a>
+	        <a class="collapse-item" href="api/glass?img=https://i.ibb.co/frhZmyZ/pp.jpg&apikey=APIKEY">Glass</a>
+	        <a class="collapse-item" href="api/hd?img=https://i.ibb.co/frhZmyZ/pp.jpg&apikey=APIKEY">Enchance HD</a>
+	        <a class="collapse-item" href="api/memegen?img=https://i.ibb.co/frhZmyZ/pp.jpg&t1=Kuhong%20API&t2=Rest%20Api%20Terbaik&apikey=APIKEY">Meme Generator</a>
+	        <a class="collapse-item" href="api/triggered?img=https://i.ibb.co/frhZmyZ/pp.jpg&apikey=APIKEY">Triggered</a>
 		<a class="collapse-item" href="api/imgbb?url=https://1.bp.blogspot.com/-TNGZGhSt_zI/X93Q4iKhQxI/AAAAAAAAVF4/L4rB8enc1HoFy5aXkvomfmxcR30kygKrACNcBGAsYHQ/s578/91913235_2830089170435663_4447843912417017856_n.jpg&apikey=APIKEY">Imgbb Uploader</a>
 		<a class="collapse-item" href="/api/readqr?apikey=APIKEY&url=https://api.qrserver.com/v1/create-qr-code/?data=Rest%20Api%20yang%20kerenn!&size=512x512&margin=0">QR Reader</a>
 	        <a class="collapse-item" href="api/ocr?apikey=APIKEY&img=https://i.ibb.co/rZHMCTS/testing.jpg">OCR</a>
 	        <a class="collapse-item" href="api/removebg?apikey=APIKEY&img=https://i.ibb.co/frhZmyZ/pp.jpg">Remove BG</a>
 	   </div>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseother" aria-expanded="true"
-          aria-controls="collapseother">
-          <i class="fab fa-fw fa-wpforms"></i>
-          <span>Others Menu</span>
-        </a>
-        <div id="collapseother" class="collapse" aria-labelledby="headingother" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Others Menu</h6>
-	    <a class="collapse-item" href="api/sticker?apikey=APIKEY&q=patrick">Sticker WhatsApp</a>
-	    <a class="collapse-item" href="api/attp?text=Keren%20Anjay&apikey=APIKEY">ATTP</a>
-            <a class="collapse-item" href="api/ttp?text=Keren%20Anjay&apikey=APIKEY">TTP</a>
-	    <a class="collapse-item" href="api/ttp2?text=Keren%20Anjay&apikey=APIKEY">TTP 2</a>
-	    <a class="collapse-item" href="api/tts?text=Rest%20Api%20Keren&lang=id&apikey=APIKEY">TTS</a>
-            <a class="collapse-item" href="api/infonpm?query=axios&hostname=axios&apikey=APIKEY">Info NPM</a>
-            <a class="collapse-item" href="api/wikipedia?search=jembatan&apikey=APIKEY">Wikipedia</a>
-            <a class="collapse-item" href="api/drakorasia?search=tale&apikey=APIKEY">Drakor Asia</a>
-            <a class="collapse-item" href="api/fakedata?country=en&apikey=APIKEY">Fake Data</a>
-            <a class="collapse-item" href="api/kbbi?kata=pohon&apikey=APIKEY">KBBI</a>
-            <a class="collapse-item" href="api/gabut?apikey=APIKEY">Gabut</a>
-	    <a class="collapse-item" href="api/emojitopng?apikey=APIKEY&emoji=😃">Emoji To Png</a>
-	    <a class="collapse-item" href="api/hd?img=https://i.ibb.co/frhZmyZ/pp.jpg&apikey=APIKEY">Enchance HD</a>
-	    <a class="collapse-item" href="api/memegen?img=https://i.ibb.co/frhZmyZ/pp.jpg&t1=Kuhong%20API&t2=Rest%20Api%20Terbaik&apikey=APIKEY">Meme Generator</a>
-	    <a class="collapse-item" href="api/triggered?img=https://i.ibb.co/frhZmyZ/pp.jpg&apikey=APIKEY">Triggered</a>
-          </div>
         </div>
       </li>
       <hr class="sidebar-divider">
