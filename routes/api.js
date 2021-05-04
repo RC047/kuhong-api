@@ -37,6 +37,7 @@ var util = require('util');
 var router  = express.Router();
 
 var { tts, wait, simih, getBuffer, h2k, banner, getRandom, start, info, success, close, pickRandom } = require(__path + '/lib/functions.js');
+var { servers, yta, ytv } = require(__path + '/lib/y2mate.js')
 var { RemoveBg } = require('remove.bg');
 var { tahta } = require(__path + '/lib/tahta.js');
 var { createHash } = require('crypto')
@@ -5169,6 +5170,40 @@ try {
 	res.sendFile(error)
    }
 })
+
+router.get('/ytplay', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+        var apikeyInput = req.query.apikey,
+	    q = req.query.q;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!q) return res.json(loghandler.notquery)
+
+     var results = await yts(q)
+     var vid = results.all.find(video => video.seconds < 3600)
+     if (!vid) return res.json({ message: 'Video/Audio Tidak ditemukan' })
+     var isVideo = /2$/.test(q)
+     var { dl_link, thumb, title, filesize, filesizeF } = await (isVideo ? ytv : yta)(vid.url, 'id4')
+
+     res.json({
+            status: true,
+            creator: creator,
+	    result:{
+		    title: title,
+		    thumb: thumb,
+		    size: filesizeF,
+		    audio: dl_link
+	    }
+        })
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
 
 // End of script
 module.exports = router
