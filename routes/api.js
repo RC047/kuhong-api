@@ -48,7 +48,7 @@ var options = require(__path + '/lib/options.js');
 var { Vokal, Base, Searchnabi, Gempa } = require('./../lib');
 var cookie = "HSID=A7EDzLn3kae2B1Njb;SSID=AheuwUjMojTWvA5GN;APISID=cgfXh13rQbb4zbLP/AlvlPJ2xBJBsykmS_;SAPISID=m82rJG4AC9nxQ5uG/A1FotfA_gi9pvo91C;__Secure-3PAPISID=m82rJG4AC9nxQ5uG/A1FotfA_gi9pvo91C;VISITOR_INFO1_LIVE=RgZLnZtCoPU;LOGIN_INFO=AFmmF2swRQIhAOXIXsKVou2azuz-kTsCKpbM9szRExAMUD-OwHYiuB6eAiAyPm4Ag3O9rbma7umBK-AG1zoGqyJinh4ia03csp5Nkw:QUQ3MjNmeXJ0UHFRS3dzaTNGRmlWR2FfMDRxa2NRYTFiN3lfTEdOVTc4QUlwbUI4S2dlVngxSG10N3ZqcHZwTHBKano5SkN2dDlPSkhRMUtReE42TkhYeUVWS3kyUE1jY2I1QzA1MDZBaktwd1llWU9lOWE4NWhoZV92aDkxeE9vMTNlcG1uMU9rYjhOaDZWdno2ZzN3TXl5TVNhSjNBRnJaMExrQXpoa2xzRVUteFNWZDI5S0Fn;PREF=app=desktop&f4=4000000&al=id;SID=2wezCMTUkWN3YS1VmS_DXaEU84J0pZIQdemM8Zry-uzWm8y1njBpLTOpxSfN-EaYCRSiDg.;YSC=HCowA1fmvzo;__Secure-3PSID=2wezCMTUkWN3YS1VmS_DXaEU84J0pZIQdemM8Zry-uzWm8y1dajgWzlBh9TgKapGOwuXfA.;SIDCC=AJi4QfFK0ri9fSfMjMQ4tOJNp6vOb9emETXB_nf2S05mvr2jBlmeEvlSsQSzPMuJl_V0wcbL1r8;__Secure-3PSIDCC=AJi4QfGeWHx-c4uTpU1rXCciO1p0s2fJWU07KrkZhWyD1Tqi8LyR-kHuBwHY9mViVYu1fRh2PA";
 
-// loghandler :
+// Handler Logger :
 loghandler = {
     notparam: {
         status: false,
@@ -217,8 +217,8 @@ loghandler = {
 }
 
 var error = __path + '/views/error.html' // Error
-var invalidKey = __path + '/views/invalidKey.html' // Apikey Invalid
-var notfound = __path + '/views/undefined.html' // Undefined web
+var invalidKey = __path + '/views/invalidKey.html' // Invalid Apikey
+var notfound = __path + '/views/undefined.html' // Undefined Web
 
 // Api Features :
         var len = 15
@@ -240,6 +240,8 @@ var notfound = __path + '/views/undefined.html' // Undefined web
 
 
 router.get('/cekapikey', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
     var apikeyInput = req.query.apikey;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -260,6 +262,8 @@ try {
 })
 
 router.get('/changekey', (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
     var apikeyInput = req.query.apikey;
 
     if (!apikeyInput) return res.json(loghandler.notparam)
@@ -282,6 +286,8 @@ router.get('/changekey', (req, res, next) => {
 })
 
 router.get('/removekey', (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
     var apikeyInput = req.query.apikey;
 
     if (!apikeyInput) return res.json(loghandler.notparam)
@@ -304,6 +310,10 @@ router.get('/removekey', (req, res, next) => {
 })
 
 router.get('/tiktod', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
     var apikeyInput = req.query.apikey,
         url = req.query.url
 
@@ -327,6 +337,8 @@ router.get('/tiktod', async (req, res, next) => {
 })
 
 router.get('/tiktod/stalk', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
     var apikeyInput = req.query.apikey,
         username = req.query.username
 
@@ -353,6 +365,8 @@ router.get('/tiktod/stalk', async (req, res, next) => {
 })
 
 router.get('/randomquote', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -374,6 +388,8 @@ router.get('/randomquote', async (req, res, next) => {
 
 
 router.get('/infonpm', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             query = req.query.query
             
@@ -437,6 +453,8 @@ axios.get('https://jadwalnonton.com/now-playing')
 
 
 router.get('/short/tiny', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
     var apikeyInput = req.query.apikey,
         url = req.query.url
 
@@ -462,6 +480,8 @@ router.get('/short/tiny', async (req, res, next) => {
 })
 
 router.get('/base', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 	var type = req.query.type,
 		encode = req.query.encode,
 		decode = req.query.decode,
@@ -517,6 +537,8 @@ router.get('/base', async (req, res, next) => {
 })
 
 router.get('/nulis', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 	var apikeyInput = req.query.apikey,
             text = req.query.text
             
@@ -555,6 +577,8 @@ router.get('/nulis', async (req, res, next) => {
 })
 
 router.get('/nulis2', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 	var apikeyInput = req.query.apikey,
             text = req.query.text
             
@@ -618,6 +642,8 @@ router.get('/nulis2', async (req, res, next) => {
 })
 
 router.get('/textmaker', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var theme = req.query.theme,
              text = req.query.text,
              text2 = req.query.text2,
@@ -701,6 +727,8 @@ router.get('/textmaker', async (req, res, next) => {
 })
 
 router.get('/textmaker/game', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var theme = req.query.theme,
              text = req.query.text,
              text2 = req.query.text2,
@@ -790,6 +818,8 @@ router.get('/textmaker/game', async (req, res, next) => {
 })
 
 router.get('/textmaker/senja', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var theme = req.query.theme,
              text = req.query.text,
              text2 = req.query.text2,
@@ -877,6 +907,8 @@ router.get('/textmaker/senja', async (req, res, next) => {
 })
 
 router.get('/kisahnabi', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 	var nabi = req.query.nabi,
 		apikeyInput = req.query.apikey;
 
@@ -896,6 +928,8 @@ router.get('/kisahnabi', async (req, res, next) => {
 })
 
 router.get('/infogempa', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 	        var apikeyInput = req.query.apikey
 
 		if (!apikeyInput) return res.json(loghandler.notparam)
@@ -914,6 +948,8 @@ router.get('/infogempa', async (req, res, next) => {
 })
 
 router.get('/hadits', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             kitab = req.query.kitab,
             nomor = req.query.nomor
@@ -937,6 +973,8 @@ router.get('/hadits', async (req, res, next) => {
 })
  
 router.get('/quran', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             surah = req.query.surah,
             ayat = req.query.ayat
@@ -961,6 +999,8 @@ router.get('/quran', async (req, res, next) => {
 
 
 router.get('/fbdown', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             url = req.query.url
             
@@ -983,6 +1023,8 @@ router.get('/fbdown', async (req, res, next) => {
 
 
 router.get('/textmaker/metallic', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var theme = req.query.theme,
              text = req.query.text,
              text2 = req.query.text2,
@@ -1070,6 +1112,8 @@ router.get('/textmaker/metallic', async (req, res, next) => {
 })
 
 router.get('/textmaker/alam', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var theme = req.query.theme,
              text = req.query.text,
              text2 = req.query.text2,
@@ -1157,6 +1201,8 @@ router.get('/textmaker/alam', async (req, res, next) => {
 })
 
 router.get('/flaming', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
          var text = req.query.text,
              apikeyInput = req.query.apikey;
         
@@ -1177,6 +1223,8 @@ router.get('/flaming', async (req, res, next) => {
 })
 
 router.get('/neon', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
          var text = req.query.text,
              apikeyInput = req.query.apikey;
         
@@ -1197,6 +1245,8 @@ router.get('/neon', async (req, res, next) => {
 })
 
 router.get('/muslim/tahlil', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1217,6 +1267,8 @@ router.get('/muslim/tahlil', async (req, res, next) => {
 
 
 router.get('/muslim/wirid', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1237,6 +1289,8 @@ router.get('/muslim/wirid', async (req, res, next) => {
 
 
 router.get('/muslim/ayatkursi', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1257,6 +1311,8 @@ router.get('/muslim/ayatkursi', async (req, res, next) => {
 
 
 router.get('/muslim/doaharian', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1277,6 +1333,8 @@ router.get('/muslim/doaharian', async (req, res, next) => {
 
 
 router.get('/muslim/bacaanshalat', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1297,6 +1355,8 @@ router.get('/muslim/bacaanshalat', async (req, res, next) => {
 
 
 router.get('/muslim/niatshalat', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1317,6 +1377,8 @@ router.get('/muslim/niatshalat', async (req, res, next) => {
 
 
 router.get('/muslim/kisahnabi', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1337,6 +1399,8 @@ router.get('/muslim/kisahnabi', async (req, res, next) => {
 
 
 router.get('/muslim/asmaulhusna', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1357,6 +1421,8 @@ router.get('/muslim/asmaulhusna', async (req, res, next) => {
 
 
 router.get('/muslim/niatshubuh', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1377,6 +1443,8 @@ router.get('/muslim/niatshubuh', async (req, res, next) => {
 
 
 router.get('/muslim/niatdzuhur', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1397,6 +1465,8 @@ router.get('/muslim/niatdzuhur', async (req, res, next) => {
 
 
 router.get('/muslim/niatmaghrib', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1417,6 +1487,8 @@ router.get('/muslim/niatmaghrib', async (req, res, next) => {
 
 
 router.get('/muslim/niatisya', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1437,6 +1509,8 @@ router.get('/muslim/niatisya', async (req, res, next) => {
 
 
 router.get('/muslim/niatashar', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1457,6 +1531,8 @@ router.get('/muslim/niatashar', async (req, res, next) => {
 
 
 router.get('/wallpaper/cyberspace', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1477,6 +1553,8 @@ router.get('/wallpaper/cyberspace', async (req, res, next) => {
 
 
 router.get('/wallpaper/teknologi', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1497,6 +1575,8 @@ router.get('/wallpaper/teknologi', async (req, res, next) => {
 
 
 router.get('/wallpaper/muslim', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput =req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1517,6 +1597,8 @@ router.get('/wallpaper/muslim', async (req, res, next) => {
 
 
 router.get('/wallpaper/programming', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1537,6 +1619,8 @@ router.get('/wallpaper/programming', async (req, res, next) => {
 
 
 router.get('/wallpaper/pegunungan', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1557,6 +1641,8 @@ router.get('/wallpaper/pegunungan', async (req, res, next) => {
 
 
 router.get('/wikipedia', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             search = req.query.search
             
@@ -1578,6 +1664,8 @@ router.get('/wikipedia', async (req, res, next) => {
 })
 
 router.get('/randomquote/muslim', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1598,6 +1686,8 @@ router.get('/randomquote/muslim', async (req, res, next) => {
 
 
 router.get('/drakorasia', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             search = req.query.searc
             
@@ -1620,6 +1710,8 @@ router.get('/drakorasia', async (req, res, next) => {
 
 
 router.get('/jadwalshalat', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             kota = req.query.kota
             
@@ -1642,6 +1734,8 @@ router.get('/jadwalshalat', async (req, res, next) => {
 
 
 router.get('/fakedata', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             country = req.query.country
             
@@ -1664,6 +1758,8 @@ router.get('/fakedata', async (req, res, next) => {
 
 
 router.get('/hilih', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             kata = req.query.kata
             
@@ -1686,6 +1782,8 @@ router.get('/hilih', async (req, res, next) => {
 
 
 router.get('/liriklagu', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             lagu = req.query.lagu
             
@@ -1702,6 +1800,8 @@ router.get('/liriklagu', async (req, res, next) => {
 })
 
 router.get('/chordlagu', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             lagu = req.query.lagu
             
@@ -1724,6 +1824,8 @@ router.get('/chordlagu', async (req, res, next) => {
 
 
 router.get('/random/asmaulhusna', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1744,6 +1846,8 @@ router.get('/random/asmaulhusna', async (req, res, next) => {
 
 
 router.get('/kbbi', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             kata = req.query.kata
             
@@ -1766,6 +1870,8 @@ router.get('/kbbi', async (req, res, next) => {
 
 
 router.get('/covidindo', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1786,6 +1892,8 @@ router.get('/covidindo', async (req, res, next) => {
 
 
 router.get('/covidworld', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1806,6 +1914,8 @@ router.get('/covidworld', async (req, res, next) => {
 
 
 router.get('/kodepos', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    kota = req.query.kota
             
@@ -1828,6 +1938,8 @@ router.get('/kodepos', async (req, res, next) => {
 
 
 router.get('/infocuaca', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    provinsi = req.query.provinsi
             
@@ -1868,6 +1980,8 @@ router.get('/infocuaca/bandara', async (req, rs, next) => {
 
 
 router.get('/infocuaca/dunia', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1887,6 +2001,8 @@ router.get('/infocuaca/dunia', async (req, res, next) => {
 
 
 router.get('/infotsunami', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1906,6 +2022,8 @@ router.get('/infotsunami', async (req, res, next) => {
 
 
 router.get('/random/meme', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1926,6 +2044,8 @@ router.get('/random/meme', async (req, res, next) => {
 
 
 router.get('/quotes/kanye', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -1946,6 +2066,8 @@ router.get('/quotes/kanye', async (req, res, next) => {
 
 
 router.get('/translate', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    kata = req.query.kata
             
@@ -1967,6 +2089,8 @@ router.get('/translate', async (req, res, next) => {
 
 
 router.get('/anime/kusonime', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    search = req.query.search
             
@@ -1988,6 +2112,8 @@ router.get('/anime/kusonime', async (req, res, next) => {
 
 
 router.get('/gabut', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -2008,6 +2134,8 @@ router.get('/gabut', async (req, res, next) => {
 
 
 router.get('/manga', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    search = req.query.search
             
@@ -2028,6 +2156,8 @@ router.get('/manga', async (req, res, next) => {
 
 
 router.get('/random/wallpaper', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -2048,6 +2178,8 @@ router.get('/random/wallpaper', async (req, res, next) => {
 
 
 router.get('/kuis/caklontong', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey;
 
 try {
@@ -2074,6 +2206,8 @@ try {
 })
 
 router.get('/kuis/tebakgambar', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey;
 
 try {
@@ -2099,6 +2233,8 @@ try {
 })
 
 router.get('/news/cnn', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             type = req.query.type
             
@@ -2122,6 +2258,8 @@ router.get('/news/cnn', async (req, res, next) => {
 
 
 router.get('/news/cnbc', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             type = req.query.type
            
@@ -2145,6 +2283,8 @@ router.get('/news/cnbc', async (req, res, next) => {
 
 
 router.get('/news/republika', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             type = req.query.type
             
@@ -2168,6 +2308,8 @@ router.get('/news/republika', async (req, res, next) => {
 
 
 router.get('/news/tempo', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             type = req.query.type
             
@@ -2191,6 +2333,8 @@ router.get('/news/tempo', async (req, res, next) => {
 
 
 router.get('/news/antara', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             type = req.query.type
             
@@ -2214,6 +2358,8 @@ router.get('/news/antara', async (req, res, next) => {
 
 
 router.get('/news/kumparan', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -2235,6 +2381,8 @@ router.get('/news/kumparan', async (req, res, next) => {
 
 
 router.get('/filmapik/search', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             film = req.query.film
             
@@ -2258,6 +2406,8 @@ router.get('/filmapik/search', async (req, res, next) => {
 
 
 router.get('/filmapik/kategori', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             film = req.query.film
             
@@ -2281,6 +2431,8 @@ router.get('/filmapik/kategori', async (req, res, next) => {
 
 
 router.get('/filmapik/play', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             id = req.query.id
             
@@ -2304,6 +2456,8 @@ router.get('/filmapik/play', async (req, res, next) => {
 
 
 router.get('/filmapik/terbaru', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -2325,6 +2479,8 @@ router.get('/filmapik/terbaru', async (req, res, next) => {
 
 
 router.get('/lk21/search', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             film = req.query.film
             
@@ -2348,6 +2504,8 @@ router.get('/lk21/search', async (req, res, next) => {
 
 
 router.get('/lk21/terbaru', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -2369,6 +2527,8 @@ router.get('/lk21/terbaru', async (req, res, next) => {
 
 
 router.get('/lk21/comingsoon', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -2390,6 +2550,8 @@ router.get('/lk21/comingsoon', async (req, res, next) => {
 
 
 router.get('/lk21/tvseries', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
@@ -2411,6 +2573,8 @@ router.get('/lk21/tvseries', async (req, res, next) => {
 
 
 router.get('/lk21/year', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             tahun = req.query.tahun
             
@@ -2434,6 +2598,8 @@ router.get('/lk21/year', async (req, res, next) => {
 
 
 router.get('/lk21/country', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             negara = req.query.negara
             
@@ -2456,6 +2622,8 @@ router.get('/lk21/country', async (req, res, next) => {
 
 
 router.get('/lk21/genre', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             tipe = req.query.tipe
             
@@ -2479,6 +2647,8 @@ router.get('/lk21/genre', async (req, res, next) => {
 
 
 router.get('/textmaker/random', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var theme = req.query.theme,
              text = req.query.text,
              text2 = req.query.text2,
@@ -2566,6 +2736,8 @@ router.get('/textmaker/random', async (req, res, next) => {
 })
 
 router.get('/textmaker/roses', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var theme = req.query.theme,
              text = req.query.text,
              text2 = req.query.text2,
@@ -2653,6 +2825,8 @@ router.get('/textmaker/roses', async (req, res, next) => {
 })
 
 router.get('/yutub/video', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             url = req.query.url
             
@@ -2676,6 +2850,8 @@ router.get('/yutub/video', async (req, res, next) => {
 
 
 router.get('/yutub/audio', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             url = req.query.url
             
@@ -2699,6 +2875,8 @@ router.get('/yutub/audio', async (req, res, next) => {
 
 
 router.get('/ig/stalk', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             username = req.query.username
             
@@ -2722,6 +2900,8 @@ router.get('/ig/stalk', async (req, res, next) => {
 
 
 router.get('/maker', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
@@ -2745,6 +2925,8 @@ router.get('/maker', async (req, res, next) => {
 
 
 router.get('/maker2', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
@@ -2768,6 +2950,8 @@ router.get('/maker2', async (req, res, next) => {
 
 
 router.get('/maker3', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
@@ -2814,6 +2998,8 @@ router.get('/maker4', async (rq, res, next) => {
 
 
 router.get('/maker3d', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
@@ -2837,6 +3023,8 @@ router.get('/maker3d', async (req, res, next) => {
 
 
 router.get('/maker3d/no2', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
@@ -2860,6 +3048,8 @@ router.get('/maker3d/no2', async (req, res, next) => {
 
 
 router.get('/maker3d/no3', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             text = req.qery.text
             
@@ -2883,6 +3073,8 @@ router.get('/maker3d/no3', async (req, res, next) => {
 
 
 router.get('/maker3d/no4', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
@@ -2906,6 +3098,8 @@ router.get('/maker3d/no4', async (req, res, next) => {
 
 
 router.get('/yutub/search', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             video = req.query.video
             
@@ -2929,6 +3123,8 @@ router.get('/yutub/search', async (req, res, next) => {
 
 
 router.get('/maker/special/transformer', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
@@ -2948,6 +3144,8 @@ router.get('/maker/special/transformer', async (req, res, next) => {
 })
 
 router.get('/maker/special/epep', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
@@ -2968,6 +3166,8 @@ router.get('/maker/special/epep', async (req, res, next) => {
 })
 
 router.get('/tomp4', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var url = req.query.url,
              apikeyInput = req.query.apikey;
         
@@ -3017,6 +3217,8 @@ try {
 })
 
 router.get('/ocr', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
         img = req.query.img;
             
@@ -3049,6 +3251,8 @@ router.get('/ocr', async (req, res, next) => {
 })
 
 router.get('/removebg', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
         img = req.query.img;
 
@@ -3072,6 +3276,8 @@ router.get('/removebg', async (req, res, next) => {
 })
 
 router.get('/simsimi', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var kata = req.query.kata,
 	apikeyInput = req.query.apikey;
 
@@ -3094,6 +3300,8 @@ router.get('/simsimi', async (req, res, next) => {
 })
 
 router.get('/binary', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 	var apikeyInput = req.query.apikey,
        text = req.query.encode
 
@@ -3115,6 +3323,8 @@ router.get('/binary', async (req, res, next) => {
 })
 
 router.get('/binary', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 	var apikeyInput = req.query.apikey,
         text = req.query.decode;
 
@@ -3136,6 +3346,8 @@ router.get('/binary', async (req, res, next) => {
 })
 
 router.get('/tobase64', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 	var apikeyInput = req.query.apikey,
         img = req.query.img;
 
@@ -3156,6 +3368,8 @@ router.get('/tobase64', async (req, res, next) => {
 })
 
 router.get('/tomedia', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 	var apikeyInput = req.query.apikey,
         base64 = req.query.base64;
 
@@ -3173,6 +3387,8 @@ router.get('/tomedia', async (req, res, next) => {
 })
 
 router.get('/ttp', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
      var text = req.query.text,
      apikeyInput = req.query.apikey;
 
@@ -3193,6 +3409,8 @@ router.get('/ttp', async (req, res, next) => {
 })
 
 router.get('/dadu', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 	var apikeyInput = req.query.apikey
 
   if(!apikeyInput) return res.json(loghandler.notparam)
@@ -3207,6 +3425,8 @@ router.get('/dadu', async (req, res, next) => {
 })
 
 router.get('/repeat', (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 
 const repeat = (text, total) => {
 		return text.repeat(total)
@@ -3231,6 +3451,8 @@ const repeat = (text, total) => {
 })
 
 router.get('/reverse', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
        var text = req.query.text,
 	   apikeyInput = req.query.apikey;
 
@@ -3252,6 +3474,8 @@ router.get('/reverse', async (req, res, next) => {
 })
 
 router.get('/spamcall', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
        var nomor = req.query.nomor,
 	   apikeyInput = req.query.apikey;
 
@@ -3270,6 +3494,8 @@ router.get('/spamcall', async (req, res, next) => {
 })
 
 router.get('/spamsms', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
        var nomor = req.query.nomor,
               jumlah = req.query.jumlah,
 	         apikeyInput = req.query.apikey;
@@ -3292,6 +3518,8 @@ router.get('/spamsms', async (req, res, next) => {
 })
 
 router.get('/bokep', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
      var apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
@@ -3310,6 +3538,8 @@ router.get('/bokep', async (req, res, next) => {
 })
 
 router.get('/googleimage', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 	var q = req.query.q,
      apikeyInput = req.query.apikey;
 
@@ -3332,6 +3562,8 @@ router.get('/googleimage', async (req, res, next) => {
 })
 
 router.get('/pinterest', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 	var q = req.query.q,
      apikeyInput = req.query.apikey;
 
@@ -3354,6 +3586,8 @@ router.get('/pinterest', async (req, res, next) => {
 })
 
 router.get('/say', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
      var apikeyInput = req.query.apikey,
             text = req.query.text;
 
@@ -3368,6 +3602,8 @@ router.get('/say', async (req, res, next) => {
 })
 
 router.get('/md5', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
      var apikeyInput = req.query.apikey,
             text = req.query.text;
 
@@ -3384,6 +3620,8 @@ router.get('/md5', async (req, res, next) => {
 })
 
 router.get('/tahta', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
    var text = req.query.text,
           apikeyInput = req.query.apikey;
 
@@ -3398,6 +3636,8 @@ router.get('/tahta', async (req, res, next) => {
 })
 
 router.get('/customtahta', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
    var text = req.query.text,
           apikeyInput = req.query.apikey;
 
@@ -3412,6 +3652,8 @@ router.get('/customtahta', async (req, res, next) => {
 })
 
 router.get('/anime/random', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
      var apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
@@ -3432,6 +3674,8 @@ router.get('/anime/random', async (req, res, next) => {
 })
 
 router.get('/kpop/random', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
      var apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
@@ -3452,6 +3696,8 @@ router.get('/kpop/random', async (req, res, next) => {
 })
 
 router.get('/random/manga', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
      var apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
@@ -3472,6 +3718,8 @@ router.get('/random/manga', async (req, res, next) => {
 })
 
 router.get('/triggered', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
        var img = req.query.img,
 	   apikeyInput = req.query.apikey;
 	
@@ -3493,6 +3741,8 @@ router.get('/triggered', async (req, res, next) => {
 })
 
 router.get('/emojitopng', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
                emoji = req.query.emoji;
 
@@ -3511,6 +3761,8 @@ try {
 })
 
 router.get('/brainly', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
                text = req.query.text;
 
@@ -3529,6 +3781,8 @@ try {
 })
 
 router.get('/pantun', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey;
 
 try {
@@ -3545,6 +3799,8 @@ try {
 })
 
 router.get('/memeindo', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey;
 
 try {
@@ -3563,6 +3819,8 @@ try {
 })	
 
 router.get('/artinama', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
                nama = req.query.nama;
 
@@ -3597,6 +3855,8 @@ var result = `Arti dari namamu adalah\n\nNama *${nama}*\n${h}`
 })
 
 router.get('/cekjodoh', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
             nama = req.query.nama,
 	    pasangan = req.query.pasangan;
@@ -3635,6 +3895,8 @@ var result = `Kecocokan Berdasarkan Nama :\n\n${d}`
 })
 
 router.get('/kuis/family100', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey;
 
 try {
@@ -3659,6 +3921,8 @@ try {
 })
 
 router.get('/asupan', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey;
 
 try {
@@ -3675,6 +3939,8 @@ try {
 })
 
 router.get('/cerpen', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey;
 
 try {
@@ -3698,6 +3964,8 @@ try {
 })
 
 router.get('/mediafire', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    url = req.query.url;
 
@@ -3717,6 +3985,8 @@ try {
 })
 
 router.get('/tts', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
        var text = req.query.text,
 	   lang = req.query.lang,
 	   apikeyInput = req.query.apikey;
@@ -3740,6 +4010,8 @@ router.get('/tts', async (req, res, next) => {
 })
 
 router.get('/darkjokes', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey;
 
 try {
@@ -3758,6 +4030,8 @@ try {
 })
 
 router.get('/splaybutton', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    text = req.query.text;
 
@@ -3777,6 +4051,8 @@ try {
 })
 
 router.get('/gplaybutton', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    text = req.query.text;
 
@@ -3796,6 +4072,8 @@ try {
 })
 
 router.get('/textpantai', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    text = req.query.text;
 
@@ -3815,6 +4093,8 @@ try {
 })
 
 router.get('/textsalju', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    t1 = req.query.t1,
 	    t2 = req.query.t2;
@@ -3836,6 +4116,8 @@ try {
 })
 
 router.get('/alay', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var kata = req.query.kata,
 	    apikeyInput = req.query.apikey;
 
@@ -3857,6 +4139,8 @@ try {
 })
 
 router.get('/firework', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    text = req.query.text;
 
@@ -3876,6 +4160,8 @@ try {
 })
 
 router.get('/retro', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    t1 = req.query.t1,
 	    t2 = req.query.t2,
@@ -3899,6 +4185,8 @@ try {
 })
 
 router.get('/matrix', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    text = req.query.text;
 
@@ -3918,6 +4206,8 @@ try {
 })
 
 router.get('/text3d', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    text = req.query.text;
 
@@ -3937,6 +4227,8 @@ try {
 })
 
 router.get('/pornlogo', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    t1 = req.query.t1,
 	    t2 = req.query.t2;
@@ -3958,6 +4250,8 @@ try {
 })
 
 router.get('/marvel', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    t1 = req.query.t1,
 	    t2 = req.query.t2;
@@ -3978,6 +4272,8 @@ try {
 })
 
 router.get('/blackpink', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    text = req.query.text;
 
@@ -3997,6 +4293,8 @@ try {
 })
 
 router.get('/avengers', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    t1 = req.query.t1,
 	    t2 = req.query.t2;
@@ -4017,6 +4315,8 @@ try {
 })
 
 router.get('/thunder', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    text = req.query.text;
 
@@ -4048,6 +4348,8 @@ router.get('/news', async (req, res) => {
 })
 
 router.get('/ssweb', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    url = req.query.url;
 
@@ -4133,6 +4435,8 @@ try {
 })
 
 router.get('/dare', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey;
 
 try {
@@ -4153,6 +4457,8 @@ try {
 })
 
 router.get('/quotemaker', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var quote = req.query.quote,
 	    author = req.query.author,
 	    theme = req.query.theme,
@@ -4176,6 +4482,8 @@ try {
 })
 
 router.get('/attp', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
        var text = req.query.text,
 	   apikeyInput = req.query.apikey;
 	
@@ -4196,6 +4504,8 @@ router.get('/attp', async (req, res, next) => {
 })
 
 router.get('/ttp2', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
        var text = req.query.text,
 	   apikeyInput = req.query.apikey;
 	
@@ -4216,6 +4526,8 @@ router.get('/ttp2', async (req, res, next) => {
 })
 
 router.get('/futureneon', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var text = req.query.text,
            apikeyInput = req.query.apikey;
         
@@ -4255,6 +4567,8 @@ router.get('/futureneon', async (req, res, next) => {
 })
 
 router.get('/spotify', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    q = req.query.q;
 
@@ -4273,6 +4587,8 @@ try {
 })
 
 router.get('/instagram', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    url = req.query.url;
 
@@ -4292,6 +4608,8 @@ try {
 })
 
 router.get('/towebp', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    url = req.query.url;
 
@@ -4315,6 +4633,8 @@ try {
 })
 
 router.get('/math', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey,
 	    mode = req.query.mode;
 
@@ -4340,6 +4660,8 @@ try {
 })
 
 router.get('/math2', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var apikeyInput = req.query.apikey;
 
 try {
@@ -4362,6 +4684,8 @@ try {
 })
 
 router.get('/toimg', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var webp = req.query.webp,
 	    apikeyInput = req.query.apikey;
 
@@ -4392,6 +4716,8 @@ try {
 })
 
 router.get('/qrcode', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var text = req.query.text,
 	    apikeyInput = req.query.apikey;
 
@@ -4411,6 +4737,8 @@ try {
 })
 
 router.get('/imgbb', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var url = req.query.url,
 	    apikeyInput = req.query.apikey;
 
@@ -4437,6 +4765,8 @@ try {
 })
 
 router.get('/createcode', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
         var text = req.query.text,
 	    apikeyInput = req.query.apikey;
 
@@ -4473,6 +4803,8 @@ try {
 })
 
 router.get('/bucin', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
 	    apikeyInput = req.query.apikey;
 
 try {
@@ -4493,6 +4825,8 @@ try {
 })
 
 router.get('/memegen', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
   var img = req.query.img,
       t1 = req.query.t1,
       t2 = req.query.t2;
@@ -4518,6 +4852,8 @@ try {
 })
 
 router.get('/slot', async (req, res, next) => {
+
+    if (typeof req.query === 'undefined') return res.sendFile(notfound)
   var apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
