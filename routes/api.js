@@ -5159,7 +5159,7 @@ try {
   if(!comment) return res.json({ message: `Masukan parameter komentar` })
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-     var hasil = await (await fetch(`https://some-random-api.ml/canvas/youtube-comment?avatar=${img}&comment=${comment}&username=${nama}`)).buffer()
+     var hasil = await (await fetch(`https://some-random-api.ml/canvas/youtube-comment?avatar=${img}&comment=${comment}&username=${username}`)).buffer()
    await fs.writeFileSync(__path + '/tmp/ytcomment.png', hasil)
 
      res.sendFile(__path + '/tmp/ytcomment.png')
