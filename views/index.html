@@ -30,6 +30,9 @@ window['CboxReady'] = function (Cbox) {
         document.getElementById("jam").innerHTML = waktu.getHours();
         document.getElementById("menit").innerHTML = waktu.getMinutes();
         document.getElementById("detik").innerHTML = waktu.getSeconds();
+        document.getElementById("tanggal").innerHTML = waktu.getDate();
+        document.getElementById("bulan").innerHTML = waktu.getMonth();
+        document.getElementById("tahun").innerHTML = waktu.getFullYear();
           }
     }
     </script>
@@ -634,6 +637,7 @@ window['CboxReady'] = function (Cbox) {
 <div>Port : </div><div class="port" id="port">Searching...</div>
 <div>Time : </div><a id="jam">0</a><a> : </a><a id="menit">0</a><a> : </a><a id="detik">0</a>
 <div>Uptime : </div><div class="uptime" id="uptime">00 : 00 : 00</div>
+<div>Date : </div><a id="tanggal">1</a><a id="bulan">January</a><a id="tahun">2021</a>
 <div>Ping : </div><div class="speed" id="speed">Testing...</div>
 </div>
 </div>
