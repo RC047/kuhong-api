@@ -337,7 +337,7 @@ router.get('/tiktok', async (req, res, next) => {
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-     if (!url) return res.json(loghandler.noturl)
+        if (!url) return res.json(loghandler.noturl)
 
      TikTokScraper.getVideoMeta(url, options)
          .then(vid => {
@@ -353,13 +353,13 @@ router.get('/tiktok', async (req, res, next) => {
          })
 })
 
-router.get('/tiktok/stalk', async (req, res, next) => {
+router.get('/tiktokstalk', async (req, res, next) => {
     var apikeyInput = req.query.apikey,
         username = req.query.username
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-    if (!username) return res.json(loghandler.notusername)
+        if (!username) return res.json(loghandler.notusername)
 
 
     TikTokScraper.getUserProfileInfo(username)
@@ -987,21 +987,19 @@ router.get('/quran', async (req, res, next) => {
 })
 
 
-router.get('/fbdown', async (req, res, next) => {
+router.get('/fb', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             url = req.query.url
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-    if (!url) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter url"})
+        if (!url) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter url"})
 
        fetch(encodeURI(`https://fb-api-zhirrr.vercel.app/?url=${url}`))
         .then(response => response.json())
         .then(data => {
         var result = data;
-             res.json({
-                 result
-             })
+             res.json(result)
          })
          .catch(e => {
          	res.sendFile(error)
@@ -1807,9 +1805,7 @@ router.get('/chordlagu', async (req, res, next) => {
         .then(response => response.json())
         .then(data => {
         var result = data;
-             res.json({
-                 result
-             })
+             res.json(result)
          })
          .catch(e => {
          	res.sendFile(error)
@@ -1849,9 +1845,7 @@ router.get('/kbbi', async (req, res, next) => {
         .then(response => response.json())
         .then(data => {
         var result = data;
-             res.json({
-                 result
-             })
+             res.json(result)
          })
          .catch(e => {
          	res.sendFile(error)
@@ -2540,7 +2534,8 @@ router.get('/lk21/country', async (req, res, next) => {
         .then(data => {
         var result = data;
              res.json({
-             	author: 'RC047',                 result
+             	author: 'RC047',
+		result
              })
          })
          .catch(e => {
@@ -2794,7 +2789,7 @@ router.get('/ytmp3', async (req, res, next) => {
 })
 
 
-router.get('/ig/stalk', async (req, res, next) => {
+router.get('/igstalk', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             username = req.query.username
             
