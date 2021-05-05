@@ -2,11 +2,11 @@ __path = process.cwd()
 
 // Jan asal ubah ngab
 var express = require('express');
-var db = require(__path + '/database/db');
+var { database } = require(__path + '/database/database.js');
 try {
-var kuhong = db.get('RC047'); // jan diubah
+var kuhong = database.get('RC047'); // jan diubah
 } catch (e) {
-   console.log('WELCOME TO RC047 API!') // boleh diubah
+   console.log(e) // boleh diubah
 }
 
 var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab
