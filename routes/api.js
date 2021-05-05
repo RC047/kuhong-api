@@ -11,8 +11,8 @@ var kuhong = db.get('RC047'); // jan diubah
 
 var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
-var key = 'RendyTamvanzZ' // Apikey 1
-var key2 = 'd9Lruem4xdC6dy60cZmaPgIe' // Apikey 2
+var key = 'RendyTamvanzZ' // Apikey untuk Publik
+var owner_key = 'OwnerrKeyyS' // Apikey untuk Owner (Privasi)
 
 // Required Modules :
 var ffmpeg = require('fluent-ffmpeg');
@@ -51,7 +51,7 @@ var { Vokal, Base, Searchnabi, Gempa } = require('./../lib');
 var cookie = "HSID=A7EDzLn3kae2B1Njb;SSID=AheuwUjMojTWvA5GN;APISID=cgfXh13rQbb4zbLP/AlvlPJ2xBJBsykmS_;SAPISID=m82rJG4AC9nxQ5uG/A1FotfA_gi9pvo91C;__Secure-3PAPISID=m82rJG4AC9nxQ5uG/A1FotfA_gi9pvo91C;VISITOR_INFO1_LIVE=RgZLnZtCoPU;LOGIN_INFO=AFmmF2swRQIhAOXIXsKVou2azuz-kTsCKpbM9szRExAMUD-OwHYiuB6eAiAyPm4Ag3O9rbma7umBK-AG1zoGqyJinh4ia03csp5Nkw:QUQ3MjNmeXJ0UHFRS3dzaTNGRmlWR2FfMDRxa2NRYTFiN3lfTEdOVTc4QUlwbUI4S2dlVngxSG10N3ZqcHZwTHBKano5SkN2dDlPSkhRMUtReE42TkhYeUVWS3kyUE1jY2I1QzA1MDZBaktwd1llWU9lOWE4NWhoZV92aDkxeE9vMTNlcG1uMU9rYjhOaDZWdno2ZzN3TXl5TVNhSjNBRnJaMExrQXpoa2xzRVUteFNWZDI5S0Fn;PREF=app=desktop&f4=4000000&al=id;SID=2wezCMTUkWN3YS1VmS_DXaEU84J0pZIQdemM8Zry-uzWm8y1njBpLTOpxSfN-EaYCRSiDg.;YSC=HCowA1fmvzo;__Secure-3PSID=2wezCMTUkWN3YS1VmS_DXaEU84J0pZIQdemM8Zry-uzWm8y1dajgWzlBh9TgKapGOwuXfA.;SIDCC=AJi4QfFK0ri9fSfMjMQ4tOJNp6vOb9emETXB_nf2S05mvr2jBlmeEvlSsQSzPMuJl_V0wcbL1r8;__Secure-3PSIDCC=AJi4QfGeWHx-c4uTpU1rXCciO1p0s2fJWU07KrkZhWyD1Tqi8LyR-kHuBwHY9mViVYu1fRh2PA";
 
 // Handler Logger :
-loghandler = {
+var loghandler = {
     notparam: {
         status: false,
         creator: `${creator}`,
@@ -218,11 +218,11 @@ loghandler = {
     }
 }
 
-var error = __path + '/views/error.html' // Error
-var invalidKey = __path + '/views/invalidKey.html' // Invalid Apikey
+var error = __path + '/views/error.html' // Jika Error
+var invalidKey = __path + '/views/invalidKey.html' // Jika Apikey Invalid
 
         var len = 10
-        var arr = '0123456789abcdefghijklmnopqrstuvwxyz1234567890'
+        var arr = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
         var random = '';
         for (var i = len; i > 0; i--) {
             random += arr[Math.floor(Math.random() * arr.length)];
@@ -234,13 +234,86 @@ var invalidKey = __path + '/views/invalidKey.html' // Invalid Apikey
         }
         var randomTextNumber = 'kuhong-api-storage/'+random+randomlagi;
 
+async function cekApiKey(api) {
+ 	ap = await kuhong.findOne({apikey:api})
+ return ap;
+ }
+router.get('/find', async (req, res, next) => {
+    var apikeyInput = req.query.apikey
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (apikeyInput !== `${owner_key}`) return res.json(loghandler.invalidKey)
+
+    try {
+        kuhong.find()
+            .then(result => {
+                res.json({
+                    status: true,
+                    creator: `${creator}`,
+                    result
+                })
+        })
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/addapikey', (req, res, next) => {
+    var apikey = req.query.apikey,
+	apikeyInput = req.query.key;
+
+    if (!apikey) return res.json(loghandler.notparam)
+    if (!apikeyInput) return res.json(loghandler.notAddApiKey)
+    if (apikeyInput !== `${owner_key}`) return res.json(loghandler.invalidKey)
+
+    try {
+        kuhong.insert({
+            apikey: apikeyInput
+        })
+        .then(() => {
+              res.json({
+                  status: true,
+                  creator: `${creator}`,
+                  result: 'Berhasil menambah apikey!'
+              })
+        })
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/remove', (req, res, next) => {
+    var apikey = req.query.apikey,
+        apikeyInput  = req.query.key,
+
+    if (!apikey) return res.json(loghandler.notparam)
+    if (!apikeyInput) return res.json(loghandler.notAddApiKey)
+    if (apikeyInput !== `${owner_key}`) return res.json(loghandler.invalidKey)
+
+    try {
+        kuhong.remove({
+            apikey: apikeyInput
+        })
+        .then(() => {
+             res.json({
+                  status: true,
+                  creator: `${creator}`,
+                  result: 'Berhasil menghapus apikey!'
+              })
+        })
+    } catch (e) {
+        console.log(e)
+        res.json(loghandler.error)
+    }
+})
+
 router.get('/cekapikey', async (req, res, next) => {
     var apikeyInput = req.query.apikey;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(!apikeyInput == `${key}` || !apikeyInput == `${key2}`) return res.sendFile(invalidKey)
 	var limit = '-'
-        if (apikeyInput == `${key}`) limit = '1000 Request / Day'
         if (apikeyInput == `${key}`) limit = 'Unlimited!'
 
 try {
