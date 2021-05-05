@@ -5052,5 +5052,26 @@ try {
    }
 })
 
+router.get('/readmore', async (req, res, next) => {
+   var text = req.query.text,
+       apikeyInput = req.query.apikey;
+
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!text) return res.json(loghandler.nottext)
+
+    var [l, r] = text.split`|`
+    if (!l) l = ''
+    if (!r) r = ''
+
+        res.json({
+		status: true,
+		creator: creator,
+		readmore: l + readMore + r
+	})
+
 // End of script
 module.exports = router
+
+const more = String.fromCharCode(8206)
+const readMore = more.repeat(4001)
