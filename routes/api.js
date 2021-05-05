@@ -3029,9 +3029,7 @@ router.get('/ytsearch', async (req, res, next) => {
 	    },
 	    channel:{
 		    name: data.author.name,
-		    link: data.author.url,
-		    subscriber: `${data.author.subCountLabel} (${data.author.subCount})`,
-		    videos: data.author.videoCount
+		    link: data.author.url
 	    }
         })
 })
