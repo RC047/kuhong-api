@@ -238,8 +238,10 @@ async function cekApiKey(api) {
  	ap = await kuhong.findOne({apikey:api})
  return ap;
  }
+
 router.get('/find', async (req, res, next) => {
-    var apikeyInput = req.query.apikey
+    var apikeyInput = req.query.apikey;
+
     if (!apikeyInput) return res.json(loghandler.notparam)
     if (apikeyInput !== `${owner_key}`) return res.json(loghandler.invalidKey)
 
@@ -258,7 +260,7 @@ router.get('/find', async (req, res, next) => {
     }
 })
 
-router.get('/addapikey', (req, res, next) => {
+router.get('/add', (req, res, next) => {
     var apikey = req.query.apikey,
 	apikeyInput = req.query.key;
 
@@ -285,7 +287,7 @@ router.get('/addapikey', (req, res, next) => {
 
 router.get('/remove', (req, res, next) => {
     var apikey = req.query.apikey,
-        apikeyInput  = req.query.key,
+        apikeyInput  = req.query.key;
 
     if (!apikey) return res.json(loghandler.notparam)
     if (!apikeyInput) return res.json(loghandler.notAddApiKey)
