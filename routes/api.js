@@ -3185,15 +3185,31 @@ router.get('/ytsearch', async (req, res, next) => {
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
         if (!q) return res.json(loghandler.notquery)
 
-    var json = await (await fetch(`https://api.zeks.xyz/api/yts?q=${q}&apikey=apivinz`)).json()
+     var results = await yts(q)
+     var data = results.all.find(video => video.seconds < 3600)
+     if (!data) return res.json({ message: `Hasil pencarian "${q}" tidak ditemukan!` })
+     var isVideo = /2$/.test(q)
+     var { dl_link, thumb, title, filesize, filesizeF } = await (isVideo ? ytv : yta)(data.url, 'id4')
 
-      res.json({
-	      status: true,
-	      creator: creator,
-	      hasil:{
-                     json
-                    }
-      })
+     res.json({
+            status: true,
+            creator: creator,
+	    result:{
+		    title: title,
+                    duration: data.timestamp,
+                    views: `${data.views} views`,
+                    uploaded: data.ago,
+		    thumb: thumb,
+		    url: data.url,
+		    download_link: dl_link
+	    },
+	    channel:{
+		    name: data.author.name,
+		    link: data.author.url,
+		    subscriber: `${data.author.subCountLabel} (${data.author.subCount})`,
+		    videos: data.author.videoCount
+	    }
+        })
 })
 
 
@@ -5268,7 +5284,7 @@ try {
 	    result:{
 		    title: title,
                     duration: vid.timestamp,
-                    views: vid.views,
+                    views: `${vid.views} views`,
                     uploaded: vid.ago,
 		    thumb: thumb,
 		    source: vid.url,
