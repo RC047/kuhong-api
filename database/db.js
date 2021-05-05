@@ -19,4 +19,4 @@ db.then(() => {
 	})
 
 
-module.exports = db
+module.exports = { db }
