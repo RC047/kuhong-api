@@ -19,4 +19,4 @@ database.then(() => {
 	})
 
 
-module.exports = { database }
+module.exports = database
