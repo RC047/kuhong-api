@@ -5069,6 +5069,7 @@ router.get('/readmore', async (req, res, next) => {
 		creator: creator,
 		readmore: l + readMore + r
 	})
+})
 
 // End of script
 module.exports = router
