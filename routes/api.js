@@ -3106,6 +3106,7 @@ router.get('/removebg', async (req, res, next) => {
         })
 
 	  res.sendFile(hasil)
+    })
  } catch (e) {
           console.log(e);
       res.sendFile(error)
