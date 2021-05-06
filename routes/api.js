@@ -5086,11 +5086,7 @@ router.get('/githubstalk', async (req, res, next) => {
 
  try {
        var json = await (await fetch(`http://zekais-api.herokuapp.com/github?user=${username}`)).json()
-             res.json({
-             	status : true,
-                creator : `${creator}`,
-                json.result
-             })
+             res.json(json.result)
 } catch (e) {
   console.log(e)
     res.sendFile(error)
