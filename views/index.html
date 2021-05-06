@@ -21,24 +21,9 @@
   <script>
   alert(`Update Template Cuyy!`)
   </script>
-<script type="text/javascript">
-    window.setTimeout("waktu()", 1000);
-    function waktu() {
-        if (document.getElementById("jam")){
-        var waktu = new Date();
-        setTimeout("waktu()", 1000);
-        document.getElementById("jam").innerHTML = waktu.getHours();
-        document.getElementById("menit").innerHTML = waktu.getMinutes();
-        document.getElementById("detik").innerHTML = waktu.getSeconds();
-        document.getElementById("tanggal").innerHTML = waktu.getDate();
-        document.getElementById("bulan").innerHTML = waktu.getMonth();
-        document.getElementById("tahun").innerHTML = waktu.getFullYear();
-          }
-    }
-    </script>
     <!-- SideBar -->
   </head>
-  <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;" onload="getdata();">
+  <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">
 <div class="menu-btn">
       <i class="fas fa-bars"></i>
     </div>
@@ -348,25 +333,25 @@
 	    <a href="api/removebg?apikey=APIKEY&img=https://i.ibb.co/frhZmyZ/pp.jpg" class="sub-item">Remove BG</a>
           </div>
         </div>
-		<div class="item"><a href="api/game"><i class="fa fa-gamepad"></i>MiniGames</a></div>
-		<div class="item"><a href="api/tutorial"><i class="fas fa-book"></i>Tutorial</a></div>
-		<div class="item"><a href="api/status"><i class="fas fa-battery-half"></i>API Status</a></div>
-		<div class="item"><a href="https://saweria.co/RC047"><i class="fas fa-donate"></i>Donate</a></div>
-		<div class="item">
+	    <div class="item"><a href="api/game"><i class="fa fa-gamepad"></i>MiniGames</a></div>
+	    <div class="item"><a href="api/tutorial"><i class="fas fa-book"></i>Tutorial</a></div>
+	    <div class="item"><a href="api/status"><i class="fas fa-battery-half"></i>API Status</a></div>
+	    <div class="item"><a href="https://saweria.co/RC047"><i class="fas fa-donate"></i>Donate</a></div>
+	    <div class="item">
           <a class="sub-btn"><i class="fas fa-signal"></i>Social Media<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-          <a href="https://wa.me/62895337278647" class="sub-item">WhatsApp</a>
-		  <a href="https://www.youtube.com/c/RC047" class="sub-item">YouTube</a>
-          <a href="https://instagram.com/rendycraft047" class="sub-item">Instagram</a>
-		  <a href="https://www.facebook.com/rendycraft.rendycraft" class="sub-item">FaceBook</a>
-		  <a href="https://github.com/RC047" class="sub-item">Github</a>
+            <a href="https://wa.me/62895337278647" class="sub-item">WhatsApp</a>
+	    <a href="https://www.youtube.com/c/RC047" class="sub-item">YouTube</a>
+            <a href="https://instagram.com/rendycraft047" class="sub-item">Instagram</a>
+            <a href="https://www.facebook.com/rendycraft.rendycraft" class="sub-item">FaceBook</a>
+	    <a href="https://github.com/RC047" class="sub-item">Github</a>
           </div>
         </div>
-		<div class="item">
-          <a class="sub-btn"><i class="fas fa-key"></i>Order Apikey<i class="fas fa-angle-right dropdown"></i></a>
-          <div class="sub-menu">
-		    <a href="https://wa.me/62895337278647?text=Bang,,%20saya%20minat%20beli%20Apikey%20Kuhong%20API%20yang%2010K" class="sub-item">10K / Month</a>
-            <a href="https://wa.me/62895337278647?text=Bang,,%20saya%20minat%20beli%20Apikey%20Kuhong%20API%20yang%2025K" class="sub-item">25K / Year</a>
+	<div class="item">
+        <a class="sub-btn"><i class="fas fa-key"></i>Order Apikey<i class="fas fa-angle-right dropdown"></i></a>
+        <div class="sub-menu">
+	  <a href="https://wa.me/62895337278647?text=Bang,,%20saya%20minat%20beli%20Apikey%20Kuhong%20API%20yang%2010K" class="sub-item">10K / Month</a>
+          <a href="https://wa.me/62895337278647?text=Bang,,%20saya%20minat%20beli%20Apikey%20Kuhong%20API%20yang%2025K" class="sub-item">25K / Year</a>
           </div>
         </div>
       </div>
@@ -403,49 +388,5 @@
       </div>
       </div>
   </body>
-<script>
-  function getdata() {
-              var xhr = new XMLHttpRequest();
-              var url = 'https://api.countapi.xyz/hit/zahirr-web.herokuapp.com/visits';
-              xhr.onloadend = function() {
-              data = JSON.parse(this.responseText);
-              document.getElementById("visitor").textContent = data.value
-              };
-              xhr.open("GET", url, true);
-              xhr.send();
-              var xhr = new XMLHttpRequest();
-              var url = 'https://api.ipify.org/?format=json';
-              xhr.onloadend = function() {
-              data = JSON.parse(this.responseText);
-              document.getElementById("ip").textContent = data.ip
-              };
-              xhr.open("GET", url, true);
-              xhr.send();
-	      var xhr = new XMLHttpRequest();
-              var url = 'https://kuhong-api.herokuapp.com/api/status';
-              xhr.onloadend = function() {
-              data = JSON.parse(this.responseText);
-              document.getElementById("uptime").textContent = data.uptime
-              };
-              xhr.open("GET", url, true);
-              xhr.send();
-	      var xhr = new XMLHttpRequest();
-              var url = 'https://kuhong-api.herokuapp.com/api/status';
-              xhr.onloadend = function() {
-              data = JSON.parse(this.responseText);
-              document.getElementById("port").textContent = data.port
-              };
-              xhr.open("GET", url, true);
-              xhr.send();
-	      var xhr = new XMLHttpRequest();
-              var url = 'https://kuhong-api.herokuapp.com/api/status';
-              xhr.onloadend = function() {
-              data = JSON.parse(this.responseText);
-              document.getElementById("speed").textContent = data.speed
-              };
-              xhr.open("GET", url, true);
-              xhr.send();
-    }
-</script>
 </html>
 <!-- Credit Template By Zekais -->
