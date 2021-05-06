@@ -54,6 +54,7 @@
     "spinnies": "^0.5.1",
     "scrape-yt": "^1.4.8",
     "ssl-express-www": "^3.0.7",
+    "translate-google-api": "^1.0.4",
     "text-to-mp3": "^1.0.4",
     "tiktok-scraper": "^1.4.12",
     "urlencode": "^1.1.0",
