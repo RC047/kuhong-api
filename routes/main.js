@@ -25,7 +25,7 @@ router.get('/api/tutorial', (req, res) => {
     res.sendFile(__path + '/views/tutorial.html')
 })
 
-router.get('/api/status', async (res) => {  
+router.get('/api/status', async (req, res) => {  
 
 var date = new Date
 var jam = date.getHours()
