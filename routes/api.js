@@ -5237,7 +5237,7 @@ router.get('/zodiak', async (req, res, next) => {
 	if (isNaN(thn)) return res.json(loghandler.number)
 
  try {
-       var json = await (await fetch(`https://arugaz.herokuapp.com/api/getzodiak?nama=${nama}&tgl-bln-thn=${tggl}-${bln}-${thn}`)).json()
+       var json = await (await fetch(`https://arugaz.herokuapp.com/api/getzodiak?nama=${nama}&tgl-bln-thn=` + tggl + '-' + bln + '-' + thn)).json()
              res.json(json)
 
 } catch (e) {
