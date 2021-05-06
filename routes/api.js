@@ -5067,6 +5067,68 @@ router.get('/readmore', async (req, res, next) => {
 	})
 })
 
+router.get('/8bit', async (req, res, next) => {
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`http://zekais-api.herokuapp.com/pixelate?url=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/8bit.png', hasil)
+
+     res.sendFile(__path + '/tmp/8bit.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/wanted', async (req, res, next) => {
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`http://zekais-api.herokuapp.com/wanted?url=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/wanted.png', hasil)
+
+     res.sendFile(__path + '/tmp/wanted.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/githubstalk', async (req, res, next) => {
+	var apikeyInput = req.query.apikey,
+        username = req.query.username;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if (!username) return res.json(loghandler.notusername)
+
+ try {
+       var json = await (await fetch(`http://zekais-api.herokuapp.com/github?user=${username}`)).json()
+             res.json({
+             	status : true,
+                creator : `${creator}`,
+                json.result
+             })
+} catch (e) {
+    res.sendFile(error)
+   }
+})
+
 // End of script
 module.exports = router
 
