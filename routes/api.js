@@ -236,82 +236,6 @@ var invalidKey = __path + '/views/invalidKey.html' // Jika Apikey Invalid
         }
         var randomTextNumber = 'kuhong-api-storage/'+random+randomlagi;
 
-async function cekApiKey(api) {
- 	ap = await kuhong.findOne({apikey:api})
- return ap;
- }
-
-router.get('/find', async (req, res, next) => {
-    var apikeyInput = req.query.apikey;
-
-    if (!apikeyInput) return res.json(loghandler.notparam)
-    if (apikeyInput !== `${owner_key}`) return res.json(loghandler.invalidKey)
-
-    try {
-        kuhong.find()
-            .then(result => {
-                res.json({
-                    status: true,
-                    creator: `${creator}`,
-                    result
-                })
-        })
-    } catch (e) {
-        console.log(e)
-        res.sendFile(error)
-    }
-})
-
-router.get('/add', (req, res, next) => {
-    var apikey = req.query.apikey,
-	apikeyInput = req.query.key;
-
-    if (!apikey) return res.json(loghandler.notparam)
-    if (!apikeyInput) return res.json(loghandler.notAddApiKey)
-    if (apikeyInput !== `${owner_key}`) return res.json(loghandler.invalidKey)
-
-    try {
-        kuhong.insert({
-            apikey: apikeyInput
-        })
-        .then(() => {
-              res.json({
-                  status: true,
-                  creator: `${creator}`,
-                  result: 'Berhasil menambah apikey!'
-              })
-        })
-    } catch (e) {
-        console.log(e)
-        res.sendFile(error)
-    }
-})
-
-router.get('/remove', (req, res, next) => {
-    var apikey = req.query.apikey,
-        apikeyInput  = req.query.key;
-
-    if (!apikey) return res.json(loghandler.notparam)
-    if (!apikeyInput) return res.json(loghandler.notAddApiKey)
-    if (apikeyInput !== `${owner_key}`) return res.json(loghandler.invalidKey)
-
-    try {
-        kuhong.remove({
-            apikey: apikeyInput
-        })
-        .then(() => {
-             res.json({
-                  status: true,
-                  creator: `${creator}`,
-                  result: 'Berhasil menghapus apikey!'
-              })
-        })
-    } catch (e) {
-        console.log(e)
-        res.json(loghandler.error)
-    }
-})
-
 router.get('/cekapikey', async (req, res, next) => {
     var apikeyInput = req.query.apikey;
 
@@ -708,14 +632,14 @@ router.get('/textmaker', async (req, res, next) => {
                                 .then(response => response.json())
                                 .then(data => {
                                     var urlnya = data.data.url,
-                                        devare_url = data.data.devare_url;
+                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
                                             message : `jangan lupa Subscribe Youtube ${creator}`,
                                             result:{
                                                 url:urlnya,
-                                                devare_url: devare_url,
+                                                delete_url: delete_url,
                                                 info: 'url akan hilang setelah 2 menit'
                                             }
                                         })
@@ -760,14 +684,14 @@ router.get('/textmaker/game', async (req, res, next) => {
                                 .then(response => response.json())
                                 .then(data => {
                                     var urlnya = data.data.url,
-                                        devare_url = data.data.devare_url;
+                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
                                             message : `jangan lupa Subscribe Youtube ${creator}`,
                                             result:{
                                                 url:urlnya,
-                                                devare_url: devare_url,
+                                                delete_url: delete_url,
                                                 info: 'url akan hilang setelah 2 menit'
                                             }
                                         })
@@ -797,14 +721,14 @@ router.get('/textmaker/game', async (req, res, next) => {
                                 .then(response => response.json())
                                 .then(data => {
                                     var urlnya = data.data.url,
-                                        devare_url = data.data.devare_url;
+                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
                                             message : `jangan lupa Subscribe Youtube ${creator}`,
                                             result:{
                                                 url:urlnya,
-                                                devare_url: devare_url,
+                                                delete_url: delete_url,
                                                 info: 'url akan hilang setelah 2 menit'
                                             }
                                         })
@@ -848,14 +772,14 @@ router.get('/textmaker/senja', async (req, res, next) => {
                                 .then(response => response.json())
                                 .then(data => {
                                     var urlnya = data.data.url,
-                                        devare_url = data.data.devare_url;
+                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
                                             message : `jangan lupa Subscribe Youtube ${creator}`,
                                             result:{
                                                 url:urlnya,
-                                                devare_url: devare_url,
+                                                delete_url: delete_url,
                                                 info: 'url akan hilang setelah 2 menit'
                                             }
                                         })
@@ -884,14 +808,14 @@ router.get('/textmaker/senja', async (req, res, next) => {
                                 .then(response => response.json())
                                 .then(data => {
                                     var urlnya = data.data.url,
-                                        devare_url = data.data.devare_url;
+                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
                                             message : `jangan lupa Subscribe Youtube ${creator}`,
                                             result:{
                                                 url:urlnya,
-                                                devare_url: devare_url,
+                                                delete_url: delete_url,
                                                 info: 'url akan hilang setelah 2 menit'
                                             }
                                         })
@@ -1039,14 +963,14 @@ router.get('/textmaker/metallic', async (req, res, next) => {
                                 .then(response => response.json())
                                 .then(data => {
                                     var urlnya = data.data.url,
-                                        devare_url = data.data.devare_url;
+                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
                                             message : `jangan lupa Subscribe Youtube ${creator}`,
                                             result:{
                                                 url:urlnya,
-                                                devare_url: devare_url,
+                                                delete_url: delete_url,
                                                 info: 'url akan hilang setelah 2 menit'
                                             }
                                         })
@@ -1075,14 +999,14 @@ router.get('/textmaker/metallic', async (req, res, next) => {
                                 .then(response => response.json())
                                 .then(data => {
                                     var urlnya = data.data.url,
-                                        devare_url = data.data.devare_url;
+                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
                                             message : `jangan lupa Subscribe Youtube ${creator}`,
                                             result:{
                                                 url:urlnya,
-                                                devare_url: devare_url,
+                                                delete_url: delete_url,
                                                 info: 'url akan hilang setelah 2 menit'
                                             }
                                         })
@@ -1126,14 +1050,14 @@ router.get('/textmaker/alam', async (req, res, next) => {
                                 .then(response => response.json())
                                 .then(data => {
                                     var urlnya = data.data.url,
-                                        devare_url = data.data.devare_url;
+                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
                                             message : `jangan lupa Subscribe Youtube ${creator}`,
                                             result:{
                                                 url:urlnya,
-                                                devare_url: devare_url,
+                                                delete_url: delete_url,
                                                 info: 'url akan hilang setelah 2 menit'
                                             }
                                         })
@@ -1162,14 +1086,14 @@ router.get('/textmaker/alam', async (req, res, next) => {
                                 .then(response => response.json())
                                 .then(data => {
                                     var urlnya = data.data.url,
-                                        devare_url = data.data.devare_url;
+                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
                                             message : `jangan lupa Subscribe Youtube ${creator}`,
                                             result:{
                                                 url:urlnya,
-                                                devare_url: devare_url,
+                                                delete_url: delete_url,
                                                 info: 'url akan hilang setelah 2 menit'
                                             }
                                         })
@@ -2608,14 +2532,14 @@ router.get('/textmaker/random', async (req, res, next) => {
                                 .then(response => response.json())
                                 .then(data => {
                                     var urlnya = data.data.url,
-                                        devare_url = data.data.devare_url;
+                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
                                             message : `jangan lupa Subscribe Youtube ${creator}`,
                                             result:{
                                                 url:urlnya,
-                                                devare_url: devare_url,
+                                                delete_url: delete_url,
                                                 info: 'url akan hilang setelah 2 menit'
                                             }
                                         })
@@ -2644,14 +2568,14 @@ router.get('/textmaker/random', async (req, res, next) => {
                                 .then(response => response.json())
                                 .then(data => {
                                     var urlnya = data.data.url,
-                                        devare_url = data.data.devare_url;
+                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
                                             message : `jangan lupa Subscribe Youtube ${creator}`,
                                             result:{
                                                 url:urlnya,
-                                                devare_url: devare_url,
+                                                delete_url: delete_url,
                                                 info: 'url akan hilang setelah 2 menit'
                                             }
                                         })
@@ -2695,14 +2619,14 @@ router.get('/textmaker/roses', async (req, res, next) => {
                                 .then(response => response.json())
                                 .then(data => {
                                     var urlnya = data.data.url,
-                                        devare_url = data.data.devare_url;
+                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
                                             message : `jangan lupa Subscribe Youtube ${creator}`,
                                             result:{
                                                 url:urlnya,
-                                                devare_url: devare_url,
+                                                delete_url: delete_url,
                                                 info: 'url akan hilang setelah 2 menit'
                                             }
                                         })
@@ -2731,14 +2655,14 @@ router.get('/textmaker/roses', async (req, res, next) => {
                                 .then(response => response.json())
                                 .then(data => {
                                     var urlnya = data.data.url,
-                                        devare_url = data.data.devare_url;
+                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
                                             message : `jangan lupa Subscribe Youtube ${creator}`,
                                             result:{
                                                 url:urlnya,
-                                                devare_url: devare_url,
+                                                delete_url: delete_url,
                                                 info: 'url akan hilang setelah 2 menit'
                                             }
                                         })
@@ -4664,7 +4588,7 @@ router.get('/slot', async (req, res, next) => {
         end = "Dikit Lagi!",
         poin = 500;
     } else {
-        end = "Lose 😥, Sabar ya kak. Anggap aja nih Ujian :)";
+        end = "Kamu Kalah!, Yang Sabar yaa. Anggap aja ini Ujian :)";
 	poin = "5";
     }
       res.json({
