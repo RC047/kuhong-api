@@ -20,6 +20,7 @@ var ffmpeg = require('fluent-ffmpeg');
 var brainly = require('brainly-scraper-v2');
 var imageToBase64 = require('image-to-base64');
 var upload = require(__path + '/lib/upload.js');
+var translate = require('translate-google-api');
 var axios = require('axios');
 var FormData = require('form-data');
 var ytdl = require('ytdl-core');
@@ -40,7 +41,7 @@ var router  = express.Router();
 
 var { tts, wait, simih, getBuffer, h2k, banner, getRandom, start, info, success, close, pickRandom } = require(__path + '/lib/functions.js');
 var { servers, yta, ytv } = require(__path + '/lib/y2mate.js')
-var { RemoveBg } = require('remove.bg');
+var { removeBackgroundFromImageFile } = require('remove.bg');
 var { tahta } = require(__path + '/lib/tahta.js');
 var { createHash } = require('crypto')
 var { spawn, exec } = require('child_process');
@@ -210,12 +211,12 @@ var loghandler = {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'Teks harus berupa angka!'
+        message: 'Teks harus berupa angka'
     },
     error: {
         status: false,
         creator: `${creator}`,
-        message: 'Erorr! Mungkin Sedang dalam perbaikan'
+        message: 'Erorr! :('
     }
 }
 
@@ -1777,7 +1778,7 @@ router.get('/holoh', async (req, res, next) => {
          })
 })
 
-router.get('/liriklagu', async (req, res, next) => {
+router.get('/lirik', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             lagu = req.query.lagu
             
@@ -1793,7 +1794,7 @@ router.get('/liriklagu', async (req, res, next) => {
              })
 })
 
-router.get('/chordlagu', async (req, res, next) => {
+router.get('/chord', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             lagu = req.query.lagu
             
@@ -2035,22 +2036,31 @@ router.get('/quotes/kanye', async (req, res, next) => {
 
 router.get('/translate', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
-	    kata = req.query.kata
+	    lang = req.query.lang,
+	    text = req.query.text;
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-	if(!kata) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kata"})
-       fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/translate?text=${kata}`))
-        .then(response => response.json())
-        .then(data => {
-        var result = data;
-             res.json({
-                 result
-             })
-         })
-         .catch(e => {
-         	res.sendFile(error)
-})
+	if (!lang) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter bahasa" })
+	if (!text) return res.json(loghandler.nottext)
+
+    try {
+        var result = await translate(text, {
+            tld: 'cn',
+            to: lang,
+        })
+
+	res.json({
+		status: true,
+		creator: creator,
+		lang: lang,
+		text: text,
+		hasil: result[0]
+	})
+    } catch (e) {
+        res.sendFile(error)
+	    console.log(e)
+    }       
 })
 
 
@@ -3124,21 +3134,20 @@ router.get('/ocr', async (req, res, next) => {
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-    if (!img) return res.json(loghandler.notimg)
+        if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
   try {
 	var enc = await imageToBase64(img)
 	var media = Buffer.from(enc, 'base64')
-	  await fs.writeFileSync(__path + '/tmp/ocr.png', media)
-          await recognize(__path + `/tmp/ocr.png`, { lang: 'eng+ind', oem: 1, psm: 3 })
-        .then(hasil => {
+          await recognize(media, { lang: 'eng+ind', oem: 1, psm: 3 })
+            .then(hasil => {
 
              res.json({
                 status : true,
                 creator : `${creator}`,
                 message : `jangan lupa Subscribe Youtube ${creator}`,
-                result : `${hasil}`
+                result : `${hasil.trim()}`
              })
        })
           .catch(err => {
@@ -3157,16 +3166,22 @@ router.get('/removebg', async (req, res, next) => {
   try {
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-    if (!img) return res.json(loghandler.notimg)
+        if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
 	var encmedia = await imageToBase64(img)
 	var media = Buffer.from(encmedia, 'base64')
-	   await fs.writeFileSync(__path + '/tmp/nobg.png', media)
-	      var rbg = RemoveBg('HCVrssExQw8DuaWpj2vE5359', 'error.log')
-              rbg.remove_background_from_img_file(__path + '/tmp/nobg.png')
+        var ranj = getRandom('.png')
+        var ranp = getRandom('.png')
+	  await fs.writeFileSync(__path + '/tmp/nobg.png', media)
+          await removeBackgroundFromImageFile({ path: __path + '/tmp/nobg.png', apiKey: "ku7CybpBNXacsoWMyeZeLGQq", size: 'auto', type: 'auto', ranp }).then(result => {
+            fs.unlinkSync(media)
+            var hasil = Buffer.from(result.base64img, 'base64')
+            fs.writeFileSync(ranp, hasil, (e) => {
+          if (e) return res.json({ error: 'Gagal, Terjadi kesalahan, silahkan coba beberapa saat lagi.' })
+        })
 
-	  res.sendFile(__path + '/tmp/nobg.png')
+	  res.sendFile(hasil)
  } catch (e) {
           console.log(e);
       res.sendFile(error)
@@ -3309,12 +3324,11 @@ router.get('/dadu', async (req, res, next) => {
 })
 
 router.get('/repeat', (req, res, next) => {
-
 const repeat = (text, total) => {
-		return text.repeat(total)
-	}
-      var text = req.query.text,
-             jumlah = req.query.jumlah,
+  return text.repeat(total)
+}
+        var text = req.query.text,
+            jumlah = req.query.jumlah,
             apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
@@ -3373,8 +3387,8 @@ router.get('/spamcall', async (req, res, next) => {
 
 router.get('/spamsms', async (req, res, next) => {
        var nomor = req.query.nomor,
-              jumlah = req.query.jumlah,
-	         apikeyInput = req.query.apikey;
+           jumlah = req.query.jumlah,
+	   apikeyInput = req.query.apikey;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
@@ -4038,7 +4052,7 @@ try {
    }
 })
 
-router.get('/pornlogo', async (req, res, next) => {
+router.get('/phlogo', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
 	    t1 = req.query.t1,
 	    t2 = req.query.t2;
@@ -4050,9 +4064,9 @@ try {
   if (!t2) return res.json(loghandler.nottext2)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/phlogo?text1=${t1}&text2=${t2}&apikey=apivinz`)
-       await fs.writeFileSync(__path + '/tmp/pornhub.png', hasil)
+       await fs.writeFileSync(__path + '/tmp/phlogo.png', hasil)
 
-         res.sendFile(__path + '/tmp/pornhub.png')
+         res.sendFile(__path + '/tmp/phlogo.png')
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -4217,15 +4231,16 @@ router.get('/hd', async (req, res) => {
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
 try {
-     var media = await getBuffer(img)
+     var encmedia = await imageToBase64(img)
+     var media = Buffer.from(encmedia, 'base64')
      var body = new FormData
          body.append('image', media, 'image')
-         var ress = await fetch('http://max-image-resolution-enhancer.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud/model/predict', {
+         var result = await fetch('http://max-image-resolution-enhancer.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud/model/predict', {
             method: 'POST',
             body
             })
-  if (ress.status !== 200) return await res.json(ress)
-    await fs.writeFileSync(__path + '/tmp/hd.png', await ress.buffer())
+    if (ress.status !== 200) return await res.json(result)
+    await fs.writeFileSync(__path + '/tmp/hd.png', await result.buffer())
 
     res.sendFile(__path + '/tmp/hd.png')
    } catch (e) {
@@ -4473,17 +4488,9 @@ try {
   if (!webp) return res.json(loghandler.notimg)
   if (!webp.startsWith('http')) return res.json(loghandler.invalidLink)
 
-    var img = await getBuffer(webp)
-    var bufs = []
-    var im = spawn('convert', ['webp:-', 'png:-'])
-    im.on('error',e => res.sendFile(error))
-    im.stdout.on('data', chunk => bufs.push(chunk))
-    im.stdin.write(img)
-    im.stdin.end()
-    im.on('exit', () => {
-      var encmedia = imageToBase64(Buffer.concat(bufs))
-      var media = Buffer.from(encmedia, 'base64')
-        fs.writeFileSync(__path + '/tmp/toimg.png', media)
+    var convert = await imageToBase64(webp)
+    var img = Buffer.from(convert, 'base64')
+      await fs.writeFileSync(__path + '/tmp/toimg.png', img)
 
      res.sendFile(__path + '/tmp/toimg.png')
    })
@@ -4597,7 +4604,7 @@ try {
 router.get('/memegen', async (req, res, next) => {
   var img = req.query.img,
       t1 = req.query.t1,
-      t2 = req.query.t2;
+      t2 = req.query.t2,
       apikeyInput = req.query.apikey;
 
 try {
@@ -5125,7 +5132,401 @@ router.get('/githubstalk', async (req, res, next) => {
                 json.result
              })
 } catch (e) {
+  console.log(e)
     res.sendFile(error)
+   }
+})
+
+router.get('/upload', async (req, res, next) => {
+	var apikeyInput = req.query.apikey,
+        file = req.query.file_url;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if (!file) return res.json({ message: `Masukan parameter file_url` })
+
+ try {
+       var media = await getBuffer(file)
+       var result = await upload(media)
+
+             res.json({
+             	status : true,
+                creator : `${creator}`,
+                result: result
+             })
+} catch (e) {
+    res.sendFile(error)
+	console.log(e)
+   }
+})
+
+router.get('/shopee', async (req, res, next) => {
+	var apikeyInput = req.query.apikey,
+        query = req.query.query;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if (!query) return res.json(loghandler.notquery)
+
+ try {
+       var json = await (await fetch(`https://api.zeks.xyz/api/shopee?apikey=apivinz&q=${query}`)).json()
+             res.json(json)
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/happymod', async (req, res, next) => {
+	var apikeyInput = req.query.apikey,
+        query = req.query.query;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if (!query) return res.json(loghandler.notquery)
+
+ try {
+       var json = await (await fetch(`https://api.zeks.xyz/api/happymod?apikey=apivinz&q=${query}`)).json()
+             res.json(json)
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/faktaunik', async (req, res, next) => {
+	var apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+
+ try {
+       var json = await (await fetch(`https://videfikri.com/api/fakta/`)).json()
+             res.json({
+		     status: true,
+		     creator: creator,
+		     fakta: json.result.fakta
+	     })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/artimimpi', async (req, res, next) => {
+	var apikeyInput = req.query.apikey,
+	    mimpi = req.query.mimpi;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if (!mimpi) return res.json({ message: "Masukan parameter mimpi" })
+
+ try {
+       var json = await (await fetch(`https://videfikri.com/api/primbon/artimimpi/?mimpi=${mimpi}`)).json()
+             res.json({
+		     status: true,
+		     creator: creator,
+		     result: json.result.artimimpi
+	     })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/tggljadian', async (req, res, next) => {
+	var apikeyInput = req.query.apikey,
+	    tggl = req.query.tggl,
+	    bln = req.query.bln,
+	    thn = req.query.thn;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if (!tggl) return res.json({ message: "Masukan parameter tanggal" })
+	if (!bln) return res.json({ message: "Masukan parameter bulan" })
+	if (!tahun) return res.json({ message: "Masukan parameter tahun" })
+	if (isNaN(tggl)) return res.json(loghandler.number)
+	if (isNaN(bln)) return res.json(loghandler.number)
+	if (isNaN(thn)) return res.json(loghandler.number)
+
+ try {
+       var json = await (await fetch(`https://videfikri.com/api/primbon/tgljadian/?tgl=${tggl}&bln=${bln}&thn=${thn}`)).json()
+             res.json({
+		     status: true,
+		     creator: creator,
+		     result: json.result.hasil
+	     })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/zodiak', async (req, res, next) => {
+	var apikeyInput = req.query.apikey,
+	    nama = req.query.nama,
+	    tggl = req.query.tggl,
+	    bln = req.query.bln,
+	    thn = req.query.thn;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if (!nama) return res.json(loghandler.notnama)
+	if (!tggl) return res.json({ message: "Masukan parameter tanggal" })
+	if (!bln) return res.json({ message: "Masukan parameter bulan" })
+	if (!tahun) return res.json({ message: "Masukan parameter tahun" })
+	if (isNaN(tggl)) return res.json(loghandler.number)
+	if (isNaN(bln)) return res.json(loghandler.number)
+	if (isNaN(thn)) return res.json(loghandler.number)
+
+ try {
+       var json = await (await fetch(`https://arugaz.herokuapp.com/api/getzodiak?nama=${nama}&tgl-bln-thn=${tggl}-${bln}-${thn}`)).json()
+             res.json(json)
+
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/spamgmail', async (req, res, next) => {
+       var email = req.query.email,
+	   subjek = req.query.subjek,
+           pesan = req.query.pesan,
+	   apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if (!email) return res.json({ message: "Masukan parameter email" })
+	if (!email.endsWith('@gmail.com')) return res.json({ message: "Email tidak valid" })
+	if (!subjek) return res.json({ message: "Masukan parameter subjek" })
+	if (subjek.length > 10) return res.json({ message: "Subjek kepanjangan!" })
+        if (!pesan) return res.json({ message: "Masukan parameter pesan" })
+
+
+ try {
+       var json = await (await fetch(`https://videfikri.com/api/spamemail/?email=${email}&subjek=${subjek}&pesan=${pesan}`)).json()
+         res.json({
+		 status: true,
+		 creator: creator,
+		 result: json.result.log_lengkap
+	 })
+
+} catch (e) {
+	console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/smoke', async (req, res, next) => {
+  var text = req.query.text,
+      apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!text) return res.json(loghandler.nottext)
+
+     var json = await (await fetch(`http://zekais-api.herokuapp.com/photooxy/smoke?text=${text}`)).json()
+     var data = await (await fetch(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${json.result}&name=result`)).json()
+   await fs.writeFileSync(__path + '/tmp/smoke.png', await getBuffer(data.data.url))
+
+     res.sendFile(__path + '/tmp/smoke.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/phcomment', async (req, res, next) => {
+  var img = req.query.img,
+      username = req.query.t1,
+      comment = req.query.t2,
+      apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!img) return res.json(loghandler.notimg)
+  if(!username) return res.json(loghandler.notusername)
+  if(!comment) return res.json({ message: 'Masukan parameter komentar' })
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`https://api.zeks.xyz/api/phub?apikey=apivinz&img=${img}&username=${username}&msg=${comment}`)).buffer()
+       await fs.writeFileSync(__path + '/tmp/phcomment.png', hasil)
+
+     res.sendFile(__path + '/tmp/phcomment.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/barcode', async (req, res, next) => {
+  var text = req.query.text,
+      apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!text) return res.json(loghandler.nottext)
+
+     var hasil = await (await fetch(`https://api.zeks.xyz/api/barcode?apikey=apivinz&text=${text}`)).buffer()
+       await fs.writeFileSync(__path + '/tmp/barcode.png', hasil)
+
+     res.sendFile(__path + '/tmp/barcode.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/dropwater', async (req, res, next) => {
+  var text = req.query.text,
+      apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!text) return res.json(loghandler.nottext)
+
+     var hasil = await (await fetch(`https://api.zeks.xyz/api/dropwater?apikey=apivinz&text=${text}`)).buffer()
+       await fs.writeFileSync(__path + '/tmp/dropwater.png', hasil)
+
+     res.sendFile(__path + '/tmp/dropwater.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/glowtext', async (req, res, next) => {
+  var text = req.query.text,
+      apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!text) return res.json(loghandler.nottext)
+
+     var hasil = await (await fetch(`https://api.zeks.xyz/api/bneon?apikey=apivinz&text=${text}`)).buffer()
+       await fs.writeFileSync(__path + '/tmp/glowtext.png', hasil)
+
+     res.sendFile(__path + '/tmp/glowtext.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/glowtext2', async (req, res, next) => {
+  var text = req.query.text,
+      apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!text) return res.json(loghandler.nottext)
+
+     var hasil = await (await fetch(`https://api.zeks.xyz/api/tlight?text=${text}&apikey=apivinz`)).buffer()
+       await fs.writeFileSync(__path + '/tmp/glowtext2.png', hasil)
+
+     res.sendFile(__path + '/tmp/glowtext2.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/wolflogo', async (req, res, next) => {
+  var t1 = req.query.text,
+      t2 = req.query.text2,
+      apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!t1) return res.json(loghandler.nottext)
+  if(!t2) return res.json(loghandler.nottext2)
+
+     var hasil = await (await fetch(`https://api.zeks.xyz/api/wolflogo?apikey=apivinz&text1=${t1}&text2=${t2}`)).buffer()
+       await fs.writeFileSync(__path + '/tmp/wolflogo.png', hasil)
+
+     res.sendFile(__path + '/tmp/wolflogo.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/breakwall', async (req, res, next) => {
+  var text = req.query.text,
+      apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!text) return res.json(loghandler.nottext)
+
+     var hasil = await (await fetch(`https://api.zeks.xyz/api/breakwall?apikey=apivinz&text=${text}`)).buffer()
+       await fs.writeFileSync(__path + '/tmp/breakwall.png', hasil)
+
+     res.sendFile(__path + '/tmp/breakwall.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/naruto', async (req, res, next) => {
+  var text = req.query.text,
+      apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!text) return res.json(loghandler.nottext)
+
+     var json = await (await fetch(`https://api.zeks.xyz/api/naruto?text=${text}&apikey=apivinz`)).json()
+     var data = await (await fetch(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${json.result}&name=result`)).json()
+   await fs.writeFileSync(__path + '/tmp/naruto.png', await getBuffer(data.data.url))
+
+     res.sendFile(__path + '/tmp/naruto.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/battlefield4', async (req, res, next) => {
+  var t1 = req.query.text,
+      t2 = req.query.text2, 
+      apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!t1) return res.json(loghandler.nottext)
+  if(!t2) return res.json(loghandler.nottext2)
+
+
+     var hasil = await (await fetch(`https://videfikri.com/api/textmaker/bf4/?text1=${t1}&text2=${t2}`)).buffer()
+       await fs.writeFileSync(__path + '/tmp/battlefield.png', hasil)
+
+     res.sendFile(__path + '/tmp/battlefield.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
    }
 })
 
