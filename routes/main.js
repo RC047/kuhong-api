@@ -25,7 +25,7 @@ router.get('/api/tutorial', (req, res) => {
     res.sendFile(__path + '/views/tutorial.html')
 })
 
-router.get('/api/status', async(req, res) => {  
+router.get('/api/status', async (res) => {  
 
 var date = new Date
 var jam = date.getHours()
@@ -51,7 +51,7 @@ var port = process.env.PORT || 8080 || 5000 || 3000
             deskripsi: 'Hanya sekedar untuk belajar :)',
             instagram: 'rendycraft047',
             youtube: 'RC047',
-            donasi: 'https://saweria.co/RC047',
+            donasi: 'Biar Update tiap hari : https://saweria.co/RC047',
             apikey: 'Chat Owner: https://wa.me/62895337278647'
         }
     }
