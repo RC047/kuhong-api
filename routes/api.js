@@ -5341,8 +5341,8 @@ try {
 
 router.get('/phcomment', async (req, res, next) => {
   var img = req.query.img,
-      username = req.query.t1,
-      comment = req.query.t2,
+      username = req.query.username,
+      comment = req.query.comment,
       apikeyInput = req.query.apikey;
 
 try {
@@ -5500,29 +5500,6 @@ try {
    await fs.writeFileSync(__path + '/tmp/naruto.png', await getBuffer(data.data.url))
 
      res.sendFile(__path + '/tmp/naruto.png')
-     
-} catch (e) {
-     console.log(e)
-	res.sendFile(error)
-   }
-})
-
-router.get('/battlefield4', async (req, res, next) => {
-  var t1 = req.query.text,
-      t2 = req.query.text2, 
-      apikeyInput = req.query.apikey;
-
-try {
-  if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(!t1) return res.json(loghandler.nottext)
-  if(!t2) return res.json(loghandler.nottext2)
-
-
-     var hasil = await (await fetch(`https://videfikri.com/api/textmaker/bf4/?text1=${t1}&text2=${t2}`)).buffer()
-       await fs.writeFileSync(__path + '/tmp/battlefield.png', hasil)
-
-     res.sendFile(__path + '/tmp/battlefield.png')
      
 } catch (e) {
      console.log(e)
