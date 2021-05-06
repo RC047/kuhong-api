@@ -5062,7 +5062,8 @@ router.get('/readmore', async (req, res, next) => {
         res.json({
 		status: true,
 		creator: creator,
-		readmore: l + readMore + r
+		readmore: l + readMore + r,
+		note: `gunakan whatsapp/telegram agar teks terlihat baca selengkapnya.`
 	})
 })
 
