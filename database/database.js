@@ -18,5 +18,4 @@ database.then(() => {
 	console.log(color('Error : '+ e +'\n\nGagal connect ke database, \nCek configurasi database apakah Connection URL sudah benar','red'))
 	})
 
-
 module.exports = database
