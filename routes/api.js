@@ -4453,7 +4453,7 @@ try {
       await fs.writeFileSync(__path + '/tmp/toimg.png', img)
 
      res.sendFile(__path + '/tmp/toimg.png')
-   })
+
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
