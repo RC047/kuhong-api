@@ -2,6 +2,7 @@
 <!-- Mau Copas yaa Om? -->
 
 <html lang="en" dir="ltr">
+    <!-- Header -->
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,12 +18,33 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
-    <!-- add icon link -->
-  </head>
-  <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">
   <script>
   alert(`Update Template Cuyy!`)
   </script>
+  	<script>
+window['CboxReady'] = function (Cbox) {
+	Cbox('button', '6-852538-vNvLf8');
+}
+</script>
+<script src="https://static.cbox.ws/embed/1.js" async></script>
+<script type="text/javascript">
+    window.setTimeout("waktu()", 1000);
+    function waktu() {
+        if (document.getElementById("jam")){
+        var waktu = new Date();
+        setTimeout("waktu()", 1000);
+        document.getElementById("jam").innerHTML = waktu.getHours();
+        document.getElementById("menit").innerHTML = waktu.getMinutes();
+        document.getElementById("detik").innerHTML = waktu.getSeconds();
+        document.getElementById("tanggal").innerHTML = waktu.getDate();
+        document.getElementById("bulan").innerHTML = waktu.getMonth();
+        document.getElementById("tahun").innerHTML = waktu.getFullYear();
+          }
+    }
+    </script>
+    <!-- SideBar -->
+  </head>
+  <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;" onload="getdata();">
 <div class="menu-btn">
       <i class="fas fa-bars"></i>
     </div>
@@ -382,11 +404,60 @@
     <!-- box -->
     <div id="box">
       <div class="box">
-          <p style="color:white">Welcome To My Rest API!</p>
-          <p style="color:white">Kalo ada Bug/Error segera hubungi <a href="https://wa.me/62895337278647" style="color:red">Owner</a> Okeh!</p>
+          <p style="color:white">Total Features :</p><p style="color:white">214</p>
+          <p style="color:white">Total Visitors :</p><p class="visitor" id="visitor">Searching...</p>
+	  <p style="color:white">Your IP :</p><p class="ip" id="ip">Searching...</p>
+	  <p style="color:white">Port :</p><p class="visitor" id="visitor">Searching...</p>
+	  <p style="color:white">Time :</p><a id="jam">0</a><a> : </a><a id="menit">0</a><a> : </a><a id="detik">0</a>
+	  <p style="color:white">Uptime :</p><p class="uptime" id="uptime">00 : 00 : 00</p>
+	  <p style="color:white">Date :</p><a id="tanggal">1</a><a>/</a><a id="bulan">1</a><a>/</a><a id="tahun">2021</a>
+	  <p style="color:white">Ping :</p><p class="speed" id="speed">Testing...</p>
       </div>
       </div>
-
   </body>
+<script>
+  function getdata() {
+              var xhr = new XMLHttpRequest();
+              var url = 'https://api.countapi.xyz/hit/zahirr-web.herokuapp.com/visits';
+              xhr.onloadend = function() {
+              data = JSON.parse(this.responseText);
+              document.getElementById("visitor").textContent = data.value
+              };
+              xhr.open("GET", url, true);
+              xhr.send();
+              var xhr = new XMLHttpRequest();
+              var url = 'https://api.ipify.org/?format=json';
+              xhr.onloadend = function() {
+              data = JSON.parse(this.responseText);
+              document.getElementById("ip").textContent = data.ip
+              };
+              xhr.open("GET", url, true);
+              xhr.send();
+	      var xhr = new XMLHttpRequest();
+              var url = 'https://kuhong-api.herokuapp.com/api/status';
+              xhr.onloadend = function() {
+              data = JSON.parse(this.responseText);
+              document.getElementById("uptime").textContent = data.uptime
+              };
+              xhr.open("GET", url, true);
+              xhr.send();
+	      var xhr = new XMLHttpRequest();
+              var url = 'https://kuhong-api.herokuapp.com/api/status';
+              xhr.onloadend = function() {
+              data = JSON.parse(this.responseText);
+              document.getElementById("port").textContent = data.port
+              };
+              xhr.open("GET", url, true);
+              xhr.send();
+	      var xhr = new XMLHttpRequest();
+              var url = 'https://kuhong-api.herokuapp.com/api/status';
+              xhr.onloadend = function() {
+              data = JSON.parse(this.responseText);
+              document.getElementById("speed").textContent = data.speed
+              };
+              xhr.open("GET", url, true);
+              xhr.send();
+    }
+</script>
 </html>
 <!-- Credit Template By Zekais -->
