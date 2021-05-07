@@ -5,7 +5,7 @@ var express = require('express');
 var { generateApikey } = require(__path + '/lib/generator.js');
 var database = require(__path + '/database/database.js');
 
-
+try {
 var kuhong = database.get('RC047'); // jan diubah
 } catch (e) {
    console.log(e)
