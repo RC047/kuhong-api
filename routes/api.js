@@ -3136,7 +3136,6 @@ router.get('/ocr', async (req, res, next) => {
         if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-  try {
 	var enc = await imageToBase64(img)
 	var media = Buffer.from(enc, 'base64')
 	await fs.writeFileSync(__path + '/tmp/ocr.png', media)
@@ -3154,10 +3153,6 @@ router.get('/ocr', async (req, res, next) => {
           .catch(err => {
                 res.sendFile(error)
    })
-  } catch (e) {
-        console.log(e);
-      res.sendFile(error)
-   }
     } else res.sendFile(invalidKey)
 })
 
@@ -3165,7 +3160,6 @@ router.get('/removebg', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
         img = req.query.img;
 
-  try {
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}`) {      
         if (!img) return res.json(loghandler.notimg)
@@ -3186,10 +3180,6 @@ router.get('/removebg', async (req, res, next) => {
 
 	  res.sendFile(hasil)
     })
- } catch (e) {
-          console.log(e);
-      res.sendFile(error)
-   }
     } else res.sendFile(invalidKey)
 })
 
