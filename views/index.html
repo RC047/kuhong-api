@@ -32,37 +32,12 @@
         if (document.getElementById("jam")){
         var waktu = new Date();
         setTimeout("waktu()", 1000);
-        document.getElementById("jam").innerHTML = waktu.getHours();
-        document.getElementById("menit").innerHTML = waktu.getMinutes();
-        document.getElementById("detik").innerHTML = waktu.getSeconds();
+	document.getElementById("waktu").innerHTML = waktu.getHours() + waktu.getMinutes() + waktu.getSeconds();
           }
     }
     </script>
   </head>
-  <link rel="stylesheet/less" type="text/css" href="intro.less" />
-  <style type="text/css">
-    .preloaderstars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 9999;
-    }
-  </style>
-<script>
-    $(document).ready(function () {
-      $(".preloaderstars").delay(5000).fadeOut("slow");
-    });
-  </script>
   <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">
-  <!-- Intro -->
-  <div class="preloaderstars">
-  <div class="loaderstars">
-<span>
-< </span> kuhong <span> /> </span>
-</div>
-</div>
   <!-- Public Chat -->
   <script id="cid0020000281349794420" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 200px;height: 300px;">{"handle":"kuhongteams","arch":"js","styles":{"b":100,"c":"000000","d":"000000","l":"FFFFFF","m":"FFFFFF","p":"10","r":100,"pos":"br","cv":1,"cvbg":"FFFFFF","cvfg":"000000","cvw":200,"cvh":30,"ticker":1,"fwtickm":1}}</script>
   <!-- SideBar -->
@@ -78,7 +53,7 @@
         <p>Kuhong - Rest API</p>
       </center>
       <div class="menu">
-	<div class="item"><a><i class="fas fa-clock"></i>Time : </a><a id="browser_info"></a>
+	<div class="item"><a><i class="fas fa-clock"></i>Time : </a><a id="waktu">Searching...</a>
 	<div class="item"><a><i class="fas fa-code"></i>Documentation</a></div>
         <div class="item">
           <a class="sub-btn"><i class="fas fa-download"></i>Sosmed Menu<i class="fas fa-angle-right dropdown"></i></a>
