@@ -12,8 +12,11 @@ var kuhong = database.get('RC047'); // jan diubah
 
 var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab (dibutuhkan)
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
+
+// Apikey :
 var key = 'RendyTamvanzZ' // Apikey lu (dibutuhkan)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
+var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 
 // Required Modules :
 var ffmpeg = require('fluent-ffmpeg');
@@ -3170,14 +3173,16 @@ router.get('/ocr', async (req, res, next) => {
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+        if(req.query === undefined) return res.json(loghandler.notfound)
         if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
   try {
 	var enc = await imageToBase64(img)
 	var media = Buffer.from(enc, 'base64')
-          await recognize(media, { lang: 'eng+ind', oem: 1, psm: 3 })
+	await fs.writeFileSync(__path + '/tmp/ocr.png', media)
+	var path = fs.readFileSync(__path + '/tmp/ocr.png')
+          await recognize(path, { lang: 'eng+ind', oem: 1, psm: 3 })
             .then(hasil => {
 
              res.json({
@@ -3203,7 +3208,7 @@ router.get('/removebg', async (req, res, next) => {
   try {
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+        if(req.query === undefined) return res.json(loghandler.notfound)
         if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -3212,7 +3217,8 @@ router.get('/removebg', async (req, res, next) => {
         var ranj = getRandom('.png')
         var ranp = getRandom('.png')
 	  await fs.writeFileSync(__path + '/tmp/nobg.png', media)
-          await removeBackgroundFromImageFile({ path: __path + '/tmp/nobg.png', apiKey: "ku7CybpBNXacsoWMyeZeLGQq", size: 'auto', type: 'auto', ranp }).then(result => {
+	  var path = fs.readFileSync(__path + '/tmp/nobg.png')
+          await removeBackgroundFromImageFile({ path: path, apiKey: removebg_key, size: 'auto', type: 'auto', ranp }).then(result => {
             fs.unlinkSync(media)
             var hasil = Buffer.from(result.base64img, 'base64')
             fs.writeFileSync(ranp, hasil, (e) => {
@@ -4248,6 +4254,7 @@ router.get('/news', async (req, res) => {
      res.json({
   status: true,
   result: [
+ {
     jenis: 'cnn',
     type: ["nasional","internasional","ekonomi","olahraga","teknologi","hiburan","gaya-hidup"],
     example: 'https://kuhong-api.herokuapp.com/api/news/cnn?type=teknologi&apikey=APIKEY',
@@ -5285,13 +5292,14 @@ router.get('/upload', async (req, res, next) => {
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+        if(req.query === undefined) return res.json(loghandler.notfound)
         if (!file) return res.json({ message: `Masukan parameter file_url` })
 
  try {
        var encmedia = await imageToBase64(file)
        var media = Buffer.from(encmedia, 'base64')
-       var result = await upload(fs.readFileSync(media))
+       await fs.writeFileSync(__path + '/tmp/image.png', media)
+       var result = await upload(fs.readFileSync(__path + '/tmp/image.png'))
 
              res.json({
              	status : true,
@@ -5393,7 +5401,7 @@ router.get('/tggljadian', async (req, res, next) => {
         if(req.query === undefined) return res.json(loghandler.notfound)
 	if (!tggl) return res.json({ message: "Masukan parameter tanggal" })
 	if (!bln) return res.json({ message: "Masukan parameter bulan" })
-	if (!tahun) return res.json({ message: "Masukan parameter tahun" })
+	if (!thn) return res.json({ message: "Masukan parameter tahun" })
 	if (isNaN(tggl)) return res.json(loghandler.number)
 	if (isNaN(bln)) return res.json(loghandler.number)
 	if (isNaN(thn)) return res.json(loghandler.number)
