@@ -2,7 +2,7 @@ __path = process.cwd()
 
 // Database :
 var express = require('express');
-var { generateApikey } = require(__path + '/lib/apikey.js');
+var { generateApikey } = require(__path + '/lib/generator.js');
 var database = require(__path + '/database/database.js');
 
 try {
@@ -15,10 +15,14 @@ var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab (dibutu
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
 
 // Apikey :
-var key = await generateApikey // Apikey Gratis (otomatis)
+var key = await generateApikey // Apikey Gratis
 var premium_key = 'UCOK_QCcy94TkgBaWrjueRsg' // Apikey Premium (dibutuhkan)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
+console.log(`Free Apikey : ${key}`)
+console.log(`Premium Apikey : ${premium_key}`)
+console.log(`Xteam Apikey : ${xteam_key}`)
+console.log(`RemoveBG Apikey : ${removebg_key}`)
 
 // Required Modules :
 var ffmpeg = require('fluent-ffmpeg');
