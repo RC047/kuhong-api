@@ -55,9 +55,35 @@ body{
 }
 
 .side-bar .profile p{
-  color: #fff;
-  font-weight: 700;
-  margin-bottom: 10px;
+  position: relative;
+  font-size: 90px;
+  color: #000;
+  -webkit-text-stroke: 0.3vw #383d52;
+}
+
+.side-bar .profile p::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    color: #05FE01;
+    -webkit-text-stroke: 0vw #383d52;
+    border-right: 2px solid #05FE01;
+    overflow: hidden;
+    animation: animate 6s linear infinite;
+}
+
+@keyframes animate {
+    0%,10%,100%{
+
+    width: 0;
+    }
+    70%,90%{
+        width: 100%;
+    }
+}
 }
 
 .side-bar.active{
@@ -85,7 +111,7 @@ body{
 }
 
 .side-bar .menu .item a:hover{
-  background: #FF0000;
+  background: #05FE01;
   transition: 0.3s ease;
 }
 
@@ -138,42 +164,11 @@ body{
   padding: 50px;
 }
 
-/*.main h1{
+.main h1{
   color:  #fff;
   font-size: 50px;
   text-align: center;
   line-height: 80px;
-}*/
-
-.main h1 {
-    position: relative;
-    font-size: 90px;
-    color: #000;
-    -webkit-text-stroke: 0.3vw #383d52;
-}
-
-.main h1::before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    color: #05FE01;
-    -webkit-text-stroke: 0vw #383d52;
-    border-right: 2px solid #05FE01;
-    overflow: hidden;
-    animation: rendygans 6s linear infinite;
-}
-
-@keyframes rendygans {
-    0%,10%,100%{
-
-    width: 0;
-    }
-    70%,90%{
-        width: 100%;
-    }
 }
 
 a:link {
@@ -195,9 +190,9 @@ a:link {
 }
 .box {
   width: 150px;
-  height: 60px;
+  height: 40px;
   text-align: center;
-  font-size: 5px;
+  font-size: 10px;
   font-family: "Poppins", sans-serif;
   background-color: #000;
   border-radius: 5px;
