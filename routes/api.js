@@ -1380,7 +1380,7 @@ router.get('/muslim/niatshubuh', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.jon(loghandler.invalidKey)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}`) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatShubuh.json`))
         .then(response => response.json())
