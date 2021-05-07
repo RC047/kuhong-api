@@ -3596,6 +3596,7 @@ router.get('/memeindo', async (req, res, next) => {
 
          res.sendFile(__path + '/tmp/memeindo.png')
 
+    } else res.sendFile(invalidKey)
 })	
 
 router.get('/artinama', async (req, res, next) => {
