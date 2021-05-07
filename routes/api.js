@@ -896,8 +896,8 @@ router.get('/kisahnabi', async (req, res, next) => {
 		apikeyInput = req.query.apikey;
 
 		if (!apikeyInput) return res.json(loghandler.notparam)
-		if (apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-		Searchnabi(nabi)
+		if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}`) {
+		await Searchnabi(nabi)
 		.then(result => {
 			res.json({
 				creator: creator,
@@ -915,8 +915,8 @@ router.get('/infogempa', async (req, res, next) => {
 	        var apikeyInput = req.query.apikey
 
 		if (!apikeyInput) return res.json(loghandler.notparam)
-		if (apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-		Gempa()
+		if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}`) {
+		await Gempa()
 		.then(result => {
 			res.json({
 				creator: creator,
@@ -937,8 +937,8 @@ router.get('/hadits', async (req, res, next) => {
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}`) {
-    if (!kitab) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kitab"})
-    if (!nomor) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter nomor"})
+        if (!kitab) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kitab"})
+        if (!nomor) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter nomor"})
 
        fetch(encodeURI(`https://hadits-api-zhirrr.vercel.app/books/${kitab}/${nomor}`))
         .then(response => response.json())
