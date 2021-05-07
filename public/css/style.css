@@ -16,7 +16,7 @@ body{
 
 .side-bar{
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(30px);
+  backdrop-filter: blur(100px);
   width: 290px;
   height: 100vh;
   position: fixed;
