@@ -16,7 +16,7 @@ var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // In
 
 // Apikey :
 var owner_key = '04102006' // Apikey untuk Owner (Tester)
-var free_key = await generateApikey // Apikey Gratis
+var free_key = generateApikey // Apikey Gratis
 var premium_key_month = 'UCOK_QCcy94TkgBaWrjueRsg' // Apikey Premium Perbulan (dibutuhkan)
 var premium_key_year = 'UCOK_QCcy94TkgBaWrjueRsg' // Apikey Premium Pertahun (dibutuhkan)
 var custom_key_month = 'customKey' // Apikey Custom Perbulan (opsional)
@@ -265,6 +265,14 @@ var invalidKey = __path + '/views/invalidKey.html' // Jika Apikey Invalid
             randomlagi += arr[Math.floor(Math.random() * arr.length)];
         }
         var randomTextNumber = 'kuhong-api-storage/'+random+randomlagi;
+
+router.get('/getapikey', async (req, res, next) => {
+
+   res.json({
+	status: true,
+	creator: creator,
+	free_apikey: free_key
+    })
 
 router.get('/cekapikey', async (req, res, next) => {
     var apikeyInput = req.query.apikey;
