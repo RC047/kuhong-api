@@ -22,6 +22,18 @@
     <script>
   alert(`Update TextPro Menu & Photooxy Menu!`)
     </script>
+    <script type="text/javascript">
+    window.setTimeout("waktu()", 1000);
+    function waktu() {
+        if (document.getElementById("jam")){
+        var waktu = new Date();
+        setTimeout("waktu()", 1000);
+        document.getElementById("jam").innerHTML = waktu.getHours();
+        document.getElementById("menit").innerHTML = waktu.getMinutes();
+        document.getElementById("detik").innerHTML = waktu.getSeconds();
+          }
+    }
+    </script>
   </head>
   <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">
   <!-- Public Chat -->
@@ -39,7 +51,8 @@
         <p>Kuhong - Rest API</p>
       </center>
       <div class="menu">
-	<div class="item"><a href="#"><i class="fas fa-code"></i>Documentation</a></div>
+	<div class="item"><a><i class="fas fa-clock"></i>Time : </a><a id="jam">0</a><a> : </a><a id="menit">0</a><a> : </a><a id="detik">0</a></div>
+	<div class="item"><a><i class="fas fa-code"></i>Documentation</a></div>
         <div class="item">
           <a class="sub-btn"><i class="fas fa-download"></i>Sosmed Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
@@ -354,6 +367,9 @@
 	    <a href="api/removebg?apikey=APIKEY&img=https://i.ibb.co/frhZmyZ/pp.jpg" class="sub-item">Remove BG</a>
           </div>
         </div>
+	<br>
+	    <div class="item"><a><i class="fas fa-fw fa-info"></i>Information</a></div>
+	    <div class="item"><a href="api/cekapikey?apikey=APIKEY"><i class="fas fa-key"></i>Cek Apikey</a></div>
 	    <div class="item"><a href="api/tutorial"><i class="fas fa-book"></i>Tutorial</a></div>
 	    <div class="item"><a href="api/status"><i class="fas fa-battery-half"></i>API Status</a></div>
 	    <div class="item"><a href="https://saweria.co/RC047"><i class="fas fa-donate"></i>Donate</a></div>
@@ -363,6 +379,7 @@
 	  <a href="api/game/pingpong" class="sub-item">Ping Pong (Android Only)</a>
           <a href="api/game/tebakangka" class="sub-item">Tebak Angka</a>
           <a href="api/game/suitjawa" class="sub-item">Suit Jawa</a>
+	  <a href="api/game/tetris" class="sub-item">Tetris (PC Only)</a>
           </div>
         </div>
 	    <div class="item">
@@ -376,7 +393,7 @@
           </div>
         </div>
 	<div class="item">
-        <a class="sub-btn"><i class="fas fa-key"></i>Order Apikey<i class="fas fa-angle-right dropdown"></i></a>
+        <a class="sub-btn"><i class="fas fa-shopping-cart"></i></i>Order Apikey<i class="fas fa-angle-right dropdown"></i></a>
         <div class="sub-menu">
 	  <a href="https://wa.me/62895337278647?text=Bang,,%20saya%20minat%20beli%20Apikey%20Kuhong%20API%20yang%2010K" class="sub-item">10K / Month</a>
           <a href="https://wa.me/62895337278647?text=Bang,,%20saya%20minat%20beli%20Apikey%20Kuhong%20API%20yang%2025K" class="sub-item">25K / Year</a>
