@@ -2,6 +2,7 @@ __path = process.cwd()
 
 // Database :
 var express = require('express');
+var { generateApikey } = require(__path + '/lib/apikey.js');
 var database = require(__path + '/database/database.js');
 
 try {
@@ -14,7 +15,8 @@ var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab (dibutu
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
 
 // Apikey :
-var key = 'RendyTamvanzZ' // Apikey lu (dibutuhkan)
+var key = await generateApikey // Apikey Gratis (otomatis)
+var premium_key = 'UCOK_QCcy94TkgBaWrjueRsg' // Apikey Premium (dibutuhkan)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 
@@ -3239,7 +3241,7 @@ router.get('/simsimi', async (req, res, next) => {
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+        if(req.query === undefined) return res.json(loghandler.notfound)
         if (!kata) return res.json(loghandler.notkata)
 
  try {
@@ -4367,6 +4369,8 @@ router.get('/hd', async (req, res) => {
 try {
      var encmedia = await imageToBase64(img)
      var media = Buffer.from(encmedia, 'base64')
+     await fs.writeFileSync(__path + '/tmp/hd_tmp.png', media)
+     var path = fs.readFileSync(__path + '/tmp/hd_tmp.png')
      var body = new FormData
          body.append('image', media, 'image')
          var result = await fetch('http://max-image-resolution-enhancer.codait-prod-41208c73af8fca213512856c7a09db52-0000.us-east.containers.appdomain.cloud/model/predict', {
