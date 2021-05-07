@@ -288,7 +288,7 @@ router.get('/cekapikey', async (req, res, next) => {
 	if(apikeyInput == `${custom_key_month}`) type = 'Premium (Custom Apikey)'
 	if(apikeyInput == `${premium_key_year}`) type = 'Premium'
 	if(apikeyInput == `${custom_key_year}`) type = 'Premium (Custom Apikey)'
-    if apikeyInput == `${free_key}`) limit = 'Unlimited! Tapi Apikey diganti setiap Update Website'
+        if(apikeyInput == `${free_key}`) limit = 'Unlimited! Tapi Apikey diganti setiap Update Website'
 	if(apikeyInput == `${owner_key}`) limit = 'Unlimited!'
 	if(apikeyInput == `${premium_key_month}`) limit = 'Unlimited!'
 	if(apikeyInput == `${custom_key_month}`) limit = 'Unlimited!'
