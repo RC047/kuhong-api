@@ -1,18 +1,19 @@
 __path = process.cwd()
 
-// Jan asal ubah ngab
+// Database :
 var express = require('express');
 var database = require(__path + '/database/database.js');
 
 try {
 var kuhong = database.get('RC047'); // jan diubah
 } catch (e) {
-   console.log(e) // boleh diubah
+   console.log(e)
 }
 
-var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab
+var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab (dibutuhkan)
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
-var key = 'RendyTamvanzZ' // Apikey untuk Publik
+var key = 'RendyTamvanzZ' // Apikey lu (dibutuhkan)
+var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 
 // Required Modules :
 var ffmpeg = require('fluent-ffmpeg');
@@ -4246,42 +4247,43 @@ router.get('/news', async (req, res) => {
 
      res.json({
   status: true,
-  result:{
+  result: [
     jenis: 'cnn',
     type: ["nasional","internasional","ekonomi","olahraga","teknologi","hiburan","gaya-hidup"],
     example: 'https://kuhong-api.herokuapp.com/api/news/cnn?type=teknologi&apikey=APIKEY',
     author: creator
-},
-  result:{
+  },
+  {
     jenis: 'cnbc',
     type: ["market","investment","news","entrepreneur","syariah","tech","lifestyle"],
     example: 'https://kuhong-api.herokuapp.com/api/news/cnbc?type=syariah&apikey=APIKEY',
     author: creator
-},
-  result:{
+  },
+  {
     jenis: 'republika',
     type: ["news","nusantara","khazanah","islam-digest","internasional","ekonomi","sepakbola","leisure"],
     example: 'https://kuhong-api.herokuapp.com/api/news/republika?type=ekonomi&apikey=APIKEY',
     author: creator
-},
-  result:{
+  },
+  {
     jenis: 'tempo',
     type: ["nasional","bisnis","metro","dunia","bola","sport","cantik","tekno","otomotif","nusantara"],
     example: 'https://kuhong-api.herokuapp.com/api/news/tempo?type=bisnis&apikey=APIKEY',
     author: creator
-},
-  result:{
+  },
+  {
     jenis: 'antara',
     type: ["terkini","top-news","politik","hukum","ekonomi","metro","sepakbola","olahraga","humaniora","lifestyle","hiburan","dunia","infografik","tekno","otomotif","warta-bumi","rilis-pers"],
     example: 'https://kuhong-api.herokuapp.com/api/news/tempo?type=olahraga&apikey=APIKEY',
     author: creator
-},
-  result:{
+  },
+  {
     jenis: 'kumparan',
     type: 'gak ada',
     example: 'https://kuhong-api.herokuapp.com/api/news/kumparan?&apikey=APIKEY',
     author: creator
-}
+  }
+]
      })
 })
 
@@ -4463,42 +4465,22 @@ router.get('/ttp2', async (req, res, next) => {
 
 router.get('/futureneon', async (req, res, next) => {
         var text = req.query.text,
-           apikeyInput = req.query.apikey;
-        
-	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
-        if (!text) return res.json(loghandler.nottext)
+	    apikeyInput = req.query.apikey;
 
- try {
-       request.post({
-            url: "https://textpro.me/create-a-futuristic-technology-neon-light-text-effect-1006.html",
-            headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `text_1=${text}&login=OK`,
-                }, (e,r,b) => {
-                if (!e) {
-                 var $ = cheerio.load(b)
-                 $('.thumbnail').find('img').each(function() {
-	             h = $(this).attr("src")
-                 var result = 'https://textpro.me/save-images/'+h
-                     fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=93f5c8966cfaf3ca19051ee9f85c14f3&image=${result}&name=${randomTextNumber}`))
-                       .then(response => response.json())
-                       .then(data => {
-                          res.json({
-                          	status: true,
-                          	creator : creator,
-                          	result : data.data.url
-                             })
-                         })
-                      })
-                    }
-                 })
-  } catch (e) {
-          console.log(e);
-    res.sendFile(error)
-       }
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!text) return res.json(loghandler.nottext)
+
+     var hasil = await getBuffer(`https://api.xteam.xyz/textpro/neon?text=${text}&APIKEY=${xteam_key}`)
+       await fs.writeFileSync(__path + '/tmp/futureneon.png', hasil)
+
+         res.sendFile(__path + '/tmp/futureneon.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
 })
 
 router.get('/spotify', async (req, res, next) => {
@@ -5442,13 +5424,13 @@ router.get('/zodiak', async (req, res, next) => {
 	if (!nama) return res.json(loghandler.notnama)
 	if (!tggl) return res.json({ message: "Masukan parameter tanggal" })
 	if (!bln) return res.json({ message: "Masukan parameter bulan" })
-	if (!tahun) return res.json({ message: "Masukan parameter tahun" })
+	if (!thn) return res.json({ message: "Masukan parameter tahun" })
 	if (isNaN(tggl)) return res.json(loghandler.number)
 	if (isNaN(bln)) return res.json(loghandler.number)
 	if (isNaN(thn)) return res.json(loghandler.number)
 
  try {
-       var json = await (await fetch(`https://arugaz.herokuapp.com/api/getzodiak?nama=${nama}&tgl-bln-thn=` + tggl + '-' + bln + '-' + thn)).json()
+       var json = await (await fetch(`https://arugaz.herokuapp.com/api/getzodiak?nama=${nama}&tgl-bln-thn=${tggl}-${bln}-${thn}`)).json()
              res.json(json)
 
 } catch (e) {
@@ -5679,6 +5661,46 @@ try {
 
      res.sendFile(__path + '/tmp/naruto.png')
      
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/cloud', async (req, res, next) => {
+        var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!text) return res.json(loghandler.nottext)
+
+     var hasil = await getBuffer(`https://api.xteam.xyz/textpro/cloudsky?text=${text}&APIKEY=${xteam_key}`)
+       await fs.writeFileSync(__path + '/tmp/cloud.png', hasil)
+
+         res.sendFile(__path + '/tmp/cloud.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/jokerlogo', async (req, res, next) => {
+        var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!text) return res.json(loghandler.nottext)
+
+     var hasil = await getBuffer(`https://api.xteam.xyz/textpro/jokerlogo?text=${text}&APIKEY=${xteam_key}`)
+       await fs.writeFileSync(__path + '/tmp/jokerlogo.png', hasil)
+
+         res.sendFile(__path + '/tmp/jokerlogo.png')
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
