@@ -23,7 +23,9 @@
   alert(`Add Editor Menu!`)
     </script>
     <script>
-  alert(`Apikey sekarang tidak gratis :)`)
+  alert(`Apikey sekarang tidak gratis :)
+
+Minat? Silahkan Beli Apikey pada nomor yg tertera didalam web ini.`)
     </script>
     <script type="text/javascript">
     window.setTimeout("waktu()", 1000);
@@ -36,6 +38,12 @@
         document.getElementById("detik").innerHTML = waktu.getSeconds();
           }
     }
+    </script>
+    <script type="text/javascript">
+    var axios = require('axios');
+
+       axios.get('https://kuhong-api.herokuapp.com/api/quotez').then((res) => {
+       	document.getElementById("quote").innerHTML = res.data.result
     </script>
   </head>
   <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">
@@ -421,16 +429,24 @@
 	<div class="item">
         <a class="sub-btn"><i class="fas fa-shopping-cart"></i></i>Order Apikey<i class="fas fa-angle-right dropdown"></i></a>
         <div class="sub-menu">
-	  <a href="https://wa.me/62895337278647?text=Bang,,%20saya%20minat%20beli%20Apikey%20Kuhong%20API%20yang%2010K" class="sub-item">10K / Month</a>
+	    <a href="https://wa.me/62895337278647?text=Bang,,%20saya%20minat%20beli%20Apikey%20Kuhong%20API%20yang%2010K" class="sub-item">10K / Month</a>
           <a href="https://wa.me/62895337278647?text=Bang,,%20saya%20minat%20beli%20Apikey%20Kuhong%20API%20yang%2025K" class="sub-item">25K / Year</a>
           </div>
         </div>
       </div>
     </div>
     <section class="main">
-      <h1>Ikan hiu makan tomat<br>Iri bilang bos!</h1>
+      <h1 id="quote">...</h1>
     </section>
-
+    <!-- NotifBar -->
+    <div id="box">
+      <div class="box">
+      <div class="close-btn">
+        <i class="fas fa-times"></i>
+      </div>
+          <p style="color:white">Ada Bug/Error? segera hubungi <a href="https://wa.me/62895337278647" style="color:red">Owner</a> Okeh!</p>
+      </div>
+      </div>
     <script type="text/javascript">
     $(document).ready(function(){
       // jquery for toggle sub menus
@@ -451,16 +467,6 @@
       });
     });
     </script>
-    <!-- NotifBar -->
-    <div id="box">
-      <div class="box">
-      <div class="close-btn">
-        <i class="fas fa-times"></i>
-      </div>
-          <p style="color:white">Ada Bug/Error? segera hubungi <a href="https://wa.me/62895337278647" style="color:red">Owner</a> Okeh!</p>
-      </div>
-      </div>
-
   </body>
 </html>
 <!-- Credit Template By Zekais -->
