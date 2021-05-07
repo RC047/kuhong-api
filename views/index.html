@@ -34,6 +34,16 @@
           }
     }
     </script>
+    <script type="text/javascript">
+  var axios = require('axios');
+    axios.get(`https://kuhong-api.herokuapp.com/api/getapikey`).then((res) => {
+
+  alert(`Free Apikey : ${res.data.free_key}
+
+Note: Apikey akan terus diganti setiap update website!
+Beli premium agar apikey tidak diganti terus :)`)
+}
+    </script>
   </head>
   <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">
   <!-- Public Chat -->
