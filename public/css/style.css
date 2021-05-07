@@ -44,7 +44,7 @@ body{
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #1a1630;
 }
 
 .side-bar .profile img{
@@ -162,7 +162,7 @@ a:link {
   position: absolute;
 }
 .box {
-  width: 200px;
+  width: 150px;
   height: 125px;
   text-align: center;
   font-size: 15px;
