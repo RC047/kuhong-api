@@ -450,7 +450,7 @@ router.get('/short/tiny', async (req, res, next) => {
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}`) {
-     if (!url) return res.json(loghandler.noturl)
+        if (!url) return res.json(loghandler.noturl)
 
      request(`https://tinyurl.com/api-create.php?url=${url}`, function (error, response, body) {
          try {
@@ -476,7 +476,7 @@ router.get('/base', async (req, res, next) => {
 		decode = req.query.decode,
 		apikeyInput = req.query.apikey;
 		if (!apikeyInput) return res.json(loghandler.notparam)
-		if (apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+		if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}`) {
 		if (!type) return res.json({status: false, creator, code: 404, message: 'Masukan parameter type, type yang tersedia : base4 , base32'})
 		if (type == 'base64' && encode){
 				Base("b64enc", encode)
