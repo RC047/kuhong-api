@@ -15,7 +15,7 @@ var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab (dibutu
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
 
 // Apikey :
-var key = 'RendyTamvanzZ047' // Apikeymu (dibutuhkan)
+var key = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikeymu (dibutuhkan)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 console.log(`Checking Apikey Data...`)
@@ -6005,6 +6005,26 @@ try {
        await fs.writeFileSync(__path + '/tmp/sb_burn.png', hasil)
 
          res.sendFile(__path + '/tmp/sb_burn.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/ttp3', async (req, res, next) => {
+        var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!text) return res.json(loghandler.nottext)
+
+     var hasil = await getBuffer(`https://leyscoders-api.herokuapp.com/api/textto-image?text=${text}`)
+       await fs.writeFileSync(__path + '/tmp/ttp3.png', hasil)
+
+         res.sendFile(__path + '/tmp/ttp3.png')
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
