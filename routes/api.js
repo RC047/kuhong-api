@@ -5291,7 +5291,7 @@ router.get('/upload', async (req, res, next) => {
  try {
        var encmedia = await imageToBase64(file)
        var media = Buffer.from(encmedia, 'base64')
-       var result = await upload(media)
+       var result = await upload(fs.readFileSync(media))
 
              res.json({
              	status : true,
@@ -5345,7 +5345,7 @@ router.get('/faktaunik', async (req, res, next) => {
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+        if(req.query === undefined) return res.json(loghandler.notfound)
 
  try {
        var json = await (await fetch(`https://videfikri.com/api/fakta/`)).json()
@@ -5366,7 +5366,7 @@ router.get('/artimimpi', async (req, res, next) => {
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+        if(req.query === undefined) return res.json(loghandler.notfound)
 	if (!mimpi) return res.json({ message: "Masukan parameter mimpi" })
 
  try {
@@ -5390,7 +5390,7 @@ router.get('/tggljadian', async (req, res, next) => {
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+        if(req.query === undefined) return res.json(loghandler.notfound)
 	if (!tggl) return res.json({ message: "Masukan parameter tanggal" })
 	if (!bln) return res.json({ message: "Masukan parameter bulan" })
 	if (!tahun) return res.json({ message: "Masukan parameter tahun" })
@@ -5701,6 +5701,172 @@ try {
        await fs.writeFileSync(__path + '/tmp/jokerlogo.png', hasil)
 
          res.sendFile(__path + '/tmp/jokerlogo.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/lionlogo', async (req, res, next) => {
+        var t1 = req.query.text,
+	    t2 = req.query.text2,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!t1) return res.json(loghandler.nottext)
+  if (!t2) return res.json(loghandler.nottext2)
+
+     var hasil = await getBuffer(`https://api.xteam.xyz/textpro/lionlogomascot?text=${t1}&text2=${t2}&APIKEY=${xteam_key}`)
+       await fs.writeFileSync(__path + '/tmp/lionlogo.png', hasil)
+
+         res.sendFile(__path + '/tmp/lionlogo.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/ninjalogo', async (req, res, next) => {
+        var t1 = req.query.text,
+	    t2 = req.query.text2,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!t1) return res.json(loghandler.nottext)
+  if (!t2) return res.json(loghandler.nottext2)
+
+     var hasil = await getBuffer(`https://api.xteam.xyz/textpro/ninjalogo?text=${t1}&text2=${t2}&APIKEY=${xteam_key}`)
+       await fs.writeFileSync(__path + '/tmp/ninjalogo.png', hasil)
+
+         res.sendFile(__path + '/tmp/ninjalogo.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/blood', async (req, res, next) => {
+        var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!text) return res.json(loghandler.nottext)
+
+     var hasil = await getBuffer(`https://api.xteam.xyz/textpro/bloodontheroastedglass?text=${text}&APIKEY=${xteam_key}`)
+       await fs.writeFileSync(__path + '/tmp/blood.png', hasil)
+
+         res.sendFile(__path + '/tmp/blood.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/lava', async (req, res, next) => {
+        var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!text) return res.json(loghandler.nottext)
+
+     var hasil = await getBuffer(`https://api.xteam.xyz/textpro/lava?text=${text}&APIKEY=${xteam_key}`)
+       await fs.writeFileSync(__path + '/tmp/lava.png', hasil)
+
+         res.sendFile(__path + '/tmp/lava.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/1917', async (req, res, next) => {
+        var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!text) return res.json(loghandler.nottext)
+
+     var hasil = await getBuffer(`https://api.xteam.xyz/textpro/1917?text=${text}&APIKEY=${xteam_key}`)
+       await fs.writeFileSync(__path + '/tmp/1917.png', hasil)
+
+         res.sendFile(__path + '/tmp/1917.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/skeleton', async (req, res, next) => {
+        var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!text) return res.json(loghandler.nottext)
+
+     var hasil = await getBuffer(`https://api.xteam.xyz/textpro/skeleton?text=${text}&APIKEY=${xteam_key}`)
+       await fs.writeFileSync(__path + '/tmp/skeleton.png', hasil)
+
+         res.sendFile(__path + '/tmp/skeleton.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/crossfire', async (req, res, next) => {
+        var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!text) return res.json(loghandler.nottext)
+
+     var hasil = await getBuffer(`https://videfikri.com/api/textmaker/crossfirelogo/?text=${text}`)
+       await fs.writeFileSync(__path + '/tmp/crossfire.png', hasil)
+
+         res.sendFile(__path + '/tmp/crossfire.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/gtaposter', async (req, res, next) => {
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`https://videfikri.com/api/textmaker/gtavposter/?urlgbr=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/gtaposter.png', hasil)
+
+     res.sendFile(__path + '/tmp/gtaposter.png')
+     
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
