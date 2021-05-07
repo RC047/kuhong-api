@@ -19,11 +19,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
     <script>
-  alert(`Update Template Cuyy!`)
+  alert(`Update MiniGames & Add Chatting!`)
     </script>
-    <!-- SideBar -->
   </head>
   <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">
+  <!-- Chat -->
+  <script id="cid0020000277661495562" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 256px;height: 300px;">{"handle":"kuhong-api","arch":"js","styles":{"a":"e0e0e0","b":100,"c":"000000","d":"000000","k":"e0e0e0","l":"e0e0e0","m":"e0e0e0","p":"10","q":"e0e0e0","r":100,"pos":"br","cv":1,"cvfnt":"Consolas, monaco, monospace, sans-serif","cvfntsz":"12px","cvbg":"e0e0e0","cvfg":"000000","cvw":256,"cvh":31,"ticker":1,"fwtickm":1}}
+  </script>
+  <!-- SideBar -->
 <div class="menu-btn">
       <i class="fas fa-bars"></i>
     </div>
@@ -378,12 +381,12 @@
       // jquery for expand and collapse the sidebar
       $('.menu-btn').click(function(){
         $('.side-bar').addClass('active');
-        $('.menu-btn').css("visibility", "visible");
+        $('.menu-btn').css("visibility", "hidden");
       });
 
       $('.close-btn').click(function(){
         $('.side-bar').removeClass('active');
-        $('.menu-btn').css("visibility", "hidden");
+        $('.menu-btn').css("visibility", "visible");
       });
     });
     </script>
