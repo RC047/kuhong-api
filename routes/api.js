@@ -3217,6 +3217,7 @@ router.get('/removebg', async (req, res, next) => {
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
 	var media = await imageToBase64(img)
+	var ranp = getRandom('.png')
           await removeBackgroundFromImageFile({ path: media, apiKey: removebg_key, size: 'auto', type: 'auto', ranp }).then(result => {
             var hasil = Buffer.from(result.base64img, 'base64')
             fs.writeFileSync(ranp, hasil, (e) => {
