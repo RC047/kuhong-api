@@ -15,12 +15,21 @@ var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab (dibutu
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
 
 // Apikey :
-var key = await generateApikey // Apikey Gratis
-var premium_key = 'UCOK_QCcy94TkgBaWrjueRsg' // Apikey Premium (dibutuhkan)
+var owner_key = '04102006' // Apikey untuk Owner (Tester)
+var free_key = await generateApikey // Apikey Gratis
+var premium_key_month = 'UCOK_QCcy94TkgBaWrjueRsg' // Apikey Premium Perbulan (dibutuhkan)
+var premium_key_year = 'UCOK_QCcy94TkgBaWrjueRsg' // Apikey Premium Pertahun (dibutuhkan)
+var custom_key_month = 'customKey' // Apikey Custom Perbulan (opsional)
+var custom_key_month = 'customKey' // Apikey Custom Pertahun (opsional)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
-console.log(`Free Apikey : ${key}`)
-console.log(`Premium Apikey : ${premium_key}`)
+console.log(`LIST APIKEY :`)
+console.log(`Owner Apikey : ${owner_key}`)
+console.log(`Free Apikey : ${free_key}`)
+console.log(`Premium Apikey Perbulan : ${premium_key_month}`)
+console.log(`Custom Apikey Perbulan : ${custom_key_month}`)
+console.log(`Premium Apikey Pertahun : ${premium_key_year}`)
+console.log(`Custom Apikey Pertahun : ${custom_key_year}`)
 console.log(`Xteam Apikey : ${xteam_key}`)
 console.log(`RemoveBG Apikey : ${removebg_key}`)
 
@@ -261,21 +270,35 @@ router.get('/cekapikey', async (req, res, next) => {
     var apikeyInput = req.query.apikey;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
+	var status = 'active'
 	var limit = '-'
-    if(apikeyInput == `${key}`) limit = 'Unlimited!'
+	var expired = '-'
+	var type = '-'
+	if(apikeyInput == `${free_key}`) type = 'Free'
+	if(apikeyInput == `${premium_key_month}`) type = 'Premium'
+	if(apikeyInput == `${custom_key_month}`) type = 'Premium (Custom Apikey)'
+	if(apikeyInput == `${premium_key_year}`) type = 'Premium'
+	if(apikeyInput == `${custom_key_year}`) type = 'Premium (Custom Apikey)'
+    if apikeyInput == `${free_key}`) limit = 'Unlimited! Tapi Apikey diganti setiap Update Website'
+	if(apikeyInput == `${owner_key}`) limit = 'Unlimited!'
+	if(apikeyInput == `${premium_key_month}`) limit = 'Unlimited!'
+	if(apikeyInput == `${custom_key_month}`) limit = 'Unlimited!'
+	if(apikeyInput == `${premium_key_year}`) limit = 'Unlimited!'
+	if(apikeyInput == `${custom_key_year}`) limit = 'Unlimited!'
+	if(apikeyInput == `${free_key}`) expired = 'Setiap Update Website'
+	if(apikeyInput == `${premium_key_month}`) expired = '1 Bulan'
+	if(apikeyInput == `${custom_key_month}`) limit = '1 Bulan'
 
-try {
 	res.json({
-               status : `active`,
-                apikey : apikeyInput,
-                limit : limit
+                status: status,
+                apikey: apikeyInput,
+				type: type,
+                limit: limit,
+				expired: expired
             })
  
-} catch (e) {
-	res.sendFile(error)
-   }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/tiktok', async (req, res, next) => {
@@ -283,9 +306,8 @@ router.get('/tiktok', async (req, res, next) => {
         url = req.query.url
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
-        if (!url) return res.json(loghandler.noturl)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
+    if (!url) return res.json(loghandler.noturl)
 
      TikTokScraper.getVideoMeta(url, options)
          .then(vid => {
@@ -299,6 +321,7 @@ router.get('/tiktok', async (req, res, next) => {
          .catch(e => {
              res.json(loghandler.invalidLink)
          })
+	} else res.sendFile(invalidKey)
 })
 
 router.get('/tiktokstalk', async (req, res, next) => {
@@ -306,8 +329,7 @@ router.get('/tiktokstalk', async (req, res, next) => {
         username = req.query.username
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!username) return res.json(loghandler.notusername)
 
 
@@ -326,14 +348,14 @@ router.get('/tiktokstalk', async (req, res, next) => {
                  message : "Username tidak ditemukan!"
              })
          })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/randomquote', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/randomquotes`))
         .then(response => response.json())
@@ -347,16 +369,15 @@ router.get('/randomquote', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/infonpm', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             query = req.query.query
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!query) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter query"})
 
        fetch(encodeURI(`https://registry.npmjs.org/${query}`))
@@ -373,14 +394,14 @@ router.get('/infonpm', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/jadwal-bioskop', (req, res) => {
 var apikeyInput = req.query.apikey
 
 if(!apikeyInput) return res.json(loghandler.notparam)
-if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 const cheerio = require('cheerio')
 
 axios.get('https://jadwalnonton.com/now-playing')
@@ -412,16 +433,15 @@ axios.get('https://jadwalnonton.com/now-playing')
      result: result
      })
   })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/short/tiny', async (req, res, next) => {
     var apikeyInput = req.query.apikey,
         url = req.query.url
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
      if (!url) return res.json(loghandler.noturl)
 
      request(`https://tinyurl.com/api-create.php?url=${url}`, function (error, response, body) {
@@ -439,6 +459,7 @@ router.get('/short/tiny', async (req, res, next) => {
              res.json(loghandler.invalidLink)
          }
      })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/base', async (req, res, next) => {
@@ -494,6 +515,7 @@ router.get('/base', async (req, res, next) => {
 			} else {
 				res.sendFile(error)
 			}
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/nulis', async (req, res, next) => {
@@ -501,8 +523,7 @@ router.get('/nulis', async (req, res, next) => {
             text = req.query.text
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!text) return res.json(loghandler.nottext)
 
    try {
@@ -533,6 +554,7 @@ router.get('/nulis', async (req, res, next) => {
       console.log(e);
 	 res.json(loghandler.erorr)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/nulis2', async (req, res, next) => {
@@ -540,8 +562,7 @@ router.get('/nulis2', async (req, res, next) => {
             text = req.query.text
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!text) return res.json(loghandler.nottext)
 
    try {
@@ -597,6 +618,7 @@ router.get('/nulis2', async (req, res, next) => {
       console.log(e);
 	 res.json(loghandler.erorr)
            }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/textmaker', async (req, res, next) => {
@@ -607,8 +629,7 @@ router.get('/textmaker', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'glitch' && theme != 'google-suggestion') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -681,6 +702,7 @@ router.get('/textmaker', async (req, res, next) => {
         } else {
             res.sendFile(error)
         }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/textmaker/game', async (req, res, next) => {
@@ -691,8 +713,7 @@ router.get('/textmaker/game', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'pubg' && theme != 'battlefield') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -771,6 +792,7 @@ router.get('/textmaker/game', async (req, res, next) => {
         } else {
             res.sendFile(error)
         }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/textmaker/senja', async (req, res, next) => {
@@ -781,8 +803,7 @@ router.get('/textmaker/senja', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'coffee-cup' && theme != 'coffee-cup2') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -859,6 +880,7 @@ router.get('/textmaker/senja', async (req, res, next) => {
         } else {
             res.sendFile(error)
         }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/kisahnabi', async (req, res, next) => {
@@ -878,6 +900,7 @@ router.get('/kisahnabi', async (req, res, next) => {
 			console.log('Error :', color(e, 'red'))
 			res.sendFile(error)
 		})
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/infogempa', async (req, res, next) => {
@@ -896,6 +919,7 @@ router.get('/infogempa', async (req, res, next) => {
 			console.log('Error :', color(e, 'red'))
 			res.sendFile(error)
 		})
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/hadits', async (req, res, next) => {
@@ -904,8 +928,7 @@ router.get('/hadits', async (req, res, next) => {
             nomor = req.query.nomor
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!kitab) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kitab"})
     if (!nomor) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter nomor"})
 
@@ -928,8 +951,7 @@ router.get('/quran', async (req, res, next) => {
             ayat = req.query.ayat
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!surah) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter surah"})
     if (!ayat) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter ayat"})
 
@@ -944,16 +966,15 @@ router.get('/quran', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/fb', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             url = req.query.url
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!url) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter url"})
 
        fetch(encodeURI(`https://fb-api-zhirrr.vercel.app/?url=${url}`))
@@ -965,8 +986,8 @@ router.get('/fb', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/textmaker/metallic', async (req, res, next) => {
         var theme = req.query.theme,
@@ -976,8 +997,7 @@ router.get('/textmaker/metallic', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'neon' && theme != 'glow') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -1054,6 +1074,7 @@ router.get('/textmaker/metallic', async (req, res, next) => {
         } else {
             res.sendFile(error)
         }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/textmaker/alam', async (req, res, next) => {
@@ -1064,8 +1085,7 @@ router.get('/textmaker/alam', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'summer' && theme != 'flower') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -1142,6 +1162,7 @@ router.get('/textmaker/alam', async (req, res, next) => {
         } else {
             res.sendFile(error)
         }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/flaming', async (req, res, next) => {
@@ -1149,8 +1170,7 @@ router.get('/flaming', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!text) return res.json(loghandler.nottext)
 
   try {
@@ -1163,6 +1183,7 @@ router.get('/flaming', async (req, res, next) => {
        console.log(e);
      res.sendFile(error)
        }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/neon', async (req, res, next) => {
@@ -1170,8 +1191,7 @@ router.get('/neon', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!text) return res.json(loghandler.nottext)
 
   try {
@@ -1184,14 +1204,14 @@ router.get('/neon', async (req, res, next) => {
        console.log(e);
      res.sendFile(error)
        }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/muslim/tahlil', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataTahlil.json`))
         .then(response => response.json())
@@ -1204,15 +1224,14 @@ router.get('/muslim/tahlil', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/muslim/wirid', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataWirid.json`))
         .then(response => response.json())
@@ -1225,15 +1244,14 @@ router.get('/muslim/wirid', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/muslim/ayatkursi', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataAyatKursi.json`))
         .then(response => response.json())
@@ -1246,15 +1264,14 @@ router.get('/muslim/ayatkursi', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/muslim/doaharian', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataDoaHarian.json`))
         .then(response => response.json())
@@ -1267,15 +1284,14 @@ router.get('/muslim/doaharian', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/muslim/bacaanshalat', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataBacaanShalat.json`))
         .then(response => response.json())
@@ -1288,15 +1304,14 @@ router.get('/muslim/bacaanshalat', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/muslim/niatshalat', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataNiatShalat.json`))
         .then(response => response.json())
@@ -1309,15 +1324,14 @@ router.get('/muslim/niatshalat', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/muslim/kisahnabi', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataKisahNabi.json`))
         .then(response => response.json())
@@ -1330,15 +1344,14 @@ router.get('/muslim/kisahnabi', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/muslim/asmaulhusna', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataAsmaulHusna.json`))
         .then(response => response.json())
@@ -1351,8 +1364,8 @@ router.get('/muslim/asmaulhusna', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/muslim/niatshubuh', async (req, res, next) => {
         var apikeyInput = req.query.apikey
@@ -1371,15 +1384,14 @@ router.get('/muslim/niatshubuh', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/muslim/niatdzuhur', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatDzuhur.json`))
         .then(response => response.json())
@@ -1392,15 +1404,14 @@ router.get('/muslim/niatdzuhur', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/muslim/niatmaghrib', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatMaghrib.json`))
         .then(response => response.json())
@@ -1413,15 +1424,14 @@ router.get('/muslim/niatmaghrib', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/muslim/niatisya', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatIsya.json`))
         .then(response => response.json())
@@ -1434,15 +1444,14 @@ router.get('/muslim/niatisya', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/muslim/niatashar', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatAshar.json`))
         .then(response => response.json())
@@ -1455,15 +1464,14 @@ router.get('/muslim/niatashar', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/wallpaper/cyberspace', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/CyberSpace.json`))
         .then(response => response.json())
@@ -1476,15 +1484,14 @@ router.get('/wallpaper/cyberspace', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/wallpaper/teknologi', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/Technology.json`))
         .then(response => response.json())
@@ -1497,15 +1504,14 @@ router.get('/wallpaper/teknologi', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/wallpaper/muslim', async (req, res, next) => {
         var apikeyInput =req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/Islamic.json`))
         .then(response => response.json())
@@ -1518,15 +1524,14 @@ router.get('/wallpaper/muslim', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/wallpaper/programming', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/Programming.json`))
         .then(response => response.json())
@@ -1539,15 +1544,14 @@ router.get('/wallpaper/programming', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/wallpaper/pegunungan', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQ-Results/main/Mountain.json`))
         .then(response => response.json())
@@ -1560,16 +1564,15 @@ router.get('/wallpaper/pegunungan', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/wikipedia', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             search = req.query.search
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if(!search) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter search"})
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/wiki?keyword=${search}`))
@@ -1583,14 +1586,14 @@ router.get('/wikipedia', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/randomquote/muslim', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/quote?type=agamis`))
         .then(response => response.json())
@@ -1603,16 +1606,15 @@ router.get('/randomquote/muslim', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/drakorasia', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             search = req.query.searc
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if(!search) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter search"})
 
        fetch(encodeURI(`http://docs-api-zahirrr.herokuapp.com/api/drakorasia?search=${search}`))
@@ -1626,16 +1628,15 @@ router.get('/drakorasia', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/jadwalshalat', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             kota = req.query.kota
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if(!kota) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kota"})
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/Zhirrr-Database/main/adzan/${kota}/2021/03.json`))
@@ -1649,16 +1650,15 @@ router.get('/jadwalshalat', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/fakedata', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             country = req.query.country
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if(!country) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter country"})
 
        fetch(encodeURI(`https://fakename-api-zhirrr.vercel.app/api/fakename?country=${country}`))
@@ -1672,6 +1672,7 @@ router.get('/fakedata', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/halah', async (req, res, next) => {
@@ -1679,8 +1680,7 @@ router.get('/halah', async (req, res, next) => {
             text = req.query.text;
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 	if (!text) return res.json(loghandler.nottext)
 
     var txt = 'a'
@@ -1691,6 +1691,7 @@ router.get('/halah', async (req, res, next) => {
 	creator: creator,
 	result: result
          })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/hilih', async (req, res, next) => {
@@ -1698,8 +1699,7 @@ router.get('/hilih', async (req, res, next) => {
             text = req.query.text;
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 	if (!text) return res.json(loghandler.nottext)
 
     var txt = 'i'
@@ -1710,6 +1710,7 @@ router.get('/hilih', async (req, res, next) => {
 	creator: creator,
 	result: result
          })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/huluh', async (req, res, next) => {
@@ -1717,8 +1718,7 @@ router.get('/huluh', async (req, res, next) => {
             text = req.query.text;
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 	if (!text) return res.json(loghandler.nottext)
 
     var txt = 'u'
@@ -1729,6 +1729,7 @@ router.get('/huluh', async (req, res, next) => {
 	creator: creator,
 	result: result
          })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/heleh', async (req, res, next) => {
@@ -1736,8 +1737,7 @@ router.get('/heleh', async (req, res, next) => {
             text = req.query.text;
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 	if (!text) return res.json(loghandler.nottext)
 
     var txt = 'e'
@@ -1748,6 +1748,7 @@ router.get('/heleh', async (req, res, next) => {
 	creator: creator,
 	result: result
          })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/holoh', async (req, res, next) => {
@@ -1755,8 +1756,7 @@ router.get('/holoh', async (req, res, next) => {
             text = req.query.text;
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 	if (!text) return res.json(loghandler.nottext)
 
     var txt = 'o'
@@ -1767,6 +1767,7 @@ router.get('/holoh', async (req, res, next) => {
 	creator: creator,
 	result: result
          })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/lirik', async (req, res, next) => {
@@ -1774,8 +1775,7 @@ router.get('/lirik', async (req, res, next) => {
             lagu = req.query.lagu
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if(!lagu) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kata" })
 
         var json = await (await fetch(`https://scrap.terhambar.com/lirik?word=${lagu}`)).json()
@@ -1784,6 +1784,7 @@ router.get('/lirik', async (req, res, next) => {
 		 creatos : creator,
                  result : result
              })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/chord', async (req, res, next) => {
@@ -1791,8 +1792,7 @@ router.get('/chord', async (req, res, next) => {
             lagu = req.query.lagu
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if(!lagu) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kata"})
 
        fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/chord?q=${lagu}`))
@@ -1804,15 +1804,14 @@ router.get('/chord', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/random/asmaulhusna', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/random/asmaulhusna`))
         .then(response => response.json())
@@ -1825,16 +1824,15 @@ router.get('/random/asmaulhusna', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/kbbi', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             kata = req.query.kata
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if(!kata) return res.json({ status : false, creator: `${creator}`, message : "Masukan parameter kata"})
 
        fetch(encodeURI(`https://kbbi-api-zhirrr.vercel.app/api/kbbi?text=${kata}`))
@@ -1846,15 +1844,14 @@ router.get('/kbbi', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/covidindo', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://covid19-api-zhirrr.vercel.app/api/covid-indonesia`))
         .then(response => response.json())
@@ -1867,15 +1864,14 @@ router.get('/covidindo', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/covidworld', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://covid19-api-zhirrr.vercel.app/api/world`))
         .then(response => responsejson())
@@ -1888,16 +1884,15 @@ router.get('/covidworld', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/kodepos', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
 	    kota = req.query.kota
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 	if(!kota) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kota"})
 
        fetch(encodeURI(`https://kodepos-api-zhirrr.vercel.app/?q=${kota}`))
@@ -1911,16 +1906,15 @@ router.get('/kodepos', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/infocuaca', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
 	    provinsi = req.query.provinsi
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 	if(!provinsi) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter provinsi"})
        fetch(encodeURI(`https://bmkg-api-zahirr.herokuapp.com/api/cuaca/${provinsi}`))
         .then(response => response.json())
@@ -1933,15 +1927,14 @@ router.get('/infocuaca', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/infocuaca/bandara', async (req, rs, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
        fetch(encodeURI(`https://bmkg-api-zahirr.herokuapp.com/api/cuaca/bandara`))
         .then(response => response.json())
         .then(data => {
@@ -1953,15 +1946,14 @@ router.get('/infocuaca/bandara', async (req, rs, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/infocuaca/dunia', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
        fetch(encodeURI(`https://bmkg-api-zahirr.herokuapp.com/api/cuaca/dunia`))
         .then(response => response.json())
         .then(data => {
@@ -1973,15 +1965,14 @@ router.get('/infocuaca/dunia', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/infotsunami', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
        fetch(encodeURI(`https://bmkg-api-zahirr.herokuapp.com/api/tsunami`))
         .then(response => response.json())
         .then(data => {
@@ -1993,15 +1984,14 @@ router.get('/infotsunami', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/random/meme', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/meme`))
         .then(response => response.json())
@@ -2014,15 +2004,14 @@ router.get('/random/meme', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/quotes/kanye', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/quote?type=kanye`))
         .then(response => response.json())
@@ -2035,8 +2024,8 @@ router.get('/quotes/kanye', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/translate', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
@@ -2044,8 +2033,7 @@ router.get('/translate', async (req, res, next) => {
 	    text = req.query.text;
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 	if (!lang) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter bahasa" })
 	if (!text) return res.json(loghandler.nottext)
 
@@ -2066,16 +2054,15 @@ router.get('/translate', async (req, res, next) => {
         res.sendFile(error)
 	    console.log(e)
     }       
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/anime/kusonime', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
 	    search = req.query.search
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 	if(!search) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter search"})
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/kusonime?search=${search}`))
         .then(response => response.json())
@@ -2088,15 +2075,14 @@ router.get('/anime/kusonime', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/gabut', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/bosan`))
         .then(response => response.json())
@@ -2109,16 +2095,15 @@ router.get('/gabut', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/manga', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
 	    search = req.query.search
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 	if(!search) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter search"})
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/manga?keyword=${search}`))
         .then(response => response.json())
@@ -2130,15 +2115,14 @@ router.get('/manga', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/random/wallpaper', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/random/wallpaper?genre=acak`))
         .then(response => response.json())
@@ -2151,16 +2135,15 @@ router.get('/random/wallpaper', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/kuis/caklontong', async (req, res, next) => {
         var apikeyInput = req.query.apikey;
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
     var data = fs.readFileSync(__path + '/lib/games/caklontong.js')
     var jon = JSON.parse(data);
@@ -2179,6 +2162,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/kuis/tebakgambar', async (req, res, next) => {
@@ -2186,8 +2170,7 @@ router.get('/kuis/tebakgambar', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
     var data = fs.readFileSync(__path + '/lib/games/tebakgambar.js')
     var json = JSON.parse(data);
@@ -2205,6 +2188,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/news/cnn', async (req, res, next) => {
@@ -2212,8 +2196,7 @@ router.get('/news/cnn', async (req, res, next) => {
             type = req.query.type
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!type) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter type"})
 
        fetch(encodeURI(`https://news-api-zhirrr.vercel.app/v1/cnn-news/${type}`))
@@ -2228,16 +2211,15 @@ router.get('/news/cnn', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/news/cnbc', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             type = req.query.type
            
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!type) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter type"})
 
        fetch(encodeURI(`https://news-api-zhirrr.vercel.app/v1/cnbc-news/${type}`))
@@ -2252,16 +2234,15 @@ router.get('/news/cnbc', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/news/republika', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             type = req.query.type
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!type) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter type"})
 
        fetch(encodeURI(`https://news-api-zhirrr.vercel.app/v1/republika-news/${type}`))
@@ -2276,16 +2257,15 @@ router.get('/news/republika', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/news/tempo', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             type = req.query.type
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!type) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter type"})
 
        fetch(encodeURI(`https://news-api-zhirrr.verce.app/v1/tempo-news/${type}`))
@@ -2300,16 +2280,15 @@ router.get('/news/tempo', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/news/antara', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             type = req.query.type
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!type) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter type"})
 
        fetch(encodeURI(`https://news-api-zhirrr.vercel.app/v1/antara-news/${type}`))
@@ -2324,15 +2303,14 @@ router.get('/news/antara', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/news/kumparan', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://news-api-zhirrr.vercel.app/v1/kumparan-news`))
         .then(response => response.json())
@@ -2346,16 +2324,15 @@ router.get('/news/kumparan', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/filmapik/search', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             film = req.query.film
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!film) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter film"})
 
        fetch(encodeURI(`https://filmapik-api-zahirr.herokuapp.com/search?q=${film}`))
@@ -2370,16 +2347,15 @@ router.get('/filmapik/search', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/filmapik/kategori', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             film = req.query.film
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!film) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter film"})
 
        fetch(encodeURI(`https://filmapik-api-zahirr.herokuapp.com/category?search=${film}`))
@@ -2394,16 +2370,15 @@ router.get('/filmapik/kategori', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/filmapik/play', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             id = req.query.id
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!id) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter id"})
 
        fetch(encodeURI(`https://filmapik-api-zahirr.herokuapp.com/play?id=${id}`))
@@ -2418,15 +2393,14 @@ router.get('/filmapik/play', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/filmapik/terbaru', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://filmapik-api-zahirr.herokuapp.com/latest`))
         .then(response => response.json())
@@ -2440,16 +2414,15 @@ router.get('/filmapik/terbaru', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/lk21/search', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             film = req.query.film
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!film) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter film"})
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/search?query=${film}`))
@@ -2464,15 +2437,14 @@ router.get('/lk21/search', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/lk21/terbaru', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/newupload`))
         .then(response => response.json())
@@ -2486,15 +2458,14 @@ router.get('/lk21/terbaru', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/lk21/comingsoon', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/comingsoon`))
         .then(response => response.json())
@@ -2508,15 +2479,14 @@ router.get('/lk21/comingsoon', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/lk21/tvseries', async (req, res, next) => {
         var apikeyInput = req.query.apikey
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/tv`))
         .then(response => response.json())
@@ -2530,16 +2500,15 @@ router.get('/lk21/tvseries', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/lk21/year', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             tahun = req.query.tahun
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!tahun) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter tahun"})
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/year?year=${tahun}`))
@@ -2554,16 +2523,15 @@ router.get('/lk21/year', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/lk21/country', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             negara = req.query.negara
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!negara) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter negara"})
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/country?country=${negara}`))
@@ -2578,16 +2546,15 @@ router.get('/lk21/country', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/lk21/genre', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             tipe = req.query.tipe
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!tipe) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter tipe"})
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/genre?genre=${tipe}`))
@@ -2602,8 +2569,8 @@ router.get('/lk21/genre', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/textmaker/random', async (req, res, next) => {
         var theme = req.query.theme,
@@ -2613,8 +2580,7 @@ router.get('/textmaker/random', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'text-burn' && theme != 'art-quote') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -2691,6 +2657,7 @@ router.get('/textmaker/random', async (req, res, next) => {
         } else {
             res.sendFile(error)
         }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/textmaker/roses', async (req, res, next) => {
@@ -2701,8 +2668,7 @@ router.get('/textmaker/roses', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'wooden-boarch' && theme != 'golden') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -2779,6 +2745,7 @@ router.get('/textmaker/roses', async (req, res, next) => {
         } else {
             res.sendFile(error)
         }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/ytmp4', async (req, res, next) => {
@@ -2786,8 +2753,7 @@ router.get('/ytmp4', async (req, res, next) => {
             url = req.query.url
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!url) return res.json(loghandler.noturl)
 
        var server = (url || 'id4').toLowerCase()
@@ -2803,16 +2769,15 @@ router.get('/ytmp4', async (req, res, next) => {
 		    link: dl_link
 	    }
         })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/ytmp3', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             url = req.query.url
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!url) return res.json(loghandler.noturl)
 
        var server = (url || 'id4').toLowerCase()
@@ -2828,16 +2793,15 @@ router.get('/ytmp3', async (req, res, next) => {
 		    link: dl_link
 	    }
         })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/igstalk', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             username = req.query.username
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!username) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter username"})
 
        fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/stalk?username=${username}`))
@@ -2852,16 +2816,15 @@ router.get('/igstalk', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/maker', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!text) return res.json(loghandler.nottext)
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/textmaker?text=${text}`))
@@ -2876,16 +2839,15 @@ router.get('/maker', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/maker2', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/textmaker2?text=${text}`))
@@ -2900,16 +2862,15 @@ router.get('/maker2', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/maker3', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/textmaker3?text=${text}`))
@@ -2924,16 +2885,15 @@ router.get('/maker3', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/maker4', async (rq, res, next) => {
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/textmaker4?text=${text}`))
@@ -2948,16 +2908,15 @@ router.get('/maker4', async (rq, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/maker3d', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/text3d?text=${text}`))
@@ -2972,16 +2931,15 @@ router.get('/maker3d', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/maker3d/no2', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/text3d-2?text=${text}`))
@@ -2996,16 +2954,15 @@ router.get('/maker3d/no2', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/maker3d/no3', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             text = req.qery.text
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/text3d-3?text=${text}`))
@@ -3020,16 +2977,15 @@ router.get('/maker3d/no3', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/maker3d/no4', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/text3d-4?text=${text}`))
@@ -3044,16 +3000,15 @@ router.get('/maker3d/no4', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
 })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/ytsearch', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             q = req.query.q
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!q) return res.json(loghandler.notquery)
 
      var results = await yts(q)
@@ -3079,16 +3034,15 @@ router.get('/ytsearch', async (req, res, next) => {
 		    link: data.author.url
 	    }
         })
+    } else res.sendFile(invalidKey)
 })
-
 
 router.get('/maker/special/transformer', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
             text = req.query.text
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
  try {
        var json = await (await fetch(`https://textmaker-api-zahirr.herokuapp.com/api/special/transformer?text=${text}`)).json()
@@ -3100,6 +3054,7 @@ router.get('/maker/special/transformer', async (req, res, next) => {
 	 console.log(e)
     res.sendFile(error)
   }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/maker/special/epep', async (req, res, next) => {
@@ -3107,8 +3062,7 @@ router.get('/maker/special/epep', async (req, res, next) => {
             text = req.query.text
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
  try {
@@ -3121,6 +3075,7 @@ router.get('/maker/special/epep', async (req, res, next) => {
 	 console.log(e)
     res.sendFile(error)
       }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/tomp4', async (req, res, next) => {
@@ -3128,8 +3083,7 @@ router.get('/tomp4', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!url) return res.json(loghandler.noturl)
 	if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -3171,6 +3125,7 @@ try {
           console.log(e);
       res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/ocr', async (req, res, next) => {
@@ -3178,8 +3133,7 @@ router.get('/ocr', async (req, res, next) => {
         img = req.query.img;
             
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-        if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {      
         if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -3205,6 +3159,7 @@ router.get('/ocr', async (req, res, next) => {
         console.log(e);
       res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/removebg', async (req, res, next) => {
@@ -3213,8 +3168,7 @@ router.get('/removebg', async (req, res, next) => {
 
   try {
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-        if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {      
         if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -3237,6 +3191,7 @@ router.get('/removebg', async (req, res, next) => {
           console.log(e);
       res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/simsimi', async (req, res, next) => {
@@ -3244,8 +3199,7 @@ router.get('/simsimi', async (req, res, next) => {
 	apikeyInput = req.query.apikey;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-        if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {      
         if (!kata) return res.json(loghandler.notkata)
 
  try {
@@ -3260,6 +3214,7 @@ router.get('/simsimi', async (req, res, next) => {
 	console.log(e)
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/binary', async (req, res, next) => {
@@ -3267,8 +3222,7 @@ router.get('/binary', async (req, res, next) => {
        text = req.query.encode
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -3282,6 +3236,7 @@ router.get('/binary', async (req, res, next) => {
 } catch (e) {
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/binary', async (req, res, next) => {
@@ -3289,8 +3244,7 @@ router.get('/binary', async (req, res, next) => {
         text = req.query.decode;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -3304,6 +3258,7 @@ router.get('/binary', async (req, res, next) => {
 } catch (e) {
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/tobase64', async (req, res, next) => {
@@ -3311,8 +3266,7 @@ router.get('/tobase64', async (req, res, next) => {
         img = req.query.img;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!img) return res.json(loghandler.notimg)
 
  try {
@@ -3325,6 +3279,7 @@ router.get('/tobase64', async (req, res, next) => {
 } catch (e) {
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/tomedia', async (req, res, next) => {
@@ -3332,8 +3287,7 @@ router.get('/tomedia', async (req, res, next) => {
         base64 = req.query.base64;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!base64) return res.json(loghandler.notbase64)
         if (base64.startsWith('data')) return res.json({ message : `Gunakan teks base64 tanpa data:image/jpeg!` })
 
@@ -3343,6 +3297,7 @@ router.get('/tomedia', async (req, res, next) => {
 } catch (e) {
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/ttp', async (req, res, next) => {
@@ -3350,8 +3305,7 @@ router.get('/ttp', async (req, res, next) => {
      apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -3364,14 +3318,14 @@ router.get('/ttp', async (req, res, next) => {
   	console.log(e)
     res.sendFile(error)
       }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/dadu', async (req, res, next) => {
 	var apikeyInput = req.query.apikey
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
       var random = Math.floor(Math.random() * 6) + 1
       var hasil = 'https://www.random.org/dice/dice' + random + '.png'
@@ -3379,6 +3333,7 @@ router.get('/dadu', async (req, res, next) => {
 
          await fs.writeFileSync(__path + '/tmp/dadu.png', data)
    res.sendFile(__path + '/tmp/dadu.png')
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/repeat', (req, res, next) => {
@@ -3390,8 +3345,7 @@ const repeat = (text, total) => {
             apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
   if (!jumlah) return res.json(loghandler.notjumlah)
   if (isNaN(jumlah)) return res.json(loghandler.number)
@@ -3403,6 +3357,7 @@ const repeat = (text, total) => {
              creator: `${creator}`,
              result: result
        })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/reverse', async (req, res, next) => {
@@ -3410,8 +3365,7 @@ router.get('/reverse', async (req, res, next) => {
 	   apikeyInput = req.query.apikey;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -3425,6 +3379,7 @@ router.get('/reverse', async (req, res, next) => {
 } catch (e) {
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/spamcall', async (req, res, next) => {
@@ -3432,8 +3387,7 @@ router.get('/spamcall', async (req, res, next) => {
 	   apikeyInput = req.query.apikey;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!nomor) return res.json(loghandler.notnomor)
 	if (isNaN(nomor)) return res.json(loghandler.number)
 
@@ -3444,6 +3398,7 @@ router.get('/spamcall', async (req, res, next) => {
 } catch (e) {
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/spamsms', async (req, res, next) => {
@@ -3452,8 +3407,7 @@ router.get('/spamsms', async (req, res, next) => {
 	   apikeyInput = req.query.apikey;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
     if (!nomor) return res.json(loghandler.notnomor)
     if (isNaN(nomor)) return res.json(loghandler.number)
     if (!jumlah) return res.json(loghandler.notjumlah)
@@ -3467,14 +3421,14 @@ router.get('/spamsms', async (req, res, next) => {
 } catch (e) {
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/bokep', async (req, res, next) => {
      var apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
  try {
          var json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/pussy`)).json()
@@ -3486,6 +3440,7 @@ router.get('/bokep', async (req, res, next) => {
   	console.log(e)
     res.sendFile(error)
       }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/googleimage', async (req, res, next) => {
@@ -3493,8 +3448,7 @@ router.get('/googleimage', async (req, res, next) => {
      apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!q) return res.json(loghandler.notquery)
 
  try {
@@ -3509,6 +3463,7 @@ router.get('/googleimage', async (req, res, next) => {
   	console.log(e)
     res.sendFile(error)
       }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/pinterest', async (req, res, next) => {
@@ -3516,8 +3471,7 @@ router.get('/pinterest', async (req, res, next) => {
      apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!q) return res.json(loghandler.notquery)
 
  try {
@@ -3532,6 +3486,7 @@ router.get('/pinterest', async (req, res, next) => {
   	console.log(e)
     res.sendFile(error)
       }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/say', async (req, res, next) => {
@@ -3539,14 +3494,14 @@ router.get('/say', async (req, res, next) => {
             text = req.query.text;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
        res.json({
        	status : true,
            creator : `${creator}`,
        	result : text
        })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/md5', async (req, res, next) => {
@@ -3554,8 +3509,7 @@ router.get('/md5', async (req, res, next) => {
             text = req.query.text;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var result = await createHash('md5').update(text).digest('hex')
@@ -3564,6 +3518,7 @@ router.get('/md5', async (req, res, next) => {
            creator : `${creator}`,
            result : result
        })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/tahta', async (req, res, next) => {
@@ -3571,14 +3526,14 @@ router.get('/tahta', async (req, res, next) => {
           apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await (await fetch(`https://api.zeks.xyz/api/hartatahta?text=${text}&apikey=apivinz`)).buffer()
        await fs.writeFileSync(__path + '/tmp/tahta.png', hasil)
 
     res.sendFile(__path + '/tmp/tahta.png')
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/customtahta', async (req, res, next) => {
@@ -3586,22 +3541,21 @@ router.get('/customtahta', async (req, res, next) => {
           apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await (await fetch(`https://api.zeks.xyz/api/tahta?text=${text}&apikey=apivinz`)).buffer()
        await fs.writeFileSync(__path + '/tmp/cstahta.png', hasil)
 
     res.sendFile(__path + '/tmp/cstahta.png')
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/anime/random', async (req, res, next) => {
      var apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
  try {
          var json = await (await fetch(`https://api.fdci.se/rep.php?gambar=anime`)).json()
@@ -3615,14 +3569,14 @@ router.get('/anime/random', async (req, res, next) => {
   	console.log(e)
     res.sendFile(error)
       }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/kpop/random', async (req, res, next) => {
      var apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
  try {
          var json = await (await fetch(`https://api.fdci.se/rep.php?gambar=kpop`)).json()
@@ -3636,14 +3590,14 @@ router.get('/kpop/random', async (req, res, next) => {
   	console.log(e)
     res.sendFile(error)
       }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/random/manga', async (req, res, next) => {
      var apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
  try {
          var json = await (await fetch(`https://api.fdci.se/rep.php?gambar=manga`)).json()
@@ -3657,6 +3611,7 @@ router.get('/random/manga', async (req, res, next) => {
   	console.log(e)
     res.sendFile(error)
       }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/triggered', async (req, res, next) => {
@@ -3664,8 +3619,7 @@ router.get('/triggered', async (req, res, next) => {
 	   apikeyInput = req.query.apikey;
 	
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -3679,6 +3633,7 @@ router.get('/triggered', async (req, res, next) => {
   	console.log(e)
     res.sendFile(error)
       }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/emojitopng', async (req, res, next) => {
@@ -3687,8 +3642,7 @@ router.get('/emojitopng', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!emoji) return res.json(loghandler.notemoji)
 
      var hasil = await (await fetch(`https://api.zeks.xyz/api/emoji-image?apikey=apivinz&emoji=${encodeURIComponent(emoji)}`)).buffer()
@@ -3698,6 +3652,7 @@ try {
 } catch (e) {
      console.log(e)
 	res.sendFile(error)   }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/brainly', async (req, res, next) => {
@@ -3706,8 +3661,7 @@ router.get('/brainly', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var json = await (await fetch(`https://api.zeks.xyz/api/brainly?apikey=apivinz&q=${text}&count=5`)).json()
@@ -3717,6 +3671,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/pantun', async (req, res, next) => {
@@ -3724,8 +3679,7 @@ router.get('/pantun', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
      var json = await (await fetch(`https://api.zeks.xyz/api/pantun?apikey=apivinz`)).json()
          res.json(json)
@@ -3734,6 +3688,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/memeindo', async (req, res, next) => {
@@ -3741,8 +3696,7 @@ router.get('/memeindo', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
      var json = await (await fetch(`https://api.zeks.xyz/api/memeindo?apikey=apivinz`)).json()
      var hasil = await getBuffer(json.result)
@@ -3761,8 +3715,7 @@ router.get('/artinama', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!nama) return res.json(loghandler.notnama)	
 
  request.get({
@@ -3788,6 +3741,7 @@ var result = `Arti dari namamu adalah\n\nNama *${nama}*\n${h}`
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/cekjodoh', async (req, res, next) => {
@@ -3797,8 +3751,7 @@ router.get('/cekjodoh', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!nama) return res.json(loghandler.notnama)
   if (!pasangan) return res.json({ message : `Masukan nama pacarmu,, ehh pasangan :v` })
 
@@ -3827,6 +3780,7 @@ var result = `Kecocokan Berdasarkan Nama :\n\n${d}`
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/kuis/family100', async (req, res, next) => {
@@ -3834,8 +3788,7 @@ router.get('/kuis/family100', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
     var data = fs.readFileSync(__path + '/lib/games/family100.js')
     var json = JSON.parse(data);
@@ -3852,6 +3805,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/asupan', async (req, res, next) => {
@@ -3859,8 +3813,7 @@ router.get('/asupan', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
      var json = await (await fetch(`http://zekais-api.herokuapp.com/ptlvid`)).json()
          res.json(json)
@@ -3869,6 +3822,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/cerpen', async (req, res, next) => {
@@ -3876,8 +3830,7 @@ router.get('/cerpen', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
      var json = await (await fetch(`http://zekais-api.herokuapp.com/cerpen`)).json()
          res.json({
@@ -3893,6 +3846,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/mediafire', async (req, res, next) => {
@@ -3901,8 +3855,7 @@ router.get('/mediafire', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -3913,6 +3866,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/tts', async (req, res, next) => {
@@ -3921,8 +3875,7 @@ router.get('/tts', async (req, res, next) => {
 	   apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
   if (text.length > 200) return res.json(loghandler.longtext)
   if (!lang) return res.json(loghandler.notlang)
@@ -3937,6 +3890,7 @@ router.get('/tts', async (req, res, next) => {
 	console.log(e)
 	  res.sendFile(error)
      }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/darkjokes', async (req, res, next) => {
@@ -3944,8 +3898,7 @@ router.get('/darkjokes', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
      var json = await (await fetch(`https://api.zeks.xyz/api/darkjokes?apikey=apivinz`)).json()
      var hasil = await getBuffer(json.result)
@@ -3956,6 +3909,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/splaybutton', async (req, res, next) => {
@@ -3964,8 +3918,7 @@ router.get('/splaybutton', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/splaybutton?text=${text}&apikey=apivinz`)
@@ -3976,6 +3929,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/gplaybutton', async (req, res, next) => {
@@ -3984,8 +3938,7 @@ router.get('/gplaybutton', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/gplaybutton?text=${text}&apikey=apivinz`)
@@ -3996,6 +3949,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/textpantai', async (req, res, next) => {
@@ -4004,8 +3958,7 @@ router.get('/textpantai', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/sandw?apikey=apivinz&text=${text}`)
@@ -4016,6 +3969,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/textsalju', async (req, res, next) => {
@@ -4025,8 +3979,7 @@ router.get('/textsalju', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
 
@@ -4038,6 +3991,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/alay', async (req, res, next) => {
@@ -4046,8 +4000,7 @@ router.get('/alay', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!kata) return res.json(loghandler.notkata)
       var json = await (await fetch(`https://api.terhambar.com/bpk?kata=${kata}`)).json()
          res.json({
@@ -4060,6 +4013,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/firework', async (req, res, next) => {
@@ -4068,8 +4022,7 @@ router.get('/firework', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/tfire?text=${text}&apikey=apivinz`)
@@ -4080,6 +4033,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/retro', async (req, res, next) => {
@@ -4090,8 +4044,7 @@ router.get('/retro', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
   if (!t3) return res.json(loghandler.nottext3)
@@ -4104,6 +4057,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/matrix', async (req, res, next) => {
@@ -4112,8 +4066,7 @@ router.get('/matrix', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/matrix?apikey=apivinz&text=${text}`)
@@ -4124,6 +4077,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/text3d', async (req, res, next) => {
@@ -4132,8 +4086,7 @@ router.get('/text3d', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/text3dbox?apikey=apivinz&text=${text}`)
@@ -4144,6 +4097,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/phlogo', async (req, res, next) => {
@@ -4153,8 +4107,7 @@ router.get('/phlogo', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
 
@@ -4166,6 +4119,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/marvel', async (req, res, next) => {
@@ -4174,8 +4128,7 @@ router.get('/marvel', async (req, res, next) => {
 	    t2 = req.query.t2;
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
 
@@ -4187,6 +4140,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/blackpink', async (req, res, next) => {
@@ -4195,8 +4149,7 @@ router.get('/blackpink', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/logobp?text=${text}&apikey=apivinz`)
@@ -4207,6 +4160,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/avengers', async (req, res, next) => {
@@ -4215,8 +4169,7 @@ router.get('/avengers', async (req, res, next) => {
 	    t2 = req.query.t2;
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
 
@@ -4228,6 +4181,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/thunder', async (req, res, next) => {
@@ -4236,8 +4190,7 @@ router.get('/thunder', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/thundertext?text=${text}&apikey=apivinz`)
@@ -4248,14 +4201,14 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/news', async (req, res) => {
      var apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
      res.json({
   status: true,
@@ -4298,6 +4251,7 @@ router.get('/news', async (req, res) => {
   }
 ]
      })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/ssweb', async (req, res, next) => {
@@ -4306,8 +4260,7 @@ router.get('/ssweb', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -4319,6 +4272,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/calculator', async (req, res) => {
@@ -4326,8 +4280,7 @@ router.get('/calculator', async (req, res) => {
 	apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!angka) return res.json(loghanlder.notangka)
 
     var val = angka
@@ -4358,6 +4311,7 @@ router.get('/calculator', async (req, res) => {
     if (e == undefined) res.json({ error : `Kesalahan Terjadi!` })
         res.json({ message : `Format salah, hanya 0-9 dan Simbol -, +, *, /, ×, ÷, π, e, (, ) yang disupport` })
   }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/hd', async (req, res) => {
@@ -4365,8 +4319,7 @@ router.get('/hd', async (req, res) => {
         apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -4389,6 +4342,7 @@ try {
 	 console.log(e)
     res.sendFile(error)
   }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/dare', async (req, res, next) => {
@@ -4396,8 +4350,7 @@ router.get('/dare', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
      var json = await (await fetch(`https://xptnbotapinew.herokuapp.com/?dare&apikey=xptn`)).json()
 
@@ -4410,6 +4363,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/quotemaker', async (req, res, next) => {
@@ -4420,8 +4374,7 @@ router.get('/quotemaker', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!quote) return res.json({ message : `Masukan parameter quote (kata quotes)` })
   if (!author) return res.json({ message : `Masukan parameter author` })
   if (!theme) return res.json(loghandler.nottheme)
@@ -4434,6 +4387,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/attp', async (req, res, next) => {
@@ -4441,8 +4395,7 @@ router.get('/attp', async (req, res, next) => {
 	   apikeyInput = req.query.apikey;
 	
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -4455,6 +4408,7 @@ router.get('/attp', async (req, res, next) => {
   	console.log(e)
     res.sendFile(error)
       }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/ttp2', async (req, res, next) => {
@@ -4462,8 +4416,7 @@ router.get('/ttp2', async (req, res, next) => {
 	   apikeyInput = req.query.apikey;
 	
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -4476,6 +4429,7 @@ router.get('/ttp2', async (req, res, next) => {
   	console.log(e)
     res.sendFile(error)
       }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/futureneon', async (req, res, next) => {
@@ -4484,8 +4438,7 @@ router.get('/futureneon', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/neon?text=${text}&APIKEY=${xteam_key}`)
@@ -4496,6 +4449,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/spotify', async (req, res, next) => {
@@ -4504,8 +4458,7 @@ router.get('/spotify', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!q) return res.json(loghandler.notquery)
 
      var json = await (await fetch(`https://api.zeks.xyz/api/spotify?apikey=apivinz&q=${q}`)).json()
@@ -4515,6 +4468,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/instagram', async (req, res, next) => {
@@ -4523,8 +4477,7 @@ router.get('/instagram', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(logahndler.invalidLink)
 
@@ -4535,6 +4488,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/towebp', async (req, res, next) => {
@@ -4543,8 +4497,7 @@ router.get('/towebp', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(logahndler.invalidLink)
 
@@ -4559,6 +4512,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/math', async (req, res, next) => {
@@ -4567,8 +4521,7 @@ router.get('/math', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!mode) return res.json({ message : `Silahkan masukan modenya,, Mode tersedia : 1. very_easy, 2. easy, 3. medium, 4. hard, 5. extreme, 6. impossible` })
 
      var json = await (await fetch(`http://zekais-api.herokuapp.com/math?mode=${mode}`)).json()
@@ -4585,6 +4538,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/math2', async (req, res, next) => {
@@ -4592,8 +4546,7 @@ router.get('/math2', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
      var json = await (await fetch(`https://salism3api.pythonanywhere.com/math`)).json()
 
@@ -4608,6 +4561,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/toimg', async (req, res, next) => {
@@ -4616,8 +4570,7 @@ router.get('/toimg', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!webp) return res.json(loghandler.notimg)
   if (!webp.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -4631,6 +4584,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/qrcode', async (req, res, next) => {
@@ -4639,8 +4593,7 @@ router.get('/qrcode', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var qr = await qrcode.toDataURL(text.slice(0, 2048), { scale: 8 })
@@ -4651,6 +4604,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/imgbb', async (req, res, next) => {
@@ -4659,8 +4613,7 @@ router.get('/imgbb', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -4678,6 +4631,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/createcode', async (req, res, next) => {
@@ -4686,8 +4640,7 @@ router.get('/createcode', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
   var len = 25
@@ -4715,6 +4668,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/bucin', async (req, res, next) => {
@@ -4722,8 +4676,7 @@ router.get('/bucin', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
      var json = await (await fetch(`http://zekais-api.herokuapp.com/bucin`)).json()
 
@@ -4736,6 +4689,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/memegen', async (req, res, next) => {
@@ -4746,8 +4700,7 @@ router.get('/memegen', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!img) return res.json(loghandler.notimg)
   if(!t1) return res.json(loghandler.nottext)
   if(!t2) return res.json(loghandler.nottext2)
@@ -4762,14 +4715,14 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/slot', async (req, res, next) => {
   var apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
   var emojis = ["🍎", "🍌", "🍇", "♦️", "🥇", "💵"];
     var a = Math.floor(Math.random() * emojis.length);
@@ -4812,6 +4765,7 @@ router.get('/slot', async (req, res, next) => {
               hasil : `${end}\n\n${x[0]} ${y[0]} ${z[0]}\n${x[1]} ${y[1]} ${z[1]}\n${x[2]} ${y[2]} ${z[2]}`,
 	      poin : poin
               })
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/joox', async (req, res, next) => {
@@ -4820,8 +4774,7 @@ router.get('/joox', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!q) return res.json(loghandler.notquery)
 
      var json = await (await fetch(`https://api.zeks.xyz/api/joox?apikey=apivinz&q=${q}`)).json()
@@ -4831,6 +4784,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/gdrive', async (req, res, next) => {
@@ -4839,8 +4793,7 @@ router.get('/gdrive', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -4851,6 +4804,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/soundcloud', async (req, res, next) => {
@@ -4859,8 +4813,7 @@ router.get('/soundcloud', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -4871,6 +4824,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/igstory', async (req, res, next) => {
@@ -4879,8 +4833,7 @@ router.get('/igstory', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!username) return res.json(loghandler.notnama)
 
      var json = await (await fetch(`https://api.zeks.xyz/api/igs?apikey=apivinz&username=${username}`)).json()
@@ -4890,6 +4843,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/nickff', async (req, res, next) => {
@@ -4897,8 +4851,7 @@ router.get('/nickff', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
      var json = await (await fetch(`https://api.zeks.xyz/api/nickepep?apikey=apivinz`)).json()
 
@@ -4907,6 +4860,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/murothal', async (req, res, next) => {
@@ -4914,8 +4868,7 @@ router.get('/murothal', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
      var json = await (await fetch(`https://api.zeks.xyz/api/randomquran?apikey=apivinz`)).json()
 
@@ -4928,6 +4881,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/randomquran', async (req, res, next) => {
@@ -4935,8 +4889,7 @@ router.get('/randomquran', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
      var json = await (await fetch(`https://api.banghasan.com/quran/format/json/acak`)).json()
 
@@ -4945,6 +4898,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/ninja', async (req, res, next) => {
@@ -4953,8 +4907,7 @@ router.get('/ninja', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!nama) return res.json(loghandler.notnama)
 
 
@@ -4965,6 +4918,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/resep', async (req, res, next) => {
@@ -4973,8 +4927,7 @@ router.get('/resep', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!q) return res.json(loghandler.notquery)
 
 
@@ -4985,6 +4938,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/readqr', async (req, res, next) => {
@@ -4993,8 +4947,7 @@ router.get('/readqr', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5005,6 +4958,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/sticker', async (req, res, next) => {
@@ -5013,8 +4967,7 @@ router.get('/sticker', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!q) return res.json(loghandler.notquery)
 
      var json = await (await fetch(`https://api.zeks.xyz/api/searchsticker?apikey=apivinz&q=${q}`)).json()
@@ -5024,6 +4977,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/tebakanime', async (req, res, next) => {
@@ -5031,8 +4985,7 @@ router.get('/tebakanime', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 
      var json = await (await fetch(`http://zekais-api.herokuapp.com/tebakanime`)).json()
 
@@ -5041,6 +4994,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/ytcomment', async (req, res, next) => {
@@ -5051,8 +5005,7 @@ router.get('/ytcomment', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!img) return res.json(loghandler.notimg)
   if(!username) return res.json(loghandler.notnama)
   if(!comment) return res.json({ message: `Masukan parameter komentar` })
@@ -5067,6 +5020,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/ytplay', async (req, res, next) => {
@@ -5075,8 +5029,7 @@ router.get('/ytplay', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!q) return res.json(loghandler.notquery)
 
      var results = await yts(q)
@@ -5103,6 +5056,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/wait', async (req, res, next) => {
@@ -5111,8 +5065,7 @@ router.get('/wait', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!url) return res.json(loghandler.noturl)
   if(!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5143,6 +5096,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/wasted', async (req, res, next) => {
@@ -5151,8 +5105,7 @@ router.get('/wasted', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5165,6 +5118,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/rainbow', async (req, res, next) => {
@@ -5173,8 +5127,7 @@ router.get('/rainbow', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5187,6 +5140,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/glass', async (req, res, next) => {
@@ -5195,8 +5149,7 @@ router.get('/glass', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5209,6 +5162,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/readmore', async (req, res, next) => {
@@ -5216,8 +5170,7 @@ router.get('/readmore', async (req, res, next) => {
        apikeyInput = req.query.apikey;
 
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!text) return res.json(loghandler.nottext)
 
     var [l, r] = text.split`|`
@@ -5230,6 +5183,7 @@ router.get('/readmore', async (req, res, next) => {
 		readmore: l + readMore + r,
 		note: `gunakan whatsapp/telegram agar teks terlihat baca selengkapnya.`
 	})
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/8bit', async (req, res, next) => {
@@ -5238,8 +5192,7 @@ router.get('/8bit', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5252,6 +5205,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/wanted', async (req, res, next) => {
@@ -5260,8 +5214,7 @@ router.get('/wanted', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5274,6 +5227,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/githubstalk', async (req, res, next) => {
@@ -5281,8 +5235,7 @@ router.get('/githubstalk', async (req, res, next) => {
         username = req.query.username;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!username) return res.json(loghandler.notusername)
 
  try {
@@ -5292,6 +5245,7 @@ router.get('/githubstalk', async (req, res, next) => {
   console.log(e)
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/upload', async (req, res, next) => {
@@ -5299,8 +5253,7 @@ router.get('/upload', async (req, res, next) => {
         file = req.query.file_url;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-        if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {      
         if (!file) return res.json({ message: `Masukan parameter file_url` })
 
  try {
@@ -5318,6 +5271,7 @@ router.get('/upload', async (req, res, next) => {
     res.sendFile(error)
 	console.log(e)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/shopee', async (req, res, next) => {
@@ -5325,8 +5279,7 @@ router.get('/shopee', async (req, res, next) => {
         query = req.query.query;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!query) return res.json(loghandler.notquery)
 
  try {
@@ -5336,6 +5289,7 @@ router.get('/shopee', async (req, res, next) => {
   console.log(e)
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/happymod', async (req, res, next) => {
@@ -5343,8 +5297,7 @@ router.get('/happymod', async (req, res, next) => {
         query = req.query.query;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!query) return res.json(loghandler.notquery)
 
  try {
@@ -5354,14 +5307,14 @@ router.get('/happymod', async (req, res, next) => {
   console.log(e)
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/faktaunik', async (req, res, next) => {
 	var apikeyInput = req.query.apikey;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-        if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {      
 
  try {
        var json = await (await fetch(`https://videfikri.com/api/fakta/`)).json()
@@ -5374,6 +5327,7 @@ router.get('/faktaunik', async (req, res, next) => {
   console.log(e)
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/artimimpi', async (req, res, next) => {
@@ -5381,8 +5335,7 @@ router.get('/artimimpi', async (req, res, next) => {
 	    mimpi = req.query.mimpi;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-        if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {      
 	if (!mimpi) return res.json({ message: "Masukan parameter mimpi" })
 
  try {
@@ -5396,6 +5349,7 @@ router.get('/artimimpi', async (req, res, next) => {
   console.log(e)
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/tggljadian', async (req, res, next) => {
@@ -5405,8 +5359,7 @@ router.get('/tggljadian', async (req, res, next) => {
 	    thn = req.query.thn;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-        if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {      
 	if (!tggl) return res.json({ message: "Masukan parameter tanggal" })
 	if (!bln) return res.json({ message: "Masukan parameter bulan" })
 	if (!thn) return res.json({ message: "Masukan parameter tahun" })
@@ -5425,6 +5378,7 @@ router.get('/tggljadian', async (req, res, next) => {
   console.log(e)
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/zodiak', async (req, res, next) => {
@@ -5435,8 +5389,7 @@ router.get('/zodiak', async (req, res, next) => {
 	    thn = req.query.thn;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
 	if (!nama) return res.json(loghandler.notnama)
 	if (!tggl) return res.json({ message: "Masukan parameter tanggal" })
 	if (!bln) return res.json({ message: "Masukan parameter bulan" })
@@ -5453,6 +5406,7 @@ router.get('/zodiak', async (req, res, next) => {
   console.log(e)
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/spamgmail', async (req, res, next) => {
@@ -5462,8 +5416,7 @@ router.get('/spamgmail', async (req, res, next) => {
 	   apikeyInput = req.query.apikey;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+	if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
         if (!email) return res.json({ message: "Masukan parameter email" })
 	if (!email.endsWith('@gmail.com')) return res.json({ message: "Email tidak valid" })
 	if (!subjek) return res.json({ message: "Masukan parameter subjek" })
@@ -5483,6 +5436,7 @@ router.get('/spamgmail', async (req, res, next) => {
 	console.log(e)
     res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/smoke', async (req, res, next) => {
@@ -5491,8 +5445,7 @@ router.get('/smoke', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!text) return res.json(loghandler.nottext)
 
      var json = await (await fetch(`http://zekais-api.herokuapp.com/photooxy/smoke?text=${text}`)).json()
@@ -5505,6 +5458,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/phcomment', async (req, res, next) => {
@@ -5515,8 +5469,7 @@ router.get('/phcomment', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!img) return res.json(loghandler.notimg)
   if(!username) return res.json(loghandler.notusername)
   if(!comment) return res.json({ message: 'Masukan parameter komentar' })
@@ -5531,6 +5484,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/barcode', async (req, res, next) => {
@@ -5539,8 +5493,7 @@ router.get('/barcode', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!text) return res.json(loghandler.nottext)
 
      var hasil = await (await fetch(`https://api.zeks.xyz/api/barcode?apikey=apivinz&text=${text}`)).buffer()
@@ -5552,6 +5505,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/dropwater', async (req, res, next) => {
@@ -5560,8 +5514,7 @@ router.get('/dropwater', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!text) return res.json(loghandler.nottext)
 
      var hasil = await (await fetch(`https://api.zeks.xyz/api/dropwater?apikey=apivinz&text=${text}`)).buffer()
@@ -5573,6 +5526,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/glowtext', async (req, res, next) => {
@@ -5581,8 +5535,7 @@ router.get('/glowtext', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!text) return res.json(loghandler.nottext)
 
      var hasil = await (await fetch(`https://api.zeks.xyz/api/bneon?apikey=apivinz&text=${text}`)).buffer()
@@ -5594,6 +5547,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/glowtext2', async (req, res, next) => {
@@ -5602,8 +5556,7 @@ router.get('/glowtext2', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!text) return res.json(loghandler.nottext)
 
      var hasil = await (await fetch(`https://api.zeks.xyz/api/tlight?text=${text}&apikey=apivinz`)).buffer()
@@ -5615,6 +5568,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/wolflogo', async (req, res, next) => {
@@ -5624,8 +5578,7 @@ router.get('/wolflogo', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!t1) return res.json(loghandler.nottext)
   if(!t2) return res.json(loghandler.nottext2)
 
@@ -5638,6 +5591,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/breakwall', async (req, res, next) => {
@@ -5646,8 +5600,7 @@ router.get('/breakwall', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!text) return res.json(loghandler.nottext)
 
      var hasil = await (await fetch(`https://api.zeks.xyz/api/breakwall?apikey=apivinz&text=${text}`)).buffer()
@@ -5659,6 +5612,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/naruto', async (req, res, next) => {
@@ -5667,8 +5621,7 @@ router.get('/naruto', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!text) return res.json(loghandler.nottext)
 
      var json = await (await fetch(`https://api.zeks.xyz/api/naruto?text=${text}&apikey=apivinz`)).json()
@@ -5681,6 +5634,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/cloud', async (req, res, next) => {
@@ -5689,8 +5643,7 @@ router.get('/cloud', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/cloudsky?text=${text}&APIKEY=${xteam_key}`)
@@ -5701,6 +5654,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/jokerlogo', async (req, res, next) => {
@@ -5709,8 +5663,7 @@ router.get('/jokerlogo', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/jokerlogo?text=${text}&APIKEY=${xteam_key}`)
@@ -5721,6 +5674,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/lionlogo', async (req, res, next) => {
@@ -5730,8 +5684,7 @@ router.get('/lionlogo', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
 
@@ -5743,6 +5696,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/ninjalogo', async (req, res, next) => {
@@ -5752,8 +5706,7 @@ router.get('/ninjalogo', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
 
@@ -5765,6 +5718,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/blood', async (req, res, next) => {
@@ -5773,8 +5727,7 @@ router.get('/blood', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/bloodontheroastedglass?text=${text}&APIKEY=${xteam_key}`)
@@ -5785,6 +5738,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/lava', async (req, res, next) => {
@@ -5793,8 +5747,7 @@ router.get('/lava', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/lava?text=${text}&APIKEY=${xteam_key}`)
@@ -5805,6 +5758,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/1917', async (req, res, next) => {
@@ -5813,8 +5767,7 @@ router.get('/1917', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/1917?text=${text}&APIKEY=${xteam_key}`)
@@ -5825,6 +5778,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/skeleton', async (req, res, next) => {
@@ -5833,8 +5787,7 @@ router.get('/skeleton', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/skeleton?text=${text}&APIKEY=${xteam_key}`)
@@ -5845,6 +5798,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/crossfire', async (req, res, next) => {
@@ -5853,8 +5807,7 @@ router.get('/crossfire', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://videfikri.com/api/textmaker/crossfirelogo/?text=${text}`)
@@ -5865,6 +5818,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 router.get('/gtaposter', async (req, res, next) => {
@@ -5873,8 +5827,7 @@ router.get('/gtaposter', async (req, res, next) => {
 
 try {
   if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}` || ) {
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5887,6 +5840,7 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+    } else res.sendFile(invalidKey)
 })
 
 // End of script
