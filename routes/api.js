@@ -29,6 +29,7 @@ var brainly = require('brainly-scraper-v2');
 var imageToBase64 = require('image-to-base64');
 var upload = require(__path + '/lib/upload.js');
 var translate = require('translate-google-api');
+var tesseract = require('node-tesseract-ocr');
 var axios = require('axios');
 var FormData = require('form-data');
 var ytdl = require('ytdl-core');
@@ -46,6 +47,7 @@ var yts = require('yt-search');
 var fs = require('fs');
 var util = require('util');
 var router  = express.Router();
+var options = require(__path + '/lib/options.js');
 
 var { tts, wait, simih, getBuffer, h2k, banner, getRandom, start, info, success, close, pickRandom } = require(__path + '/lib/functions.js');
 var { servers, yta, ytv } = require(__path + '/lib/y2mate.js')
@@ -56,7 +58,6 @@ var { spawn, exec } = require('child_process');
 var { color, bgcolor } = require(__path + '/lib/color.js');
 var { fetchJson } = require(__path + '/lib/fetcher.js')
 var { recognize } = require(__path + '/lib/ocr.js')
-var options = require(__path + '/lib/options.js');
 var { Vokal, Base, Searchnabi, Gempa } = require('./../lib');
 var cookie = "HSID=A7EDzLn3kae2B1Njb;SSID=AheuwUjMojTWvA5GN;APISID=cgfXh13rQbb4zbLP/AlvlPJ2xBJBsykmS_;SAPISID=m82rJG4AC9nxQ5uG/A1FotfA_gi9pvo91C;__Secure-3PAPISID=m82rJG4AC9nxQ5uG/A1FotfA_gi9pvo91C;VISITOR_INFO1_LIVE=RgZLnZtCoPU;LOGIN_INFO=AFmmF2swRQIhAOXIXsKVou2azuz-kTsCKpbM9szRExAMUD-OwHYiuB6eAiAyPm4Ag3O9rbma7umBK-AG1zoGqyJinh4ia03csp5Nkw:QUQ3MjNmeXJ0UHFRS3dzaTNGRmlWR2FfMDRxa2NRYTFiN3lfTEdOVTc4QUlwbUI4S2dlVngxSG10N3ZqcHZwTHBKano5SkN2dDlPSkhRMUtReE42TkhYeUVWS3kyUE1jY2I1QzA1MDZBaktwd1llWU9lOWE4NWhoZV92aDkxeE9vMTNlcG1uMU9rYjhOaDZWdno2ZzN3TXl5TVNhSjNBRnJaMExrQXpoa2xzRVUteFNWZDI5S0Fn;PREF=app=desktop&f4=4000000&al=id;SID=2wezCMTUkWN3YS1VmS_DXaEU84J0pZIQdemM8Zry-uzWm8y1njBpLTOpxSfN-EaYCRSiDg.;YSC=HCowA1fmvzo;__Secure-3PSID=2wezCMTUkWN3YS1VmS_DXaEU84J0pZIQdemM8Zry-uzWm8y1dajgWzlBh9TgKapGOwuXfA.;SIDCC=AJi4QfFK0ri9fSfMjMQ4tOJNp6vOb9emETXB_nf2S05mvr2jBlmeEvlSsQSzPMuJl_V0wcbL1r8;__Secure-3PSIDCC=AJi4QfGeWHx-c4uTpU1rXCciO1p0s2fJWU07KrkZhWyD1Tqi8LyR-kHuBwHY9mViVYu1fRh2PA";
 
@@ -3059,7 +3060,7 @@ router.get('/ytsearch', async (req, res, next) => {
      var data = results.all.find(video => video.seconds < 3600)
      if (!data) return res.json({ message: `Hasil pencarian "${q}" tidak ditemukan!` })
      var isVideo = /2$/.test(q)
-     var { dl_link, thumb, title, filesize, filesizeF } = await (isVideo ? ytv : yta)(data.url, 'id4')
+     var { dl_link, thumb, title, filesize, filesizeF } = await (ytv)(data.url, 'id4')
 
      res.json({
             status: true,
@@ -3071,7 +3072,7 @@ router.get('/ytsearch', async (req, res, next) => {
                     uploaded: data.ago,
 		    thumb: thumb,
 		    url: data.url,
-		    download_link: dl_link
+		    mp4_link: dl_link
 	    },
 	    channel:{
 		    name: data.author.name,
@@ -3182,28 +3183,26 @@ router.get('/ocr', async (req, res, next) => {
         if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-  try {
 	var enc = await imageToBase64(img)
 	var media = Buffer.from(enc, 'base64')
 	await fs.writeFileSync(__path + '/tmp/ocr.png', media)
 	var path = fs.readFileSync(__path + '/tmp/ocr.png')
-          await recognize(path, { lang: 'eng+ind', oem: 1, psm: 3 })
-            .then(hasil => {
+        var ocr = { lang: "eng", oem: 1, psm: 3 }
 
-             res.json({
+   await tesseract.recognize(path, ocr).then(result => {
+    console.log("ocr result :" + result)
+
+	   res.json({
                 status : true,
                 creator : `${creator}`,
                 message : `jangan lupa Subscribe Youtube ${creator}`,
-                result : `${hasil.trim()}`
+                result : result
              })
-       })
-          .catch(err => {
-                res.sendFile(error)
-   })
-  } catch (e) {
-        console.log(e);
-      res.sendFile(error)
-   }
+  })
+     .catch(error => {
+        res.sendFile(error)
+     console.log(error.message)
+  })
 })
 
 router.get('/removebg', async (req, res, next) => {
@@ -3217,14 +3216,8 @@ router.get('/removebg', async (req, res, next) => {
         if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-	var encmedia = await imageToBase64(img)
-	var media = Buffer.from(encmedia, 'base64')
-        var ranj = getRandom('.png')
-        var ranp = getRandom('.png')
-	  await fs.writeFileSync(__path + '/tmp/nobg.png', media)
-	  var path = fs.readFileSync(__path + '/tmp/nobg.png')
-          await removeBackgroundFromImageFile({ path: path, apiKey: removebg_key, size: 'auto', type: 'auto', ranp }).then(result => {
-            fs.unlinkSync(media)
+	var media = await imageToBase64(img)
+          await removeBackgroundFromImageFile({ path: media, apiKey: removebg_key, size: 'auto', type: 'auto', ranp }).then(result => {
             var hasil = Buffer.from(result.base64img, 'base64')
             fs.writeFileSync(ranp, hasil, (e) => {
           if (e) return res.json({ error: 'Gagal, Terjadi kesalahan, silahkan coba beberapa saat lagi.' })
@@ -3928,8 +3921,8 @@ router.get('/tts', async (req, res, next) => {
   if (lang.length > 4) return res.json({ error : `Kode bahasa tidak valid!` })
 
   try {
-         var result = `http://zekais-api.herokuapp.com/speech?lang=${lang}&text=${text}`
-	   await fs.writeFileSync(__path + '/tmp/tts.mp3', result)
+  var google = await tts(text, lang)
+     await fs.writeFileSync(__path + '/tmp/tts.mp3', google)
 
        res.sendFile(__path + '/tmp/tts.mp3')
   } catch (e) {
@@ -5882,6 +5875,136 @@ try {
 
      res.sendFile(__path + '/tmp/gtaposter.png')
      
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/deltrash', async (req, res, next) => {
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`http://zekais-api.herokuapp.com/delete?url=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/deltrash.png', hasil)
+
+     res.sendFile(__path + '/tmp/deltrash.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/rotate', async (req, res, next) => {
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`http://zekais-api.herokuapp.com/rotate?url=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/rotate.png', hasil)
+
+     res.sendFile(__path + '/tmp/rotate.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/jail', async (req, res, next) => {
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`http://zekais-api.herokuapp.com/jail?url=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/jail.png', hasil)
+
+     res.sendFile(__path + '/tmp/jail.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/continue', async (req, res, next) => {
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`http://zekais-api.herokuapp.com/tobecontinue?url=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/continue.png', hasil)
+
+     res.sendFile(__path + '/tmp/continue.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/jail', async (req, res, next) => {
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`http://zekais-api.herokuapp.com/jail?url=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/jail.png', hasil)
+
+     res.sendFile(__path + '/tmp/jail.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/spongebob', async (req, res, next) => {
+        var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!text) return res.json(loghandler.nottext)
+
+     var hasil = await getBuffer(`http://zekais-api.herokuapp.com/sbburn?text=${text}`)
+       await fs.writeFileSync(__path + '/tmp/sb_burn.png', hasil)
+
+         res.sendFile(__path + '/tmp/sb_burn.png')
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
