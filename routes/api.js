@@ -951,6 +951,7 @@ router.get('/hadits', async (req, res, next) => {
          .catch(e => {
          	res.sendFile(error)
      })
+    } else res.sendFile(invalidKey)
 })
  
 router.get('/quran', async (req, res, next) => {
