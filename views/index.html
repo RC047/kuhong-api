@@ -34,16 +34,6 @@
           }
     }
     </script>
-    <script type="text/javascript">
-  var axios = require('axios');
-    axios.get(`https://kuhong-api.herokuapp.com/api/getapikey`).then((res) => {
-
-  alert(`Free Apikey : ${res.data.free_key}
-
-Note: Apikey akan terus diganti setiap update website!
-Beli premium agar apikey tidak diganti terus :)`)
-}
-    </script>
   </head>
   <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">
   <!-- Public Chat -->
@@ -377,6 +367,7 @@ Beli premium agar apikey tidak diganti terus :)`)
 	    <a href="api/removebg?apikey=APIKEY&img=https://i.ibb.co/frhZmyZ/pp.jpg" class="sub-item">Remove BG</a>
           </div>
         </div>
+	<br>
 	<br>
 	    <div class="item"><a><i class="fas fa-fw fa-info"></i>Information</a></div>
 	    <div class="item"><a href="api/cekapikey?apikey=APIKEY"><i class="fas fa-key"></i>Cek Apikey</a></div>
