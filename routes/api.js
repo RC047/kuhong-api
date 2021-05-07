@@ -2150,7 +2150,6 @@ router.get('/random/wallpaper', async (req, res, next) => {
 router.get('/kuis/caklontong', async (req, res, next) => {
         var apikeyInput = req.query.apikey;
 
-try {
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}`) {
 
@@ -2167,17 +2166,12 @@ try {
 	    desk : object.result.desc,
 	    poin : object.result.poin
       })
-} catch (e) {
-     console.log(e)
-	res.sendFile(error)
-   }
     } else res.sendFile(invalidKey)
 })
 
 router.get('/kuis/tebakgambar', async (req, res, next) => {
         var apikeyInput = req.query.apikey;
 
-try {
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}`) {
 
@@ -2193,10 +2187,6 @@ try {
 	    jawaban : object.result.jawaban,
 	    poin : object.result.poin
       })
-} catch (e) {
-     console.log(e)
-	res.sendFile(error)
-   }
     } else res.sendFile(invalidKey)
 })
 
