@@ -25,6 +25,10 @@ router.get('/api/game/suitjawa', (req, res) => {
     res.sendFile(__path + '/views/game3.html')
 })
 
+router.get('/api/game/tetris', (req, res) => {
+    res.sendFile(__path + '/views/game4.html')
+})
+
 router.get('/api/tutorial', (req, res) => {
     res.sendFile(__path + '/views/tutorial.html')
 })
