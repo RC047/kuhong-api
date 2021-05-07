@@ -42,8 +42,8 @@ Minat? Silahkan Beli Apikey pada nomor yg tertera didalam web ini.`)
     <script type="text/javascript">
     var axios = require('axios');
 
-       axios.get('https://kuhong-api.herokuapp.com/api/quotez').then((res) => {
-       	document.getElementById("quote").innerHTML = res.data.result
+       axios.get('https://api.zeks.xyz/api/pantun?apikey=apivinz').then((res) => {
+       	document.getElementById("quote").innerHTML = res.data.result.pantun
     </script>
   </head>
   <body oncontextmenu="return false" onkeydown="return false;" onmousedown="return false;">
@@ -85,6 +85,7 @@ Minat? Silahkan Beli Apikey pada nomor yg tertera didalam web ini.`)
 		<div class="item">
           <a class="sub-btn"><i class="fas fa-star-and-crescent"></i>Islamic Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
+            <a href="api/random/asmaulhusna?apikey=APIKEY" class="sub-item">Asmaul Husna</a>
             <a href="api/hadits?kitab=bukhari&nomor=52&apikey=APIKEY" class="sub-item">Hadits Shahih</a>
             <a href="api/quran?surah=1&ayat=2&apikey=APIKEY" class="sub-item">Al Qur'an</a>
 	    <a href="api/randomquran?apikey=APIKEY" class="sub-item">Al Qur'an Acak</a>
@@ -186,12 +187,13 @@ Minat? Silahkan Beli Apikey pada nomor yg tertera didalam web ini.`)
             <a href="api/random/manga?apikey=APIKEY" class="sub-item">Manga</a>
             <a href="api/kpop/random?apikey=APIKEY" class="sub-item">Kpop</a>
             <a href="api/randomquote?apikey=APIKEY" class="sub-item">Quotes</a>
+            <a href="api/fml?apikey=APIKEY" class="sub-item">FML</a>
 	    <a href="api/pantun?apikey=APIKEY" class="sub-item">Pantun</a>
             <a href="api/bucin?apikey=APIKEY" class="sub-item">Bucin</a>
 	    <a href="api/dare?apikey=APIKEY" class="sub-item">Dare</a>
 	    <a href="api/nickff?apikey=APIKEY" class="sub-item">Nick FF</a>
             <a href="api/quotes/kanye?apikey=APIKEY" class="sub-item">Quotes Kanye</a>
-            <a href="api/random/asmaulhusna?apikey=APIKEY" class="sub-item">Asmaul Husna</a>
+            <a href="api/estetik?apikey=APIKEY" class="sub-item">Aesthetic Pic</a>
             <a href="api/random/meme?apikey=APIKEY" class="sub-item">Meme</a>
 	    <a href="api/memeindo?apikey=APIKEY" class="sub-item">Meme Indo</a>
 	    <a href="api/darkjokes?apikey=APIKEY" class="sub-item">Dark Jokes</a>
@@ -343,7 +345,7 @@ Minat? Silahkan Beli Apikey pada nomor yg tertera didalam web ini.`)
 	        <a href="api/spotify?apikey=APIKEY&q=faded" class="sub-item">Spotify</a>
 	        <a href="api/joox?apikey=APIKEY&q=faded" class="sub-item">Joox</a>
 	        <a href="api/lirik?lagu=sayang&apikey=APIKEY" class="sub-item">Lirik Lagu</a>
-            <a href="api/chord?lagu=sayang&apikey=APIKEY" class="sub-item">Chord Lagu</a>
+                <a href="api/chord?lagu=sayang&apikey=APIKEY" class="sub-item">Chord Lagu</a>
           </div>
         </div>
 		<div class="item">
