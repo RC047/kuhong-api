@@ -5031,7 +5031,6 @@ router.get('/zodiak', async (req, res, next) => {
 	if (isNaN(tggl)) return res.json(loghandler.number)
 	if (isNaN(bln)) return res.json(loghandler.number)
 	if (isNaN(thn)) return res.json(loghandler.number)
-
  
        var json = await (await fetch(`https://arugaz.herokuapp.com/api/getzodiak?nama=${nama}&tgl-bln-thn=${tggl}-${bln}-${thn}`)).json()
              res.json(json)
@@ -5054,8 +5053,6 @@ router.get('/spamgmail', async (req, res, next) => {
 	if (subjek.length > 10) return res.json({ message: "Subjek kepanjangan!" })
         if (!pesan) return res.json({ message: "Masukan parameter pesan" })
 
-
- 
        var json = await (await fetch(`https://videfikri.com/api/spamemail/?email=${email}&subjek=${subjek}&pesan=${pesan}`)).json()
          res.json({
 		 status: true,
@@ -5391,7 +5388,6 @@ router.get('/gtaposter', async (req, res, next) => {
 
      res.sendFile(__path + '/tmp/gtaposter.png')
      
-
     } else res.sendFile(invalidKey)
 })
 
