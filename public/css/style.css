@@ -85,7 +85,7 @@ body{
 }
 
 .side-bar .menu .item a:hover{
-  background: #8621F8;
+  background: #FF0000;
   transition: 0.3s ease;
 }
 
@@ -148,7 +148,7 @@ body{
 .main h1 {
     position: relative;
     font-size: 90px;
-    color: #252839;
+    color: #000;
     -webkit-text-stroke: 0.3vw #383d52;
 }
 
@@ -159,9 +159,9 @@ body{
     left: 0;
     width: 0;
     height: 100%;
-    color: #01fe87;
+    color: #05FE01;
     -webkit-text-stroke: 0vw #383d52;
-    border-right: 2px solid #01fe87;
+    border-right: 2px solid #05FE01;
     overflow: hidden;
     animation: rendygans 6s linear infinite;
 }
@@ -194,10 +194,10 @@ a:link {
   position: absolute;
 }
 .box {
-  width: 100px;
-  height: 40px;
+  width: 150px;
+  height: 60px;
   text-align: center;
-  font-size: 15px;
+  font-size: 5px;
   font-family: "Poppins", sans-serif;
   background-color: #000;
   border-radius: 5px;
