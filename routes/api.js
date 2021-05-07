@@ -3629,7 +3629,6 @@ router.get('/emojitopng', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
                emoji = req.query.emoji;
 
-try {
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (apikeyInput == `${owner_key}` || apikeyInput == `${free_key}` || apikeyInput == `${premium_key_month}` || apikeyInput == `${custom_key_month}` ||  apikeyInput == `${premium_key_year}` || apikeyInput == `${custom_key_year}`) {
   if (!emoji) return res.json(loghandler.notemoji)
@@ -3638,9 +3637,7 @@ try {
         await fs.writeFileSync(__path + '/tmp/emojitopng.png', hasil)
 
          res.sendFile(__path + '/tmp/emojitopng.png')
-} catch (e) {
-     console.log(e)
-	res.sendFile(error)   }
+
     } else res.sendFile(invalidKey)
 })
 
