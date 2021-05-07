@@ -188,13 +188,14 @@ a:link {
   border-style: solid;
   border-radius: 5px;
   padding: 3px;
+
   margin : 10px;
   right: 0;
   position: absolute;
 }
 .box {
-  width: 200px;
-  height: 80px;
+  width: 100px;
+  height: 40px;
   text-align: center;
   font-size: 15px;
   font-family: "Poppins", sans-serif;
