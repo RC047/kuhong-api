@@ -5300,7 +5300,8 @@ router.get('/upload', async (req, res, next) => {
        var encmedia = await imageToBase64(file)
        var media = Buffer.from(encmedia, 'base64')
        await fs.writeFileSync(__path + '/tmp/image.png', media)
-       var result = await upload(fs.readFileSync(__path + '/tmp/image.png'))
+       var file_result = fs.readFileSync(__path + '/tmp/image.png')
+       var result = await upload(file_result)
 
              res.json({
              	status : true,
@@ -5308,7 +5309,7 @@ router.get('/upload', async (req, res, next) => {
                 result: result
              })
 } catch (e) {
-    res.sendFile(error)
+    res.json({ error: e })
 	console.log(e)
    }
 })
