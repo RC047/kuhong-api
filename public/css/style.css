@@ -9,7 +9,7 @@
 
 body{
   min-height: 10vh;
-  background-color: #000;
+  background-color: #1a1630;
   background-size: cover;
   background-position: center;
 }
@@ -44,7 +44,7 @@ body{
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #1a1630;
 }
 
 .side-bar .profile img{
@@ -85,7 +85,7 @@ body{
 }
 
 .side-bar .menu .item a:hover{
-  background: #05FE01;
+  background: #28243c;
   transition: 0.3s ease;
 }
 
@@ -157,18 +157,17 @@ a:link {
   border-style: solid;
   border-radius: 5px;
   padding: 3px;
-
   margin : 10px;
   right: 0;
   position: absolute;
 }
 .box {
-  width: 200px;
-  height: 40px;
+  width: 150px;
+  height: 80px;
   text-align: center;
-  font-size: 10px;
+  font-size: 15px;
   font-family: "Poppins", sans-serif;
-  background-color: #000;
+  background-color: #1a1630;
   border-radius: 5px;
 }
 
