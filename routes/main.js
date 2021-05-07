@@ -13,24 +13,15 @@ router.get('/api', (req, res) => {
     res.sendFile(__path + '/views/index.html')
 })
 
-router.get('/api/game', (req, res) => {
-    var type = req.query.type;
-    if (type !== 'pingpong') return res.json({ error: `Tipe Game tidak tersedia!` })
-
+router.get('/api/game/pingpong', (req, res) => {
     res.sendFile(__path + '/views/game.html')
 })
 
-router.get('/api/game', (req, res) => {
-    var type = req.query.type;
-    if (type !== 'tebakangka') return res.json({ error: `Tipe Game tidak tersedia!` })
-
+router.get('/api/game/tebakangka', (req, res) => {
     res.sendFile(__path + '/views/game2.html')
 })
 
-router.get('/api/game', (req, res) => {
-    var type = req.query.type;
-    if (type !== 'suitjawa') return res.json({ error: `Tipe Game tidak tersedia!` })
-
+router.get('/api/game/suitjawa', (req, res) => {
     res.sendFile(__path + '/views/game3.html')
 })
 
