@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!-- LIHAT! ADA ORANG GOBLOK YANG SUKA COPAS WEB ORANG -->
 <!-- MODAL AJG!!! JAMAN GINI BAKAT LU CUMAN BISA COPAS DOANG? -->
-<!-- W mah gk kek luu,, w mah selalu kasih credit klo copas -->
 
 <html lang="en" dir="ltr">
   <head>
@@ -32,7 +31,9 @@
         if (document.getElementById("jam")){
         var waktu = new Date();
         setTimeout("waktu()", 1000);
-	document.getElementById("waktu").innerHTML = waktu.getHours() + waktu.getMinutes() + waktu.getSeconds();
+        document.getElementById("jam").innerHTML = waktu.getHours();
+        document.getElementById("menit").innerHTML = waktu.getMinutes();
+        document.getElementById("detik").innerHTML = waktu.getSeconds();
           }
     }
     </script>
@@ -410,6 +411,7 @@
           </div>
         </div>
       </div>
+    </div>
     <section class="main">
       <h1>Ikan hiu makan tomat<br>Iri bilang bos!</h1>
     </section>
