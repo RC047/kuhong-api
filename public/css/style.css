@@ -16,7 +16,7 @@ body{
 
 .side-bar{
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(100px);
+  backdrop-filter: blur(25px);
   width: 290px;
   height: 100vh;
   position: fixed;
@@ -55,35 +55,9 @@ body{
 }
 
 .side-bar .profile p{
-  position: relative;
-  font-size: 90px;
-  color: #000;
-  -webkit-text-stroke: 0.3vw #383d52;
-}
-
-.side-bar .profile p::before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    color: #05FE01;
-    -webkit-text-stroke: 0vw #383d52;
-    border-right: 2px solid #05FE01;
-    overflow: hidden;
-    animation: animate 6s linear infinite;
-}
-
-@keyframes animate {
-    0%,10%,100%{
-
-    width: 0;
-    }
-    70%,90%{
-        width: 100%;
-    }
-}
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .side-bar.active{
