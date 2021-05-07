@@ -44,7 +44,7 @@ body{
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #1a1630;
+  background: #555;
 }
 
 .side-bar .profile img{
@@ -162,8 +162,8 @@ a:link {
   position: absolute;
 }
 .box {
-  width: 150px;
-  height: 125px;
+  width: 200px;
+  height: 80px;
   text-align: center;
   font-size: 15px;
   font-family: "Poppins", sans-serif;
