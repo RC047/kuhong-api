@@ -15,7 +15,8 @@ router.get('/docs', (req, res) => {
 
 router.get('/api/update', (req, res) => {
     res.json({
-        update: 'Update Editor & Random Menu!'
+        update_1: 'Update Editor & Random Menu!',
+        update_2: 'Apikey sekarang tidak gratis :)\nMinat? Silahkan Beli Apikey pada nomor yg tertera didalam web ini.'
     })
 })
 
