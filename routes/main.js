@@ -13,6 +13,12 @@ router.get('/docs', (req, res) => {
     res.sendFile(__path + '/views/index.html')
 })
 
+router.get('/api/update', (req, res) => {
+    res.json({
+        update: 'Update Editor & Random Menu!'
+    })
+})
+
 router.get('/api/game/pingpong', (req, res) => {
     res.sendFile(__path + '/views/game.html')
 })
