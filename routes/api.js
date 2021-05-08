@@ -6218,7 +6218,7 @@ try {
 		creator: creator,
 		file: upload_files
 	})
-     }
+     })
 } catch (e) {
   console.log(e)
     res.sendFile(error)
