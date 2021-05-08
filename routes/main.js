@@ -9,6 +9,10 @@ router.get('/', (req, res) => {
     res.sendFile(__path + '/views/home.html')
 })
 
+router.get('/loading', (req, res) => {
+    res.sendFile(__path + '/views/loading.html')
+})
+
 router.get('/docs', (req, res) => {
     res.sendFile(__path + '/views/index.html')
 })
