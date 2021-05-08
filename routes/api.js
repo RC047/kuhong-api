@@ -263,7 +263,7 @@ var invalidKey = __path + '/views/invalidKey.html' // Jika Apikey Invalid
         for (var i = lenn; i > 0; i--) {
             randomlagi += arr[Math.floor(Math.random() * arr.length)];
         }
-        var randomTextNumber = 'kuhong-api-storage/'+random+randomlagi;
+        var randomTextNumber = 'kuhong-api-storage---'+random+randomlagi;
 
 router.get('/cekapikey', async (req, res, next) => {
     var apikeyInput = req.query.apikey;
@@ -5955,7 +5955,7 @@ router.get('/maps', async (req, res, next) => {
 
  try {
        var json = await (await fetch(`https://mnazria.herokuapp.com/api/maps?search=${q}`)).json()
-       var result = await (await fetch(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${json.gambar}&name=kuhong-api-storage/maps`)).json()
+       var result = await (await fetch(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${json.gambar}&name=kuhong-api-storage---maps`)).json()
          await fs.writeFileSync(__path + '/tmp/maps.png', await getBuffer(result.data.url))
 
              res.sendFile(__path + '/tmp/maps.png')
