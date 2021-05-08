@@ -51,7 +51,7 @@ var util = require('util');
 var router  = express.Router();
 var options = require(__path + '/lib/options.js');
 
-var { stylizeText, tts, wait, simih, getBuffer, h2k, getRandom, randomBytes, start, info, success, banner, close, pickRandom } = require(__path + '/lib/functions.js');
+var { stylizeText, tts, wait, simih, getBuffer, h2k, getRandom, readMore, randomBytes, start, info, success, banner, close, pickRandom } = require(__path + '/lib/functions.js');
 var { servers, yta, ytv } = require(__path + '/lib/y2mate.js')
 var { removeBackgroundFromImageFile } = require('remove.bg');
 var { tahta } = require(__path + '/lib/tahta.js');
@@ -6325,6 +6325,45 @@ router.get('/suit', async (req, res, next) => {
     } else {
         res.json({ status: false, creator: creator, message: miss })
     }
+})
+
+router.get('/sid', async (req, res, next) => {
+	var url = req.query.url,
+	    apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if(req.query === undefined) return res.json(loghandler.notfound)
+	if(!url) return res.json(loghandler.noturl)
+	if(!url.startsWith('http') return res.json(loghandler.invalidLink)
+
+ try {
+       var json = await (await fetch(`https://api.zeks.xyz/api/sid-shortener?apikey=apivinz&url=${url}`)).json()
+
+       res.json(json)
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/jadwaltv', async (req, res, next) => {
+	var channel = req.query.channel,
+	    apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if(req.query === undefined) return res.json(loghandler.notfound)
+	if(!channel) return res.json({ message: `Masukan parameter channel` })
+
+ try {
+       var json = await (await fetch(`https://api.zeks.xyz/api/jadwaltv?channel=${channel}&apikey=apivinz`)).json()
+
+       res.json(json)
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
 })
 
 // End of script
