@@ -2,7 +2,7 @@ __path = process.cwd()
 
 // Database :
 var express = require('express');
-var { generateApikey } = require(__path + '/lib/generator.js');
+var { generateID } = require(__path + '/lib/generator.js');
 var database = require(__path + '/database/database.js');
 
 try {
@@ -18,10 +18,12 @@ var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // In
 var key = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikeymu (dibutuhkan)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
+var key_id = generateID // ID Apikey
 console.log(`Checking Apikey Data...`)
 console.log(`Apikey : ${key}`)
 console.log(`Xteam Apikey : ${xteam_key}`)
 console.log(`RemoveBG Apikey : ${removebg_key}`)
+console.log(`Apikey ID : ${key_id}`)
 
 // Required Modules :
 var ffmpeg = require('fluent-ffmpeg');
@@ -49,7 +51,7 @@ var util = require('util');
 var router  = express.Router();
 var options = require(__path + '/lib/options.js');
 
-var { stylizeText, tts, wait, simih, getBuffer, h2k, banner, getRandom, start, info, success, close, pickRandom } = require(__path + '/lib/functions.js');
+var { stylizeText, tts, wait, simih, getBuffer, h2k, getRandom, randomBytes, start, info, success, banner, close, pickRandom } = require(__path + '/lib/functions.js');
 var { servers, yta, ytv } = require(__path + '/lib/y2mate.js')
 var { removeBackgroundFromImageFile } = require('remove.bg');
 var { tahta } = require(__path + '/lib/tahta.js');
@@ -6157,6 +6159,172 @@ try {
      console.log(e)
 	res.sendFile(error)
    }
+})
+
+router.get('/carbon', async (req, res, next) => {
+        var code = req.query.code,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!code) return res.json({ message: `Masukan parameter code` })
+
+     var hasil = await getBuffer(`http://zekais-api.herokuapp.com/carbon?code=${text}`)
+       await fs.writeFileSync(__path + '/tmp/carbon_code.png', hasil)
+
+         res.sendFile(__path + '/tmp/carbon_code.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/maps', async (req, res, next) => {
+	var q = req.query.query,
+	    apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if(req.query === undefined) return res.json(loghandler.notfound)
+	if(!q) return res.json(loghandler.notquery)
+
+ try {
+       var json = await (await fetch(`https://mnazria.herokuapp.com/api/maps?search=${q}`)).json()
+         await fs.writeFileSync(__path + '/tmp/maps.png', await getBuffer(json.gambar))
+
+             res.sendFile(__path + '/tmp/maps.png')
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/search-giphy', async (req, res, next) => {
+	var q = req.query.query,
+	    apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if(req.query === undefined) return res.json(loghandler.notfound)
+	if(!q) return res.json(loghandler.notquery)
+
+ try {
+       var json = await (await fetch(`https://mnazria.herokuapp.com/api/gif?search=${q}`)).json()
+
+       res.json(json)
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/ipcheck', async (req, res, next) => {
+	var ip = req.query.ip,
+	    apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if(req.query === undefined) return res.json(loghandler.notfound)
+	if(!ip) return res.json({ message: `Masukan parameter ip` })
+
+ try {
+       var json = await (await fetch(`https://mnazria.herokuapp.com/api/check?ip=${ip}`)).json()
+
+       res.json(json)
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/hentai', async (req, res, next) => {
+	var apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if(req.query === undefined) return res.json(loghandler.notfound)
+
+ try {
+       var json = await (await fetch(`http://api-melodicxt-2.herokuapp.com/api/random/hentai?apiKey=administrator`)).json()
+         await fs.writeFileSync(__path + '/tmp/hentai.png', await getBuffer(json.result.result))
+
+             res.sendFile(__path + '/tmp/maps.png')
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/nulis3', async (req, res, next) => {
+	var text = req.query.text,
+	    arah = req.query.arah,
+	    apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if(req.query === undefined) return res.json(loghandler.notfound)
+	if(!text) return res.json(loghandler.nottext)
+	if(!arah) return res.json({ message: `Masukan parameter arah, kanan/kiri.` })
+
+ try {
+        if (arah == 'kanan' || arah == 'kiri') {
+       var json = await (await fetch(`http://zekais-api.herokuapp.com/buku${arah}?text=${text}`)).buffer()
+         await fs.writeFileSync(__path + '/tmp/nulis3_${arah}.png', hasil)
+
+             res.sendFile(__path + '/tmp/nulis3_${arah}.png')
+	} else res.json({ message: `Pilih kiri atau kanan udin!` })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/suit', async (req, res, next) => {
+	var text = req.query.pilihan,
+	    apikeyInput = req.query.apikey;
+
+    if(!apikeyInput) return res.json(loghandler.notparam)
+    if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+    if(req.query === undefined) return res.json(loghandler.notfound)
+    if(!text) return res.json({ message: `Masukan pilihan suitmu` })
+
+    var miss = `Pilihan yang tersedia gunting, kertas, batu`
+    var poin = 5000
+    var suit = Math.random()
+
+    if (suit < 0.34) {
+        suit = 'batu'
+    } else if (suit > 0.34 && suit < 0.67) {
+        suit = 'gunting'
+    } else {
+        suit = 'kertas'
+    }
+
+    if (text == suit) {
+        res.json({ status: true, creator: creator, message: `Seri!`, kamu: text, bot: suit })
+    } else if (text == 'batu') {
+        if (suit == 'gunting') {
+            res.json({ status: true, creator: creator, message: `Kamu Menang!`, kamu: text, bot: suit, poin: poin })
+        } else {
+            res.json({ status: false, creator: creator, message: `Kamu Kalah!`, kamu: text, bot: suit })
+        }
+    } else if (text == 'gunting') {
+        if (suit == 'kertas') {
+            res.json({ status: true, creator: creator, message: `Kamu Menang!`, kamu: text, bot: suit, poin: poin })
+        } else {
+            res.json({ status: false, creator: creator, message: `Kamu Kalah!`, kamu: text, bot: suit })
+        }
+    } else if (text == 'kertas') {
+        if (suit == 'batu') {
+            res.json({ status: true, creator: creator, message: `Kamu Menang!`, kamu: text, bot: suit, poin: poin })
+        } else {
+            res.json({ status: false, creator: creator, message: `Kamu Kalah!`, kamu: text, bot: suit })
+        }
+    } else {
+        res.json({ status: false, creator: creator, message: miss })
+    }
 })
 
 // End of script
