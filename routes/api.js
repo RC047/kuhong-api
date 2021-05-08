@@ -6014,7 +6014,7 @@ router.get('/hentai', async (req, res, next) => {
        var json = await (await fetch(`http://api-melodicxt-2.herokuapp.com/api/random/hentai?apiKey=${melodicxt_key}`)).json()
          await fs.writeFileSync(__path + '/tmp/hentai.png', await getBuffer(json.result.result))
 
-             res.sendFile(__path + '/tmp/maps.png')
+             res.sendFile(__path + '/tmp/hentai.png')
 } catch (e) {
   console.log(e)
     res.sendFile(error)
