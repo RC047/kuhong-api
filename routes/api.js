@@ -3094,12 +3094,7 @@ router.get('/ocr', async (req, res, next) => {
    await tesseract.recognize(img, ocr).then(result => {
     console.log("ocr result :" + result)
 
-	   res.json({
-                status : true,
-                creator : `${creator}`,
-                message : `jangan lupa Subscribe Youtube ${creator}`,
-                result : result
-             })
+	   res.sendFile(result)
   })
      .catch(error => {
         res.sendFile(error)
@@ -3117,7 +3112,7 @@ router.get('/removebg', async (req, res, next) => {
         if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-	var media = img.toString('Uint8Array')
+	var media = img.toString('base64')
 	var ranp = getRandom('.png')
           await removeBackgroundFromImageFile({ path: media, apiKey: removebg_key, size: 'auto', type: 'auto', ranp }).then(result => {
             var hasil = Buffer.from(result.base64img, 'base64')
@@ -5034,7 +5029,7 @@ router.get('/readmore', async (req, res, next) => {
 		status: true,
 		creator: creator,
 		readmore: l + readMore + r,
-		note: `gunakan whatsapp/telegram agar teks terlihat baca selengkapnya.`
+		note: `Gunakan whatsapp/telegram agar teks terlihat baca selengkapnya.`
 	})
 })
 
@@ -5960,7 +5955,8 @@ router.get('/maps', async (req, res, next) => {
 
  try {
        var json = await (await fetch(`https://mnazria.herokuapp.com/api/maps?search=${q}`)).json()
-         await fs.writeFileSync(__path + '/tmp/maps.png', await getBuffer(json.gambar))
+       var result = await (await fetch(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${json.gambar}&name=kuhong-api-storage/maps`)).json()
+         await fs.writeFileSync(__path + '/tmp/maps.png', await getBuffer(result.data.url))
 
              res.sendFile(__path + '/tmp/maps.png')
 } catch (e) {
