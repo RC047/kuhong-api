@@ -6204,21 +6204,29 @@ try {
    }
 })
 
-router.post('/upload_result', async (req, res, next) => {
+router.get('/upload_result', async (req, res, next) => {
 
 try {
+     if (req.url === "/api/upload_file" && req.method === "GET") {
      var form = new formidable.IncomingForm();
      form.parse(req, function (err, fields, files) {
-        var filepath = files.file_upload.path;
-        var file = files.file_upload.name;
-	var upload_files = upload(fs.readFileSync(file))
+        var inputPath = files.file_upload.path;
+        var outputPath = __path + '/tmp/' + files.file_upload.name;
 
-    return res.json({
-		status: true,
-		creator: creator,
-		file: upload_files
-	})
-     })
+	mv(inputPath, outputPath, function (err) {
+          if (err) { console.log(err) }
+          return res.end('File uploaded successfully')
+        });
+
+    var upload_files = upload(fs.readFileSync(outputPath))
+
+return res.json({
+	status: true,
+	creator: creator,
+	ile: upload_files
+	});
+     });
+   }
 } catch (e) {
   console.log(e)
     res.sendFile(error)
