@@ -6098,7 +6098,7 @@ router.get('/sid', async (req, res, next) => {
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
 	if(!url) return res.json(loghandler.noturl)
-	if(!url.startsWith('http') return res.json(loghandler.invalidLink)
+	if(!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
  try {
        var json = await (await fetch(`https://api.zeks.xyz/api/sid-shortener?apikey=${zeks_key}&url=${url}`)).json()
