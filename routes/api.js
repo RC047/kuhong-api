@@ -30,6 +30,7 @@ console.log(`RemoveBG Apikey : ${removebg_key}`)
 console.log(`Apikey ID : ${key_id}`)
 
 // Required Modules :
+var http = require('http');
 var ffmpeg = require('fluent-ffmpeg');
 var brainly = require('brainly-scraper-v2');
 var imageToBase64 = require('image-to-base64');
@@ -6198,35 +6199,6 @@ router.get('/upload_file', async (req, res, next) => {
 
 try {
      res.sendFile(upload_post)
-} catch (e) {
-  console.log(e)
-    res.sendFile(error)
-   }
-})
-
-router.get('/upload_result', async (req, res, next) => {
-
-try {
-     if (req.url === "/api/upload_file" && req.method === "GET") {
-     var form = new formidable.IncomingForm();
-     form.parse(req, function (err, fields, files) {
-        var inputPath = files.file_upload.path;
-        var outputPath = __path + '/tmp/' + files.file_upload.name;
-
-	mv(inputPath, outputPath, function (err) {
-          if (err) { console.log(err) }
-          return res.end('File uploaded successfully')
-        });
-
-    var upload_files = upload(fs.readFileSync(outputPath))
-
-return res.json({
-	status: true,
-	creator: creator,
-	ile: upload_files
-	});
-     });
-   }
 } catch (e) {
   console.log(e)
     res.sendFile(error)
