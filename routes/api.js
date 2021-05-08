@@ -248,6 +248,7 @@ var loghandler = {
     }
 }
 
+var upload_post = __path + '/views/upload.html' // Upload Gambar (Method POST)
 var error = __path + '/views/error.html' // Jika Error
 var invalidKey = __path + '/views/invalidKey.html' // Jika Apikey Invalid
 
@@ -5874,18 +5875,16 @@ router.get('/html-viewer', async (req, res, next) => {
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
 	if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
- try {
-       var json = await (await fetch(`view-source:${url}`)).json()
+       axios.get(`view-source:${url}`).then((result) => {
 
              res.json({
 		     status: true,
 		     creator: creator,
-		     result: json
+		     result: result.data
 	     })
-} catch (e) {
-  console.log(e)
+       }).catch(() => {
     res.sendFile(error)
-   }
+   })
 })
 
 router.get('/invert', async (req, res, next) => {
@@ -6194,6 +6193,35 @@ router.get('/sha512', async (req, res, next) => {
 } catch (e) {
   console.log(e)
     res.sendFile(error)
+   }
+})
+
+router.get('/upload_image', async (req, res, next) => {
+
+try {
+     res.sendFile(upload_post)
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/gaminglogo', async (req, res, next) => {
+        var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if (!text) return res.json(loghandler.nottext)
+
+     var hasil = await getBuffer(`http://docs-jojo.herokuapp.com/api/gaming?text=${text}`)
+       await fs.writeFileSync(__path + '/tmp/gaminglogo.png', hasil)
+
+         res.sendFile(__path + '/tmp/gaminglogo.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
    }
 })
 
