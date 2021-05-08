@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Itim', cursive;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    animation: animate 5s linear infinite;
+}
+
+.wavy{
+    position: relative;
+    -webkit-box-reflect: below -12px linear-gradient(transparent, rgba(0,0,0,0.2));
+}
+
+.wavy span {
+    position: relative;
+    display: inline-block;
+    color: #333;
+    font-size: 2em;
+    text-transform: uppercase;
+    animation: animation-by-rc047 2s ease-in-out infinite, rendygans 5s linear infinite ;       
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes animation-by-rc047{
+    0%{
+        transform: translateY(0px);
+    }
+    20%{
+        transform:translateY(-20px);
+    }
+    40%, 100%{
+        transform: translateY(0px);
+    }
+}
+
+@keyframes rendygans {
+    0%{
+        color:aqua;
+        text-shadow: 0 0 10px aqua,
+         0 0 20px aqua,
+         0 0 40px aqua,
+         0 0 80px aqua,
+         0 0 160px aqua;
+
+    }
+    50%{
+        color: aquamarine;
+        text-shadow:  0 0 5px aqua,
+        0 0 20px aqua,
+        0 0 40px aqua,
+        0 0 80px aqua,
+        0 0 160px aqua;
+    }
+    100%{
+        color: #333;
+        text-shadow:  none;
+    }
+}
