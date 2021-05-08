@@ -6366,8 +6366,77 @@ router.get('/jadwaltv', async (req, res, next) => {
    }
 })
 
+router.get('/sha1', async (req, res, next) => {
+	var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if(req.query === undefined) return res.json(loghandler.notfound)
+	if(!text) return res.json(loghandler.nottext)
+
+ try {
+       var json = await (await fetch(`https://api.xteam.xyz/encrypt/sha1?text=${text}&APIKEY=${xteam_key}`)).json()
+
+       res.json({
+	       status: true,
+	       creator: creator,
+	       text: text,
+	       sha1: json.result.encrypt
+       })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/sha256', async (req, res, next) => {
+	var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if(req.query === undefined) return res.json(loghandler.notfound)
+	if(!text) return res.json(loghandler.nottext)
+
+ try {
+       var json = await (await fetch(`https://api.xteam.xyz/encrypt/sha256?text=${text}&APIKEY=${xteam_key}`)).json()
+
+       res.json({
+	       status: true,
+	       creator: creator,
+	       text: text,
+	       sha256: json.result.encrypt
+       })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/sha512', async (req, res, next) => {
+	var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if(req.query === undefined) return res.json(loghandler.notfound)
+	if(!text) return res.json(loghandler.nottext)
+
+ try {
+       var json = await (await fetch(`https://api.xteam.xyz/encrypt/sha512?text=${text}&APIKEY=${xteam_key}`)).json()
+
+       res.json({
+	       status: true,
+	       creator: creator,
+	       text: text,
+	       sha512: json.result.encrypt
+       })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
 // End of script
 module.exports = router
-
-const more = String.fromCharCode(8206)
-const readMore = more.repeat(4001)
