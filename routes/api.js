@@ -6211,7 +6211,7 @@ try {
      form.parse(req, function (err, fields, files) {
         var filepath = files.file_upload.path;
         var file = files.file_upload.name;
-	var upload_files = await upload(fs.readFileSync(file))
+	var upload_files = upload(fs.readFileSync(file))
 
     return res.json({
 		status: true,
