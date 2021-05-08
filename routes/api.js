@@ -13,6 +13,7 @@ var kuhong = database.get('RC047'); // jan diubah
 
 var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab (dibutuhkan)
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
+var maintenance = false
 
 // Apikey :
 var key = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikeymu (dibutuhkan)
@@ -20,14 +21,12 @@ var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'apivinz' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
-var key_id = generateID // ID Apikey
 console.log(`Checking Apikey Data...`)
 console.log(`Your Apikey : ${key}`)
 console.log(`Xteam Apikey : ${xteam_key}`)
 console.log(`Zeks Apikey : ${zeks_key}`)
 console.log(`Melodicxt-2 Apikey : ${melodicxt_key}`)
 console.log(`RemoveBG Apikey : ${removebg_key}`)
-console.log(`Apikey ID : ${key_id}`)
 
 // Required Modules :
 var http = require('http');
@@ -244,6 +243,11 @@ var loghandler = {
         code: 406,
         message: 'Teks harus berupa angka'
     },
+    maintenance: {
+        status: 404,
+        creator: `${creator}`,
+        message: 'Fitur ini sedang dalam Perbaikan'
+    },
     error: {
         status: false,
         creator: `${creator}`,
@@ -251,7 +255,6 @@ var loghandler = {
     }
 }
 
-var upload_post = __path + '/views/upload.html' // Upload Gambar (Method POST)
 var error = __path + '/views/error.html' // Jika Error
 var invalidKey = __path + '/views/invalidKey.html' // Jika Apikey Invalid
 
