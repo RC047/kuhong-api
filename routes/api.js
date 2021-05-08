@@ -42,6 +42,8 @@ var ytdl = require('ytdl-core');
 var ytpl = require('ytpl');
 var qrcode = require('qrcode');
 var secure = require('ssl-express-www');
+var formidable = require('formidable');
+var mv = require('mv');
 var cors = require('cors');
 var scrapeYt = require('scrape-yt');
 var gtts = require('node-gtts');
@@ -6192,10 +6194,31 @@ router.get('/sha512', async (req, res, next) => {
    }
 })
 
-router.get('/upload_image', async (req, res, next) => {
+router.get('/upload_file', async (req, res, next) => {
 
 try {
      res.sendFile(upload_post)
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.post('/upload_result', async (req, res, next) => {
+
+try {
+     var form = new formidable.IncomingForm();
+     form.parse(req, function (err, fields, files) {
+        var filepath = files.file_upload.path;
+        var file = files.file_upload.name;
+	var upload_files = await upload(fs.readFileSync(file))
+
+    return res.json({
+		status: true,
+		creator: creator,
+		file: upload_files
+	})
+     }
 } catch (e) {
   console.log(e)
     res.sendFile(error)
