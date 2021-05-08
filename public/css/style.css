@@ -101,7 +101,7 @@ body{
 }
 
 .side-bar .menu .item .sub-menu{
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(26, 22, 48, 0.1);
   display: none;
 }
 
@@ -158,8 +158,12 @@ a:link {
   border-radius: 5px;
   padding: 3px;
   margin : 10px;
+  top: 0;
   right: 0;
-  position: absolute;
+  position: fixed;
+  overflow-y: auto;
+  transition: 0.6s ease;
+  transition-property: left;
 }
 .box {
   width: 150px;
