@@ -5,46 +5,43 @@ var fetch = require('node-fetch');
 var express = require('express');
 var router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     res.sendFile(__path + '/views/home.html')
 })
 
-router.get('/loading', (req, res) => {
-    res.sendFile(__path + '/views/loading.html')
+router.get('/docs', async (req, res) => {
+    await res.sendFile(__path + '/views/loading.html')
+    await res.sendFile(__path + '/views/index.html')
 })
 
-router.get('/docs', (req, res) => {
-    res.sendFile(__path + '/views/index.html')
-})
-
-router.get('/api/update', (req, res) => {
+router.get('/api/update', async (req, res) => {
     res.json({
         update_1: 'Update Editor & Random Menu!',
         update_2: 'Apikey sekarang tidak gratis :)\nMinat? Silahkan Beli Apikey pada nomor yg tertera didalam web ini.'
     })
 })
 
-router.get('/api/game/pingpong', (req, res) => {
+router.get('/api/game/pingpong', async  (req, res) => {
     res.sendFile(__path + '/views/game.html')
 })
 
-router.get('/api/game/tebakangka', (req, res) => {
+router.get('/api/game/tebakangka', async (req, res) => {
     res.sendFile(__path + '/views/game2.html')
 })
 
-router.get('/api/game/suitjawa', (req, res) => {
+router.get('/api/game/suitjawa', async (req, res) => {
     res.sendFile(__path + '/views/game3.html')
 })
 
-router.get('/api/game/tetris', (req, res) => {
+router.get('/api/game/tetris', async (req, res) => {
     res.sendFile(__path + '/views/game4.html')
 })
 
-router.get('/api/game/dino', (req, res) => {
+router.get('/api/game/dino', async (req, res) => {
     res.sendFile(__path + '/views/game5.html')
 })
 
-router.get('/api/tutorial', (req, res) => {
+router.get('/api/tutorial', async (req, res) => {
     res.sendFile(__path + '/views/tutorial.html')
 })
 
