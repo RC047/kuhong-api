@@ -3701,17 +3701,21 @@ try {
 
 router.get('/brainly', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
-               soal = req.query.soal;
+            soal = req.query.soal,
+	    poin = req.query.poin
 
 try {
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
   if (!soal) return res.json({ message: `Masukan parameter soal` })
+  if (!poin) return res.json({ message: `Masukan parameter poin` })
+  if (poin.length > 50) return res.json({ message: `Maximal 50 poin!` })
+  if (poin.length < 5) return res.json({ message: `Minimal 5 poin!` })
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/brainly?apikey=${zeks_key}&q=${soal}&count=5`)).json()
-       res.json(json)
-     
+     var result = await brainly(soal, poin, 'id').then((result) => {
+       res.json(result)
+     })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -6609,32 +6613,31 @@ router.get('/linesticker', async (req, res, next) => {
 })
 
 router.get('/kerang', async (req, res, next) => {
-	var tanya = req.query.tanya,
-	    pertanyaan = req.query.pertanyaan,
+	var pertanyaan = req.query.pertanyaan,
 	    apikeyInput = req.query.apikey;
 
 	if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-	if(!tanya) return res.json({ error: `Masukan kata tanyanya. apakah, kapankah, siapakah, bisakah` })
-	if(!pertanyaan) return res.json({ error: `Tidak ada pertanyaan yang dapat dijawab` })
 
-       var json = await (await fetch(`https://kuhong-api.herokuapp.com/api/fakedata?country=en&apikey=${key}`)).json()
+       var nama_acak = await (await fetch(`https://kuhong-api.herokuapp.com/api/fakedata?country=en&apikey=${key}`)).json()
        var answer = 'Tidak ada pertanyaan yang dapat dijawab'
-       if (tanya !== 'apakah' || tanya !== 'bisakah' || tanya !== 'kapankah' || tanya !== 'siapakah') return res.json({ error: `Pilih kata tanya : apakah, kapankah, siapakah, bisakah` })
-       if (tanya == 'apakah') answer = pickRandom(['Ya','Mungkin iya','Mungkin','Mungkin tidak','Tidak','Tidak mungkin'])
-       if (tanya == 'bisakah') answer = pickRandom(['Iya','Bisa','Tentu saja bisa','Tentu bisa','Sudah pasti','Sudah pasti bisa','Tidak','Tidak bisa','Tentu tidak','tentu tidak bisa','Sudah pasti tidak'])
-       if (tanya == 'kapankah') answer = Math.floor(Math.random() * 100) + pickRandom(['detik', 'menit', 'jam', 'hari', 'pekan', 'minggu', 'bulan', 'tahun', 'dekade', 'windu', 'abad']) + 'lagi ...'
-       if (tanya == 'siapakah') answer = json.result.name
+       if (!pertanyaan) answer = answer
+       if (!pertanyaan.startsWith('apa') || !pertanyaan.startsWith('apakah') || !pertanyaan.startsWith('bisakah') || !pertanyaan.startsWith('bisa') || !pertanyaan.startsWith('kapan') || !pertanyaan.startsWith('siapakah')) answer = 'Kata tanya yang tersedia : apa, apakah, kapan, kapankah, siapa, siapakah, bisa, bisakah'
+       if (pertanyaan.startsWith('apakah')) answer = pickRandom(['Ya','Mungkin iya','Mungkin','Mungkin tidak','Tidak','Tidak mungkin'])
+       if (pertanyaan.startsWith('apa')) answer = pickRandom(['Ya','Mungkin iya','Mungkin','Mungkin tidak','Tidak','Tidak mungkin'])
+       if (pertanyaan.startsWith('bisakah')) answer = pickRandom(['Iya','Bisa','Tentu saja bisa','Tentu bisa','Sudah pasti','Sudah pasti bisa','Tidak','Tidak bisa','Tentu tidak','tentu tidak bisa','Sudah pasti tidak'])
+       if (pertanyaan.startsWith('bisa')) answer = pickRandom(['Iya','Bisa','Tentu saja bisa','Tentu bisa','Sudah pasti','Sudah pasti bisa','Tidak','Tidak bisa','Tentu tidak','tentu tidak bisa','Sudah pasti tidak'])
+       if (pertanyaan.startsWith('kapankah')) answer = Math.floor(Math.random() * 100) + pickRandom(['detik', 'menit', 'jam', 'hari', 'pekan', 'minggu', 'bulan', 'tahun', 'dekade', 'windu', 'abad']) + 'lagi ...'
+       if (pertanyaan.startsWith('kapan')) answer = Math.floor(Math.random() * 100) + pickRandom(['detik', 'menit', 'jam', 'hari', 'pekan', 'minggu', 'bulan', 'tahun', 'dekade', 'windu', 'abad']) + 'lagi ...'
+       if (pertanyaan.startsWith('siapakah')) answer = nama_acak.result.name
+       if (pertanyaan.startsWith('siapa')) answer = nama_acak.result.name
 
        res.json({
 	       status: true,
 	       cretor: creator,
-	       result:{
-		       kata_tanya: tanya,
-		       pertanyaan: pertanyaan,
-		       jawaban: answer
-	       }
+	       pertanyaan: pertanyaan,
+	       jawaban: answer
        })
 })
 
