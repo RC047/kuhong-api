@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     res.sendFile(__path + '/views/home.html')
 })
 
-router.get('/loading', async (req, res) => {
+router.get('/api', async (req, res) => {
     await res.sendFile(__path + '/views/loading.html')
 })
 
