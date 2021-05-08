@@ -49,10 +49,11 @@ var util = require('util');
 var router  = express.Router();
 var options = require(__path + '/lib/options.js');
 
-var { tts, wait, simih, getBuffer, h2k, banner, getRandom, start, info, success, close, pickRandom } = require(__path + '/lib/functions.js');
+var { stylizeText, tts, wait, simih, getBuffer, h2k, banner, getRandom, start, info, success, close, pickRandom } = require(__path + '/lib/functions.js');
 var { servers, yta, ytv } = require(__path + '/lib/y2mate.js')
 var { removeBackgroundFromImageFile } = require('remove.bg');
 var { tahta } = require(__path + '/lib/tahta.js');
+var { JSDOM } = require('jsdom')
 var { createHash } = require('crypto')
 var { spawn, exec } = require('child_process');
 var { color, bgcolor } = require(__path + '/lib/color.js');
@@ -3183,13 +3184,8 @@ router.get('/ocr', async (req, res, next) => {
         if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-	var enc = await imageToBase64(img)
-	var media = Buffer.from(enc, 'base64')
-	await fs.writeFileSync(__path + '/tmp/ocr.png', media)
-	var path = fs.readFileSync(__path + '/tmp/ocr.png')
         var ocr = { lang: "eng", oem: 1, psm: 3 }
-
-   await tesseract.recognize(path, ocr).then(result => {
+   await tesseract.recognize(img, ocr).then(result => {
     console.log("ocr result :" + result)
 
 	   res.json({
@@ -3216,7 +3212,7 @@ router.get('/removebg', async (req, res, next) => {
         if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-	var media = await imageToBase64(img)
+	var media = img.toString('Uint8Array')
 	var ranp = getRandom('.png')
           await removeBackgroundFromImageFile({ path: media, apiKey: removebg_key, size: 'auto', type: 'auto', ranp }).then(result => {
             var hasil = Buffer.from(result.base64img, 'base64')
@@ -5971,7 +5967,7 @@ try {
    }
 })
 
-router.get('/jail', async (req, res, next) => {
+router.get('/rip', async (req, res, next) => {
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -5982,10 +5978,10 @@ try {
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-     var hasil = await (await fetch(`http://zekais-api.herokuapp.com/jail?url=${img}`)).buffer()
-   await fs.writeFileSync(__path + '/tmp/jail.png', hasil)
+     var hasil = await (await fetch(`http://zekais-api.herokuapp.com/rip?url=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/rip.png', hasil)
 
-     res.sendFile(__path + '/tmp/jail.png')
+     res.sendFile(__path + '/tmp/rip.png')
      
 } catch (e) {
      console.log(e)
@@ -6033,6 +6029,28 @@ try {
    }
 })
 
+router.get('/ttp4', async (req, res, next) => {
+        var text = req.query.text,
+	    color = req.query.color,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if (!text) return res.json(loghandler.nottext)
+  if (!color) return res.json({ message: `Masukan parameter warna` })
+
+     var hasil = await getBuffer(`http://zekais-api.herokuapp.com/text2png?text=${text}&color=${color}`)
+       await fs.writeFileSync(__path + '/tmp/ttp4.png', hasil)
+
+         res.sendFile(__path + '/tmp/ttp4.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
 router.get('/fml', async (req, res, next) => {
 	var apikeyInput = req.query.apikey;
 
@@ -6069,6 +6087,75 @@ router.get('/estetik', async (req, res, next) => {
 } catch (e) {
   console.log(e)
     res.sendFile(error)
+   }
+})
+
+router.get('/html-viewer', async (req, res, next) => {
+	var url = req.query.url,
+	    apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if(req.query === undefined) return res.json(loghandler.notfound)
+	if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
+
+ try {
+       var json = await (await fetch(`view-source:${url}`)).json()
+
+             res.json({
+		     status: true,
+		     creator: creator,
+		     result: json
+	     })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/invert', async (req, res, next) => {
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`https://api-self.herokuapp.com/api/invert?url=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/invert.png', hasil)
+
+     res.sendFile(__path + '/tmp/invert.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/styletext', async (req, res, next) => {
+    var text = req.query.text,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(req.query === undefined) return res.json(loghandler.notfound)
+  if(!text) return res.json(loghandler.nottext)
+
+    var style = await stylizeText(text)
+    var result = Object.entries(style).map(([name, value]) => `*${name}*\n${value}`).join`\n\n`
+
+           res.json({
+		     status: true,
+		     creator: creator,
+		     result: result
+	     })
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
    }
 })
 
