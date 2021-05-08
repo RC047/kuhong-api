@@ -6034,7 +6034,7 @@ try {
 })
 
 router.get('/fml', async (req, res, next) => {
-	var apikeyInput = req.query.apikey,
+	var apikeyInput = req.query.apikey;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
@@ -6055,7 +6055,7 @@ router.get('/fml', async (req, res, next) => {
 })
 
 router.get('/estetik', async (req, res, next) => {
-	var apikeyInput = req.query.apikey,
+	var apikeyInput = req.query.apikey;
 
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
