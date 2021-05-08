@@ -4220,7 +4220,7 @@ try {
             method: 'POST',
             body
             })
-    if (ress.status !== 200) return await res.json(result)
+    if (result.status !== 200) return await res.json(result)
     await fs.writeFileSync(__path + '/tmp/hd.png', await result.buffer())
 
     res.sendFile(__path + '/tmp/hd.png')
