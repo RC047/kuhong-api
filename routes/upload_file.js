@@ -8,7 +8,7 @@ var mv = require('mv');
 
 http.createServer(function (req, res) {
 
-    if (req.url === "/upload_file" && req.method === "GET"){
+    if (req.url === "/upload_result" && req.method === "GET"){
       fs.readFileSync(__path + '/views/upload.html', (err, data) => {
         res.writeHead(200, { 'Content-Type': 'text/html' });
         if (err) throw err;
@@ -16,7 +16,7 @@ http.createServer(function (req, res) {
       });
     }
 
-    if (req.url == '/upload_file' && req.method === "POST") {
+    if (req.url == '/upload_result' && req.method === "POST") {
       var form = new formidable.IncomingForm();
 
       form.parse(req, function (err, fields, files) {
@@ -34,4 +34,4 @@ http.createServer(function (req, res) {
 
   }).listen(8000);
 
-  console.log("server listening...");
+  console.log("Server running on listening http://localhost:8000");
