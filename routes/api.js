@@ -3710,8 +3710,9 @@ try {
   if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
   if (!soal) return res.json({ message: `Masukan parameter soal` })
   if (!poin) return res.json({ message: `Masukan parameter poin` })
-  if (poin.length > 50) return res.json({ message: `Maximal 50 poin!` })
-  if (poin.length < 5) return res.json({ message: `Minimal 5 poin!` })
+  if (isNaN(poin)) return res.json(loghandler.number)
+  if (poin > 50) return res.json({ message: `Maximal 50 poin!` })
+  if (poin < 5) return res.json({ message: `Minimal 5 poin!` })
 
      var result = await brainly(soal, poin, 'id').then((result) => {
        res.json(result)
