@@ -6033,6 +6033,45 @@ try {
    }
 })
 
+router.get('/fml', async (req, res, next) => {
+	var apikeyInput = req.query.apikey,
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if(req.query === undefined) return res.json(loghandler.notfound)
+
+ try {
+       var json = await (await fetch(`https://api.zeks.xyz/api/fml?apikey=apivinz`)).json()
+
+             res.json({
+		     status: true,
+		     creator: creator,
+		     result: json.result
+	     })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/estetik', async (req, res, next) => {
+	var apikeyInput = req.query.apikey,
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+        if(req.query === undefined) return res.json(loghandler.notfound)
+
+ try {
+       var estetik = await (await fetch(`https://api.zeks.xyz/api/estetikpic?apikey=apivinz`)).buffer()
+           await fs.writeFileSync(__path + '/tmp/aesthetic_pic.png', estetik)
+
+         res.sendFile(__path + '/tmp/aesthetic_pic.png')
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
 // End of script
 module.exports = router
 
