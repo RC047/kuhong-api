@@ -9,8 +9,11 @@ router.get('/', async (req, res) => {
     res.sendFile(__path + '/views/home.html')
 })
 
-router.get('/docs', async (req, res) => {
+router.get('/loading', async (req, res) => {
     await res.sendFile(__path + '/views/loading.html')
+})
+
+router.get('/docs', async (req, res) => {
     await res.sendFile(__path + '/views/index.html')
 })
 
