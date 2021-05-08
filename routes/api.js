@@ -5873,12 +5873,12 @@ router.get('/html-viewer', async (req, res, next) => {
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
 	if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
-       axios.get(`view-source:${url}`).then((result) => {
+       axios.get(`https://api-self.herokuapp.com/api/htmlscrapper?url=${url}`).then((data) => {
 
              res.json({
 		     status: true,
 		     creator: creator,
-		     result: result.data
+		     result: data.data.result
 	     })
        }).catch(() => {
     res.sendFile(error)
@@ -5938,7 +5938,7 @@ try {
   if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
   if (!code) return res.json({ message: `Masukan parameter code` })
 
-     var hasil = await getBuffer(`http://zekais-api.herokuapp.com/carbon?code=${text}`)
+     var hasil = await getBuffer(`http://zekais-api.herokuapp.com/carbon?code=${code}`)
        await fs.writeFileSync(__path + '/tmp/carbon_code.png', hasil)
 
          res.sendFile(__path + '/tmp/carbon_code.png')
@@ -6033,7 +6033,7 @@ router.get('/nulis3', async (req, res, next) => {
 
  try {
         if (arah == 'kanan' || arah == 'kiri') {
-       var json = await (await fetch(`http://zekais-api.herokuapp.com/buku${arah}?text=${text}`)).buffer()
+        var hasil = await (await fetch(`http://zekais-api.herokuapp.com/buku${arah}?text=${text}`)).buffer()
          await fs.writeFileSync(__path + '/tmp/nulis3_${arah}.png', hasil)
 
              res.sendFile(__path + '/tmp/nulis3_${arah}.png')
@@ -6195,16 +6195,6 @@ router.get('/sha512', async (req, res, next) => {
    }
 })
 
-router.get('/upload_file', async (req, res, next) => {
-
-try {
-     res.sendFile(upload_post)
-} catch (e) {
-  console.log(e)
-    res.sendFile(error)
-   }
-})
-
 router.get('/gaminglogo', async (req, res, next) => {
         var text = req.query.text,
 	    apikeyInput = req.query.apikey;
@@ -6221,6 +6211,125 @@ try {
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
+   }
+})
+
+router.get('/blur', async (req, res, next) => {
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`https://api-self.herokuapp.com/api/blur?url=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/blur.png', hasil)
+
+     res.sendFile(__path + '/tmp/blur.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/sepia', async (req, res, next) => {
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`https://api-self.herokuapp.com/api/sepia?url=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/sepia.png', hasil)
+
+     res.sendFile(__path + '/tmp/sepia.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/welcome', async (req, res, next) => {
+        var nama_mem = req.query.nama_mem,
+	    avatar = req.query.avatar,
+	    bg = req.query.bg,
+	    nama_gc = req.query.nama_gc,
+	    jumlah_mem = req.query.jumlah_mem,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if (!nama_mem) return res.json({ message: `Masukan parameter nama member` })
+  if (!avatar) return res.json({ message: `Masukan parameter avatar` })
+  if (!avatar.startsWith('http')) return res.json(loghandler.invalidLink)
+  if (!bg) return res.json({ message: `Masukan parameter background` })
+  if (!bg.startsWith('http')) return res.json(loghandler.invalidLink)
+  if (!nama_gc) return res.json({ message: `Masukan parameter nama group` })
+  if (!jumlah_mem) return res.json({ message: `Masukan parameter jumlah member` })
+
+     var hasil = await getBuffer(`https://api-self.herokuapp.com/api/canvaswelbg?name=${nama_mem}&avatar=${avatar}&background=${bg}&gcname=${nama_gc}&jumlahmem=${jumlah_mem}`)
+       await fs.writeFileSync(__path + '/tmp/welcome.png', hasil)
+
+         res.sendFile(__path + '/tmp/welcome.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/bye', async (req, res, next) => {
+        var nama_mem = req.query.nama_mem,
+	    avatar = req.query.avatar,
+	    bg = req.query.bg,
+	    nama_gc = req.query.nama_gc,
+	    jumlah_mem = req.query.jumlah_mem,
+	    apikeyInput = req.query.apikey;
+
+try {
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if (!nama_mem) return res.json({ message: `Masukan parameter nama member` })
+  if (!avatar) return res.json({ message: `Masukan parameter avatar` })
+  if (!avatar.startsWith('http')) return res.json(loghandler.invalidLink)
+  if (!bg) return res.json({ message: `Masukan parameter background` })
+  if (!bg.startsWith('http')) return res.json(loghandler.invalidLink)
+  if (!nama_gc) return res.json({ message: `Masukan parameter nama group` })
+  if (!jumlah_mem) return res.json({ message: `Masukan parameter jumlah member` })
+
+     var hasil = await getBuffer(`https://api-self.herokuapp.com/api/canvasbyebg?name=${nama_mem}&avatar=${avatar}&background=${bg}&gcname=${nama_gc}&jumlahmem=${jumlah_mem}`)
+       await fs.writeFileSync(__path + '/tmp/bye.png', hasil)
+
+         res.sendFile(__path + '/tmp/bye.png')
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/linesticker', async (req, res, next) => {
+	var url = req.query.url,
+	    apikeyInput = req.query.apikey;
+
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if(!url) return res.json(loghandler.noturl)
+	if(!url.startsWith('http')) return res.json(loghandler.invalidLink)
+
+ try {
+       var json = await (await fetch(`https://api.zeks.xyz/api/linesticker?link=${url}&apikey=${zeks_key}`)).json()
+
+       res.json(json)
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
    }
 })
 
