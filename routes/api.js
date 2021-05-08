@@ -279,7 +279,7 @@ router.get('/cekapikey', async (req, res, next) => {
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
 	var limit = '-'
-    if(apikeyInput == `${key}`) limit = 'Unlimited!'
+        if(apikeyInput == `${key}`) limit = 'Unlimited!'
 
 try {
 	res.json({
@@ -3701,15 +3701,34 @@ try {
 
 router.get('/brainly', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
-               text = req.query.text;
+               soal = req.query.soal;
 
 try {
   if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
+  if(!apikeyInput) return res.json(loghandler.notparam)
   if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if (!text) return res.json(loghandler.nottext)
+  if (!soal) return res.json({ message: `Masukan parameter soal` })
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/brainly?apikey=${zeks_key}&q=${text}&count=5`)).json()
+     var json = await (await fetch(`https://api.zeks.xyz/api/brainly?apikey=${zeks_key}&q=${soal}&count=5`)).json()
+       res.json(json)
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/belajar', async (req, res, next) => {
+        var apikeyInput = req.query.apikey,
+               soal = req.query.soal;
+
+try {
+  if(maintenance == true) return res.sendFile(mtc)
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if (!soal) return res.json({ message: `Masukan parameter soal` })
+
+     var json = await (await fetch(`https://api.zeks.xyz/api/brainly?apikey=${zeks_key}&q=${soal}&count=5`)).json()
        res.json(json)
      
 } catch (e) {
@@ -4939,7 +4958,7 @@ try {
 
      var json = await (await fetch(`https://api.banghasan.com/quran/format/json/acak`)).json()
 
-     res.json(json)
+     res.json(json.acak)
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -6587,6 +6606,36 @@ router.get('/linesticker', async (req, res, next) => {
   console.log(e)
     res.sendFile(error)
    }
+})
+
+router.get('/kerang', async (req, res, next) => {
+	var tanya = req.query.tanya,
+	    pertanyaan = req.query.pertanyaan,
+	    apikeyInput = req.query.apikey;
+
+	if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if(!tanya) return res.json({ error: `Masukan kata tanyanya. apakah, kapankah, siapakah, bisakah` })
+	if(!pertanyaan) return res.json({ error: `Tidak ada pertanyaan yang dapat dijawab` })
+
+       var json = await (await fetch(`https://kuhong-api.herokuapp.com/api/fakedata?country=en&apikey=${key}`)).json()
+       var answer = 'Tidak ada pertanyaan yang dapat dijawab'
+       if (tanya !== 'apakah' || tanya !== 'bisakah' || tanya !== 'kapankah' || tanya !== 'siapakah') return res.json({ error: `Pilih kata tanya : apakah, kapankah, siapakah, bisakah` })
+       if (tanya == 'apakah') answer = pickRandom(['Ya','Mungkin iya','Mungkin','Mungkin tidak','Tidak','Tidak mungkin'])
+       if (tanya == 'bisakah') answer = pickRandom(['Iya','Bisa','Tentu saja bisa','Tentu bisa','Sudah pasti','Sudah pasti bisa','Tidak','Tidak bisa','Tentu tidak','tentu tidak bisa','Sudah pasti tidak'])
+       if (tanya == 'kapankah') answer = Math.floor(Math.random() * 100) + pickRandom(['detik', 'menit', 'jam', 'hari', 'pekan', 'minggu', 'bulan', 'tahun', 'dekade', 'windu', 'abad']) + 'lagi ...'
+       if (tanya == 'siapakah') answer = json.result.name
+
+       res.json({
+	       status: true,
+	       cretor: creator,
+	       result:{
+		       kata_tanya: tanya,
+		       pertanyaan: pertanyaan,
+		       jawaban: answer
+	       }
+       })
 })
 
 // End of script
