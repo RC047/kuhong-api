@@ -36,6 +36,7 @@ var imageToBase64 = require('image-to-base64');
 var upload = require(__path + '/lib/upload.js');
 var translate = require('translate-google-api');
 var tesseract = require('node-tesseract-ocr');
+var googleIt = require('google-it');
 var axios = require('axios');
 var FormData = require('form-data');
 var ytdl = require('ytdl-core');
@@ -3701,21 +3702,22 @@ try {
 
 router.get('/brainly', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
-            soal = req.query.soal,
-	    poin = req.query.poin
+            soal = req.query.soal;
 
 try {
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
   if (!soal) return res.json({ message: `Masukan parameter soal` })
-  if (!poin) return res.json({ message: `Masukan parameter poin` })
-  if (isNaN(poin)) return res.json(loghandler.number)
-  if (poin > 50) return res.json({ message: `Maximal 50 poin!` })
-  if (poin < 5) return res.json({ message: `Minimal 5 poin!` })
 
-     var result = await brainly(soal, poin, 'id').then((result) => {
-       res.json(result)
+     var result = await brainly(soal)
+     var answer = result.data.map((v, i) => `_*PERTANYAAN KE ${i + 1}*_\n${v.pertanyaan}\n${v.jawaban.map((v,i) => `*JAWABAN KE ${i + 1}*\n${v.text}`).join('\n')}`).join('\n\n•------------•\n\n')
+
+       res.json({
+	       status: true,
+	       creator: creator,
+	       result: answer
+       })
      })
 } catch (e) {
      console.log(e)
@@ -6543,7 +6545,7 @@ router.get('/welcome', async (req, res, next) => {
 
 try {
   if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
+  if(!apikeyInput) return res.json(loghandler.notparam)
   if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
   if (!nama_mem) return res.json({ message: `Masukan parameter nama member` })
   if (!avatar) return res.json({ message: `Masukan parameter avatar` })
@@ -6573,7 +6575,7 @@ router.get('/bye', async (req, res, next) => {
 
 try {
   if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
+  if(!apikeyInput) return res.json(loghandler.notparam)
   if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
   if (!nama_mem) return res.json({ message: `Masukan parameter nama member` })
   if (!avatar) return res.json({ message: `Masukan parameter avatar` })
@@ -6640,6 +6642,33 @@ router.get('/kerang', async (req, res, next) => {
 	       pertanyaan: pertanyaan,
 	       jawaban: answer
        })
+})
+
+router.get('/google', async (req, res, next) => {
+	var q = req.query.query,
+	    apikeyInput = req.query.apikey;
+
+	if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if(!q) return res.json(loghandler.notquery)
+
+ try {
+       var search = await googleIt({ query: q })
+       var result = search.map(({ title, link, snippet }) => {
+
+        return `*${title}*\n\n${link}\n${snippet}`
+    }).join`\n\n`
+
+       res.json({
+	       status: true,
+	       creator: creator,
+	       result: result
+       })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
 })
 
 // End of script
