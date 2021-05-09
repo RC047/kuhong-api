@@ -3834,7 +3834,7 @@ router.get('/brainly', async (req, res, next) => {
 
 try {
   var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+  if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
   if (!soal) return res.json({ message: `Masukan parameter soal` })
@@ -3847,7 +3847,6 @@ try {
 	       creator: creator,
 	       result: answer
        })
-     })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
