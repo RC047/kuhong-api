@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>File Uploader</title>
+</head>
+<body>
+
+    <form action="api/upload_result" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <legend>File Uploader</legend>
+            <p>
+                <label>Silahkan masukan file yang akan diupload :)</label>
+                <input type="file" name="upload_file" required>
+            </p>
+            <input type="submit" value="Upload">
+        </fieldset>
+    </form>
+  <br>
+  <h6>Created By Kuhong - Rest API</h6>
+</body>
+</html>
