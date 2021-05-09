@@ -19,8 +19,8 @@ router.get('/docs', async (req, res) => {
 
 router.get('/api/update', async (req, res) => {
     res.json({
-        update_1: 'Update Search Menu!',
-        update_2: 'Apikey sekarang tidak gratis :)\nMinat? Silahkan Beli Apikey pada nomor yg tertera didalam web ini.'
+        update_1: 'Update Search, Fun Menu & Update MiniGames!!',
+        update_2: 'Fitur MiniGames dapat kalian gunakan secara gratis :)'
     })
 })
 
