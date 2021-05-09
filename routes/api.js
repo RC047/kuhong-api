@@ -4087,7 +4087,7 @@ router.get('/tts', async (req, res, next) => {
 
   var maintenance = false
     if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
+    if(!apikeyInput) return res.json(loghandler.notparam)
   if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
   if (!text) return res.json(loghandler.nottext)
   if (text.length > 200) return res.json(loghandler.longtext)
@@ -4884,31 +4884,16 @@ router.get('/createcode', async (req, res, next) => {
 
 try {
   var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
+  if(maintenance == true) return res.sendFile(mtc)
+  if(!apikeyInput) return res.json(loghandler.notparam)
   if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
   if (!text) return res.json(loghandler.nottext)
-
-  var len = 25
-  var arr = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ9876543210'
-  var random = ''
-  var random2 = ''
-
-        for (var i = len; i > 0; i--) {
-            random += arr[Math.floor(Math.random() * arr.length)];
-        }
-        var lenn = 10
-        var code = '';
-        for (var i = lenn; i > 0; i--) {
-            random2 += arr[Math.floor(Math.random() * arr.length)];
-        }
-   var encode = random + random2 + code
 
        res.json({
        	     status : true,
              creator : creator,
              text : text,
-             code : encode
+             code : generateCode
         })
 } catch (e) {
      console.log(e)
