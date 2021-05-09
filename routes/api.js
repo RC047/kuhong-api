@@ -1,8 +1,8 @@
 __path = process.cwd()
 
 // Database :
+var { generateID, generateApikey, generateCode, generatePassword, generateKey, generateHex } = require(__path + '/lib/generator.js');
 var express = require('express');
-var { generateApikey } = require(__path + '/lib/generator.js');
 var database = require(__path + '/database/database.js');
 
 try {
