@@ -6775,6 +6775,29 @@ try {
    }
 })
 
+router.get('/grey', async (req, res, next) => {
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  var maintenance = false
+    if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`https://api-self.herokuapp.com/api/greyscale?url=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/grey.png', hasil)
+
+     res.sendFile(__path + '/tmp/grey.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
 router.get('/welcome', async (req, res, next) => {
         var nama_mem = req.query.nama_mem,
 	    avatar = req.query.avatar,
@@ -6796,7 +6819,7 @@ try {
   if (!nama_gc) return res.json({ message: `Masukan parameter nama group` })
   if (!jumlah_mem) return res.json({ message: `Masukan parameter jumlah member` })
 
-     var hasil = await getBuffer(`https://api-self.herokuapp.com/api/canvaswelbg?name=${nama_mem}&avatar=${avatar}&background=${bg}&gcname=${nama_gc}&jumlahmem=${jumlah_mem}`)
+     var hasil = await (await fetch(`https://api-self.herokuapp.com/api/canvaswelbg?name=${nama_mem}&avatar=${avatar}&background=${bg}&gcname=${nama_gc}&jumlahmem=${jumlah_mem}`)).buffer()
        await fs.writeFileSync(__path + '/tmp/welcome.png', hasil)
 
          res.sendFile(__path + '/tmp/welcome.png')
@@ -6827,7 +6850,7 @@ try {
   if (!nama_gc) return res.json({ message: `Masukan parameter nama group` })
   if (!jumlah_mem) return res.json({ message: `Masukan parameter jumlah member` })
 
-     var hasil = await getBuffer(`https://api-self.herokuapp.com/api/canvasbyebg?name=${nama_mem}&avatar=${avatar}&background=${bg}&gcname=${nama_gc}&jumlahmem=${jumlah_mem}`)
+     var hasil = await (await fetch(`https://api-self.herokuapp.com/api/canvasbyebg?name=${nama_mem}&avatar=${avatar}&background=${bg}&gcname=${nama_gc}&jumlahmem=${jumlah_mem}`)).buffer()
        await fs.writeFileSync(__path + '/tmp/bye.png', hasil)
 
          res.sendFile(__path + '/tmp/bye.png')
@@ -6943,7 +6966,7 @@ var form = new formidable.IncomingForm()
 
  form.parse(req, function (err, fields, files) {
    var inputPath = files.upload_file.path
-   var outputPath = __path + '/tmp/' + files.upload_file.name
+   var outputPath = files.upload_file.name
    mv(inputPath, outputPath, function (err) {
     if (err) throw err
 
