@@ -6927,25 +6927,47 @@ router.get('/google', async (req, res, next) => {
    }
 })
 
+router.get('/nulis4', async (req, res, next) => {
+	var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if(!text) return res.json(loghandler.nottext)
+
+ try {
+       var json = await (await fetch(`https://salism3api.pythonanywhere.com/write/?text=${text}`)).json()
+         await fs.writeFileSync(__path + '/tmp/nulis4.png', json[0].images)
+
+       res.sendFile(__path + '/tmp/nulis4.png')
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
 router.post('/upload_result', async (req, res, next) => {
 
-  var buffer = async buffer => {
-  var { ext } = await fromBuffer(buffer)
-  var form = new FormData
-  form.append('file', buffer, 'tmp.' + ext)
-  var result = await fetch('https://telegra.ph/upload', {
-    method: 'POST',
-    body: form
-  })
-  var file = await result.json()
-  var data = 'https://telegra.ph' + file[0].src
-  if (file.error) data = file.error
-  return res.json({
-	  status: true,
-	  creator: creator,
-	  result: data
-     })
-   }
+var form = new formidable.IncomingForm()
+
+ form.parse(req, function (err, fields, files) {
+   var inputPath = files.upload_file.path
+   var outputPath = __path + '/tmp/' + files.upload_file.name
+   mv(inputPath, outputPath, function (err) {
+    if (err) throw err
+
+    var file = fs.readFileSync(outputPath)
+    var result = upload(file)
+
+      return res.json({
+	        status: true,
+	        creator: creator,
+	        result: result
+            })
+        })
+    })
 })
 
 // End of script
