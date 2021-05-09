@@ -3834,7 +3834,8 @@ try {
 
 router.get('/brainly', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
-            soal = req.query.soal;
+            soal = req.query.soal,
+	    poin = req.query.poin;
 
 try {
   var maintenance = false
@@ -3842,15 +3843,14 @@ try {
   if(!apikeyInput) return res.json(loghandler.notparam)
   if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
   if (!soal) return res.json({ message: `Masukan parameter soal` })
+  if (!poin) return res.json({ message: `Masukan parameter poin` })
+  if (isNaN(poin)) return res.json(loghandler.number)
+  if (poin > 50) return res.json({ message: `Maximal 50!` })
+  if (poin < 5) return res.json({ message: `Minimal 5!` })
 
-     var result = await brainly(soal)
-     var answer = result.data.map((v, i) => `_*PERTANYAAN KE ${i + 1}*_\n${v.pertanyaan}\n${v.jawaban.map((v,i) => `*JAWABAN KE ${i + 1}*\n${v.text}`).join('\n')}`).join('\n\n•------------•\n\n')
+     var json = await (await fetch(`https://api.zeks.xyz/api/brainly?apikey=${zeks_key}&q=${soal}&count=${poin}`)).json()
+       res.json(json)
 
-       res.json({
-	       status: true,
-	       creator: creator,
-	       result: answer
-       })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -6965,7 +6965,7 @@ var form = new formidable.IncomingForm()
     var file = fs.readFileSync(outputPath)
     var result = upload(file)
 
-      return res.json({
+        res.json({
 	        status: true,
 	        creator: creator,
 	        result: result
