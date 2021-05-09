@@ -19,9 +19,13 @@ router.get('/docs', async (req, res) => {
 
 router.get('/api/update', async (req, res) => {
     res.json({
-        update_1: 'Update Editor, Sosmed, Tools, Maker & Random Menu!',
+        update_1: 'Update Search Menu!',
         update_2: 'Apikey sekarang tidak gratis :)\nMinat? Silahkan Beli Apikey pada nomor yg tertera didalam web ini.'
     })
+})
+
+router.get('/upload_file', async (req, res) => {
+    await res.sendFile(__path + '/views/upload_file.html')
 })
 
 router.get('/api/game/pingpong', async  (req, res) => {
