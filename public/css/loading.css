@@ -10,7 +10,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    animation: animate 5s linear infinite;
+    animation: colors 10s linear infinite;
 }
 
 .wavy{
@@ -24,11 +24,11 @@ body{
     color: #333;
     font-size: 2em;
     text-transform: uppercase;
-    animation: animation-by-rc047 2s ease-in-out infinite, rendygans 5s linear infinite ;       
+    animation: animation 2s ease-in-out infinite, animate 5s linear infinite ;       
     animation-delay: calc(0.1s * var(--i));
 }
 
-@keyframes animation-by-rc047{
+@keyframes animation {
     0%{
         transform: translateY(0px);
     }
@@ -40,7 +40,7 @@ body{
     }
 }
 
-@keyframes rendygans {
+@keyframes animate {
     0%{
         color:aqua;
         text-shadow: 0 0 10px aqua,
@@ -61,5 +61,17 @@ body{
     100%{
         color: #333;
         text-shadow:  none;
+    }
+}
+
+@keyframes colors {
+    0%{
+       background: #ffffff;
+    }
+    20%{
+        background: #262626;
+    }
+    100%{
+       background: #000;
     }
 }
