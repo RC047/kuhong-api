@@ -48,10 +48,6 @@ router.get('/api/game/dino', async (req, res) => {
     res.sendFile(__path + '/views/dino.html')
 })
 
-router.get('/api/game/minecraft', async (req, res) => {
-    res.sendFile(__path + '/views/minecraft.html')
-})
-
 router.get('/api/tutorial', async (req, res) => {
     res.sendFile(__path + '/views/tutorial.html')
 })
