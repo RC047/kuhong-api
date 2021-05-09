@@ -10,22 +10,22 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/api', async (req, res) => {
-    await res.sendFile(__path + '/views/loading.html')
+    res.sendFile(__path + '/views/loading.html')
 })
 
 router.get('/docs', async (req, res) => {
-    await res.sendFile(__path + '/views/index.html')
+    res.sendFile(__path + '/views/index.html')
 })
 
 router.get('/api/update', async (req, res) => {
     res.json({
-        update_1: 'Update Search, Fun Menu & Update MiniGames!!',
-        update_2: 'Fitur MiniGames dapat kalian gunakan secara gratis :)'
+        update: 'Update Search, Fun Menu & Update MiniGames!!',
+        info: 'Fitur MiniGames dapat kalian gunakan secara gratis :)'
     })
 })
 
 router.get('/upload_file', async (req, res) => {
-    await res.sendFile(__path + '/views/upload_file.html')
+    res.sendFile(__path + '/views/upload_file.html')
 })
 
 router.get('/api/game/pingpong', async  (req, res) => {
