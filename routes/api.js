@@ -281,7 +281,7 @@ router.get('/cekapikey', async (req, res, next) => {
 	var maintenance = false
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if (apikeyInput !== 'key1' || apikeyInput !== 'key2') return res.sendFile(invalidKey)
+	if (apikeyInput !== `${key}`) return res.sendFile(invalidKey)
 	var limit = '-'
         if(apikeyInput == `${key}`) limit = 'Unlimited!'
 
