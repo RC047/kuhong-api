@@ -6928,7 +6928,7 @@ router.get('/nulis4', async (req, res, next) => {
 
  try {
        var json = await (await fetch(`https://salism3api.pythonanywhere.com/write/?text=${text}`)).json()
-         await fs.writeFileSync(__path + '/tmp/nulis4.png', json[0].images)
+         await fs.writeFileSync(__path + '/tmp/nulis4.png', json.images[0])
 
        res.sendFile(__path + '/tmp/nulis4.png')
 } catch (e) {
