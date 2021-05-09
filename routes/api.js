@@ -7013,7 +7013,7 @@ var form = new formidable.IncomingForm()
     })
 })
 
-router.post('/tourl', async (req, res, next) => {
+router.get('/toimage', async (req, res, next) => {
      var img = req.query.img,
 	 apikeyInput = req.query.apikey;
 
@@ -7030,7 +7030,7 @@ router.post('/tourl', async (req, res, next) => {
         res.sendFile(__path + '/tmp/image.png')
 })
 
-router.post('/stickerwm', async (req, res, next) => {
+router.get('/stickerwm', async (req, res, next) => {
      var url = req.query.url,
 	 pkg = req.query.packname,
 	 wm = req.query.author,
