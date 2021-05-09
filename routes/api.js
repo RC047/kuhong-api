@@ -2,7 +2,7 @@ __path = process.cwd()
 
 // Database :
 var express = require('express');
-var { generateKey } = require(__path + '/lib/generator.js');
+var { generateApikey } = require(__path + '/lib/generator.js');
 var database = require(__path + '/database/database.js');
 
 try {
@@ -16,7 +16,7 @@ var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // In
 
 // Apikey :
 var key = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikeymu (dibutuhkan)
-var key2 = generateKey // Free Apikey
+var key2 = generateApikey // Free Apikey
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'apivinz' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
