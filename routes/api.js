@@ -4889,11 +4889,12 @@ try {
   if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
   if (!text) return res.json(loghandler.nottext)
 
+  var result = await generateCode
        res.json({
        	     status : true,
              creator : creator,
              text : text,
-             code : generateCode
+             code : result
         })
 } catch (e) {
      console.log(e)
