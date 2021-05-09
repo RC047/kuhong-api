@@ -59,7 +59,8 @@ var router  = express.Router();
 var options = require(__path + '/lib/options.js');
 
 var { stylizeText, tts, wait, simih, getBuffer, h2k, getRandom, readMore, randomBytes, start, info, success, banner, close, pickRandom } = require(__path + '/lib/functions.js');
-var { servers, yta, ytv } = require(__path + '/lib/y2mate.js')
+var { servers, yta, ytv } = require(__path + '/lib/y2mate.js');
+var { fromBuffer } = require('file-type')
 var { removeBackgroundFromImageFile } = require('remove.bg');
 var { tahta } = require(__path + '/lib/tahta.js');
 var { JSDOM } = require('jsdom')
@@ -6923,6 +6924,27 @@ router.get('/google', async (req, res, next) => {
 } catch (e) {
   console.log(e)
     res.sendFile(error)
+   }
+})
+
+router.post('/upload_result', async (req, res, next) => {
+
+  var buffer = async buffer => {
+  var { ext } = await fromBuffer(buffer)
+  var form = new FormData
+  form.append('file', buffer, 'tmp.' + ext)
+  var result = await fetch('https://telegra.ph/upload', {
+    method: 'POST',
+    body: form
+  })
+  var file = await result.json()
+  var data = 'https://telegra.ph' + file[0].src
+  if (file.error) data = file.error
+  return res.json({
+	  status: true,
+	  creator: creator,
+	  result: data
+     })
    }
 })
 
