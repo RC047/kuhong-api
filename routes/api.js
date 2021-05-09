@@ -3298,17 +3298,21 @@ router.get('/ocr', async (req, res, next) => {
         img = req.query.img;
             
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+        if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
         if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var ocr = { lang: "eng", oem: 1, psm: 3 }
-   await tesseract.recognize(img, ocr).then(result => {
-    console.log("ocr result :" + result)
+        var ocr = { lang: "eng+ind", oem: 1, psm: 3 }
+          await tesseract.recognize(img, ocr).then(result => {
+          console.log(result)
 
-	   res.sendFile(result)
+	   res.json({
+		   status: true,
+		   creator: creator,
+		   result: util.format(result)
+	   })
   })
      .catch(error => {
         res.sendFile(error)
@@ -3322,7 +3326,7 @@ router.get('/removebg', async (req, res, next) => {
 
   try {
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+        if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
         if (!img) return res.json(loghandler.notimg)
