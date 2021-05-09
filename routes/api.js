@@ -61,6 +61,7 @@ var options = require(__path + '/lib/options.js');
 
 var { stylizeText, tts, wait, simih, getBuffer, h2k, getRandom, readMore, randomBytes, start, info, success, banner, close, pickRandom } = require(__path + '/lib/functions.js');
 var { servers, yta, ytv } = require(__path + '/lib/y2mate.js');
+var { sticker } = require(__path + '/lib/sticker.js');
 var { fromBuffer } = require('file-type');
 var { removeBackgroundFromImageFile } = require('remove.bg');
 var { tahta } = require(__path + '/lib/tahta.js');
@@ -3303,14 +3304,17 @@ router.get('/ocr', async (req, res, next) => {
         if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
+	var media = await getBuffer(img)
+	await fs.writeFileSync(__path + '/tmp/ocr.png', media)
+	var path = fs.readFileSync(__path + '/tmp/ocr.png')
         var ocr = { lang: "eng+ind", oem: 1, psm: 3 }
-          await tesseract.recognize(img, ocr).then(result => {
-          console.log(result)
+          await tesseract.recognize(path, ocr).then(text => {
+          console.log('OCR RESULT :' + text)
 
 	   res.json({
 		   status: true,
 		   creator: creator,
-		   result: util.format(result)
+		   result: text
 	   })
   })
      .catch(error => {
@@ -3331,9 +3335,11 @@ router.get('/removebg', async (req, res, next) => {
         if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-	var media = img.toString('base64')
+	var media = await getBuffer(img)
+	await fs.writeFileSync(__path + '/tmp/nobg.png', media)
+	var path = fs.readFileSync(__path + '/tmp/nobg.png')
 	var ranp = getRandom('.png')
-          await removeBackgroundFromImageFile({ path: media, apiKey: removebg_key, size: 'auto', type: 'auto', ranp }).then(result => {
+          await removeBackgroundFromImageFile({ path: path, apiKey: removebg_key, size: 'auto', type: 'auto', ranp }).then(result => {
             var hasil = Buffer.from(result.base64img, 'base64')
             fs.writeFileSync(ranp, hasil, (e) => {
           if (e) return res.json({ error: 'Gagal, Terjadi kesalahan, silahkan coba beberapa saat lagi.' })
@@ -4741,13 +4747,38 @@ try {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(logahndler.invalidLink)
 
-     var json = await (await fetch(`http://zekais-api.herokuapp.com/pngtowebp?url=${url}`)).json()
+     axios.get(`https://ezgif.com/png-to-webp?url=${url}`).then(({ data }) => {
+           var $ = cheerio.load(data)
+           var bodyFormThen = new FormData()
+           var file = $('input[name="file"]').attr('value')
+	   var token = $('input[name="token"]').attr('value')
+           var convert = $('input[name="file"]').attr('value')
+           var gotdata = {
+                         file: file,
+                         token: token,
+                         convert: convert
+                         }
+                         bodyFormThen.append('file', gotdata.file)
+                         bodyFormThen.append('token', gotdata.token)
+                         bodyFormThen.append('convert', gotdata.convert)
+                         axios({
+                         method: 'post',
+                         url: 'https://ezgif.com/png-to-webp/' + gotdata.file,
+                         data: bodyFormThen,
+                         headers: {
+                         'Content-Type': `multipart/form-data; boundary=${bodyFormThen._boundary}`
+                         }}).then(({ data }) => {
+                         var $ = cheerio.load(data)
+                         var result = 'https:' + $('div#output > p.outfile > webp > source').attr('src')
 
-     res.json({
-	     status : true,
-	     creator : creator,
-	     result : json.result
-       })
+	                       res.json({
+                                            status : true,
+                                            creator : `${creator}`,
+                                            message : `jangan lupa Subscribe Youtube ${creator}`,
+                                            result : result
+                                        })
+                             })
+                     })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -5338,7 +5369,8 @@ try {
                   title_romaji: title_romaji,
                   similarity: `${(similarity * 100).toFixed(1)}%`,
                   episode: episode.toString(),
-                  echi: `${is_adult ? 'yes' : 'no'}`,
+		  season: season.toStrin(),
+                  echi: is_adult ? 'yes' : 'no',
 		  url: link
 	    }
         })
@@ -6963,7 +6995,6 @@ router.get('/nulis4', async (req, res, next) => {
 router.post('/upload_result', async (req, res, next) => {
 
 var form = new formidable.IncomingForm()
-
  form.parse(req, function (err, fields, files) {
    var inputPath = files.upload_file.path
    var outputPath = files.upload_file.name
@@ -6980,6 +7011,44 @@ var form = new formidable.IncomingForm()
             })
         })
     })
+})
+
+router.post('/tourl', async (req, res, next) => {
+     var img = req.query.img,
+	 apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if(!img) return res.json(loghandle.notimg)
+	if(!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+    var media = await getBuffer(img)
+        await fs.writeFileSync(__path + '/tmp/image.png', media)
+
+        res.sendFile(__path + '/tmp/image.png')
+})
+
+router.post('/stickerwm', async (req, res, next) => {
+     var url = req.query.url,
+	 pkg = req.query.packname,
+	 wm = req.query.author,
+	 apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if(!url) return res.json(loghandle.noturl)
+	if(!url.startsWith('http')) return res.json(loghandler.invalidLink)
+	if(!pkg) return res.json({ message: `Masukan parameter packname` })
+	if(!wm) return res.json({ message: `Masukan parameter author` })
+
+        var stk = await sticker(url, false, pkg, wm)
+        await fs.writeFileSync(__path + '/tmp/stickerwm.webp', media)
+
+        res.sendFile(__path + '/tmp/stickerwm.webp')
 })
 
 // End of script
