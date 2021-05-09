@@ -4920,7 +4920,19 @@ try {
   if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
   if (!text) return res.json(loghandler.nottext)
 
-  var result = await generateCode
+  var len = Math.floor(Math.random() * 25)
+  var arr = '_0123456789-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-1234567890_'
+  var code_start = '';
+  for (var i = len; i > 0; i--) {
+  code_start += arr[Math.floor(Math.random() * arr.length)];
+}
+  var lenn = Math.floor(Math.random() * 10)
+  var code_end = '';
+  for (var i = lenn; i > 0; i--) {
+  code_end += arr[Math.floor(Math.random() * arr.length)];
+}
+
+  var result = code_start + code_end
        res.json({
        	     status : true,
              creator : creator,
