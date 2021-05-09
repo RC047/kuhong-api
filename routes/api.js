@@ -7046,7 +7046,7 @@ router.post('/stickerwm', async (req, res, next) => {
 	if(!wm) return res.json({ message: `Masukan parameter author` })
 
         var stk = await sticker(url, false, pkg, wm)
-        await fs.writeFileSync(__path + '/tmp/stickerwm.webp', media)
+        await fs.writeFileSync(__path + '/tmp/stickerwm.webp', stk)
 
         res.sendFile(__path + '/tmp/stickerwm.webp')
 })
