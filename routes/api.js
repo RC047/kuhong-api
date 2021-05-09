@@ -16,14 +16,14 @@ var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // In
 
 // Apikey :
 var key = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikeymu (dibutuhkan)
-var key2 = generateApikey // Free Apikey
+var key_id = generateID // ID Apikey
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'apivinz' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 console.log(`Checking Apikey Data...`)
 console.log(`Your Apikey : ${key}`)
-console.log(`Free Apikey : ${key2}`)
+console.log(`ID Apikey : ${key_id}`)
 console.log(`Xteam Apikey : ${xteam_key}`)
 console.log(`Zeks Apikey : ${zeks_key}`)
 console.log(`Melodicxt-2 Apikey : ${melodicxt_key}`)
@@ -280,7 +280,7 @@ router.get('/cekapikey', async (req, res, next) => {
 	var maintenance = false
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== 'key1' || apikeyInput !== 'key2') return res.sendFile(invalidKey)
+	if (apikeyInput !== 'key1' || apikeyInput !== 'key2') return res.sendFile(invalidKey)
 	var limit = '-'
         if(apikeyInput == `${key}`) limit = 'Unlimited!'
 
