@@ -29,23 +29,27 @@ router.get('/upload_file', async (req, res) => {
 })
 
 router.get('/api/game/pingpong', async  (req, res) => {
-    res.sendFile(__path + '/views/game.html')
+    res.sendFile(__path + '/views/pingpong.html')
 })
 
 router.get('/api/game/tebakangka', async (req, res) => {
-    res.sendFile(__path + '/views/game2.html')
+    res.sendFile(__path + '/views/tebakangka.html')
 })
 
 router.get('/api/game/suitjawa', async (req, res) => {
-    res.sendFile(__path + '/views/game3.html')
+    res.sendFile(__path + '/views/suitjawa.html')
 })
 
 router.get('/api/game/tetris', async (req, res) => {
-    res.sendFile(__path + '/views/game4.html')
+    res.sendFile(__path + '/views/tetris.html')
 })
 
 router.get('/api/game/dino', async (req, res) => {
-    res.sendFile(__path + '/views/game5.html')
+    res.sendFile(__path + '/views/dino.html')
+})
+
+router.get('/api/game/minecraft', async (req, res) => {
+    res.sendFile(__path + '/views/minecraft.html')
 })
 
 router.get('/api/tutorial', async (req, res) => {
