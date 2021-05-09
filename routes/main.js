@@ -24,7 +24,7 @@ router.get('/api/update', async (req, res) => {
     })
 })
 
-router.get('/upload_file', async (req, res) => {
+router.get('/api/upload_file', async (req, res) => {
     res.sendFile(__path + '/views/upload_file.html')
 })
 
