@@ -17,7 +17,7 @@ var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // In
 // Apikey :
 var free_key = generateApikey // Apikey Gratis
 var key = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikeymu (dibutuhkan)
-var custom_key = generateApikey // Custom Apikey
+var custom_key = '' // Custom Apikey
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'apivinz' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
@@ -26,7 +26,6 @@ console.log(`Checking Apikey Data...`)
 console.log(`Your Apikey : ${key}`)
 console.log(`Free Apikey : ${free_key}`)
 //console.log(`Custom Apikey : ${custom_key}`)
-console.log(`ID Apikey : ${key_id}`)
 console.log(`Xteam Apikey : ${xteam_key}`)
 console.log(`Zeks Apikey : ${zeks_key}`)
 console.log(`Melodicxt-2 Apikey : ${melodicxt_key}`)
