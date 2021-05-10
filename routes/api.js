@@ -5332,9 +5332,9 @@ router.get('/ytplay', async (req, res, next) => {
 try {
   var maintenance = false
     if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
-  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-  if(!q) return res.json(loghandler.notquery)
+    if(!apikeyInput) return res.json(loghandler.notparam)
+    if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+    if(!q) return res.json(loghandler.notquery)
 
      var results = await yts(q)
      var vid = results.all.find(video => video.seconds < 3600)
@@ -5382,7 +5382,7 @@ try {
                  headers: { "Content-Type": "application/json" }})
           if (!response.ok) return res.json({ error: `Saya tidak tau ini anime apa` })
           var result = await response.json()
-          var { is_adult, title, title_chinese, title_romaji, episode, season, similarity, filename, at, tokenthumb, anilist_id } = result.docs[0]
+          var { is_adult, title, title_chinese, title_romaji, title_english, episode, season, similarity, filename, at, tokenthumb, anilist_id } = result.docs[0]
           var link = `https://media.trace.moe/video/${anilist_id}/${encodeURIComponent(filename)}?t=${at}&token=${tokenthumb}`
 
   res.json({
@@ -5390,7 +5390,9 @@ try {
 	  creator: creator,
 	  result:{
                   title: title,
+		  title_chinese: title_chinese,
                   title_romaji: title_romaji,
+		  title_english: title_english,
                   similarity: `${(similarity * 100).toFixed(1)}%`,
                   episode: episode.toString(),
 		  season: season.toString(),
@@ -7020,23 +7022,22 @@ router.get('/nulis4', async (req, res, next) => {
 
 router.post('/upload_result', async (req, res, next) => {
 
-var form = new formidable.IncomingForm()
- form.parse(req, function (err, fields, files) {
-   var inputPath = files.upload_file.path
-   var outputPath = __dirname + '/tmp/' + files.upload_file.name
-   mv(inputPath, outputPath, function (err) {
-    if (err) throw err
-
-    var file = fs.readFileSync(outputPath)
-    var result = upload(file)
+  var form = new FormData
+  var { ext } = await fromBuffer(form)
+  form.append('file', buffer, 'tmp.' + ext)
+  var result = await fetch('https://telegra.ph/upload', {
+    method: 'POST',
+    body: form
+  })
+  var file = await result.json()
+  if (file.error) return res.json({ error: file.error })
+  var hasil = 'https://telegra.ph' + file[0].src
 
         res.json({
 	        status: true,
 	        creator: creator,
-	        result: result
+	        result: hasil
             })
-        })
-    })
 })
 
 router.get('/toimage', async (req, res, next) => {
