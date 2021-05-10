@@ -316,7 +316,7 @@ router.get('/getapikey', async (req, res, next) => {
 	   info: 'Apikey akan diubah secara otomatis jika website update,, beli Premium Apikey agar apikey tidak terus diganti',
 	   free_key: free_key
     })
-}
+})
 
 router.get('/tiktok', async (req, res, next) => {
     var apikeyInput = req.query.apikey,
