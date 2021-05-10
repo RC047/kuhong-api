@@ -3308,13 +3308,13 @@ router.get('/ocr', async (req, res, next) => {
 	await fs.writeFileSync(__path + '/tmp/ocr.png', media)
 	var path = fs.readFileSync(__path + '/tmp/ocr.png')
         var ocr = { lang: "eng+ind", oem: 1, psm: 3 }
-          await tesseract.recognize(path, ocr).then(text => {
-          console.log('OCR RESULT :' + text)
+          await tesseract.recognize(path, ocr).then(result => {
+          console.log('OCR RESULT :' + result.toStrimg())
 
 	   res.json({
 		   status: true,
 		   creator: creator,
-		   result: text
+		   result: result.toString()
 	   })
   })
      .catch(error => {
@@ -4769,7 +4769,7 @@ try {
                          'Content-Type': `multipart/form-data; boundary=${bodyFormThen._boundary}`
                          }}).then(({ data }) => {
                          var $ = cheerio.load(data)
-                         var result = 'https:' + $('div#output > p.outfile > webp > source').attr('src')
+                         var result = 'https:' + $('div#output > p.outfile > image > source').attr('src')
 
 	                       res.json({
                                             status : true,
@@ -5077,7 +5077,7 @@ try {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/gdbypass?url=${url}`)).json()
+     var json = await (await fetch(`https://api.zeks.xyz/api/gdbypass?url=${url}&apikey=${zeks_key}`)).json()
 
      res.json(json)
 } catch (e) {
@@ -5381,7 +5381,7 @@ try {
                   title_romaji: title_romaji,
                   similarity: `${(similarity * 100).toFixed(1)}%`,
                   episode: episode.toString(),
-		  season: season.toStrin(),
+		  season: season.toString(),
                   echi: is_adult ? 'yes' : 'no',
 		  url: link
 	    }
@@ -6994,8 +6994,8 @@ router.get('/nulis4', async (req, res, next) => {
 	if(!text) return res.json(loghandler.nottext)
 
  try {
-       var json = await (await fetch(`https://salism3api.pythonanywhere.com/write/?text=${text}`)).json()
-         await fs.writeFileSync(__path + '/tmp/nulis4.png', json.images[0])
+       var json = await (await fetch(`https://videfikri.com/api/nulis/?query=${text}`)).json()
+         await fs.writeFileSync(__path + '/tmp/nulis4.png', json.result.images)
 
        res.sendFile(__path + '/tmp/nulis4.png')
 } catch (e) {
@@ -7061,6 +7061,27 @@ router.get('/stickerwm', async (req, res, next) => {
         await fs.writeFileSync(__path + '/tmp/stickerwm.webp', stk)
 
         res.sendFile(__path + '/tmp/stickerwm.webp')
+})
+
+router.get('/underwater', async (req, res, next) => {
+	var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if(!text) return res.json(loghandler.nottext)
+
+ try {
+       var hasil = await (await fetch(`https://videfikri.com/api/textmaker/underwater/?text=${text}`)).buffer()
+         await fs.writeFileSync(__path + '/tmp/underwater.png', hasil)
+
+       res.sendFile(__path + '/tmp/underwater.png')
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
 })
 
 // End of script
