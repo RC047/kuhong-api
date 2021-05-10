@@ -7212,5 +7212,101 @@ router.get('/dancelogo', async (req, res, next) => {
    }
 })
 
+router.get('/freefire', async (req, res, next) => {
+	var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if(!text) return res.json(loghandler.nottext)
+
+ try {
+       var hasil = await getBuffer(`https://api.zeks.xyz/api/epep?text=${text}&apikey=${zeks_key}`)
+         await fs.writeFileSync(__path + '/tmp/fflogo.png', hasil)
+
+       res.sendFile(__path + '/tmp/fflogo.png')
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/spammer/pizza', async (req, res, next) => {
+	var nomor = req.query.nomor,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if(!nomor) return res.json(loghandler.notnomor)
+	if(isNaN(nomor)) return res.json(loghandler.number)
+
+ try {
+       var hasil = await (await fetch(`https://api.xteam.xyz/spammer/pizzahut?no=${nomor}&APIKEY=${xteam_key}`)).json()
+
+       res.json({
+	       status: true,
+	       creator: creator,
+	       logs: json.result
+       })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/spammer/olx', async (req, res, next) => {
+	var nomor = req.query.nomor,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if(!nomor) return res.json(loghandler.notnomor)
+	if(isNaN(nomor)) return res.json(loghandler.number)
+
+ try {
+       var hasil = await (await fetch(`https://api.xteam.xyz/spammer/olx?no=${nomor}&APIKEY=${xteam_key}`)).json()
+
+       res.json({
+	       status: true,
+	       creator: creator,
+	       logs: json.result
+       })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/spammer/danacinta', async (req, res, next) => {
+	var nomor = req.query.nomor,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if(!nomor) return res.json(loghandler.notnomor)
+	if(isNaN(nomor)) return res.json(loghandler.number)
+
+ try {
+       var hasil = await (await fetch(`https://api.xteam.xyz/spammer/danacinta?no=${nomor}&APIKEY=${xteam_key}`)).json()
+
+       res.json({
+	       status: true,
+	       creator: creator,
+	       logs: json.result
+       })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
 // End of script
 module.exports = router
