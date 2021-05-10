@@ -83,6 +83,12 @@ var loghandler = {
         code: 406,
         message: 'Masukan parameter apikey!'
     },
+    nottype: {
+        status: false,
+        creator: `${creator}`,
+        code: 406,
+        message: 'Masukan parameter type'
+    },
     notnama: {
         status: false,
         creator: `${creator}`,
@@ -7285,6 +7291,30 @@ router.get('/spammer/danacinta', async (req, res, next) => {
   console.log(e)
     res.sendFile(error)
    }
+})
+
+router.get('/how', async (req, res, next) => {
+	var type = req.query.type,
+	    nama = req.query.nama,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if(!nama) return res.json(loghandler.notnama)
+	if(!type) return res.json(loghandler.nottype)
+	if (type == 'baper' || type == 'gay' || type == 'tolol' || type == 'bucin' || type == 'sange' || type == 'gila' || type == 'pintar' || type == 'bodoh' || type == 'ganteng' || type == 'cantik' || type == 'stres' || type == 'sad') {
+
+       var result = nama + 'itu' + Math.floor(Math.random() * 101) + '%' + type
+
+       res.json({
+	       status: true,
+	       creator: creator,
+	       result: result
+       })
+   } else return res.json({ status: false, result: `Tipe yang tersedia : baper, gay, tolol, bucin, sange, gila, pintar, bodoh, ganteng, cantik, stres, sad` })
+
 })
 
 // End of script
