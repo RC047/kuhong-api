@@ -7098,7 +7098,7 @@ router.get('/catlogo', async (req, res, next) => {
 	if(!text) return res.json(loghandler.nottext)
 
  try {
-       var hasil = await logo.angrycat(text)
+       var hasil = await getBuffer(`https://dynamic.brandcrowd.com/asset/logo/065b4535-d123-4261-accb-2f21e3eac3cf/logo?v=4&text=${text}`)
          await fs.writeFileSync(__path + '/tmp/catlogo.png', hasil)
 
        res.sendFile(__path + '/tmp/catlogo.png')
@@ -7119,7 +7119,7 @@ router.get('/arcade', async (req, res, next) => {
 	if(!text) return res.json(loghandler.nottext)
 
  try {
-       var hasil = await logo.arcade(text)
+       var hasil = await getBuffer(`https://dynamic.brandcrowd.com/asset/logo/065b4535-d123-4261-accb-2f21e3eac3cf/logo?v=4&text=${text}`)
          await fs.writeFileSync(__path + '/tmp/arcade.png', hasil)
 
        res.sendFile(__path + '/tmp/arcade.png')
@@ -7129,7 +7129,7 @@ router.get('/arcade', async (req, res, next) => {
    }
 })
 
-router.get('/flamelogo', async (req, res, next) => {
+router.get('/foxlogo', async (req, res, next) => {
 	var text = req.query.text,
 	    apikeyInput = req.query.apikey;
 
@@ -7140,17 +7140,17 @@ router.get('/flamelogo', async (req, res, next) => {
 	if(!text) return res.json(loghandler.nottext)
 
  try {
-       var hasil = await logo.flame(text)
-         await fs.writeFileSync(__path + '/tmp/flamelogo.png', hasil)
+       var hasil = await getBuffer(`https://dynamic.brandcrowd.com/asset/logo/6458e177-55ec-4b2d-8be7-4094431378ad/logo?v=4&text=${text}`)
+         await fs.writeFileSync(__path + '/tmp/foxlogo.png', hasil)
 
-       res.sendFile(__path + '/tmp/flamelogo.png')
+       res.sendFile(__path + '/tmp/foxlogo.png')
 } catch (e) {
   console.log(e)
     res.sendFile(error)
    }
 })
 
-router.get('/disco', async (req, res, next) => {
+router.get('/glitchlogo', async (req, res, next) => {
 	var text = req.query.text,
 	    apikeyInput = req.query.apikey;
 
@@ -7161,11 +7161,10 @@ router.get('/disco', async (req, res, next) => {
 	if(!text) return res.json(loghandler.nottext)
 
  try {
-       var hasil = await logo.disco(text)
-         await fs.writeFileSync(__path + '/tmp/disco.png', hasil)
+       var hasil = await getBuffer(`https://dynamic.brandcrowd.com/asset/logo/afa0be93-d4ae-46d5-b741-64bd3b4b6148/logo?v=4&text=${text}`)
+         await fs.writeFileSync(__path + '/tmp/glitchlogo.png', hasil)
 
-       res.sendFile(__path + '/tmp/disco.png')
-} catch (e) {
+       res.sendFile(__path + '/tmp/glitchlogo.png')
   console.log(e)
     res.sendFile(error)
    }
@@ -7182,31 +7181,10 @@ router.get('/bearlogo', async (req, res, next) => {
 	if(!text) return res.json(loghandler.nottext)
 
  try {
-       var hasil = await logo.bluebear(text)
+       var hasil = await getBuffer(`https://dynamic.brandcrowd.com/asset/logo/0c963355-e735-4cdd-bec8-1373ba2a222e/logo?v=4&text=${text}`)
          await fs.writeFileSync(__path + '/tmp/bearlogo.png', hasil)
 
        res.sendFile(__path + '/tmp/bearlogo.png')
-} catch (e) {
-  console.log(e)
-    res.sendFile(error)
-   }
-})
-
-router.get('/dancelogo', async (req, res, next) => {
-	var text = req.query.text,
-	    apikeyInput = req.query.apikey;
-
-	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
-	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
-	if(!text) return res.json(loghandler.nottext)
-
- try {
-       var hasil = await logo.dancelogo(text)
-         await fs.writeFileSync(__path + '/tmp/dancelogo.png', hasil)
-
-       res.sendFile(__path + '/tmp/dancelogo.png')
 } catch (e) {
   console.log(e)
     res.sendFile(error)
