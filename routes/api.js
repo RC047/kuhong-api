@@ -16,6 +16,7 @@ var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // In
 
 // Apikey :
 var key = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikeymu (dibutuhkan)
+var key2 = 'key2'
 var key_id = generateID // ID Apikey
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'apivinz' // Apikey Zeks (dibutuhkan)
@@ -287,7 +288,7 @@ router.get('/cekapikey', async (req, res, next) => {
 	var maintenance = false
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if (apikeyInput !== `${key}`) return res.sendFile(invalidKey)
+	if (!(apikeyInput == `${key}` || apikeyInput == `${key2}`)) return res.sendFile(invalidKey)
 	var limit = '-'
         if(apikeyInput == `${key}`) limit = 'Unlimited!'
 
@@ -6940,15 +6941,15 @@ router.get('/kerang', async (req, res, next) => {
 	var pertanyaan = req.query.pertanyaan,
 	    apikeyInput = req.query.apikey;
 
-	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+	  var maintenance = false
+          if(maintenance == true) return res.sendFile(mtc)
 	  if(!apikeyInput) return res.json(loghandler.notparam)
 	  if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
 
        var nama_acak = await (await fetch(`https://kuhong-api.herokuapp.com/api/fakedata?country=en&apikey=${key}`)).json()
        var answer = 'Tidak ada pertanyaan yang dapat dijawab'
        if (!pertanyaan) answer = answer
-       if (!pertanyaan.startsWith('apa') || !pertanyaan.startsWith('apakah') || !pertanyaan.startsWith('bisakah') || !pertanyaan.startsWith('bisa') || !pertanyaan.startsWith('kapan') || !pertanyaan.startsWith('siapakah')) answer = 'Kata tanya yang tersedia : apa, apakah, kapan, kapankah, siapa, siapakah, bisa, bisakah'
+       if (!pertanyaan.startsWith('apa') || !pertanyaan.startsWith('apakah') || !pertanyaan.startsWith('bisakah') || !pertanyaan.startsWith('bisa') || !pertanyaan.startsWith('kapan') || !pertanyaan.startsWith('siapakah') || !pertanyaan.startsWith('berapa') || !pertanyaan.startsWith('berapakah')) answer = 'Kata tanya yang tersedia : apa, apakah, kapan, kapankah, siapa, siapakah, bisa, bisakah, berapa, berapakah'
        if (pertanyaan.startsWith('apakah')) answer = pickRandom(['Ya','Mungkin iya','Mungkin','Mungkin tidak','Tidak','Tidak mungkin'])
        if (pertanyaan.startsWith('apa')) answer = pickRandom(['Ya','Mungkin iya','Mungkin','Mungkin tidak','Tidak','Tidak mungkin'])
        if (pertanyaan.startsWith('bisakah')) answer = pickRandom(['Iya','Bisa','Tentu saja bisa','Tentu bisa','Sudah pasti','Sudah pasti bisa','Tidak','Tidak bisa','Tentu tidak','tentu tidak bisa','Sudah pasti tidak'])
@@ -6957,6 +6958,8 @@ router.get('/kerang', async (req, res, next) => {
        if (pertanyaan.startsWith('kapan')) answer = Math.floor(Math.random() * 100) + pickRandom([' detik', ' menit', ' jam', ' hari', ' pekan', ' minggu', ' bulan', ' tahun', ' dekade', ' windu', ' abad']) + ' lagi ...'
        if (pertanyaan.startsWith('siapakah')) answer = nama_acak.result.name
        if (pertanyaan.startsWith('siapa')) answer = nama_acak.result.name
+       if (pertanyaan.startsWith('berapakah')) answer = Math.floor(Math.random() * 1000)
+       if (pertanyaan.startsWith('berapa')) answer = Math.floor(Math.random() * 1000)
 
        res.json({
 	       status: true,
@@ -7020,7 +7023,7 @@ router.post('/upload_result', async (req, res, next) => {
 var form = new formidable.IncomingForm()
  form.parse(req, function (err, fields, files) {
    var inputPath = files.upload_file.path
-   var outputPath = files.upload_file.name
+   var outputPath = __dirname + '/tmp/' + files.upload_file.name
    mv(inputPath, outputPath, function (err) {
     if (err) throw err
 
