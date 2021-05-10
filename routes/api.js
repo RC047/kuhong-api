@@ -15,15 +15,17 @@ var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab (dibutu
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
 
 // Apikey :
+var free_key = generateApikey // Apikey Gratis
 var key = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikeymu (dibutuhkan)
-var key2 = 'key2'
-var key_id = generateID // ID Apikey
+var custom_key = generateApikey // Custom Apikey
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'apivinz' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 console.log(`Checking Apikey Data...`)
 console.log(`Your Apikey : ${key}`)
+console.log(`Free Apikey : ${free_key}`)
+//console.log(`Custom Apikey : ${custom_key}`)
 console.log(`ID Apikey : ${key_id}`)
 console.log(`Xteam Apikey : ${xteam_key}`)
 console.log(`Zeks Apikey : ${zeks_key}`)
@@ -251,7 +253,7 @@ var loghandler = {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'Teks harus berupa angka'
+        message: 'Teks harus berupa angka!'
     },
     maintenance: {
         status: 404,
@@ -288,13 +290,16 @@ router.get('/cekapikey', async (req, res, next) => {
 	var maintenance = false
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
-	if (!(apikeyInput == `${key}` || apikeyInput == `${key2}`)) return res.sendFile(invalidKey)
-	var limit = '-'
+	if (!(apikeyInput == `${free_key}` || apikeyInput == `${key}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	var status = 'active'
+	var limit = 'Limited! (Diganti setiap update website)'
         if(apikeyInput == `${key}`) limit = 'Unlimited!'
+	if(apikeyInput == `${custom_key}`) limit = 'Unlimited!'
 
 try {
 	res.json({
-               status : `active`,
+		creator: creator,
+                status : status,
                 apikey : apikeyInput,
                 limit : limit
             })
@@ -303,6 +308,15 @@ try {
 	res.sendFile(error)
    }
 })
+
+router.get('/getapikey', async (req, res, next) => {
+      res.json({
+	   status: true,
+	   creator: creator,
+	   info: 'Apikey akan diubah secara otomatis jika website update,, beli Premium Apikey agar apikey tidak terus diganti',
+	   free_key: free_key
+    })
+}
 
 router.get('/tiktok', async (req, res, next) => {
     var apikeyInput = req.query.apikey,
@@ -3304,7 +3318,7 @@ router.get('/ocr', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
         img = req.query.img;
             
-	var maintenance = false
+	var maintenance = true
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
@@ -3335,7 +3349,7 @@ router.get('/removebg', async (req, res, next) => {
         img = req.query.img;
 
   try {
-	var maintenance = false
+	var maintenance = true
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if(apikeyInput !== `${key}`) return res.sendFile(invalidKey)
@@ -7022,21 +7036,18 @@ router.get('/nulis4', async (req, res, next) => {
 
 router.post('/upload_result', async (req, res, next) => {
 
-  var form = new FormData
-  var { ext } = await fromBuffer(form)
-  form.append('file', buffer, 'tmp.' + ext)
-  var result = await fetch('https://telegra.ph/upload', {
+  var form = new formidable.IncomingForm()
+  var result = await fetch('http://docs-jojo.herokuapp.com/upload_img', {
     method: 'POST',
     body: form
   })
-  var file = await result.json()
-  if (file.error) return res.json({ error: file.error })
-  var hasil = 'https://telegra.ph' + file[0].src
+  var json = await result.json()
 
         res.json({
 	        status: true,
 	        creator: creator,
-	        result: hasil
+		size: json.result.filesize,
+	        result: json.result.url
             })
 })
 
