@@ -287,13 +287,13 @@ router.get('/cekapikey', async (req, res, next) => {
     var apikeyInput = req.query.apikey;
 
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+        if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_key}` || apikeyInput == `${key}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	var status = 'active'
 	var limit = 'Limited! (Diganti setiap update website)'
-    if(apikeyInput == `${key}`) limit = 'Unlimited!'
-	if(apikeyInput == `${custom_key}`) limit = 'Unlimited!'
+        if(apikeyInput == `${key}`) limit = 'Unlimited!'
+	if(apikeyInput == `${custom_apikey}`) limit = 'Unlimited!'
 
 try {
 	res.json({
@@ -312,7 +312,7 @@ router.get('/getapikey', async (req, res, next) => {
       res.json({
 	   status: true,
 	   creator: creator,
-	   info: 'Apikey akan diubah secara otomatis jika website update,, beli Premium Apikey agar apikey tidak terus diganti',
+	   info: 'Apikey akan diubah secara otomatis setiap update fitur,, Beli Premium agar apikey tidak terus diganti',
 	   free_key: free_key
     })
 })
