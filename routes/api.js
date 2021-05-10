@@ -7309,7 +7309,7 @@ router.get('/how', async (req, res, next) => {
 	if(!type) return res.json(loghandler.nottype)
 	if (type == 'baper' || type == 'gay' || type == 'tolol' || type == 'bucin' || type == 'sange' || type == 'gila' || type == 'pintar' || type == 'bodoh' || type == 'ganteng' || type == 'cantik' || type == 'stres' || type == 'sad') {
 
-       var result = nama + 'itu' + Math.floor(Math.random() * 101) + '%' + type
+       var result = nama +  'itu ' + Math.floor(Math.random() * 101) + '% ' + type
 
        res.json({
 	       status: true,
