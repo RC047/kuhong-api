@@ -17,13 +17,6 @@ router.get('/docs', async (req, res) => {
     res.sendFile(__path + '/views/index.html')
 })
 
-router.get('/api/update', async (req, res) => {
-    res.json({
-        update: 'Update Search, Fun Menu & Update MiniGames!!',
-        info: 'Fitur MiniGames dapat kalian gunakan secara gratis :)'
-    })
-})
-
 router.get('/api/upload_file', async (req, res) => {
     res.sendFile(__path + '/views/upload_file.html')
 })
