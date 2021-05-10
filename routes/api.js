@@ -7173,6 +7173,7 @@ router.get('/glitchlogo', async (req, res, next) => {
          await fs.writeFileSync(__path + '/tmp/glitchlogo.png', hasil)
 
        res.sendFile(__path + '/tmp/glitchlogo.png')
+} catch (e) {
   console.log(e)
     res.sendFile(error)
    }
