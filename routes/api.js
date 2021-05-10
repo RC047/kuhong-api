@@ -58,6 +58,8 @@ var fs = require('fs');
 var util = require('util');
 var router  = express.Router();
 var options = require(__path + '/lib/options.js');
+var { Logo } = require('logogen')
+var logo = new Logo()
 
 var { stylizeText, tts, wait, simih, getBuffer, h2k, getRandom, readMore, randomBytes, start, info, success, banner, close, pickRandom } = require(__path + '/lib/functions.js');
 var { servers, yta, ytv } = require(__path + '/lib/y2mate.js');
