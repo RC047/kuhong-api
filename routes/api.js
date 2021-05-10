@@ -3691,8 +3691,9 @@ router.get('/md5', async (req, res, next) => {
   if (!text) return res.json(loghandler.nottext)
 
      var result = await createHash('md5').update(text).digest('hex')
+
        res.json({
-       	status : true,
+       	   status : true,
            creator : `${creator}`,
            result : result
        })
@@ -6690,13 +6691,13 @@ router.get('/sha1', async (req, res, next) => {
 	if(!text) return res.json(loghandler.nottext)
 
  try {
-       var json = await (await fetch(`https://api.xteam.xyz/encrypt/sha1?text=${text}&APIKEY=${xteam_key}`)).json()
+       var result = await createHash('sha1').update(text).digest('hex')
 
        res.json({
 	       status: true,
 	       creator: creator,
 	       text: text,
-	       sha1: json.result.encrypt
+	       sha1: result
        })
 } catch (e) {
   console.log(e)
@@ -6715,13 +6716,13 @@ router.get('/sha256', async (req, res, next) => {
 	if(!text) return res.json(loghandler.nottext)
 
  try {
-       var json = await (await fetch(`https://api.xteam.xyz/encrypt/sha256?text=${text}&APIKEY=${xteam_key}`)).json()
+       var result = await createHash('sha256').update(text).digest('hex')
 
        res.json({
 	       status: true,
 	       creator: creator,
 	       text: text,
-	       sha256: json.result.encrypt
+	       sha256: result
        })
 } catch (e) {
   console.log(e)
@@ -6740,13 +6741,13 @@ router.get('/sha512', async (req, res, next) => {
 	if(!text) return res.json(loghandler.nottext)
 
  try {
-       var json = await (await fetch(`https://api.xteam.xyz/encrypt/sha512?text=${text}&APIKEY=${xteam_key}`)).json()
+       var result = await createHash('sha512').update(text).digest('hex')
 
        res.json({
 	       status: true,
 	       creator: creator,
 	       text: text,
-	       sha512: json.result.encrypt
+	       sha512: result
        })
 } catch (e) {
   console.log(e)
