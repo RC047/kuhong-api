@@ -4048,11 +4048,11 @@ router.get('/asupan', async (req, res, next) => {
 try {
   var maintenance = false
     if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
-  if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+    if(!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 
-     var json = await (await fetch(`http://zekais-api.herokuapp.com/ptlvid`)).json()
-         res.json(json)
+     var result = await fs.readFileSync(__path + '/src/lucu/' + Math.floor(Math.random() * 47) + '.mp4')
+         res.sendFile(result)
 
 } catch (e) {
      console.log(e)
