@@ -7875,5 +7875,52 @@ router.get('/tebakumur', async (req, res, next) => {
    }
 })
 
+router.get('/nobg', async (req, res, next) => {
+        var url = req.query.url,
+            apikeyInput = req.query.apikey;
+        
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+        if (!url) return res.json(loghandler.noturl)
+	if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
+
+  try {
+	var encmedia = await ImageToBase64(url)
+	var media = Buffer.from(encmedia, 'base64')
+	await fs.writeFileSync(__path + '/tmp/nobg_tmp.png', media)
+	var buffer = await fs.readFileSync(__path + '/tmp/nobg_tmp.png')
+	var { ext } = await fromBuffer(buffer)
+        var form = new FormData
+        form.append('file', buffer, 'tmp.' + ext)
+
+            request.post({
+                url: 'https://www.remove.bg/upload',
+                headers: {
+                'Content-Type': 'multipart/form-data'
+                },
+                body: form,
+                }, (e,r,b) => {
+                    if (!e) {
+                        $ = cheerio.load(b)
+                        $(".thumbnail").find("img").each(function() {
+                            h = $(this).attr("src")
+                            var result = 'https://o.remove.bg/downloads/' + h
+                                        var urlnya = data.data.url,
+                                        delete_url = data.data.delete_url;
+                                        res.json({
+                                            status : true,
+                                            creator : `${creator}`,
+                                            result : result
+                                        })
+                        })
+                })
+  } catch (e) {
+ console.log(e);
+   res.sendFile(error)
+     }
+})
+
 // End of script
 module.exports = router
