@@ -7512,7 +7512,7 @@ router.get('/getvn', async (req, res, next) => {
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!query) return res.json(loghandler.notquery)
-	if (!(query == 'papale' || query == 'anjay' || query == 'pota' || queryquery == 'padepap' || queryquery == 'iri' || queryquery == 'ara' || queryquery == 'bila' || queryquery == 'cidro' || query == 'kiminoto' || query == 'baby' || query == 'bernyanyi' || query == 'umbrella' || query == 'enak' || query == 'wes' || query == 'kokoro' || query == 'bambam' || query == 'booma' || query == 'tapi' || query == 'siul' || query == 'masha')) return res.json({ error: `Tema yang tersedia : [ anjay, ara, bila, baby, bambam, booma, bernyanyi, cidro, enak, iri, masha, padepap, papale, pota, kiminoto, kokoro, siul, tapi, umbrella, wes` ] })
+	if (!(query == 'papale' || query == 'anjay' || query == 'pota' || queryquery == 'padepap' || queryquery == 'iri' || queryquery == 'ara' || queryquery == 'bila' || queryquery == 'cidro' || query == 'kiminoto' || query == 'baby' || query == 'bernyanyi' || query == 'umbrella' || query == 'enak' || query == 'wes' || query == 'kokoro' || query == 'bambam' || query == 'booma' || query == 'tapi' || query == 'siul' || query == 'masha')) return res.json({ status: false, list_theme: [`anjay, ara, bila, baby, bambam, booma, bernyanyi, cidro, enak, iri, masha, padepap, papale, pota, kiminoto, kokoro, siul, tapi, umbrella, wes`] })
 
  try {
        var getvn = await fs.readFileSync(__path + `/src/getvn/${query}.opus`)
