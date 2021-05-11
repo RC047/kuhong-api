@@ -66,7 +66,7 @@ var { sticker } = require(__path + '/lib/sticker.js');
 var { fromBuffer } = require('file-type');
 var { removeBackgroundFromImageFile } = require('remove.bg');
 var { tahta } = require(__path + '/lib/tahta.js');
-var { math } = require(__path + '/lib/math.js');
+var { math, modes } = require(__path + '/lib/math.js');
 var { JSDOM } = require('jsdom');
 var { createHash } = require('crypto');
 var { spawn, exec } = require('child_process');
@@ -4840,14 +4840,16 @@ try {
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
-  if (!mode) return res.json({ message : `Silahkan masukan modenya,, Mode tersedia : 1. very_easy, 2. easy, 3. medium, 4. hard, 5. extreme, 6. impossible` })
+  if (!mode) return res.json({ message : `Masukan parameter mode` })
+  if (!(mode in modes)) return res.json({ status: false, creator: creator, message: 'Mode yang tersedia' + Object.keys(modes).join(', ') })
+  var data = await math(mode)
 
      res.json({
 	     status : true,
 	     creator : creator,
-	     soal : math.str,
-	     jawaban : math.answer,
-	     poin : math.bonus
+	     soal : data.str,
+	     jawaban : data.result,
+	     poin : data.bonus
        })
 } catch (e) {
      console.log(e)
