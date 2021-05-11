@@ -7562,10 +7562,10 @@ router.get('/jedagjedug', async (req, res, next) => {
 	if (!(theme == 'ff' || theme == 'ml' || theme == 'beatvn')) return res.json({ error: `Tema yang tersedia : ff, ml, beatvn` })
 
  try {
-      res.sendFile(__path + `/src/jedag-jedug/${theme}/${pickRandom(['jedag','jedag1','jedag2','jedag3','jedag4','jedag5','jedag6','jedag7','jedag8'])}.mp4`)
+      res.sendFile(__path + `/src/jedag_jedug/${theme}/${pickRandom(['jedag','jedag1','jedag2','jedag3','jedag4','jedag5','jedag6','jedag7','jedag8'])}.mp4`)
 } catch (e) {
    console.log(e)
-    res.json({ status: '400 (ETIMEOUT)', message: 'error, coba lagi nanti' })
+    res.sendFile(error)
    }
 })
 
