@@ -56,6 +56,7 @@ var neww = performance.now()
 var ram = `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB`
 var cpu = require('os').cpus()
 var json = await (await fetch('https://api.ipify.org/?format=json')).json()
+var data = await (await fetch('https://kuhong-api.herokuapp.com/api/getapikey')).json()
 var port = process.env.PORT || 8080 || 5000 || 3000 
     status = {
         status: 'online',
@@ -72,7 +73,7 @@ var port = process.env.PORT || 8080 || 5000 || 3000
             instagram: 'rendycraft047',
             youtube: 'RC047',
             donasi: 'Biar Update tiap hari : https://saweria.co/RC047',
-            apikey: 'Chat Owner: https://wa.me/62895337278647'
+            free_apikey: data.free_apikey
         }
     }
     res.json(status)
