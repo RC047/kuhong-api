@@ -66,6 +66,7 @@ var { sticker } = require(__path + '/lib/sticker.js');
 var { fromBuffer } = require('file-type');
 var { removeBackgroundFromImageFile } = require('remove.bg');
 var { tahta } = require(__path + '/lib/tahta.js');
+var { math } = require(__path + '/lib/math.js');
 var { JSDOM } = require('jsdom');
 var { createHash } = require('crypto');
 var { spawn, exec } = require('child_process');
@@ -4786,8 +4787,8 @@ router.get('/towebp', async (req, res, next) => {
 
 try {
   var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
+  if(maintenance == true) return res.sendFile(mtc)
+  if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(logahndler.invalidLink)
@@ -4814,7 +4815,7 @@ try {
                          'Content-Type': `multipart/form-data; boundary=${bodyFormThen._boundary}`
                          }}).then(({ data }) => {
                          var $ = cheerio.load(data)
-                         var result = 'https:' + $('div#output > p.outfile > image > source').attr('src')
+                         var result = 'https:' + $('div#output > p.outfile > video > source').attr('src')
 
 	                       res.json({
                                             status : true,
@@ -4836,20 +4837,17 @@ router.get('/math', async (req, res, next) => {
 
 try {
   var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
+  if(maintenance == true) return res.sendFile(mtc)
+  if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
   if (!mode) return res.json({ message : `Silahkan masukan modenya,, Mode tersedia : 1. very_easy, 2. easy, 3. medium, 4. hard, 5. extreme, 6. impossible` })
-
-     var json = await (await fetch(`http://zekais-api.herokuapp.com/math?mode=${mode}`)).json()
 
      res.json({
 	     status : true,
 	     creator : creator,
-	     info : json.message,
-	     soal : json.soal,
-	     jawaban : json.jawaban,
-	     poin : 25000
+	     soal : math.str,
+	     jawaban : math.answer,
+	     poin : math.bonus
        })
 } catch (e) {
      console.log(e)
