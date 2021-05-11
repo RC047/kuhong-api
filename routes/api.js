@@ -7535,7 +7535,6 @@ router.get('/masadepan', async (req, res, next) => {
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!nama) return res.json(loghandler.notnama)
 
- try {
        var result = 'Menurut Ramalan...\n\nMasa Depan ' + pickRandom([`${nama} akan menjadi orang yang Kaya, keluarga yang harmonis, memiliki 2 memiliki anak, memiliki 4 memiliki kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang harmonis, memiliki 3 memiliki anak, memiliki 1 memiliki kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Miskin, keluarga yang Sederhana, memiliki 1 anak, tidak memiliki kendaraan, rumah ngontrak`,`${nama} akan menjadi orang yang Sederhana, keluarga yang dicerai, memiliki 5 anak, memiliki 2 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Sederhana, memiliki 2 anak, memiliki 2 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Miskin, keluarga yang dicerai memiliki 2 anak, memiliki 1 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Kaya, keluarga yang Sederhana, memiliki 1 anak, memiliki 1 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Harmonis, memiliki 1 anak, memiliki 3 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Miskin, tidak memiliki keluarga (jomblo), tidak memiliki anak, tidak memiliki kendaraan, tidak memiliki rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Sederhana, memiliki 4 anak, memiliki 1 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang kacau, tidak memiliki anak (Gugur), memiliki 2 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Sangat Kaya, keluarga yang Sangat Harmonis, memiliki 5 anak, memiliki 7 kendaraan, memiliki 9 rumah`,`${nama} akan menjadi orang yang Sangat Miskin, keluarga yang Sederhana, memiliki 9 anak, tidak memiliki kendaraan, rumah ngontrak`,`${nama} akan menjadi orang yang Kaya, keluarga yang Pelit, memiliki 2 anak, memiliki 2 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Pelit, memiliki 1 anak, memiliki 1 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang dicerai, memiliki 2 anak, memiliki 1 kendaraan, rumah ngontrak`,`${nama} akan menjadi orang yang Sangat Sederhana, keluarga yang Sakinah, memiliki 1 anak, memiliki 1 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Sangat Sederhana, memiliki 11 anak, memiliki 1 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Sangat Sederhana, memiliki 2 anak kembar, memiliki 3 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana keluarga yang Sederhana, memiliki 2 anak kembar dan 1 anak lagi, memiliki 1 kendaraan, memiliki 1 rumah`])}
 
        res.json({
@@ -7543,10 +7542,6 @@ router.get('/masadepan', async (req, res, next) => {
              creaator: creator,
              result: result
        })
-} catch (e) {
-   console.log(e)
-    res.sendFile(error)
-   }
 })
 
 router.get('/laptop', async (req, res, next) => {
@@ -7575,7 +7570,6 @@ try {
 router.get('/iqtest', async (req, res, next) => {
     var apikeyInput = req.query.apikey;
 
-try {
   var maintenance = false
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
@@ -7587,17 +7581,11 @@ try {
 	     creator: creator,
 	     result: result
      })
-     
-} catch (e) {
-     console.log(e)
-	res.sendFile(error)
-   }
 })
 
 router.get('/bacot', async (req, res, next) => {
     var apikeyInput = req.query.apikey;
 
-try {
   var maintenance = false
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
@@ -7645,17 +7633,11 @@ var bacot = [
 	     creator: creator,
 	     result: result
      })
-     
-} catch (e) {
-     console.log(e)
-	res.sendFile(error)
-   }
 })
 
 router.get('/truth', async (req, res, next) => {
     var apikeyInput = req.query.apikey;
 
-try {
   var maintenance = false
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
@@ -7752,11 +7734,6 @@ var truth = [
 	     creator: creator,
 	     result: result
      })
-     
-} catch (e) {
-     console.log(e)
-	res.sendFile(error)
-   }
 })
 
 router.get('/twister', async (req, res, next) => {
