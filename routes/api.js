@@ -4264,14 +4264,12 @@ try {
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
     if (!text) return res.json(loghandler.nottext)
 
-      // var json = await (await fetch(`https://api.terhambar.com/bpk?kata=${text}`)).json()
       var result = await alay(text)
 
          res.json({
 		 status : true,
 		 creator : creator,
 		 result: result
-	         // result : json.text
 	   })
 
 } catch (e) {
@@ -7580,7 +7578,7 @@ router.get('/getvn', async (req, res, next) => {
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!query) return res.json(loghandler.notquery)
-	if (!(query == 'papale' || query == 'anjay' || query == 'pota' || queryquery == 'padepap' || queryquery == 'iri' || queryquery == 'ara' || queryquery == 'bila' || queryquery == 'cidro' || query == 'kiminoto' || query == 'baby' || query == 'bernyanyi' || query == 'umbrella' || query == 'enak' || query == 'wes' || query == 'kokoro' || query == 'bambam' || query == 'booma' || query == 'tapi' || query == 'siul' || query == 'masha')) return res.json({ status: false, list_theme: [`anjay, ara, bila, baby, bambam, booma, bernyanyi, cidro, enak, iri, masha, padepap, papale, pota, kiminoto, kokoro, siul, tapi, umbrella, wes`] })
+	if (!(query == 'papale' || query == 'anjay' || query == 'pota' || query == 'padepap' || query == 'iri' || yquery == 'ara' || query == 'bila' || query == 'cidro' || query == 'kiminoto' || query == 'baby' || query == 'bernyanyi' || query == 'umbrella' || query == 'enak' || query == 'wes' || query == 'kokoro' || query == 'bambam' || query == 'booma' || query == 'tapi' || query == 'siul' || query == 'masha')) return res.json({ status: false, list_theme: [`anjay, ara, bila, baby, bambam, booma, bernyanyi, cidro, enak, iri, masha, padepap, papale, pota, kiminoto, kokoro, siul, tapi, umbrella, wes`] })
 
  try {
        var getvn = await fs.readFileSync(__path + `/src/getvn/${query}.opus`)
@@ -7921,6 +7919,26 @@ router.get('/nobg', async (req, res, next) => {
 	  console.log(e)
      res.sendFile(error)
   }
+})
+
+router.get('/wattpad2', async (req, res, next) => {
+	var q = req.query.query,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if(!q) return res.json(loghandler.notquery)
+
+ try {
+       var result = await (await fetch(`https://xteam.xyz/search/wattpadsearch?q=${q}&APIKEY=${xteam_key}`)).json()
+
+       res.json(result)
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
 })
 
 // End of script
