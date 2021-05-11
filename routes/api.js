@@ -7496,12 +7496,10 @@ router.get('/jedag-jedug', async (req, res, next) => {
 	if (!(theme == 'ff' || theme == 'ml' || theme == 'beatvn')) return res.json({ error: `Tema yang tersedia : ff, ml, beatvn` })
 
  try {
-       var result = await fs.readFileSync(__path + `/src/${theme}/${pickRandom(['jedag','jedag1','jedag2','jedag3','jedag4','jedag5','jedag6','jedag7','jedag8'])}.mp4`)
-
-       res.sendFile(result)
+      res.sendFile(__path + `/src/jedag-jedug/${theme}/${pickRandom(['jedag','jedag1','jedag2','jedag3','jedag4','jedag5','jedag6','jedag7','jedag8'])}.mp4`)
 } catch (e) {
    console.log(e)
-    res.sendFile(error)
+    res.json({ status: '400 (ETIMEOUT)', message: 'error, coba lagi nanti' })
    }
 })
 
@@ -7517,8 +7515,8 @@ router.get('/getvn', async (req, res, next) => {
 	if (!(query == 'papale' || query == 'anjay' || query == 'pota' || queryquery == 'padepap' || queryquery == 'iri' || queryquery == 'ara' || queryquery == 'bila' || queryquery == 'cidro' || query == 'kiminoto' || query == 'baby' || query == 'bernyanyi' || query == 'umbrella' || query == 'enak' || query == 'wes' || query == 'kokoro' || query == 'bambam' || query == 'booma' || query == 'tapi' || query == 'siul' || query == 'masha')) return res.json({ error: `Tema yang tersedia : [ anjay, ara, bila, baby, bambam, booma, bernyanyi, cidro, enak, iri, masha, padepap, papale, pota, kiminoto, kokoro, siul, tapi, umbrella, wes` ] })
 
  try {
-       var result = await fs.readFileSync(__path + `/src/getvn/${query}.opus`)
-       await fs.writeFileSync(__path + '/tmp/getvn.mp3', result)
+       var getvn = await fs.readFileSync(__path + `/src/getvn/${query}.opus`)
+       await fs.writeFileSync(__path + '/tmp/getvn.mp3', getvn)
 
        res.sendFile(__path + '/tmp/getvn.mp3')
 } catch (e) {
