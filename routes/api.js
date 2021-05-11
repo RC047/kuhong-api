@@ -7915,12 +7915,12 @@ router.get('/nobg', async (req, res, next) => {
                                             result : result
                                         })
                             })
-						})
-					}
+                        }
+                   })
   } catch (e) {
- console.log(e);
-   res.sendFile(error)
-     }
+	  console.log(e)
+     res.sendFile(error)
+  }
 })
 
 // End of script
