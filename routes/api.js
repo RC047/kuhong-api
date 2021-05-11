@@ -1,7 +1,7 @@
 __path = process.cwd()
 
 // Database :
-var { generateID, generateApikey, generateCode, generatePassword, generateKey, generateHex, generateBase64 } = require(__path + '/lib/generator.js');
+var { generateID, generateApikey, generateCode, generatePassword, generateKey, generateHex, generateBase64, generateHash } = require(__path + '/lib/generator.js');
 var express = require('express');
 var database = require(__path + '/database/database.js');
 
@@ -22,7 +22,7 @@ var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'apikeykuhong' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
-console.log(`Checking Apikey Data...`)
+console.log(`USED APIKEY...`)
 console.log(`Your Apikey : ${apikey}`)
 console.log(`Free Apikey : ${free_apikey}`)
 //console.log(`Custom Apikey : ${custom_apikey}`)
@@ -290,7 +290,7 @@ router.get('/cekapikey', async (req, res, next) => {
     var apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	var status = 'active'
@@ -299,7 +299,7 @@ router.get('/cekapikey', async (req, res, next) => {
 
     try {
 	     res.json({
-		creator: creator,
+		        creator: creator,
                 status : status,
                 apikey : apikeyInput,
                 limit : limit
@@ -555,6 +555,7 @@ router.get('/nulis', async (req, res, next) => {
       var fontPath = __path + '/lib/font/Zahraaa.ttf'
       var inputPath = __path + '/lib/kertas/nulis.jpg'
       var outputPath = __path + '/tmp/hasil.jpg'
+      if (text.length > 47) text = text.join('\n')
       spawn('convert', [
             inputPath,
             '-font',
@@ -587,9 +588,10 @@ router.get('/nulis2', async (req, res, next) => {
             
 	var maintenance = false
         if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
-	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	    if(!apikeyInput) return res.json(loghandler.notparam)
+	    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
         if (!text) return res.json(loghandler.nottext)
+        if (text.length > 47) text = text.join('\n')
 
    try {
      var d = new Date
@@ -4064,8 +4066,7 @@ try {
     if(!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 
-     var result = await fs.readFileSync(__path + '/src/lucu/' + Math.floor(Math.random() * 47) + '.mp4')
-         res.sendFile(result)
+      res.sendFile(__path + '/src/lucu/' + Math.floor(Math.random() * 47) + '.mp4')
 
 } catch (e) {
      console.log(e)
@@ -4080,7 +4081,7 @@ try {
   var maintenance = false
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
-  if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 
      var json = await (await fetch(`http://zekais-api.herokuapp.com/cerpen`)).json()
          res.json({
@@ -4575,7 +4576,7 @@ router.get('/calculator', async (req, res) => {
   try {
     console.log(val)
     var result = (new Function('return ' + val))()
-    if (!result) res.json({ message : result })
+    if (!result) result = result
 
 	res.json({
 		status : true,
@@ -4583,7 +4584,7 @@ router.get('/calculator', async (req, res) => {
 		result : result
 	  })
   } catch (e) {
-    if (e == undefined) res.json({ error : `Kesalahan Terjadi!` })
+    if (e == undefined) res.json({ error : `Kesalahan Terjadi` })
         res.json({ message : `Format salah, hanya 0-9 dan Simbol -, +, *, /, ×, ÷, π, e, (, ) yang disupport` })
   }
 })
@@ -4846,7 +4847,7 @@ try {
 	     status : true,
 	     creator : creator,
 	     soal : data.str,
-	     jawaban : data.result,
+	     jawaban : data.result.toString(),
 	     poin : data.bonus
        })
 } catch (e) {
@@ -4977,7 +4978,7 @@ try {
 
   var result = code_start + code_end
        res.json({
-       	     status : true,
+       	  status : true,
              creator : creator,
              text : text,
              code : result
@@ -7460,7 +7461,7 @@ router.get('/spammer/danacinta', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!nomor) return res.json(loghandler.notnomor)
@@ -7486,7 +7487,7 @@ router.get('/how', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!nama) return res.json(loghandler.notnama)
@@ -7509,7 +7510,7 @@ router.get('/poly', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!text) return res.json(loghandler.nottext)
@@ -7531,7 +7532,7 @@ router.get('/wattpad', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!id) return res.json({ message: `Masukan parameter id` })
@@ -7546,7 +7547,7 @@ router.get('/wattpad', async (req, res, next) => {
        })
 } catch (e) {
    console.log(e)
-    res.json({ error: `id stories tidak valid` })
+      res.json({ error: 'id stories tidak valid' })
    }
 })
 
@@ -7555,14 +7556,14 @@ router.get('/jedagjedug', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!theme) return res.json(loghandler.nottheme)
 	if (!(theme == 'ff' || theme == 'ml' || theme == 'beatvn')) return res.json({ error: `Tema yang tersedia : ff, ml, beatvn` })
 
  try {
-      res.sendFile(__path + `/src/jedag_jedug/${theme}/${pickRandom(['jedag','jedag1','jedag2','jedag3','jedag4','jedag5','jedag6','jedag7','jedag8'])}.mp4`)
+      res.sendFile(__path + '/src/jedag_jedug/' + theme + '/' + Math.floor(Math.random() * 10) + '.mp4')
 } catch (e) {
    console.log(e)
     res.sendFile(error)
@@ -7574,20 +7575,20 @@ router.get('/getvn', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!query) return res.json(loghandler.notquery)
 	if (!(query == 'papale' || query == 'anjay' || query == 'pota' || query == 'padepap' || query == 'iri' || query == 'ara' || query == 'bila' || query == 'cidro' || query == 'kiminoto' || query == 'baby' || query == 'bernyanyi' || query == 'umbrella' || query == 'enak' || query == 'wes' || query == 'kokoro' || query == 'bambam' || query == 'booma' || query == 'tapi' || query == 'siul' || query == 'masha')) return res.json({ status: false, list_theme: [`anjay, ara, bila, baby, bambam, booma, bernyanyi, cidro, enak, iri, masha, padepap, papale, pota, kiminoto, kokoro, siul, tapi, umbrella, wes`] })
 
  try {
-       var getvn = await fs.readFileSync(__path + `/src/getvn/${query}.opus`)
+       var getvn = await fs.readFileSync(__path + '/src/getvn/' + query + '.opus')
        await fs.writeFileSync(__path + '/tmp/getvn.mp3', getvn)
 
        res.sendFile(__path + '/tmp/getvn.mp3')
 } catch (e) {
    console.log(e)
-    res.sendFile(error)
+     res.sendFile(error)
    }
 })
 
@@ -7596,7 +7597,7 @@ router.get('/masadepan', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!nama) return res.json(loghandler.notnama)
@@ -7641,7 +7642,7 @@ router.get('/iqtest', async (req, res, next) => {
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 
-  var result = 'IQ Anda sebesar ' + Math.floor(Math.random() * 1000) + '!'
+  var result = 'IQ Anda sebesar ' + Math.floor(Math.random() * 1001) + '!'
      res.json({
 	     status: true,
 	     creator: creator,
@@ -7806,7 +7807,7 @@ router.get('/twister', async (req, res, next) => {
 	var apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 
@@ -7826,10 +7827,10 @@ router.get('/twister', async (req, res, next) => {
 
 router.get('/purba', async (req, res, next) => {
 	var text = req.query.text,
-	    apikeyInput = req.query.apikey;
+	      apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!text) return res.json(loghandler.nottext)
@@ -7878,10 +7879,10 @@ router.get('/nobg', async (req, res, next) => {
             apikeyInput = req.query.apikey;
         
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
-        if (!url) return res.json(loghandler.noturl)
+    if (!url) return res.json(loghandler.noturl)
 	if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
   try {
@@ -7893,7 +7894,7 @@ router.get('/nobg', async (req, res, next) => {
         var form = new FormData
         form.append('file', buffer, 'tmp.' + ext)
 
-            request.post({
+          request.post({
                 url: 'https://www.remove.bg/upload',
                 headers: {
                 'Content-Type': 'multipart/form-data'
@@ -7905,8 +7906,6 @@ router.get('/nobg', async (req, res, next) => {
                         $(".thumbnail").find("img").each(function() {
                             h = $(this).attr("src")
                             var result = 'https://o.remove.bg/downloads/' + h
-                                        var urlnya = data.data.url,
-                                        delete_url = data.data.delete_url;
                                         res.json({
                                             status : true,
                                             creator : `${creator}`,
@@ -7926,7 +7925,7 @@ router.get('/wattpad2', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!q) return res.json(loghandler.notquery)
@@ -7935,6 +7934,32 @@ router.get('/wattpad2', async (req, res, next) => {
        var result = await (await fetch(`https://xteam.xyz/search/wattpadsearch?q=${q}&APIKEY=${xteam_key}`)).json()
 
        res.json(result)
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/randombyte', async (req, res, next) => {
+	var jumlah = req.query.jumlah,
+	      apikeyInput = req.query.apikey;
+
+	var maintenance = false
+    if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if (!jumlah) return res.json(loghandler.notjumlah)
+	if (isNaN(jumlah)) return res.json(loghandler.number)
+	if (jumlah > 1000) return res.json({ error: `Jumlah terlalu banyak!` })
+
+ try {
+       var result = await randomBytes(jumlah)
+
+       res.json({
+       	status: true,
+           creator: creator,
+           result: result.toString()
+     })
 } catch (e) {
   console.log(e)
     res.sendFile(error)
