@@ -7484,7 +7484,7 @@ router.get('/wattpad', async (req, res, next) => {
    }
 })
 
-router.get('/jedag-jedug', async (req, res, next) => {
+router.get('/jedagjedug', async (req, res, next) => {
 	var theme = req.query.theme,
 	    apikeyInput = req.query.apikey;
 
