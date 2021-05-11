@@ -7914,8 +7914,9 @@ router.get('/nobg', async (req, res, next) => {
                                             creator : `${creator}`,
                                             result : result
                                         })
-                        })
-                })
+                            })
+						})
+					}
   } catch (e) {
  console.log(e);
    res.sendFile(error)
