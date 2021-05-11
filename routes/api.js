@@ -3873,8 +3873,12 @@ try {
   if (poin > 50) return res.json({ message: `Maximal 50!` })
   if (poin < 5) return res.json({ message: `Minimal 5!` })
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/brainly?apikey=${zeks_key}&q=${soal}&count=${poin}`)).json()
-       res.json(json)
+     var result = await (await fetch(`https://api.zeks.xyz/api/brainly?apikey=${zeks_key}&q=${soal}&count=${poin}`)).json()
+       res.json({
+	       status: true,
+		   creator: creator,
+		   result
+	    })
 
 } catch (e) {
      console.log(e)
@@ -3893,8 +3897,12 @@ try {
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
   if (!soal) return res.json({ message: `Masukan parameter soal` })
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/brainly?apikey=${zeks_key}&q=${soal}&count=5`)).json()
-       res.json(json)
+     var result = await (await fetch(`https://api.zeks.xyz/api/brainly?apikey=${zeks_key}&q=${soal}&count=5`)).json()
+       res.json({
+	       status: true,
+		   creator: creator,
+		   result
+	    })
      
 } catch (e) {
      console.log(e)
@@ -3911,8 +3919,12 @@ try {
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/pantun?apikey=${zeks_key}`)).json()
-         res.json(json)
+     var result = await (await fetch(`https://api.zeks.xyz/api/pantun?apikey=${zeks_key}`)).json()
+         res.json({
+	       status: true,
+		   creator: creator,
+		   result
+	    })
 
 } catch (e) {
      console.log(e)
@@ -4097,8 +4109,11 @@ try {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/mediafire?apikey=${zeks_key}&url=${url}`)).json()
-         res.json(json)
+     var result = await (await fetch(`https://api.zeks.xyz/api/mediafire?apikey=${zeks_key}&url=${url}`)).json()
+         res.json({
+		   creator: creator,
+		   result
+	    })
 
 } catch (e) {
      console.log(e)
@@ -4729,9 +4744,12 @@ try {
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
   if (!q) return res.json(loghandler.notquery)
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/spotify?apikey=${zeks_key}&q=${q}`)).json()
+     var result = await (await fetch(`https://api.zeks.xyz/api/spotify?apikey=${zeks_key}&q=${q}`)).json()
 
-     res.json(json)
+     res.json({
+		   creator: creator,
+		   result
+	    })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -4750,9 +4768,12 @@ try {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(logahndler.invalidLink)
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/ig?url=${url}&apikey=${zeks_key}`)).json()
+     var result = await (await fetch(`https://api.zeks.xyz/api/ig?url=${url}&apikey=${zeks_key}`)).json()
 
-     res.json(json)
+     res.json({
+		   creator: creator,
+		   result
+	    })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -5202,9 +5223,13 @@ try {
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
   if (!q) return res.json(loghandler.notquery)
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/joox?apikey=${zeks_key}&q=${q}`)).json()
+     var result = await (await fetch(`https://api.zeks.xyz/api/joox?apikey=${zeks_key}&q=${q}`)).json()
 
-     res.json(json)
+     res.json({
+	       status: true,
+		   creator: creator,
+		   result: result.data
+	    })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -5223,9 +5248,13 @@ try {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/gdbypass?url=${url}&apikey=${zeks_key}`)).json()
+     var result = await (await fetch(`https://api.zeks.xyz/api/gdbypass?url=${url}&apikey=${zeks_key}`)).json()
 
-     res.json(json)
+     res.json({
+	       status: true,
+		   creator: creator,
+		   result: result.data
+	    })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -5244,9 +5273,13 @@ try {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/soundcloud?apikey=${zeks_key}&url=${url}`)).json()
+     var result = await (await fetch(`https://api.zeks.xyz/api/soundcloud?apikey=${zeks_key}&url=${url}`)).json()
 
-     res.json(json)
+     res.json({
+	       status: true,
+		   creator: creator,
+		   result: result.result
+	    })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -5264,9 +5297,13 @@ try {
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
   if (!username) return res.json(loghandler.notnama)
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/igs?apikey=${zeks_key}&username=${username}`)).json()
+     var result = await (await fetch(`https://api.zeks.xyz/api/igs?apikey=${zeks_key}&username=${username}`)).json()
 
-     res.json(json)
+     res.json({
+	       status: true,
+		   creator: creator,
+		   result
+	    })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -5282,9 +5319,13 @@ try {
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/nickepep?apikey=${zeks_key}`)).json()
+     var result = await (await fetch(`https://api.zeks.xyz/api/nickepep?apikey=${zeks_key}`)).json()
 
-     res.json(json)
+     res.json({
+	       status: true,
+		   creator: creator,
+		   result: result.result
+	    })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -5339,8 +5380,8 @@ try {
   var maintenance = false
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
-  if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
-  if (!nama) return res.json(loghandler.notnama)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+    if (!nama) return res.json(loghandler.notnama)
 
 
      var json = await (await fetch(`https://api.terhambar.com/ninja?nama=${nama}`)).json()
@@ -5364,9 +5405,13 @@ try {
   if (!q) return res.json(loghandler.notquery)
 
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/resep-masak?apikey=${zeks_key}&q=${q}`)).json()
+     var result = await (await fetch(`https://api.zeks.xyz/api/resep-masak?apikey=${zeks_key}&q=${q}`)).json()
 
-     res.json(json)
+     res.json({
+	       status: true,
+		   creator: creator,
+		   result
+	    })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -5385,9 +5430,13 @@ try {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/qrdecode?apikey=${zeks_key}&image=${url}`)).json()
+     var result = await (await fetch(`https://api.zeks.xyz/api/qrdecode?apikey=${zeks_key}&image=${url}`)).json()
 
-     res.json(json)
+     res.json({
+	       status: true,
+		   creator: creator,
+		   result: result.result
+	    })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -5405,9 +5454,13 @@ try {
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
   if (!q) return res.json(loghandler.notquery)
 
-     var json = await (await fetch(`https://api.zeks.xyz/api/searchsticker?apikey=${zeks_key}&q=${q}`)).json()
+     var result = await (await fetch(`https://api.zeks.xyz/api/searchsticker?apikey=${zeks_key}&q=${q}`)).json()
 
-     res.json(json)
+     res.json({
+	       status: true,
+		   creator: creator,
+		   result: result.sticker
+	    })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -5735,8 +5788,11 @@ router.get('/shopee', async (req, res, next) => {
         if (!query) return res.json(loghandler.notquery)
 
  try {
-       var json = await (await fetch(`https://api.zeks.xyz/api/shopee?apikey=${zeks_key}&q=${query}`)).json()
-             res.json(json)
+       var result = await (await fetch(`https://api.zeks.xyz/api/shopee?apikey=${zeks_key}&q=${query}`)).json()
+        res.json({
+		   creator: creator,
+		   result
+	    })
 } catch (e) {
   console.log(e)
     res.sendFile(error)
@@ -5754,8 +5810,11 @@ router.get('/happymod', async (req, res, next) => {
         if (!query) return res.json(loghandler.notquery)
 
  try {
-       var json = await (await fetch(`https://api.zeks.xyz/api/happymod?apikey=${zeks_key}&q=${query}`)).json()
-             res.json(json)
+       var result = await (await fetch(`https://api.zeks.xyz/api/happymod?apikey=${zeks_key}&q=${query}`)).json()
+    res.json({
+		   creator: creator,
+		   result
+	    })
 } catch (e) {
   console.log(e)
     res.sendFile(error)
@@ -6796,9 +6855,12 @@ router.get('/sid', async (req, res, next) => {
 	if(!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
  try {
-       var json = await (await fetch(`https://api.zeks.xyz/api/sid-shortener?apikey=${zeks_key}&url=${url}`)).json()
+       var result = await (await fetch(`https://api.zeks.xyz/api/sid-shortener?apikey=${zeks_key}&url=${url}`)).json()
 
-       res.json(json)
+       res.json({
+		   creator: creator,
+		   result
+	    })
 } catch (e) {
   console.log(e)
     res.sendFile(error)
@@ -6816,9 +6878,12 @@ router.get('/jadwaltv', async (req, res, next) => {
 	if(!channel) return res.json({ message: `Masukan parameter channel` })
 
  try {
-       var json = await (await fetch(`https://api.zeks.xyz/api/jadwaltv?channel=${channel}&apikey=${zeks_key}`)).json()
+       var result = await (await fetch(`https://api.zeks.xyz/api/jadwaltv?channel=${channel}&apikey=${zeks_key}`)).json()
 
-       res.json(json)
+       res.json({
+		   creator: creator,
+		   result
+	    })
 } catch (e) {
   console.log(e)
     res.sendFile(error)
@@ -7064,9 +7129,12 @@ router.get('/linesticker', async (req, res, next) => {
 	if(!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
  try {
-       var json = await (await fetch(`https://api.zeks.xyz/api/linesticker?link=${url}&apikey=${zeks_key}`)).json()
+       var result = await (await fetch(`https://api.zeks.xyz/api/linesticker?link=${url}&apikey=${zeks_key}`)).json()
 
-       res.json(json)
+       res.json({
+		   creator: creator,
+		   result
+	    })
 } catch (e) {
   console.log(e)
     res.sendFile(error)
@@ -7763,7 +7831,7 @@ router.get('/purba', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!text) return res.json(loghandler.nottext)
@@ -7787,7 +7855,7 @@ router.get('/tebakumur', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!nama) return res.json(loghandler.notnama)
