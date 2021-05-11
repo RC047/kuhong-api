@@ -17,10 +17,6 @@ router.get('/docs', async (req, res) => {
     res.sendFile(__path + '/views/index.html')
 })
 
-router.get('/api/upload_image', async (req, res) => {
-    res.sendFile(__path + '/views/upload_image.html')
-})
-
 router.get('/api/game/pingpong', async  (req, res) => {
     res.sendFile(__path + '/views/pingpong.html')
 })
