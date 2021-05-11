@@ -19,7 +19,7 @@ var free_apikey = generateApikey // Apikey Gratis
 var apikey = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikeymu (dibutuhkan)
 var custom_apikey = '' // Custom Apikey
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
-var zeks_key = 'apivinz' // Apikey Zeks (dibutuhkan)
+var zeks_key = 'apikeykuhong' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 console.log(`Checking Apikey Data...`)
@@ -60,7 +60,7 @@ var fs = require('fs');
 var util = require('util');
 var router  = express.Router();
 var options = require(__path + '/lib/options.js');
-var { alay, stylizeText, tts, wait, simih, getBuffer, h2k, getRandom, readMore, randomBytes, start, info, success, banner, close, pickRandom } = require(__path + '/lib/functions.js');
+var { alay, purba, stylizeText, tts, wait, simih, getBuffer, h2k, getRandom, readMore, randomBytes, start, info, success, banner, close, pickRandom } = require(__path + '/lib/functions.js');
 var { servers, yta, ytv } = require(__path + '/lib/y2mate.js');
 var { sticker } = require(__path + '/lib/sticker.js');
 var { fromBuffer } = require('file-type');
@@ -294,11 +294,11 @@ router.get('/cekapikey', async (req, res, next) => {
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	var status = 'active'
 	var limit = 'Limited! (Berubah setiap website mati)'
-    if(apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) limit = 'Unlimited!'
+        if(apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) limit = 'Unlimited!'
 
     try {
 	     res.json({
-		        creator: creator,
+		creator: creator,
                 status : status,
                 apikey : apikeyInput,
                 limit : limit
@@ -428,13 +428,12 @@ var maintenance = false
 if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 const cheerio = require('cheerio')
 
-axios.get('https://jadwalnonton.com/now-playing')
-.then(({ data }) => {
+axios.get('https://jadwalnonton.com/now-playing').then(({ data }) => {
      const $ = cheerio.load(data)
      var title = []
      var url = []
      var img = []
- 	$('div.row > div.item > div.clearfix > div.rowl > div.col-xs-6 > a').get().map((rest) => {
+ 	 $('div.row > div.item > div.clearfix > div.rowl > div.col-xs-6 > a').get().map((rest) => {
          url.push($(rest).attr('href'))
          })
          $('div.row > div.item > div.clearfix > div.rowl > div.col-xs-6 > a > img').get().map((rest) => {
@@ -459,16 +458,15 @@ axios.get('https://jadwalnonton.com/now-playing')
   })
 })
 
-
-router.get('/short/tiny', async (req, res, next) => {
+router.get('/tinyurl', async (req, res, next) => {
     var apikeyInput = req.query.apikey,
         url = req.query.url
 
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+        if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
-     if (!url) return res.json(loghandler.noturl)
+        if (!url) return res.json(loghandler.noturl)
 
      request(`https://tinyurl.com/api-create.php?url=${url}`, function (error, response, body) {
          try {
@@ -553,9 +551,9 @@ router.get('/nulis', async (req, res, next) => {
     if (!text) return res.json(loghandler.nottext)
 
    try {
-	   var fontPath = __path + '/lib/font/Zahraaa.ttf'
-     var inputPath = __path + '/lib/kertas/nulis.jpg'
-     var outputPath = __path + '/tmp/hasil.jpg'
+      var fontPath = __path + '/lib/font/Zahraaa.ttf'
+      var inputPath = __path + '/lib/kertas/nulis.jpg'
+      var outputPath = __path + '/tmp/hasil.jpg'
       spawn('convert', [
             inputPath,
             '-font',
@@ -571,14 +569,14 @@ router.get('/nulis', async (req, res, next) => {
             text,
             outputPath
          ])
-         .on('error', () => console.log('Error Nulis'))
+         .on('error', () => res.sendFile(error))
          .on('exit', () =>
          {
-	         res.sendFile(outputPath)
+	      res.sendFile(outputPath)
         })
    } catch (e) {
       console.log(e);
-	 res.json(loghandler.erorr)
+	 res.sendFile(error)
    }
 })
 
@@ -587,16 +585,16 @@ router.get('/nulis2', async (req, res, next) => {
             text = req.query.text
             
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+        if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
         if (!text) return res.json(loghandler.nottext)
 
    try {
-	   var d = new Date
+     var d = new Date
      var tgl = d.toLocaleDateString('id-Id')
      var hari = d.toLocaleDateString('id-Id', { weekday: 'long' })
-	   var fontPath = __path + '/lib/font/Zahraaa.ttf'
+     var fontPath = __path + '/lib/font/Zahraaa.ttf'
      var inputPath = __path + '/lib/kertas/nulis2.jpg'
      var outputPath = __path + '/tmp/hasil2.jpg'
       spawn('convert', [
@@ -636,10 +634,10 @@ router.get('/nulis2', async (req, res, next) => {
     text,
     outputPath
   ])
-  .on('error', () => console.log('Error Nulis2'))
+  .on('error', () => res.sendFile(error))
   .on('exit', () => {
 
-	          res.sendFile(outputPath)
+     res.sendFile(outputPath)
         })
    } catch (e) {
       console.log(e);
@@ -655,7 +653,7 @@ router.get('/textmaker', async (req, res, next) => {
              apikeyInput = req.query.apikey;
         
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+        if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
         if (!theme) return res.json(loghandler.nottheme)
@@ -4977,15 +4975,137 @@ router.get('/bucin', async (req, res, next) => {
 try {
   var maintenance = false
     if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
-  if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+    if(!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 
-     var json = await (await fetch(`http://zekais-api.herokuapp.com/bucin`)).json()
+var bucin = [
+  "Aku memilih untuk sendiri, bukan karena menunggu yang sempurna, tetapi butuh yang tak pernah menyerah.",
+  "Seorang yang single diciptakan bersama pasangan yang belum ditemukannya.",
+  "Jomblo. Mungkin itu cara Tuhan untuk mengatakan 'Istirahatlah dari cinta yang salah'.",
+  "Jomblo adalah anak muda yang mendahulukan pengembangan pribadinya untuk cinta yang lebih berkelas nantinya.",
+  "Aku bukan mencari seseorang yang sempurna, tapi aku mencari orang yang menjadi sempurna berkat kelebihanku.",
+  "Pacar orang adalah jodoh kita yang tertunda.",
+  "Jomblo pasti berlalu. Semua ada saatnya, saat semua kesendirian menjadi sebuah kebersamaan dengannya kekasih halal. Bersabarlah.",
+  "Romeo rela mati untuk juliet, Jack mati karena menyelamatkan Rose. Intinya, kalau tetap mau hidup, jadilah single.",
+  "Aku mencari orang bukan dari kelebihannya tapi aku mencari orang dari ketulusan hatinya.",
+  "Jodoh bukan sendal jepit, yang kerap tertukar. Jadi teruslah berada dalam perjuangan yang semestinya.",
+  "Kalau kamu jadi senar gitar, aku nggak mau jadi gitarisnya. Karena aku nggak mau mutusin kamu.",
+  "Bila mencintaimu adalah ilusi, maka izinkan aku berimajinasi selamanya.",
+  "Sayang... Tugas aku hanya mencintaimu, bukan melawan takdir.",
+  "Saat aku sedang bersamamu rasanya 1 jam hanya 1 detik, tetapi jika aku jauh darimu rasanya 1 hari menjadi 1 tahun.",
+  "Kolak pisang tahu sumedang, walau jarak membentang cintaku takkan pernah hilang.",
+  "Aku ingin menjadi satu-satunya, bukan salah satunya.",
+  "Aku tidak bisa berjanji untuk menjadi yang baik. Tapi aku berjanji akan selalu mendampingi kamu.",
+  "Kalau aku jadi wakil rakyat aku pasti gagal, gimana mau mikirin rakyat kalau yang selalu ada dipikiran aku hanyalah dirimu.",
+  "Lihat kebunku, penuh dengan bunga. Lihat matamu, hatiku berbunga-bunga.",
+  "Berjanjilah untuk terus bersamaku sekarang, esok, dan selamanya.",
+  "Rindu tidak hanya muncul karena jarak yang terpisah. Tapi juga karena keinginan yang tidak terwujud.",
+  "Kamu tidak akan pernah jauh dariku, kemanapun aku pergi kamu selalu ada, karena kamu selalu di hatiku, yang jauh hanya raga kita bukan hati kita.",
+  "Aku tahu dalam setiap tatapanku, kita terhalang oleh jarak dan waktu. Tapi aku yakin kalau nanti kita pasti bisa bersatu.",
+  "Merindukanmu tanpa pernah bertemu sama halnya dengan menciptakan lagu yang tak pernah ternyayikan.",
+  "Ada kalanya jarak selalu menjadi penghalang antara aku sama kamu, namun tetap saja di hatiku kita selalu dekat.",
+  "Jika hati ini tak mampu membendung segala kerinduan, apa daya tak ada yang bisa aku lakukan selain mendoakanmu.",
+  "Mungkin di saat ini aku hanya bisa menahan kerinduan ini. Sampai tiba saatnya nanti aku bisa bertemu dan melepaskan kerinduan ini bersamamu.",
+  "Melalui rasa rindu yang bergejolak dalam hati, di situ terkadang aku sangat membutuhkan dekap peluk kasih sayangmu.",
+  "Dalam dinginnya malam, tak kuingat lagi; Berapa sering aku memikirkanmu juga merindukanmu.",
+  "Merindukanmu itu seperti hujan yang datang tiba-tiba dan bertahan lama. Dan bahkan setelah hujan reda, rinduku masih terasa.",
+  "Sejak mengenalmu bawaannya aku pengen belajar terus, belajar menjadi yang terbaik buat kamu.",
+  "Tahu gak perbedaan pensi sama wajah kamu? Kalau pensil tulisannya bisa dihapus, tapi kalau wajah kamu gak akan ada yang bisa hapus dari pikiran aku.",
+  "Bukan Ujian Nasional besok yang harus aku khawatirkan, tapi ujian hidup yang aku lalui setelah kamu meninggalkanku.",
+  "Satu hal kebahagiaan di sekolah yang terus membuatku semangat adalah bisa melihat senyumanmu setiap hari.",
+  "Kamu tahu gak perbedaanya kalau ke sekolah sama ke rumah kamu? Kalo ke sekolah pasti yang di bawa itu buku dan pulpen, tapi kalo ke rumah kamu, aku cukup membawa hati dan cinta.",
+  "Aku gak sedih kok kalo besok hari senin, aku sedihnya kalau gak ketemu kamu.",
+  "Momen cintaku tegak lurus dengan momen cintamu. Menjadikan cinta kita sebagai titik ekuilibrium yang sempurna.",
+  "Aku rela ikut lomba lari keliling dunia, asalkan engkai yang menjadi garis finishnya.",
+  "PR-ku adalah merindukanmu. Lebih kuat dari Matematika, lebih luas dari Fisika, lebih kerasa dari Biologi.",
+  "Cintaku kepadamu itu bagaikan metabolisme, yang gak akan berhenti sampai mati.",
+  "Kalau jelangkungnya kaya kamu, dateng aku jemput, pulang aku anter deh.",
+  "Makan apapun aku suka asal sama kamu, termasuk makan ati.",
+  "Cinta itu kaya hukuman mati. Kalau nggak ditembak, ya digantung.",
+  "Mencintaimu itu kayak narkoba: sekali coba jadi candu, gak dicoba bikin penasaran, ditinggalin bikin sakaw.",
+  "Gue paling suka ngemil karena ngemil itu enak. Apalagi ngemilikin kamu sepenuhnya...",
+  "Dunia ini cuma milik kita berdua. Yang lainnya cuma ngontrak.",
+  "Bagi aku, semua hari itu adalah hari Selasa. Selasa di Surga bila dekat denganmu...",
+  "Bagaimana kalau kita berdua jadi komplotan penjahat? Aku curi hatimu dan kamu curi hatiku.",
+  "Kamu itu seperti kopi yang aku seruput pagi ini. Pahit, tapi bikin nagih.",
+  "Aku sering cemburu sama lipstikmu. Dia bisa nyium kamu tiap hari, dari pagi sampai malam.",
+  "Hanya mendengar namamu saja sudah bisa membuatku tersenyum seperti orang bodoh.",
+  "Aku tau teman wanitamu bukan hanya satu, dan menyukaimu pun bukan hanya aku.",
+  "Semenjak aku berhenti berharap pada dirimu, aku jadi tidak semangat dalam segala hal..",
+  "Denganmu, jatuh cinta adalah patah hati paling sengaja.",
+  "Sangat sulit merasakan kebahagiaan hidup tanpa kehadiran kamu disisiku.",
+  "Melalui rasa rindu yang bergejolak dalam hati, di situ terkadang aku sangat membutuhkan dekap peluk kasih sayangmu.",
+  "Sendainya kamu tahu, sampai saat ini aku masih mencintaimu.",
+  "Terkadang aku iri sama layangan..talinya putus saja masih dikejar kejar dan gak rela direbut orang lain...",
+  "Aku tidak tahu apa itu cinta, sampai akhirnya aku bertemu denganmu. Tapi, saat itu juga aku tahu rasanya patah hati.",
+  "Mengejar itu capek, tapi lebih capek lagi menunggu\nMenunggu kamu menyadari keberadaanku...",
+  "Jangan berhenti mencinta hanya karena pernah terluka. Karena tak ada pelangi tanpa hujan, tak ada cinta sejati tanpa tangisan.",
+  "Aku punya sejuta alasan unutk melupakanmu, tapi tak ada yang bisa memaksaku untuk berhenti mencintaimu.",
+  "Terkadang seseorang terasa sangat bodoh hanya untuk mencintai seseorang.",
+  "Kamu adalah patah hati terbaik yang gak pernah aku sesali.",
+  "Bukannya tak pantas ditunggu, hanya saja sering memberi harapan palsu.",
+  "Sebagian diriku merasa sakit, Mengingat dirinya yang sangat dekat, tapi tak tersentuh.",
+  "Hal yang terbaik dalam mencintai seseorang adalah dengan diam-diam mendo akannya.",
+  "Kuharap aku bisa menghilangkan perasaan ini secepat aku kehilanganmu.",
+  "Demi cinta kita menipu diri sendiri. Berusaha kuat nyatanya jatuh secara tak terhormat.",
+  "Anggaplah aku rumahmu, jika kamu pergi kamu mengerti kemana arah pulang. Menetaplah bila kamu mau dan pergilah jika kamu bosan...",
+  "Aku bingung, apakah aku harus kecewa atu tidak? Jika aku kecewa, emang siapa diriku baginya?\n\nKalau aku tidak kecewa, tapi aku menunggu ucapannya.",
+  "Rinduku seperti ranting yang tetap berdiri.Meski tak satupun lagi dedaunan yang menemani, sampai akhirnya mengering, patah, dan mati.",
+  "Kurasa kita sekarang hanya dua orang asing yang memiliki kenangan yang sama.",
+  "Buatlah aku bisa membencimu walau hanya beberapa menit, agar tidak terlalu berat untuk melupakanmu.",
+  "Aku mencintaimu dengan segenap hatiku, tapi kau malah membagi perasaanmu dengan orang lain.",
+  "Mencintaimu mungkin menghancurkanku, tapi entah bagaimana meninggalkanmu tidak memperbaikiku.",
+  "Kamu adalah yang utama dan pertama dalam hidupku. Tapi, aku adalah yang kedua bagimu.",
+  "Jika kita hanya bisa dipertemukan dalam mimpi, aku ingin tidur selamanya.",
+  "Melihatmu bahagia adalah kebahagiaanku, walaupun bahagiamu tanpa bersamaku.",
+  "Aku terkadang iri dengan sebuah benda. Tidak memiliki rasa namun selalu dibutuhkan. Berbeda dengan aku yang memiliki rasa, namun ditinggalkan dan diabaikan...",
+  "Bagaimana mungkin aku berpindah jika hanya padamu hatiku bersinggah?",
+  "Kenangan tentangmu sudah seperti rumah bagiku. Sehingga setiap kali pikiranku melayang, pasti ujung-ujungnya akan selalu kembali kepadamu.",
+  "Kenapa tisue bermanfaat? Karena cinta tak pernah kemarau. - Sujiwo Tejo",
+  "Kalau mencintaimu adalah kesalahan, yasudah, biar aku salah terus saja.",
+  "Sejak kenal kamu, aku jadi pengen belajar terus deh. Belajar jadi yang terbaik buat kamu.",
+  "Ada yang bertingkah bodoh hanya untuk melihatmu tersenyum. Dan dia merasa bahagia akan hal itu.",
+  "Aku bukan orang baik, tapi akan belajar jadi yang terbaik untuk kamu.",
+  "Kita tidak mati, tapi lukanya yang membuat kita tidak bisa berjalan seperti dulu lagi.",
+  "keberadaanmu bagaikan secangkir kopi yang aku butuhkan setiap pagi, yang dapat mendorongku untuk tetap bersemangat menjalani hari.",
+  "Aku mau banget ngasih dunia ke kamu. Tapi karena itu nggak mungkin, maka aku akan kasih hal yang paling penting dalam hidupku, yaitu duniaku.",
+  "Mending sing humoris tapi manis, ketimbang sok romantis tapi akhire tragis.",
+  "Ben akhire ora kecewa, dewe kudu ngerti kapan waktune berharap lan kapan kudu mandeg.",
+  "Aku ki wong Jowo seng ora ngerti artine 'I Love U'. Tapi aku ngertine mek 'Aku tresno awakmu'.",
+  "Ora perlu ayu lan sugihmu, aku cukup mok setiani wes seneng ra karuan.",
+  "Cintaku nang awakmu iku koyok kamera, fokus nang awakmu tok liyane mah ngeblur.",
+  "Saben dino kegowo ngimpi tapi ora biso nduweni.",
+  "Ora ketemu koe 30 dino rasane koyo sewulan.",
+  "Aku tanpamu bagaikan sego kucing ilang karete. Ambyar.",
+  "Pengenku, Aku iso muter wektu. Supoyo aku iso nemokne kowe lewih gasik. Ben Lewih dowo wektuku kanggo urip bareng sliramu.",
+  "Aku ora pernah ngerti opo kui tresno, kajaba sak bare ketemu karo sliramu.",
+  "Cinta aa ka neng moal leungit-leungit sanajan aa geus kawin deui.",
+  "Kasabaran kaula aya batasna, tapi cinta kaula ka anjeun henteu aya se epna.",
+  "Kanyaah akang moal luntur najan make Bayclean.",
+  "Kenangan endah keur babarengan jeung anjeun ek tuluy diinget-inget nepi ka poho.",
+  "Kuring moal bakal tiasa hirup sorangan, butuh bantosan jalmi sejen.",
+  "Nyaahna aa ka neg teh jiga tukang bank keur nagih hutang (hayoh mumuntil).",
+  "Kasabaran urang aya batasna, tapi cinta urang ka maneh moal aya beakna.",
+  "Hayang rasana kuring ngarangkai kabeh kata cinta anu aya di dunya ieu, terus bade ku kuring kumpulkeun, supaya anjeun nyaho gede pisan rasa cinta kuring ka anjeun.",
+  "Tenang wae neng, ari cinta Akang mah sapertos tembang krispatih; Tak lekang oleh waktu.",
+  "Abdi sanes jalmi nu sampurna pikeun anjeun, sareng sanes oge nu paling alus kanggo anjeun. Tapi nu pasti, abdi jalmi hiji-hijina nu terus emut ka anjeun.",
+  "Cukup jaringan aja yang hilang, kamu jangan.",
+  "Sering sih dibikin makan ati. Tapi menyadari kamu masih di sini bikin bahagia lagi.",
+  "Musuhku adalah mereka yang ingin memilikimu juga.",
+  "Banyak yang selalu ada, tapi kalo cuma kamu yang aku mau, gimana?",
+  "Jam tidurku hancur dirusak rindu.",
+  "Cukup China aja yang jauh, cinta kita jangan.",
+  "Yang penting itu kebahagiaan kamu, aku sih gak penting..",
+  "Cuma satu keinginanku, dicintai olehmu..",
+  "Aku tanpamu bagaikan ambulans tanpa wiuw wiuw wiuw.",
+  "Cukup antartika aja yang jauh. Antarkita jangan."
+]
+     var result = pickRandom(bucin)
 
      res.json({
 	     status : true,
 	     creator : creator,
-	     bucin : json.result
+	     result : result
        })
 } catch (e) {
      console.log(e)
@@ -7337,6 +7457,378 @@ router.get('/poly', async (req, res, next) => {
 } catch (e) {
   console.log(e)
     res.sendFile(error)
+   }
+})
+
+router.get('/wattpad', async (req, res, next) => {
+	var id = req.query.id,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if(!id) return res.json({ message: `Masukan parameter id` })
+
+ try {
+       var result = await (await fetch(`https://api.wattpad.com/api/v3/stories/${id}`)).json()
+
+       res.json({
+	       status: true,
+	       creator: creator,
+	       result
+       })
+} catch (e) {
+   console.log(e)
+    res.json({ error: `id stories tidak valid` })
+   }
+})
+
+router.get('/jedag-jedug', async (req, res, next) => {
+	var theme = req.query.theme,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if(!theme) return res.json(loghandler.nottheme)
+	if (!(theme == 'ff' || theme == 'ml' || theme == 'beatvn')) return res.json({ error: `Tema yang tersedia : ff, ml, beatvn` })
+
+ try {
+       var result = await fs.readFileSync(__path + `/src/${theme}/${pickRandom(['jedag','jedag1','jedag2','jedag3','jedag4','jedag5','jedag6','jedag7','jedag8'])}.mp4`)
+
+       res.sendFile(result)
+} catch (e) {
+   console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/getvn', async (req, res, next) => {
+	var query = req.query.query,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if(!query) return res.json(loghandler.notquery)
+	if (!(query == 'papale' || query == 'anjay' || query == 'pota' || queryquery == 'padepap' || queryquery == 'iri' || queryquery == 'ara' || queryquery == 'bila' || queryquery == 'cidro' || query == 'kiminoto' || query == 'baby' || query == 'bernyanyi' || query == 'umbrella' || query == 'enak' || query == 'wes' || query == 'kokoro' || query == 'bambam' || query == 'booma' || query == 'tapi' || query == 'siul' || query == 'masha')) return res.json({ error: `Tema yang tersedia : [ anjay, ara, bila, baby, bambam, booma, bernyanyi, cidro, enak, iri, masha, padepap, papale, pota, kiminoto, kokoro, siul, tapi, umbrella, wes` ] })
+
+ try {
+       var result = await fs.readFileSync(__path + `/src/getvn/${query}.opus`)
+       await fs.writeFileSync(__path + '/tmp/getvn.mp3', result)
+
+       res.sendFile(__path + '/tmp/getvn.mp3')
+} catch (e) {
+   console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/masadepan', async (req, res, next) => {
+	var nama = req.query.nama,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if(!nama) return res.json(loghandler.notnama)
+
+ try {
+       var result = 'Menurut Ramalan...\n\nMasa Depan ' + pickRandom([`${nama} akan menjadi orang yang Kaya, keluarga yang harmonis, memiliki 2 memiliki anak, memiliki 4 memiliki kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang harmonis, memiliki 3 memiliki anak, memiliki 1 memiliki kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Miskin, keluarga yang Sederhana, memiliki 1 anak, tidak memiliki kendaraan, rumah ngontrak`,`${nama} akan menjadi orang yang Sederhana, keluarga yang dicerai, memiliki 5 anak, memiliki 2 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Sederhana, memiliki 2 anak, memiliki 2 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Miskin, keluarga yang dicerai memiliki 2 anak, memiliki 1 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Kaya, keluarga yang Sederhana, memiliki 1 anak, memiliki 1 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Harmonis, memiliki 1 anak, memiliki 3 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Miskin, tidak memiliki keluarga (jomblo), tidak memiliki anak, tidak memiliki kendaraan, tidak memiliki rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Sederhana, memiliki 4 anak, memiliki 1 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang kacau, tidak memiliki anak (Gugur), memiliki 2 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Sangat Kaya, keluarga yang Sangat Harmonis, memiliki 5 anak, memiliki 7 kendaraan, memiliki 9 rumah`,`${nama} akan menjadi orang yang Sangat Miskin, keluarga yang Sederhana, memiliki 9 anak, tidak memiliki kendaraan, rumah ngontrak`,`${nama} akan menjadi orang yang Kaya, keluarga yang Pelit, memiliki 2 anak, memiliki 2 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Pelit, memiliki 1 anak, memiliki 1 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang dicerai, memiliki 2 anak, memiliki 1 kendaraan, rumah ngontrak`,`${nama} akan menjadi orang yang Sangat Sederhana, keluarga yang Sakinah, memiliki 1 anak, memiliki 1 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Sangat Sederhana, memiliki 11 anak, memiliki 1 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Sangat Sederhana, memiliki 2 anak kembar, memiliki 3 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana keluarga yang Sederhana, memiliki 2 anak kembar dan 1 anak lagi, memiliki 1 kendaraan, memiliki 1 rumah`])}
+
+       res.json({
+             status: true,
+             creaator: creator,
+             result: result
+       })
+} catch (e) {
+   console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/laptop', async (req, res, next) => {
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+try {
+  var maintenance = false
+  if(maintenance == true) return res.sendFile(mtc)
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+  if(!img) return res.json(loghandler.notimg)
+  if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     var hasil = await (await fetch(`https://videfikri.com/api/textmaker/customwp/?urlgbr=${img}`)).buffer()
+   await fs.writeFileSync(__path + '/tmp/laptop.png', hasil)
+
+     res.sendFile(__path + '/tmp/laptop.png')
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/iqtest', async (req, res, next) => {
+    var apikeyInput = req.query.apikey;
+
+try {
+  var maintenance = false
+  if(maintenance == true) return res.sendFile(mtc)
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+
+  var result = 'IQ Anda sebesar ' + Math.floor(Math.random() * 1000) + '!'
+     res.json({
+	     status: true,
+	     creator: creator,
+	     result: result
+     })
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/bacot', async (req, res, next) => {
+    var apikeyInput = req.query.apikey;
+
+try {
+  var maintenance = false
+  if(maintenance == true) return res.sendFile(mtc)
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+
+var bacot = [
+'Kamu suka kopi nggak? Aku sih suka. Tau kenapa alesannya? Kopi itu ibarat kamu, pahit sih tapi bikin candu jadi pingin terus.',
+'Gajian itu kayak mantan ya? Bisanya cuman lewat sebentar saja.',
+'Kata pak haji, cowok yang nggak mau pergi Sholat Jumat disuruh pakai rok aja.',
+'Kamu tahu mantan nggak? Mantan itu ibarat gajian, biasa numpang lewat dong di kehidupan kita.',
+'Aku suka kamu, kamu suka dia, tapi dia sayangnya nggak ke kamu. Wkwkw lucu ya? Cinta serumit ini.',
+'Google itu hebat ya? Tapi sayang sehebat-hebatnya Google nggak bisa menemukan jodoh kita.',
+'Terlalu sering memegang pensil alis dapat membuat mata menjadi buta, jika dicolok-colokkan ke mata.',
+'Saya bekerja keras karena sadar kalau uang nggak punya kaki buat jalan sendiri ke kantong saya.',
+'Jika kamu tak mampu meyakinkan dan memukau orang dengan kepintaranmu, bingungkan dia dengan kebodohanmu.',
+'Selelah-lelahnya bekerja, lebih lelah lagi kalau nganggur.',
+'Kita hidup di masa kalau salah kena marah, pas bener dibilang tumben.',
+'Nggak ada bahu pacar? Tenang aja, masih ada bahu jalan buat nyandar.',
+'Mencintai dirimu itu wajar, yang gak wajar mencintai bapakmu.',
+'Katanya enggak bisa bohong. Iyalah, mata kan cuma bisa melihat.',
+'Madu di tangan kananmu, racun di tangan kirimu, jodoh tetap di tangan tuhan.',
+'Selingkuh terjadi bukan karena ada niat, selingkuh terjadi karna pacar kamu masih laku.',
+'Netizen kalau senam jempol di ponsel nggak pakai pendinginan, pantes komennya bikin panas terus.',
+'Jodoh memang enggak kemana, tapi saingannya ada dimana-mana.',
+'Perasaan aku salah terus di matamu. Kalu gitu, besok aku pindah ke hidungmu.',
+'Jomblo tidak perlu malu, jomblo bukan berarti tidak laku, tapi memang tidak ada yang mau.',
+'Jika doamu belum terkabul maka bersabar, ingatlah bahwa yang berdoa bukan cuma kamu!',
+'Masih berharap dan terus berharap lama-lama aku jadi juara harapan.',
+'Manusia boleh berencana, tapi akhirnya saldo juga yang menentukan.',
+'Statusnya rohani, kelakuannya rohalus.',
+'Kegagalan bukan suatu keberhasilan.',
+'Tadi mau makan bakso, cuma kok panas banget, keliatannya baksonya lagi demam.',
+'Aku juga pernah kaya, waktu gajian.',
+'Aku diputusin sama pacar karena kita beda keyakinan. Aku yakin kalau aku ganteng, tapi dia enggak.',
+'Masa depanmu tergantung pada mimpimu, maka perbanyaklah tidur.',
+'Seberat apapun pekerjaanmu, akan semakin ringan jika tidak dibawa.',
+'Jangan terlalu berharap! nanti jatuhnya sakit!',
+'Ingat! Anda itu jomblo',
+'Gak tau mau ngetik apa',
+]
+    var result = pickRandom(bacot)
+ 
+     res.json({
+	     status: true,
+	     creator: creator,
+	     result: result
+     })
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/truth', async (req, res, next) => {
+    var apikeyInput = req.query.apikey;
+
+try {
+  var maintenance = false
+  if(maintenance == true) return res.sendFile(mtc)
+  if(!apikeyInput) return res.json(loghandler.notparam)
+  if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+
+var truth = [
+    "Acara tv apa yang paling kamu benci? Berikan alasannya!",
+    "Apa baju yang (menurutmu) paling jelek yang pernah kamu pakai, dan kapan kamu memakainya?",
+    "Apa hal paling buruk (gosip) yang pernah kamu bilang tentang temenmu?",
+    "Apa hal paling memalukan dari dirimu?",
+    "Apa hal paling memalukan dari temanmu?",
+    "Apa hal pertama yang kamu lihat saat kamu melihat orang lain (lawan jenis)?",
+    "Apa hal pertama yang terlintas di pikiranmu saat kamu melihat cermin?",
+    "Apa hal terbodoh yang pernah kamu lakukan?",
+    "Apa hal terbodoh yang pernah kamu lakukan?",
+    "Apa ketakutan terbesar kamu?",
+    "Apa mimpi terburuk yang pernah kamu alami?",
+    "Apa mimpi terkonyol yang sampai sekarang kamu kamu ingat?",
+    "Apa pekerjaan paling konyol yang pernah kamu bayangin kamu akan jadi?",
+    "Apa sifat terburukmu menurut kamu?",
+    "Apa sifat yang ingin kamu rubah dari dirimu?",
+    "Apa sifat yang ingin kamu rubah dari temanmu?",
+    "Apa yang akan kamu lakuin bila pacarmu bilang hidung atau jarimu jelek?",
+    "Apa yang kamu fikirkan sebelum kamu tidur ? ex: menghayal tentang jodoh,dll.",
+    "Apakah hal yang menurutmu paling menonjol dari dirimu?",
+    "Bagian tubuh temanmu mana yang paling kamu sukai dan ingin kamu punya?",
+    "Bagian tubuhmu mana yang paling kamu benci?",
+    "Dari semua kelas yang ada di sekolah, kelas mana yang paling ingin kamu masuki dan kelas mana yang paling ingin kamu hindari?",
+    "Deksripsikan teman terdekat mu!",
+    "Deskripsikan dirimu dalam satu kata!",
+    "Film dan lagu apa yang pernah membuat kamu menangis?",
+    "Hal apa yang kamu rahasiakan sampe sekarang dan gak ada satu orangpun yang tau?",
+    "Hal paling romantis apa yang seseorang (lawan jenis) pernah lakuin atau kasih ke kamu?",
+    "Hal-hal menjijikan apa yang pernah kamu alami ?",
+    "Jika kamu lahir kembali dan harus jadi salah satu dari temanmu, siapa yang akan kamu pilih untuk jadi dia?",
+    "Jika punya kekuatan super/ super power ingin melakukan apa",
+    "Jika sebentar lagi kiamat, apa yang kamu lakukan ?",
+    "Kalo kamu disuruh operasi plastik dengan contoh wajah dari teman sekelasmu, wajah siapa yang akan kamu tiru?",
+    "Kamu pernah mencuri sesuatu gak?",
+    "Apakah kamu takut mati? kenapa?",
+    "Kapan terakhir kali kamu menangis dan mengapa?",
+    "Apa kemampuan spesial kamu apa?",
+    "Kok bisa suka sama orang yang kamu sukai?",
+    "Menurutmu, apa sifat baik teman terdekatmu yang nggak dia sadari?",
+    "Orang seperti apa yang ingin kamu nikahi suatu saat nanti?",
+    "Pekerjaan paling ngenes apa yang menurutmu cocok untuk teman yang sedang duduk di sebelahmu? Dan kenapa?",
+    "Pengen tukeran hidup sehari dengan siapa? (teman terdekat yang kalian sama-sama tahu) dan mengapa",
+    "Pernahkah kamu diam-diam berharap hubungan seseorang dengan pacarnya putus? Siapa?",
+    "Pilih PACAR atau TEMAN ? why?",
+    "Quote apa yang paling kamu ingat dan kamu suka?",
+    "Rahasia apa yang belum pernah kamu katakan sampai sekarang kepada teman mu ?",
+    "Siapa panutan yang benar-benar menjadi panutanmu?",
+    "Siapa di antara temanmu yang kamu pikir matre?",
+    "Siapa di antara teman-temanmu yang menurutmu potongan rambutnya paling nggak banget?",
+    "Siapa diantara temen-temenmu yang paling NGGAK fotogenik dan kalo difoto lagi ketawa mukanya jelek banget?",
+    "Siapa mantan terindah mu? dan mengapa kalian putus ?!",
+    "Siapa nama artis yang pernah kamu bucinin diam-diam?",
+    "Siapa nama guru cowok yang pernah kamu sukai dulu?",
+    "Siapa nama mantan pacar teman mu yang pernah kamu sukai diam diam?",
+    "Siapa nama orang (lawan jenis) yang menurutmu akan asyik bila dijadikan pacar?",
+    "Siapa nama orang yang kamu benci, tapi kamu rasa orang itu suka sama kamu (nggak harus lawan jenis)?",
+    "Siapa nama orang yang pernah kamu kepoin diam-diam?",
+    "Siapa orang (lawan jenis) yang paling sering terlintas di pikiranmu?",
+    "Siapa orang yang paling menjengkelkan di antara teman teman mu ? alasannya!",
+    "Siapa sebenernya di antara teman-temanmu yang kamu pikir harus di make-over?",
+    "Siapa yang paling mendekati tipe pasangan idealmu di sini",
+    "Apa hal pertama yang akan Anda lakukan jika Anda bangun sebagai lawan jenis?",
+    "Pernahkah Anda membiarkan orang lain mendapat masalah karena sesuatu yang Anda lakukan?",
+    "Kapan terakhir kali Anda mengompol?",
+    "Apa yang paling kamu impikan dari tidur?",
+    "Jika Anda akan menghasilkan uang secara ilegal, bagaimana Anda membuatnya?",
+    "Apa yang kekanak-kanakan yang masih Anda lakukan?",
+    "Jika Anda buta, siapa yang akan menjadi anjing pemandu Anda?",
+    "Apa yang paling mengesankan Anda?",
+    "Jika Anda diizinkan untuk menggunakan hanya 3 kata untuk sisa malam mulai sekarang - yang mana itu?",
+    "Jika Anda seorang diktator, hukum mana yang akan Anda undang terlebih dahulu?",
+    "Jika Anda hidup selama era Nazi, siapa Anda?",
+    "Apa pengalaman paling memalukan di waktu sekolah / waktu belajar / pendidikan / tahun lalu?",
+    "Hewan apa yang paling cocok untukmu dan mengapa?",
+    "Apa kencan terburukmu?",
+    "Siapa yang ingin kamu cium sekarang?",
+    "Apa rahasia kamu, fantasi gelap?",
+    "Apakah Anda lebih suka tato pantat Anda atau menusuk lidah Anda?",
+    "Apakah kamu selalu setia?",
+    "Apakah Anda memiliki naksir remaja?",
+    "Di orang mana kamu jatuh cinta?",
+    "Selebritas mana yang ingin kamu kencani?",
+    "Apa waasa saat paling memalukan dalam hidup Anda?"
+    ]
+    var result = pickRandom(truth)
+ 
+     res.json({
+	     status: true,
+	     creator: creator,
+	     result: result
+     })
+     
+} catch (e) {
+     console.log(e)
+	res.sendFile(error)
+   }
+})
+
+router.get('/twister', async (req, res, next) => {
+	var apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+
+ try {
+       var result = await (await fetch(`http://docs-jojo.herokuapp.com/api/tongue_twister`)).json()
+
+       res.json({
+	       status: true,
+	       creator: creator,
+	       result: json.result
+       })
+} catch (e) {
+   console.log(e)
+    res.snedFile(error)
+   }
+})
+
+router.get('/purba', async (req, res, next) => {
+	var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if(!text) return res.json(loghandler.nottext)
+
+ try {
+       var result = await purba(text)
+
+       res.json({
+	       status: true,
+	       creator: creator,
+	       result: result
+       })
+} catch (e) {
+   console.log(e)
+    res.snedFile(error)
+   }
+})
+
+router.get('/tebakumur', async (req, res, next) => {
+	var nama = req.query.nama,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if(!nama) return res.json(loghandler.notnama)
+
+ try {
+       var result = Math.floor(Math.random() * 60)
+
+       res.json({
+	       status: true,
+	       creator: creator,
+	       nama: nama,
+	       umur: result.toString()
+       })
+} catch (e) {
+   console.log(e)
+    res.snedFile(error)
    }
 })
 
