@@ -291,7 +291,7 @@ router.get('/cekapikey', async (req, res, next) => {
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_key}` || apikeyInput == `${key}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	var status = 'active'
-	var limit = 'Limited! (Diganti setiap update website)'
+	var limit = 'Limited! (Berubah setiap website mati)'
         if(apikeyInput == `${key}`) limit = 'Unlimited!'
 	if(apikeyInput == `${custom_apikey}`) limit = 'Unlimited!'
 
