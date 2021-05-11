@@ -312,7 +312,7 @@ router.get('/getapikey', async (req, res, next) => {
       res.json({
 	   status: true,
 	   creator: creator,
-	   info: 'Apikey akan diubah secara otomatis setiap update fitur,, Beli Premium agar apikey tidak terus diganti',
+	   info: 'Apikey akan berubah secara otomatis setiap website mati,, Beli Premium agar apikey tidak terus diganti',
 	   free_key: free_key
     })
 })
@@ -6973,8 +6973,8 @@ router.get('/kerang', async (req, res, next) => {
        if (pertanyaan.startsWith('kapan')) answer = Math.floor(Math.random() * 100) + pickRandom([' detik', ' menit', ' jam', ' hari', ' pekan', ' minggu', ' bulan', ' tahun', ' dekade', ' windu', ' abad']) + ' lagi ...'
        if (pertanyaan.startsWith('siapakah')) answer = nama_acak.result.name
        if (pertanyaan.startsWith('siapa')) answer = nama_acak.result.name
-       if (pertanyaan.startsWith('berapakah')) answer = Math.floor(Math.random() * 1000)
-       if (pertanyaan.startsWith('berapa')) answer = Math.floor(Math.random() * 1000)
+       if (pertanyaan.startsWith('berapakah')) answer = Math.floor(Math.random() * 1000).toString()
+       if (pertanyaan.startsWith('berapa')) answer = Math.floor(Math.random() * 1000).toString()
 
        res.json({
 	       status: true,
@@ -7031,23 +7031,6 @@ router.get('/nulis4', async (req, res, next) => {
   console.log(e)
     res.sendFile(error)
    }
-})
-
-router.post('/upload_result', async (req, res, next) => {
-
-  var form = new formidable.IncomingForm()
-  var result = await fetch('http://docs-jojo.herokuapp.com/upload_img', {
-    method: 'POST',
-    body: form
-  })
-  var json = await result.json()
-
-        res.json({
-	        status: true,
-	        creator: creator,
-		size: json.result.filesize,
-	        result: json.result.url
-            })
 })
 
 router.get('/toimage', async (req, res, next) => {
@@ -7235,7 +7218,7 @@ router.get('/freefire', async (req, res, next) => {
    }
 })
 
-router.get('/spammer/pizza', async (req, res, next) => {
+router.get('/spammer/pizzahut', async (req, res, next) => {
 	var nomor = req.query.nomor,
 	    apikeyInput = req.query.apikey;
 
@@ -7332,6 +7315,28 @@ router.get('/how', async (req, res, next) => {
        })
    } else return res.json({ status: false, result: `Tipe yang tersedia : baper, gay, tolol, bucin, sange, gila, pintar, bodoh, ganteng, cantik, stres, sad` })
 
+})
+
+router.get('/poly', async (req, res, next) => {
+	var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_key}` || apikeyInput == `${key}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if(!text) return res.json(loghandler.nottext)
+
+ try {
+       var buffer = await imageToBase64(`http://zekais-api.herokuapp.com/photooxy/poly?text=${text}`)
+       var media = Buffer.from(buffer, 'base64')
+         await fs.writeFileSync(__path + '/tmp/poly.mp4', media)
+
+       res.sendFile(__path + '/tmp/poly.mp4')
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
 })
 
 // End of script
