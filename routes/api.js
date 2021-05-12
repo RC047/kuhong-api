@@ -4865,7 +4865,7 @@ try {
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
   if (!mode) return res.json({ message : `Masukan parameter mode` })
-  if (!(mode in modes)) return res.json({ status: false, creator: creator, message: 'Mode yang tersedia' + Object.keys(modes).join(', ') })
+  if (!(mode in modes)) return res.json({ status: false, creator: creator, message: 'Mode yang tersedia ' + Object.keys(modes).join(', ') })
   var data = await math(mode)
 
      res.json({
