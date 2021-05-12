@@ -577,7 +577,7 @@ router.get('/nulis', async (req, res, next) => {
       var fontPath = __path + '/lib/font/Zahraaa.ttf'
       var inputPath = __path + '/lib/kertas/nulis.jpg'
       var outputPath = __path + '/tmp/hasil.jpg'
-      var fixedText = wordWrap(text, 47)
+      var fixedText = wordWrap(text, 46)
       spawn('convert', [
             inputPath,
             '-font',
