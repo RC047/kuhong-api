@@ -32,7 +32,8 @@ div.text .status {
 
 div.text .readdocs {
     position: relative;
-    text-aligh: center
+    animation: animebot .8s;
+    text-align: center
 }
 
 @keyframes animetop {
