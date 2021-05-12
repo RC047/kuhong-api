@@ -4080,7 +4080,7 @@ try {
     if(!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 
-      res.sendFile(__path + '/src/lucu/' + pickRandom(['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','34','35','36','37','38','39','40','41','42','43','44','45','46']) + '.mp4')
+      res.sendFile(__path + '/tmp/asupan.mp4')
 
 } catch (e) {
      console.log(e)
@@ -7821,7 +7821,7 @@ router.get('/twister', async (req, res, next) => {
 	var apikeyInput = req.query.apikey;
 
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+        if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 
@@ -7844,7 +7844,7 @@ router.get('/purba', async (req, res, next) => {
 	      apikeyInput = req.query.apikey;
 
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+        if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!text) return res.json(loghandler.nottext)
@@ -7900,7 +7900,7 @@ router.get('/nobg', async (req, res, next) => {
 	if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
   try {
-	var encmedia = await ImageToBase64(url)
+	var encmedia = await imageToBase64(url)
 	var media = Buffer.from(encmedia, 'base64')
 	await fs.writeFileSync(__path + '/tmp/nobg_tmp.png', media)
 	var buffer = await fs.readFileSync(__path + '/tmp/nobg_tmp.png')
