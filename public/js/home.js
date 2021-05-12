@@ -1,5 +1,5 @@
 const typedTextSpan = document.querySelector(".typed-text"),
-    textArray = ["WELCOME TO MY REST API ^_^", "API STATUS ONLINE", "ENJOY!"],
+    textArray = ["WELCOME TO MY REST API ^_^", "MOHON JANGAN DISPAM YAA", "APA LAGI DITEMBAK :)", "SILAHKAN BACA DOKUMENTASI", "KLIK DIBAWAH INI YAA"],
     typingDelay = 200,
     erasingDelay = 100,
     newTextDelay = 2e3;
