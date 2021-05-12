@@ -7978,7 +7978,7 @@ router.get('/randombyte', async (req, res, next) => {
 	if (jumlah > 1000) return res.json({ error: `Jumlah terlalu banyak!` })
 
  try {
-       var result = await randomBytes(jumlah).toString('hex')
+       var result = await randomBytes(jumlah)
 
        res.json({
        	status: true,
