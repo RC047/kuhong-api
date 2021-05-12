@@ -15,13 +15,15 @@ var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab (dibutu
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
 
 // Apikey :
+var banned_apikey = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikey yang sudah dibanned
 var free_apikey = generateApikey // Apikey Gratis
-var apikey = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikeymu (dibutuhkan)
+var apikey = 'QyiH67N1mWvbbJ891lpL67m_uy1oPHSlL01Vv-1qRi' // Apikeymu (dibutuhkan)
 var custom_apikey = '' // Custom Apikey
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'ameyscantik76302' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
+var redeem_code = generateCode // Kode Redeem untuk dapatkan Apikey Premium
 console.log(`USED APIKEY...`)
 console.log(`Your Apikey : ${apikey}`)
 console.log(`Free Apikey : ${free_apikey}`)
@@ -30,6 +32,7 @@ console.log(`Xteam Apikey : ${xteam_key}`)
 console.log(`Zeks Apikey : ${zeks_key}`)
 console.log(`Melodicxt-2 Apikey : ${melodicxt_key}`)
 console.log(`RemoveBG Apikey : ${removebg_key}`)
+console.log(`Redeem Code : ${redeem_code}`)
 
 // Required Modules :
 var http = require('http');
@@ -293,15 +296,19 @@ router.get('/cekapikey', async (req, res, next) => {
 	if (!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	var status = 'active'
+	var type = 'Free User'
 	var limit = 'Limited! (Berubah setiap website mati)'
-        if (apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) limit = 'Unlimited!'
+        if (apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) type = 'Premium User'
+	if (apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) limit = 'Unlimited!'
+	if (apikeyInput == `${banned_apikey}`) return res.json({ status: false, message: `Apikey ini sudah diblokir oleh Owner!`, link_api: 'kuhong-api.herokuapp.com' })
 
     try {
-	     res.json({
+       res.json({
 		creator: creator,
-                status : status,
-                apikey : apikeyInput,
-                limit : limit
+                status: status,
+		type: type,
+                apikey: apikeyInput,
+                limit: limit
             })
  
     } catch (e) {
@@ -312,16 +319,16 @@ router.get('/cekapikey', async (req, res, next) => {
 router.get('/redeem', async (req, res, next) => {
     var code = req.query.code;
 
-    var pwd = await generateCode
+    var pwd = redeem_code
     if (!code) return res.json({ message: `Masukan parameter code` })
-    if (code !== `${pwd}`) return res.json({ status: false, code: 406, creator: creator, message: 'Kode Redeem Invalid!', premium_apikey: null })
+    if (code !== `${pwd}`) return res.json({ status: false, code: 406, creator: creator, message: 'Kode Redeem Invalid! Silahkan beli Owner untuk dapatkan kode redeem.', premium_apikey: null })
 
        res.json({
 	    status: true,
 	    code: 200,
 	    creator: creator,
 	    message: 'Kode Redeem Valid!',
-	    premium_apikey: `${apikey}`
+	    premium_apikey: apikey
         })
 })
 
