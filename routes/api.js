@@ -19,7 +19,7 @@ var free_apikey = generateApikey // Apikey Gratis
 var apikey = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikeymu (dibutuhkan)
 var custom_apikey = '' // Custom Apikey
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
-var zeks_key = 'apikeykuhong' // Apikey Zeks (dibutuhkan)
+var zeks_key = 'u56zSKPjFxyAsvzg8TV4GvZ8Qhh' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 console.log(`USED APIKEY...`)
@@ -290,16 +290,16 @@ router.get('/cekapikey', async (req, res, next) => {
     var apikeyInput = req.query.apikey;
 
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
+        if (maintenance == true) return res.sendFile(mtc)
+	if (!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	var status = 'active'
 	var limit = 'Limited! (Berubah setiap website mati)'
-        if(apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) limit = 'Unlimited!'
+        if (apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) limit = 'Unlimited!'
 
     try {
 	     res.json({
-		        creator: creator,
+		creator: creator,
                 status : status,
                 apikey : apikeyInput,
                 limit : limit
@@ -308,6 +308,21 @@ router.get('/cekapikey', async (req, res, next) => {
     } catch (e) {
 	res.sendFile(error)
    }
+})
+
+router.get('/redeem', async (req, res, next) => {
+
+    var pwd = await generateCode
+    var code = prompt('Silahkan masukan kode redeem untuk dapatkan Premium Apikey :', '')
+    if (code == '') alert('Masukan Kodenya!')
+    if (code !== `${pwd}`) return res.json({ status: false, code: 406, creator: creator, message: 'Kode Redeem invalid!', premium_apikey: null })
+
+       res.json({
+	    status: true,
+	    code: 200,
+	    creator: creator,
+	    message: 'Kode Redeem Valid!',
+	    premium_apikey: apikey
 })
 
 router.get('/getapikey', async (req, res, next) => {
@@ -3880,7 +3895,7 @@ try {
        res.json({
 	       status: true,
 		   creator: creator,
-		   result
+		   result: result.data
 	    })
 
 } catch (e) {
@@ -3904,7 +3919,7 @@ try {
        res.json({
 	       status: true,
 		   creator: creator,
-		   result
+		   result: result.data
 	    })
      
 } catch (e) {
