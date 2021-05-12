@@ -7445,7 +7445,7 @@ router.get('/spammer/pizzahut', async (req, res, next) => {
 	if(isNaN(nomor)) return res.json(loghandler.number)
 
  try {
-       var hasil = await (await fetch(`https://api.xteam.xyz/spammer/pizzahut?no=${nomor}&APIKEY=${xteam_key}`)).json()
+       var json = await (await fetch(`https://api.xteam.xyz/spammer/pizzahut?no=${nomor}&APIKEY=${xteam_key}`)).json()
 
        res.json({
 	       status: true,
@@ -7470,7 +7470,7 @@ router.get('/spammer/olx', async (req, res, next) => {
 	if(isNaN(nomor)) return res.json(loghandler.number)
 
  try {
-       var hasil = await (await fetch(`https://api.xteam.xyz/spammer/olx?no=${nomor}&APIKEY=${xteam_key}`)).json()
+       var json = await (await fetch(`https://api.xteam.xyz/spammer/olx?no=${nomor}&APIKEY=${xteam_key}`)).json()
 
        res.json({
 	       status: true,
@@ -7495,7 +7495,7 @@ router.get('/spammer/danacinta', async (req, res, next) => {
 	if(isNaN(nomor)) return res.json(loghandler.number)
 
  try {
-       var hasil = await (await fetch(`https://api.xteam.xyz/spammer/danacinta?no=${nomor}&APIKEY=${xteam_key}`)).json()
+       var json = await (await fetch(`https://api.xteam.xyz/spammer/danacinta?no=${nomor}&APIKEY=${xteam_key}`)).json()
 
        res.json({
 	       status: true,
