@@ -613,7 +613,7 @@ router.get('/nulis2', async (req, res, next) => {
      var fontPath = __path + '/lib/font/Zahraaa.ttf'
      var inputPath = __path + '/lib/kertas/nulis2.jpg'
      var outputPath = __path + '/tmp/hasil2.jpg'
-     var fixedText = wordWrap(text, 47)
+     var fixedText = wordWrap(text, 55)
  spawn('convert', [
     inputPath,
     '-font',
@@ -4079,6 +4079,13 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
     if(!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+
+    var data = fs.readFileSync(__path + '/lib/asupan.js')
+    var object = JSON.parse(data);
+    var index = Math.floor(Math.random() * object.length);
+    var json = object[index]
+    var result = Buffer.from(imageToBase64(json.result), 'base64')
+        await fs.writeFileSync(__path + '/tmp/asupan.mp4', result)
 
       res.sendFile(__path + '/tmp/asupan.mp4')
 
