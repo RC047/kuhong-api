@@ -103,16 +103,12 @@ res.json({
         status: 'online',
         name: 'kuhong-api',
         os: OS,
-        ram: `${ramUsed} / ${_ramTotal}(${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '%' : NotDetect})`,
-        drive: `${driveUsed} / ${driveTotal} (${drivePer}%)`,
-        cpu:{
-            per: cpuPer + '%',
-            model: cpuModel,
-            core: cpuCore
-        },
+        ram: `${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})`,
+        storage: `${driveUsed} GB / ${driveTotal} (${drivePer} Used)`,
+        cpu: `${cpuModel} ${cpuCore} core (${cpuPer}% Used)`,
         connection:{
-            net_in: netsIn,
-            net_out: netsOut,
+            nets_In: netsIn,
+            nets_Out: netsOut,
             port_used: port,
             ip_used: json.ip
         },
