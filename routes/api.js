@@ -6,7 +6,7 @@ var express = require('express');
 var database = require(__path + '/database/database.js');
 
 try {
-var kuhong = database.get('RC047'); // jan diubah
+var kuhong = database.get('RC047'); // jan diubah!
 } catch (e) {
    console.log(e)
 }
