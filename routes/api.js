@@ -7572,14 +7572,14 @@ router.get('/jedagjedug', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+        if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!theme) return res.json(loghandler.nottheme)
 	if (!(theme == 'ff' || theme == 'ml' || theme == 'beatvn')) return res.json({ error: `Tema yang tersedia : ff, ml, beatvn` })
 
  try {
-      res.sendFile(__path + '/src/jedag_jedug/' + theme + '/' + Math.floor(Math.random() * 10) + '.mp4')
+      res.sendFile(__path + '/src/jedagjedug/' + theme + '/' + Math.floor(Math.random() * 11) + '.mp4')
 } catch (e) {
    console.log(e)
     res.sendFile(error)
@@ -7591,7 +7591,7 @@ router.get('/getvn', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+        if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if(!query) return res.json(loghandler.notquery)
@@ -7976,6 +7976,22 @@ router.get('/randombyte', async (req, res, next) => {
            creator: creator,
            result: result.toString()
      })
+} catch (e) {
+  console.log(e)
+    res.sendFile(error)
+   }
+})
+
+router.get('/randomsticker', async (req, res, next) => {
+	var apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+
+ try {
+       res.sendFile(__path + '/src/sticker/' + Math.floor(Math.random() * 205) + '.webp')
 } catch (e) {
   console.log(e)
     res.sendFile(error)
