@@ -1,6 +1,7 @@
 __path = process.cwd()
 
 var { performance } = require('perf_hooks');
+var osu = require('node-os-utils');
 var fetch = require('node-fetch');
 var express = require('express');
 var router = express.Router();
@@ -47,32 +48,88 @@ var date = new Date
 var jam = date.getHours()
 var menit = date.getMinutes()
 var detik = date.getSeconds()
+var NotDetect = 'Not Detected'
 var old = performance.now()
+var cpu = osu.cpu
+var cpuCore = cpu.count()
+var drive = osu.drive
+var mem = osu.mem
+var netstat = osu.netstat
+var OS = osu.os.platform()
+var cpuModel = cpu.model()
+var cpuPer
+
+var p1 = cpu.usage().then(cpuPercentage => {
+    cpuPer = cpuPercentage
+}).catch(() => { 
+    cpuPer = NotDetect
+})
+var driveTotal, driveUsed, drivePer
+var p2 = drive.info().then(info => {
+         driveTotal = (info.totalGb + ' GB'),
+         driveUsed = info.usedGb,
+         drivePer = (info.usedPercentage + '%')
+}).catch(() => { 
+    driveTotal = NotDetect,
+    driveUsed = NotDetect,
+    drivePer = NotDetect
+})
+var ramTotal, ramUsed
+var p3 = mem.info().then(info => {
+    ramTotal = info.totalMemMb,
+    ramUsed = info.usedMemMb
+}).catch(() => { 
+   ramTotal = NotDetect,
+   ramUsed = NotDetect
+})
+var netsIn, netsOut
+var p4 = netstat.inOut().then(info => {
+   netsIn = (info.total.inputMb + ' MB'),
+   netsOut = (info.total.outputMb + ' MB')
+}).catch(() => { 
+   netsIn = NotDetect,
+   netsOut = NotDetect
+})
+await Promise.all([p1, p2, p3, p4])
+
+var _ramTotal = (ramTotal + ' MB')
 var neww = performance.now()
-var ram = `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB`
-var cpu = require('os').cpus()
 var json = await (await fetch('https://api.ipify.org/?format=json')).json()
 var data = await (await fetch('https://kuhong-api.herokuapp.com/api/getapikey')).json()
-var port = process.env.PORT || 8080 || 5000 || 3000 
-    status = {
+var port = process.env.PORT || 8080 || 5000 || 3000
+
+res.json({
+    stats:{
         status: 'online',
-        memory: ram,
-        cpu: cpu[0].model,
-        port: port,
-        ip: json.ip,
+        name: 'kuhong-api',
+        os: OS,
+        ram: `${ramUsed} / ${_ramTotal}(${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '%' : NotDetect})`,
+        drive: `${driveUsed} / ${driveTotal} (${drivePer}%)`,
+        cpu:{
+            per: cpuPer + '%',
+            model: cpuModel,
+            core: cpuCore
+        },
+        connection:{
+            net_in: netsIn,
+            net_out: netsOut,
+            port_used: port,
+            ip_used: json.ip
+        },
         time: `${jam} : ${menit} : ${detik}`,
         uptime: muptime(process.uptime()),
-        speed: `${neww - old}ms`,
-        info:{
+        ping: Math.round(neww - old) + 'ms'
+    },
+        owner:{
             owner: 'Rendy',
             deskripsi: 'Hanya sekedar untuk belajar :)',
             instagram: 'rendycraft047',
             youtube: 'RC047',
+            facebook: 'RendyCraft',
             donasi: 'Biar Update tiap hari : https://saweria.co/RC047',
             free_apikey: data.free_apikey
         }
-    }
-    res.json(status)
+    })
 })
 
 module.exports = router
