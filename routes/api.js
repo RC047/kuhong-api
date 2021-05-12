@@ -65,7 +65,6 @@ var { servers, yta, ytv } = require(__path + '/lib/y2mate.js');
 var { sticker } = require(__path + '/lib/sticker.js');
 var { fromBuffer } = require('file-type');
 var { removeBackgroundFromImageFile } = require('remove.bg');
-var { tahta } = require(__path + '/lib/tahta.js');
 var { math, modes } = require(__path + '/lib/math.js');
 var { JSDOM } = require('jsdom');
 var { createHash } = require('crypto');
