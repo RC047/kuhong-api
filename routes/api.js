@@ -16,7 +16,7 @@ var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // In
 
 // Apikey :
 var banned_apikey = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikey yang sudah dibanned
-var free_apikey = generateApikey // Apikey Gratis
+var free_apikey = generateApikey() // Apikey Gratis
 var apikey = 'QyiH67N1mWvbbJ891lpL67m_uy1oPHSlL01Vv-1qRi' // Apikeymu (dibutuhkan)
 var custom_apikey = '' // Custom Apikey
 var vhears_key = 'ameysbot' // Apikey VhTears (dibutuhkan)
@@ -24,7 +24,7 @@ var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'ameyscantik76302' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
-var redeem_code = generateCode // Kode Redeem untuk dapatkan Apikey Premium
+var redeem_code = generateCode() // Kode Redeem untuk dapatkan Apikey Premium
 console.log(`CHECKING APIKEY...`)
 console.log(`Your Apikey : ${apikey}`)
 console.log(`Free Apikey : ${free_apikey}`)
@@ -68,7 +68,7 @@ var { alay, purba, stylizeText, tts, wait, simih, getBuffer, wordWrap, h2k, getR
 var { servers, yta, ytv } = require(__path + '/lib/y2mate.js');
 var { sticker } = require(__path + '/lib/sticker.js');
 var { fromBuffer } = require('file-type');
-var { removeBackgroundFromImageFile } = require('remove.bg');
+var { removeBackgroundFromImageFile, RemoveBgResult } = require('remove.bg');
 var { math, modes } = require(__path + '/lib/math.js');
 var { JSDOM } = require('jsdom');
 var { createHash } = require('crypto');
@@ -3379,16 +3379,13 @@ router.get('/removebg', async (req, res, next) => {
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
 	var media = await getBuffer(img)
-	await fs.writeFileSync(__path + '/tmp/nobg.png', media)
-	var path = fs.readFileSync(__path + '/tmp/nobg.png')
-	var ranp = getRandom('.png')
-          await removeBackgroundFromImageFile({ path: path, apiKey: removebg_key, size: 'auto', type: 'auto', ranp }).then(result => {
-            var buffer = Buffer.from(result.base64img, 'base64')
-            fs.writeFileSync(ranp, buffer, (e) => {
-            if (e) return res.json({ error: 'Gagal, Terjadi kesalahan, silahkan coba beberapa saat lagi.' })
-        })
+	await fs.writeFileSync(__path + '/tmp/nobg_tmp.png', media)
+	var inputPath = __path + '/tmp/nobg_tmp.png'
+	var outputPath = __path + '/tmp/nobg.png'
+          await removeBackgroundFromImageFile({ path: inputPath, apiKey: removebg_key, size: 'auto', type: 'auto', crop: true, scale: '50%', outputPath }).then((result: RemoveBgResult) => {
+            var base64img = result.base64img
 
-        res.sendFile(ranp)
+        res.sendFile(outputPath)
     })
  } catch (e) {
           console.log(e);
@@ -7973,7 +7970,7 @@ router.get('/randombyte', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+        if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
 	if (!jumlah) return res.json(loghandler.notjumlah)
@@ -7981,7 +7978,7 @@ router.get('/randombyte', async (req, res, next) => {
 	if (jumlah > 1000) return res.json({ error: `Jumlah terlalu banyak!` })
 
  try {
-       var result = await randomBytes(jumlah)
+       var result = await randomBytes(jumlah).toString('hex')
 
        res.json({
        	status: true,
