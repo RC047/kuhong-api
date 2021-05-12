@@ -7891,7 +7891,7 @@ router.get('/tebakumur', async (req, res, next) => {
 	       status: true,
 	       creator: creator,
 	       nama: nama,
-	       umur: result.toString()
+	       umur: `${result} tahun`
        })
 } catch (e) {
    console.log(e)
