@@ -51,6 +51,7 @@ var ytpl = require('ytpl');
 var qrcode = require('qrcode');
 var secure = require('ssl-express-www');
 var formidable = require('formidable');
+var ImageReader = require('image-reader');
 var mv = require('mv');
 var cors = require('cors');
 var scrapeYt = require('scrape-yt');
@@ -8068,6 +8069,67 @@ router.get('/attp2', async (req, res, next) => {
            await fs.writeFileSync(__path + '/tmp/attp2.gif', buffer)
 
     res.sendFile(__path + '/tmp/attp2.gif')
+} catch (e) {
+   console.log(e)
+     res.json(loghandler.invalidLink)
+   }
+})
+
+router.get('/run', async (req, res, next) => {
+	var url = req.query.url,
+	    url2 = req.query.url2,
+	    url3 = req.query.url3,
+	    url4 = req.query.url4,
+	    url5 = req.query.url5,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if (!url) return res.json(loghandler.noturl)
+	if (!url2) return res.json({ message: `Masukan parameter url2` })
+	if (!url3) return res.json({ message: `Masukan parameter url3` })
+	if (!url4) return res.json({ message: `Masukan parameter url4` })
+	if (!url5) return res.json({ message: `Masukan parameter url5` })
+        if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
+	if (!url2.startsWith('http')) return res.json(loghandler.invalidLink)
+	if (!url3.startsWith('http')) return res.json(loghandler.invalidLink)
+	if (!url4.startsWith('http')) return res.json(loghandler.invalidLink)
+	if (!url5.startsWith('http')) return res.json(loghandler.invalidLink)
+
+ try {
+       var media = await imageToBase64(url)
+       var media2 = await imageToBase64(url2)
+       var media3 = await imageToBase64(url3)
+       var media4 = await imageToBase64(url4)
+       var media5 = await imageToBase64(url5)
+       var buffer = Buffer.from(media, 'base64')
+       var buffer2 = Buffer.from(media2, 'base64')
+       var buffer3 = Buffer.from(media3, 'base64')
+       var buffer4 = Buffer.from(media4, 'base64')
+       var buffer5 = Buffer.from(media5, 'base64')
+           await fs.writeFileSync(__path + '/tmp/run_tmp.png', buffer)
+	   await fs.writeFileSync(__path + '/tmp/run_tmp2.png', buffer2)
+	   await fs.writeFileSync(__path + '/tmp/run_tmp3.png', buffer3)
+	   await fs.writeFileSync(__path + '/tmp/run_tmp4.png', buffer4)
+	   await fs.writeFileSync(__path + '/tmp/run_tmp5.png', buffer5)
+
+      var reader;
+      reader = new ImageReader([
+        __path + '/tmp/run_tmp.png',
+        __path + '/tmp/run_tmp2.png',
+        __path + '/tmp/run_tmp3.png',
+        __path + '/tmp/run_tmp4.png',
+        __path + '/tmp/run_tmp5.png'
+]);
+ 
+   res.sendFile(animate())
+ 
+function animate() {
+    requestAnimationFrame(animate);
+    reader.update();
+   }
 } catch (e) {
    console.log(e)
      res.json(loghandler.invalidLink)
