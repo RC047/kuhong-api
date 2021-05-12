@@ -323,6 +323,7 @@ router.get('/redeem', async (req, res, next) => {
 	    creator: creator,
 	    message: 'Kode Redeem Valid!',
 	    premium_apikey: apikey
+        })
 })
 
 router.get('/getapikey', async (req, res, next) => {
@@ -7957,7 +7958,7 @@ router.get('/wattpad2', async (req, res, next) => {
 
 router.get('/randombyte', async (req, res, next) => {
 	var jumlah = req.query.jumlah,
-	      apikeyInput = req.query.apikey;
+	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
     if(maintenance == true) return res.sendFile(mtc)
