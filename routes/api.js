@@ -4090,7 +4090,8 @@ try {
     var object = JSON.parse(data);
     var index = Math.floor(Math.random() * object.length);
     var json = object[index]
-    var result = Buffer.from(imageToBase64(json.result), 'base64')
+    var enc = await imageToBase64(json.result)
+    var result = Buffer.from(enc, 'base64')
         await fs.writeFileSync(__path + '/tmp/asupan.mp4', result)
 
       res.sendFile(__path + '/tmp/asupan.mp4')
