@@ -8052,7 +8052,7 @@ router.get('/tomp3', async (req, res, next) => {
 })
 
 router.get('/attp2', async (req, res, next) => {
-	var url = req.query.url,
+	var text = req.query.text,
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
