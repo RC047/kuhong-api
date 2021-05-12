@@ -311,18 +311,18 @@ router.get('/cekapikey', async (req, res, next) => {
 })
 
 router.get('/redeem', async (req, res, next) => {
+    var code = req.query.code;
 
     var pwd = await generateCode
-    var code = prompt('Silahkan masukan kode redeem untuk dapatkan Premium Apikey :', '')
-    if (code == '') alert('Masukan Kodenya!')
-    if (code !== `${pwd}`) return res.json({ status: false, code: 406, creator: creator, message: 'Kode Redeem invalid!', premium_apikey: null })
+    if (!code) return res.json({ message: `Masukan parameter code` })
+    if (code !== `${pwd}`) return res.json({ status: false, code: 406, creator: creator, message: 'Kode Redeem Invalid!', premium_apikey: null })
 
        res.json({
 	    status: true,
 	    code: 200,
 	    creator: creator,
 	    message: 'Kode Redeem Valid!',
-	    premium_apikey: apikey
+	    premium_apikey: `${apikey}`
         })
 })
 
@@ -490,9 +490,7 @@ router.get('/tinyurl', async (req, res, next) => {
              res.json({
                  status : true,
                  creator : `${creator}`,
-                 result : {
-                     link : `${body}`,
-                 },
+                 result : body,
                  message : `jangan lupa Subscribe Youtube ${creator}`
              })
          } catch (e) {
@@ -607,7 +605,6 @@ router.get('/nulis2', async (req, res, next) => {
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
         if (!text) return res.json(loghandler.nottext)
-        var fixedText = wordWrap(text, 47)
 
    try {
      var d = new Date
@@ -616,6 +613,7 @@ router.get('/nulis2', async (req, res, next) => {
      var fontPath = __path + '/lib/font/Zahraaa.ttf'
      var inputPath = __path + '/lib/kertas/nulis2.jpg'
      var outputPath = __path + '/tmp/hasil2.jpg'
+     var fixedText = wordWrap(text, 47)
  spawn('convert', [
     inputPath,
     '-font',
