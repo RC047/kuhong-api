@@ -19,7 +19,7 @@ var free_apikey = generateApikey // Apikey Gratis
 var apikey = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikeymu (dibutuhkan)
 var custom_apikey = '' // Custom Apikey
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
-var zeks_key = 'u56zSKPjFxyAsvzg8TV4GvZ8Qhh' // Apikey Zeks (dibutuhkan)
+var zeks_key = 'ameyscantik76302' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 console.log(`USED APIKEY...`)
