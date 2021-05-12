@@ -286,7 +286,7 @@ var error = __path + '/views/error.html' // Jika Error
         for (var i = lenn; i > 0; i--) {
             random2 += arr[Math.floor(Math.random() * arr.length)];
         }
-        var randomTextNumber = 'kuhong-api-storage?id=' + random + random2
+        var randomTextNumber = 'kuhong-api-storage---' + random + random2
 
 // Api Features :
 router.get('/cekapikey', async (req, res, next) => {
