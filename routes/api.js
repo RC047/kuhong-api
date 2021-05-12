@@ -60,7 +60,7 @@ var fs = require('fs');
 var util = require('util');
 var router  = express.Router();
 var options = require(__path + '/lib/options.js');
-var { alay, purba, stylizeText, tts, wait, simih, getBuffer, h2k, getRandom, readMore, randomBytes, start, info, success, banner, close, pickRandom } = require(__path + '/lib/functions.js');
+var { alay, purba, stylizeText, tts, wait, simih, getBuffer, wordWrap, h2k, getRandom, readMore, randomBytes, start, info, success, banner, close, pickRandom } = require(__path + '/lib/functions.js');
 var { servers, yta, ytv } = require(__path + '/lib/y2mate.js');
 var { sticker } = require(__path + '/lib/sticker.js');
 var { fromBuffer } = require('file-type');
@@ -562,16 +562,16 @@ router.get('/nulis', async (req, res, next) => {
             text = req.query.text
             
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+        if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
-    if (!text) return res.json(loghandler.nottext)
+        if (!text) return res.json(loghandler.nottext)
 
    try {
       var fontPath = __path + '/lib/font/Zahraaa.ttf'
       var inputPath = __path + '/lib/kertas/nulis.jpg'
       var outputPath = __path + '/tmp/hasil.jpg'
-      if (text.length > 47) text = text.join('\n')
+      var fixedText = wordWrap(text, 47)
       spawn('convert', [
             inputPath,
             '-font',
@@ -584,7 +584,7 @@ router.get('/nulis', async (req, res, next) => {
             '-7',
             '-annotate',
             '+170+222',
-            text,
+            fixedText,
             outputPath
          ])
          .on('error', () => res.sendFile(error))
@@ -604,10 +604,10 @@ router.get('/nulis2', async (req, res, next) => {
             
 	var maintenance = false
         if(maintenance == true) return res.sendFile(mtc)
-	    if(!apikeyInput) return res.json(loghandler.notparam)
-	    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
         if (!text) return res.json(loghandler.nottext)
-        if (text.length > 47) text = text.join('\n')
+        var fixedText = wordWrap(text, 47)
 
    try {
      var d = new Date
@@ -616,7 +616,7 @@ router.get('/nulis2', async (req, res, next) => {
      var fontPath = __path + '/lib/font/Zahraaa.ttf'
      var inputPath = __path + '/lib/kertas/nulis2.jpg'
      var outputPath = __path + '/tmp/hasil2.jpg'
-      spawn('convert', [
+ spawn('convert', [
     inputPath,
     '-font',
     fontPath,
@@ -650,7 +650,7 @@ router.get('/nulis2', async (req, res, next) => {
     '-7.5',
     '-annotate',
     '+344+142',
-    text,
+    fixedText,
     outputPath
   ])
   .on('error', () => res.sendFile(error))
