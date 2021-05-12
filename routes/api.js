@@ -19,12 +19,13 @@ var banned_apikey = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikey yang sudah d
 var free_apikey = generateApikey // Apikey Gratis
 var apikey = 'QyiH67N1mWvbbJ891lpL67m_uy1oPHSlL01Vv-1qRi' // Apikeymu (dibutuhkan)
 var custom_apikey = '' // Custom Apikey
+var vhears_key = 'ameysbot' // Apikey VhTears (dibutuhkan)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'ameyscantik76302' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 var redeem_code = generateCode // Kode Redeem untuk dapatkan Apikey Premium
-console.log(`USED APIKEY...`)
+console.log(`CHECKING APIKEY...`)
 console.log(`Your Apikey : ${apikey}`)
 console.log(`Free Apikey : ${free_apikey}`)
 //console.log(`Custom Apikey : ${custom_apikey}`)
@@ -3351,7 +3352,7 @@ router.get('/ocr', async (req, res, next) => {
 	var path = fs.readFileSync(__path + '/tmp/ocr.png')
         var ocr = { lang: "eng+ind", oem: 1, psm: 3 }
           await tesseract.recognize(path, ocr).then(result => {
-          console.log('OCR RESULT :' + result.toStrimg())
+          console.log('OCR RESULT :' + result.toString())
 
 	   res.json({
 		   status: true,
@@ -3370,7 +3371,7 @@ router.get('/removebg', async (req, res, next) => {
         img = req.query.img;
 
   try {
-	var maintenance = true
+	var maintenance = false
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
@@ -3382,12 +3383,12 @@ router.get('/removebg', async (req, res, next) => {
 	var path = fs.readFileSync(__path + '/tmp/nobg.png')
 	var ranp = getRandom('.png')
           await removeBackgroundFromImageFile({ path: path, apiKey: removebg_key, size: 'auto', type: 'auto', ranp }).then(result => {
-            var hasil = Buffer.from(result.base64img, 'base64')
-            fs.writeFileSync(ranp, hasil, (e) => {
-          if (e) return res.json({ error: 'Gagal, Terjadi kesalahan, silahkan coba beberapa saat lagi.' })
+            var buffer = Buffer.from(result.base64img, 'base64')
+            fs.writeFileSync(ranp, buffer, (e) => {
+            if (e) return res.json({ error: 'Gagal, Terjadi kesalahan, silahkan coba beberapa saat lagi.' })
         })
 
-	  res.sendFile(hasil)
+        res.sendFile(ranp)
     })
  } catch (e) {
           console.log(e);
@@ -8006,6 +8007,72 @@ router.get('/randomsticker', async (req, res, next) => {
 } catch (e) {
   console.log(e)
     res.sendFile(error)
+   }
+})
+
+router.get('/intromaker', async (req, res, next) => {
+	var text = req.query.text,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if (!text) return res.json(loghandler.nottext)
+
+ try {
+       var result = await fs.readFileSync(__path + `/src/intro/${text}.webm`)
+           await fs.writeFileSync(__path + '/tmp/intro.mp4', result)
+
+    res.sendFile(__path + '/tmp/intro.mp4')
+} catch (e) {
+   console.log(e)
+    res.json({ status: 'error', code: 400, message: `Kesalahan terjadi! pastikan text ${text} tidak mengandung simbol aneh!`, beta: true })
+   }
+})
+
+router.get('/tomp3', async (req, res, next) => {
+	var url = req.query.url,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if (!url) return res.json(loghandler.noturl)
+	if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
+
+ try {
+       var enc = await imageToBase64(url)
+       var buffer = Buffer.from(enc, 'base64')
+           await fs.writeFileSync(__path + '/tmp/tomp3.mp3', buffer)
+
+    res.sendFile(__path + '/tmp/tomp3.mp3')
+} catch (e) {
+   console.log(e)
+     res.json(loghandler.invalidLink)
+   }
+})
+
+router.get('/attp2', async (req, res, next) => {
+	var url = req.query.url,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if (!text) return res.json(loghandler.nottext)
+
+ try {
+       var enc = await imageToBase64(`https://api.vhtear.com/textxgif?text=${text}&apikey=${vhtears_key}`)
+       var buffer = Buffer.from(enc, 'base64')
+           await fs.writeFileSync(__path + '/tmp/attp2.gif', buffer)
+
+    res.sendFile(__path + '/tmp/attp2.gif')
+} catch (e) {
+   console.log(e)
+     res.json(loghandler.invalidLink)
    }
 })
 
