@@ -3382,7 +3382,7 @@ router.get('/removebg', async (req, res, next) => {
 	await fs.writeFileSync(__path + '/tmp/nobg_tmp.png', media)
 	var inputPath = __path + '/tmp/nobg_tmp.png'
 	var outputPath = __path + '/tmp/nobg.png'
-          await removeBackgroundFromImageFile({ path: inputPath, apiKey: removebg_key, size: 'auto', type: 'auto', crop: true, scale: '50%', outputPath }).then((result: RemoveBgResult) => {
+          await removeBackgroundFromImageFile({ path: inputPath, apiKey: removebg_key, size: 'auto', type: 'auto', outputPath }).then((result) => {
             var base64img = result.base64img
 
         res.sendFile(outputPath)
