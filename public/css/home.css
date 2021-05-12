@@ -69,6 +69,10 @@ a {
     color: rgba(255, 255, 255, .5)
 }
 
+a.docs {
+    color: rgba(255, 255, 255, .8)
+}
+
 a.sosmed {
     color: rgba(255, 255, 255, .8)
 }
