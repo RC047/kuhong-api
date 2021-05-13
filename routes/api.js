@@ -8096,5 +8096,28 @@ router.get('/shitpost', async (req, res, next) => {
    }
 })
 
+router.get('/shauntheship', async (req, res, next) => {
+	var img = req.query.img,
+	    apikeyInput = req.query.apikey;
+
+	var maintenance = false
+        if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) return res.sendFile(invalidKey)
+	if (!img) return res.json(loghandler.notimg)
+	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+ try {
+       var enc = await imageToBase64(`https://xteam.xyz/videomaker/shaunthesheep?url=${img}&APIKEY=${xteam_key}`)
+       var buffer = Buffer.from(enc, 'base64')
+           await fs.writeFileSync(__path + '/tmp/shaun-the-ship.mp4', buffer)
+
+    res.sendFile(__path + '/tmp/shaun-the-ship.mp4')
+} catch (e) {
+   console.log(e)
+     res.sendFile(error)
+   }
+})
+
 // End of script
 module.exports = router
