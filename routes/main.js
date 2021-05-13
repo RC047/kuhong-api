@@ -114,7 +114,8 @@ res.json({
         },
         time: `${jam} : ${menit} : ${detik}`,
         uptime: muptime(process.uptime()),
-        ping: Math.round(neww - old) + 'ms'
+        ping_ms: neww - old + ' ms',
+        ping_sec: (neww - old / 1000).toFixed(2) + ' sec'
     },
         owner:{
             owner: 'Rendy',
