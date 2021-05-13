@@ -105,7 +105,7 @@ res.json({
         os: OS,
         ram: `${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})`,
         storage: `${driveUsed} GB / ${driveTotal} (${drivePer} Used)`,
-        cpu: `${cpuModel} ${cpuCore} core (${cpuPer}% Used)`,
+        cpu: `${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)`,
         connection:{
             nets_In: netsIn,
             nets_Out: netsOut,
