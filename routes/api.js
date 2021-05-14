@@ -7993,7 +7993,7 @@ router.get('/tomp3', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
 	if (!url) return res.json(loghandler.noturl)
@@ -8002,9 +8002,17 @@ router.get('/tomp3', async (req, res, next) => {
  try {
        var enc = await imageToBase64(url)
        var buffer = Buffer.from(enc, 'base64')
-           await fs.writeFileSync(__path + '/tmp/tomp3.mp3', buffer)
+       await fs.writeFileSync(__path + '/tmp/media_tmp.mp4', buffer)
+           var media = __path + '/tmp/media_tmp.mp4'
+           var ran = getRandom('.mp3')
+			  exec(`ffmpeg -i ${media} ${ran}`, (err) => {
+					fs.unlinkSync(media)
+					if (err) return res.json({ error: 'Gagal, pada saat mengkonversi video ke mp3' })
+					var hasil = fs.readFileSync(ran)
 
-    res.sendFile(__path + '/tmp/tomp3.mp3')
+	    res.sendFile(hasil)
+					fs.unlinkSync(ran)
+	})
 } catch (e) {
    console.log(e)
      res.json(loghandler.invalidLink)
@@ -8058,7 +8066,7 @@ router.get('/shauntheship', async (req, res, next) => {
 	    apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
 	if (!img) return res.json(loghandler.notimg)
