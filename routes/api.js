@@ -8001,7 +8001,7 @@ router.get('/tomp3', async (req, res, next) => {
        var buffer = Buffer.from(enc, 'base64')
        await fs.writeFileSync(__path + '/tmp/media_tmp.mp4', buffer)
            var media = await fs.readFileSync(__path + '/tmp/media_tmp.mp4')
-           var mp3 = __path + '/tmp/audio_${Math.floor(Math.random() * 10000)}.mp3'
+           var mp3 = __path + `/tmp/audio_${Math.floor(Math.random() * 10000)}.mp3`
 			  exec(`ffmpeg -i ${media} ${mp3}`, (err) => {
 					if (err) res.json({ error: 'Gagal, pada saat mengkonversi video ke mp3' })
 					var hasil = fs.readFileSync(mp3)
