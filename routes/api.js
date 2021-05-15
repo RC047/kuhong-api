@@ -3767,7 +3767,7 @@ router.get('/customtahta', async (req, res, next) => {
   if (!text) return res.json(loghandler.nottext)
 
      var fixedText = textWrap(text, 8)
-     var hasil = await tahta(fixedText.toUpperCase(), '', '')
+     var hasil = await tahta('', text.toUpperCase(), '')
        await fs.writeFileSync(__path + '/tmp/cstahta.png', hasil)
 
     res.sendFile(__path + '/tmp/cstahta.png')
@@ -7935,8 +7935,7 @@ router.get('/randombyte', async (req, res, next) => {
 	if (jumlah > 1000) return res.json({ error: `Jumlah terlalu banyak!` })
 
  try {
- 	  var number = new Number(jumlah)
-       var result = await randomBytes(number)
+       var result = await randomBytes(Math.floor(Math.random() * 100))
 
        res.json({
        	status: true,
@@ -8002,7 +8001,7 @@ router.get('/tomp3', async (req, res, next) => {
        var buffer = Buffer.from(enc, 'base64')
        await fs.writeFileSync(__path + '/tmp/media_tmp.mp4', buffer)
            var media = await fs.readFileSync(__path + '/tmp/media_tmp.mp4')
-           var mp3 = __path + `/tmp/audio_${Math.floor(Math.random() * 1000)}.mp3`
+           var mp3 = __path + '/tmp/audio_tmp.mp3'
 			  exec(`ffmpeg -i ${media} ${mp3}`, (err) => {
 					if (err) res.json({ error: 'Gagal, pada saat mengkonversi video ke mp3' })
 					var hasil = fs.readFileSync(mp3)
