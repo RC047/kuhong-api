@@ -3751,7 +3751,7 @@ router.get('/tahta', async (req, res, next) => {
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await tahta(text)
-       await fs.writeFileSync(__path + '/tmp/tahta.png', await getBuffer(hasil))
+       await fs.writeFileSync(__path + '/tmp/tahta.png', hasil)
 
     res.sendFile(__path + '/tmp/tahta.png')
 })
@@ -8001,10 +8001,10 @@ router.get('/tomp3', async (req, res, next) => {
        var buffer = Buffer.from(enc, 'base64')
        await fs.writeFileSync(__path + '/tmp/media_tmp.mp4', buffer)
            var media = await fs.readFileSync(__path + '/tmp/media_tmp.mp4')
-           var ran = getRandom('.mp3')
-			  exec(`ffmpeg -i ${media} ${ran}`, (err) => {
+           var mp3 = __path + '/tmp/audio_${Math.floor(Math.random() * 10000)}.mp3'
+			  exec(`ffmpeg -i ${media} ${mp3}`, (err) => {
 					if (err) res.json({ error: 'Gagal, pada saat mengkonversi video ke mp3' })
-					var hasil = fs.readFileSync(ran)
+					var hasil = fs.readFileSync(mp3)
 
 	    res.sendFile(hasil)
 					fs.unlinkSync(ran)
