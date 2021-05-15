@@ -578,7 +578,7 @@ router.get('/nulis', async (req, res, next) => {
       var fontPath = __path + '/lib/font/Zahraaa.ttf'
       var inputPath = __path + '/lib/kertas/nulis.jpg'
       var outputPath = __path + '/tmp/hasil.jpg'
-      var fixedText = textWrap(text, 46)
+      var fixedText = textWrap(text, 47)
       spawn('convert', [
             inputPath,
             '-font',
@@ -3750,8 +3750,7 @@ router.get('/tahta', async (req, res, next) => {
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
   if (!text) return res.json(loghandler.nottext)
 
-     var fixedText = textWrap(text, 8)
-     var hasil = await tahta('HARTA', 'TAHTA', fixedText.toUpperCase())
+     var hasil = await tahta('HARTA', 'TAHTA', text.toUpperCase())
        await fs.writeFileSync(__path + '/tmp/tahta.png', hasil)
 
     res.sendFile(__path + '/tmp/tahta.png')
@@ -3768,8 +3767,8 @@ router.get('/customtahta', async (req, res, next) => {
   if (!text) return res.json(loghandler.nottext)
 
      var fixedText = textWrap(text, 8)
-     var hasil = await tahta(fixedText, '', '')
-       await fs.writeFileSync(__path + '/tmp/cstahta.png', hasil.toUpperCase())
+     var hasil = await tahta(fixedText.toUpperCase(), '', '')
+       await fs.writeFileSync(__path + '/tmp/cstahta.png', hasil)
 
     res.sendFile(__path + '/tmp/cstahta.png')
 })
