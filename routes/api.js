@@ -3893,7 +3893,7 @@ try {
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
   if (!soal) return res.json({ message: `Masukan parameter soal` })
 
-     var b = await brainly(text)
+     var b = await brainly(soal)
        res.json({
 	       status: true,
 		   creator: creator,
