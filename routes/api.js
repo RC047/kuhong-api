@@ -3750,7 +3750,8 @@ router.get('/tahta', async (req, res, next) => {
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
   if (!text) return res.json(loghandler.nottext)
 
-     var hasil = await tahta(text)
+     var fixedText = textWrap(text, 8)
+     var hasil = await tahta('HARTA', 'TAHTA', fixedText.toUpperCase())
        await fs.writeFileSync(__path + '/tmp/tahta.png', hasil)
 
     res.sendFile(__path + '/tmp/tahta.png')
@@ -3761,13 +3762,14 @@ router.get('/customtahta', async (req, res, next) => {
           apikeyInput = req.query.apikey;
 
   var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
-	if(!apikeyInput) return res.json(loghandler.notparam)
+  if(maintenance == true) return res.sendFile(mtc)
+  if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
   if (!text) return res.json(loghandler.nottext)
 
-     var hasil = await (await fetch(`https://api.zeks.xyz/api/tahta?text=${text}&apikey=${zeks_key}`)).buffer()
-       await fs.writeFileSync(__path + '/tmp/cstahta.png', hasil)
+     var fixedText = textWrap(text, 8)
+     var hasil = await tahta(fixedText, '', '')
+       await fs.writeFileSync(__path + '/tmp/cstahta.png', hasil.toUpperCase())
 
     res.sendFile(__path + '/tmp/cstahta.png')
 })
@@ -8001,7 +8003,7 @@ router.get('/tomp3', async (req, res, next) => {
        var buffer = Buffer.from(enc, 'base64')
        await fs.writeFileSync(__path + '/tmp/media_tmp.mp4', buffer)
            var media = await fs.readFileSync(__path + '/tmp/media_tmp.mp4')
-           var mp3 = __path + `/tmp/audio_${Math.floor(Math.random() * 10000)}.mp3`
+           var mp3 = __path + `/tmp/audio_${Math.floor(Math.random() * 1000)}.mp3`
 			  exec(`ffmpeg -i ${media} ${mp3}`, (err) => {
 					if (err) res.json({ error: 'Gagal, pada saat mengkonversi video ke mp3' })
 					var hasil = fs.readFileSync(mp3)
