@@ -417,22 +417,21 @@ router.get('/randomquote', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-       fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/randomquotes`))
-        .then(response => response.json())
-        .then(data => {
-        var result = data;
-             res.json({
-                 creator : `${creator}`,
-                 result
-             })
-         })
-         .catch(e => {
-         	res.sendFile(error)
-})
-})
+  await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/katabijax.txt')
+       .then(result => result.text())
+       .then(body => {
+           var json = body.split('\n')
+           var quotes = json[Math.floor(Math.random() * json.length)]
 
+      res.json({
+		     status: true,
+		     creator: creator,
+		     result: quotes
+	     })
+	})
+})
 
 router.get('/infonpm', async (req, res, next) => {
         var apikeyInput = req.query.apikey,
@@ -442,7 +441,7 @@ router.get('/infonpm', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!query) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter query"})
 
        fetch(encodeURI(`https://registry.npmjs.org/${query}`))
@@ -3912,13 +3911,17 @@ router.get('/anime/random', async (req, res, next) => {
   if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
-         var json = await (await fetch(`https://api.fdci.se/rep.php?gambar=anime`)).json()
-         var body = JSON.parse(JSON.stringify(json))
-         var tada =  body[Math.floor(Math.random() * body.length)]
-	 var hasil = await getBuffer(tada)
-            await fs.writeFileSync(__path + '/tmp/anime.png', hasil)
+         await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/anime/random.txt')
+       .then(result => result.text())
+       .then(body => {
+           var json = body.split('\n')
+           var anime = json[Math.floor(Math.random() * json.length)]
+           var buffer = imageToBase64(anime)
+           var media = Buffer.from(buffer, 'base64')
+                 fs.writeFileSync(__path + '/tmp/anime.png', media)
 
-    res.sendFile(__path + '/tmp/anime.png')
+       res.sendFile(__path + '/tmp/anime.png')
+    })
   } catch (e) {
   	console.log(e)
     res.sendFile(error)
@@ -3935,13 +3938,18 @@ router.get('/kpop/random', async (req, res, next) => {
   if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
-         var json = await (await fetch(`https://api.fdci.se/rep.php?gambar=kpop`)).json()
-         var body = JSON.parse(JSON.stringify(json))
-         var tada =  body[Math.floor(Math.random() * body.length)]
-	 var hasil = await getBuffer(tada)
-            await fs.writeFileSync(__path + '/tmp/kpop.png', hasil)
+ 	  var type = pickRandom(['bts', 'exo', 'blackpink'])
+         await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/kpop/' + type + '.txt')
+       .then(result => result.text())
+       .then(body => {
+           var json = body.split('\n')
+           var kpop = json[Math.floor(Math.random() * json.length)]
+           var buffer = imageToBase64(kpop)
+           var media = Buffer.from(buffer, 'base64')
+                 fs.writeFileSync(__path + '/tmp/kpop.png', media)
 
-    res.sendFile(__path + '/tmp/kpop.png')
+       res.sendFile(__path + '/tmp/kpop.png')
+    })
   } catch (e) {
   	console.log(e)
     res.sendFile(error)
@@ -4073,15 +4081,21 @@ try {
   var maintenance = false
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
-  if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-     var result = await (await fetch(`https://api.zeks.xyz/api/pantun?apikey=${zeks_key}`)).json()
-         res.json({
-	       status: true,
-		   creator: creator,
-		   result
-	    })
+     await fetch('https://raw.githubusercontent.com/RC047/Kuhong-V4/main/pantun.txt')
+       .then(result => result.text())
+       .then(body => {
+           var json = body.split('\n')
+           var pantun = json[Math.floor(Math.random() * json.length)]
+
+      res.json({
+		     status: true,
+		     creator: creator,
+		     result: pantun
+	     })
+	})
 
 } catch (e) {
      console.log(e)
@@ -6072,15 +6086,21 @@ router.get('/faktaunik', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
-       var json = await (await fetch(`https://videfikri.com/api/fakta/`)).json()
+       await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/faktaunix.txt')
+       .then(result => result.text())
+       .then(body => {
+           var json = body.split('\n')
+           var fakta = json[Math.floor(Math.random() * json.length)]
+
              res.json({
 		     status: true,
 		     creator: creator,
-		     fakta: json.result.fakta
+		     fakta: fakta
 	     })
+	})
 } catch (e) {
   console.log(e)
     res.sendFile(error)
@@ -7799,7 +7819,7 @@ router.get('/spammer/danacinta', async (req, res, next) => {
    }
 })
 
-router.get('/how', async (req, res, next) => {
+router.get('/persen', async (req, res, next) => {
 	var type = req.query.type,
 	    nama = req.query.nama,
 	    apikeyInput = req.query.apikey;
@@ -8412,6 +8432,33 @@ router.get('/running', async (req, res, next) => {
        	fs.writeFileSync(__path + '/tmp/running.mp4', result)
 
      res.sendFile(__path + '/tmp/running.mp4')
+   })
+} catch (e) {
+   console.log(e)
+     res.sendFile(error)
+   }
+})
+
+router.get('/citacita', async (req, res, next) => {
+	var apikeyInput = req.query.apikey;
+
+	var maintenance = false
+    if(maintenance == true) return res.sendFile(mtc)
+	if(!apikeyInput) return res.json(loghandler.notparam)
+	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+
+ try {
+    await fetch('https://raw.githubusercontent.com/AlvioAdjiJanuar/citacita/main/citacita.txt')
+       .then(result => result.text())
+       .then(body => {
+           var json = body.split('\n')
+           var cita = json[Math.floor(Math.random() * json.length)]
+           var buffer = imageToBase64(cita)
+           var media = Buffer.from(buffer, 'base64')
+                 fs.writeFileSync(__path + '/tmp/cita_cita.mp3', media)
+
+     res.sendFile(__path + '/tmp/cita_cita.mp3')
    })
 } catch (e) {
    console.log(e)
