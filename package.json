@@ -1,6 +1,6 @@
 {
   "name": "kuhong-api",
-  "version": "1.1.0",
+  "version": "4.4.1",
   "description": "Just A Simple API",
   "main": "index.js",
   "scripts": {
@@ -55,6 +55,7 @@
     "node-gtts": "^2.0.2",
     "node-tesseract-ocr": "^2.0.0",
     "node-fetch": "^2.6.1",
+    "node-qrdecode": "^1.0.3",
     "qrcode": "^1.4.4",
     "remove.bg": "^1.3.0",
     "request": "^2.88.2",
