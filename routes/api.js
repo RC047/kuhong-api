@@ -3463,7 +3463,7 @@ router.get('/ocr', async (req, res, next) => {
 
 	var buffer = await getBuffer(img)
 	await fs.writeFileSync(__path + '/tmp/ocr.png', buffer)
-	var media = __path + '/tmp/ocr.png'
+	var media = fs.readFile(__path + '/tmp/ocr.png')
           await ocr(media, { lang: 'eng+ind', oem: 1, psm: 3 }).then(result => {
 
      res.json({
@@ -5618,13 +5618,12 @@ try {
   if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!q) return res.json(loghandler.notquery)
 
-
-     var result = await (await fetch(`https://api.zeks.xyz/api/resep-masak?apikey=${zeks_key}&q=${q}`)).json()
+     var json = await (await fetch(`https://masak-apa-tomorisakura.vercel.app/api/recipe/${q}`)).json()
 
      res.json({
 	       status: true,
 		   creator: creator,
-		   result
+		   result: json.results
 	    })
 } catch (e) {
      console.log(e)
