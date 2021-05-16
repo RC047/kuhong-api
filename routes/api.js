@@ -1,6 +1,7 @@
 __path = process.cwd()
 
 // Database :
+var { saveMedia, alay, purba, stylizeText, tts, wait, simih, getBuffer, textWrap, h2k, getRandom, readMore, randomBytes, start, info, success, banner, close, pickRandom } = require(__path + '/lib/functions.js');
 var { generateID, generateApikey, generateCode, generatePassword, generateKey, generateHex, generateBase64, generateHash } = require(__path + '/lib/generator.js');
 var express = require('express');
 var router = express.Router();
@@ -12,7 +13,7 @@ var kuhong = database.get('RC047'); // jan diubah
    console.log(e)
 }
 
-var creatorList = ['RC047','RendyGans','RendyCraft047']; // Nama Lu Ngab (dibutuhkan)
+var creatorList = ['Rendy', 'RC047', 'RendyGans', 'RendyCraft047']; // Nama Lu Ngab (dibutuhkan)
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
 
 // Apikey :
@@ -32,7 +33,7 @@ console.log(`Free Apikey : ${free_apikey}`)
 console.log(`Custom Apikey : ${custom_apikey}`)
 console.log(`Xteam Apikey : ${xteam_key}`)
 console.log(`Zeks Apikey : ${zeks_key}`)
-console.log(`Melodicxt-2 Apikey : ${melodicxt_key}`)
+console.log(`Melodicxt Apikey : ${melodicxt_key}`)
 console.log(`RemoveBG Apikey : ${removebg_key}`)
 console.log(`Redeem Code : ${redeem_code}`)
 
@@ -51,6 +52,7 @@ var FormData = require('form-data');
 var ytdl = require('ytdl-core');
 var ytpl = require('ytpl');
 var qrcode = require('qrcode');
+var qrdecode = require('node-qrdecode');
 var secure = require('ssl-express-www');
 var formidable = require('formidable');
 var mv = require('mv');
@@ -64,15 +66,14 @@ var TikTokScraper = require('tiktok-scraper');
 var yts = require('yt-search');
 var fs = require('fs');
 var util = require('util');
-var ocr = require(__path + '/lib/ocr.js');
 var options = require(__path + '/lib/options.js');
-var { alay, purba, stylizeText, tts, wait, simih, getBuffer, textWrap, h2k, getRandom, readMore, randomBytes, start, info, success, banner, close, pickRandom } = require(__path + '/lib/functions.js');
 var { servers, yta, ytv } = require(__path + '/lib/y2mate.js');
 var { sticker } = require(__path + '/lib/sticker.js');
 var { fromBuffer } = require('file-type');
 var { removeBackgroundFromImageFile } = require('remove.bg');
 var { math, modes } = require(__path + '/lib/math.js');
 var { running } = require(__path + '/lib/running.js');
+var { ocr } = require(__path + '/lib/ocr.js');
 var { JSDOM } = require('jsdom');
 var { createHash } = require('crypto');
 var { spawn, exec } = require('child_process');
@@ -3473,7 +3474,7 @@ router.get('/ocr', async (req, res, next) => {
   })
      .catch(error => {
         res.sendFile(error)
-     console.log(error.message)
+     console.log('OCR ERROR\n' + error.message)
   })
 })
 
@@ -5644,12 +5645,14 @@ try {
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
-     var result = await (await fetch(`https://api.zeks.xyz/api/qrdecode?apikey=${zeks_key}&image=${url}`)).json()
+     var buffer = await getBuffer(url)
+     await fs.writeFileSync(__path + '/tmp/qr-reader.png', buffer)
+     var result = await qrdecode(__path + '/tmp/qr-reader.png')
 
      res.json({
 	       status: true,
 		   creator: creator,
-		   result: result.result
+		   result: result
 	    })
 } catch (e) {
      console.log(e)
@@ -6271,7 +6274,7 @@ try {
       await code.saveImage(outputPath, function (err) {
           if (err) throw err
 
-     res.sendFile(outputPath)
+      res.sendFile(outputPath)
   })
 } catch (e) {
      console.log(e)
@@ -8405,8 +8408,8 @@ router.get('/running', async (req, res, next) => {
  try {
        var buffer = await getBuffer(img)
        await fs.writeFileSync(__path + '/tmp/running_tmp.png', buffer)
-       var tmp = fs.readFileSync(__path + '/tmp/running_tmp.png')
-       await running(tmp, 10, 60).then(result => {
+       var media = fs.readFileSync(__path + '/tmp/running_tmp.png')
+       await running(media, 10, 60).then(result => {
        	fs.writeFileSync(__path + '/tmp/running.mp4', result)
 
      res.sendFile(__path + '/tmp/running.mp4')
