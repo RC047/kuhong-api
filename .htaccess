@@ -1,0 +1,2 @@
+ErrorDocument 404 /views/undefined.html
+ErrorDocument 403 /error/undefined.html
