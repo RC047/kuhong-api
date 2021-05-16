@@ -3412,7 +3412,7 @@ try {
            var $ = cheerio.load(data)
            var bodyFormThen = new FormData()
            var file = $('input[name="file"]').attr('value')
-	   var token = $('input[name="token"]').attr('value')
+	       var token = $('input[name="token"]').attr('value')
            var convert = $('input[name="file"]').attr('value')
            var gotdata = {
                          file: file,
@@ -3455,14 +3455,14 @@ router.get('/ocr', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
     if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
 	var media = await getBuffer(img)
 	await fs.writeFileSync(__path + '/tmp/ocr.png', media)
-	var path = fs.readFileSync(__path + '/tmp/ocr.png')
-    var ocr = { lang: "eng+ind", oem: 1, psm: 3 }
+	var path = __path + '/tmp/ocr.png'
+    var ocr = { lang: 'eng+ind', oem: 1, psm: 3 }
           await tesseract.recognize(path, ocr).then(result => {
           console.log(util.format(result.toString()))
 
@@ -3487,7 +3487,7 @@ router.get('/removebg', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
     if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -3497,8 +3497,6 @@ router.get('/removebg', async (req, res, next) => {
 	var outputPath = __path + '/tmp/nobg.png'
           await removeBackgroundFromImageFile({ path: inputPath, apiKey: removebg_key, size: 'auto', type: 'auto', outputPath }).then((result) => {
           var hasil = Buffer.from(result.base64img, 'base64')
-          console.log('HASIL' + hasil)
-          console.log('Result' + result)
           fs.writeFileSync(__path + '/tmp/nobg.png', hasil)
 
    res.sendFile(__path + '/tmp/nobg.png')
@@ -6015,12 +6013,12 @@ router.get('/shopee', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
     if (!query) return res.json(loghandler.notquery)
 
  try {
      var shopee = new Shopee(Shopee.BASE_URL.INDONESIA)
-     var product = await shopee.search({
+     var result = await shopee.search({
         query: query,
         orderBy: Shopee.SEARCH.ORDER_BY.PRICE,
         orderType: Shopee.SEARCH.ORDER_TYPE.ASC,
@@ -6035,7 +6033,7 @@ router.get('/shopee', async (req, res, next) => {
       res.json({
        	status: true,
            creator: creator,
-           result: product[0].name
+           result
       })
 } catch (e) {
   console.log(e)
@@ -6266,15 +6264,17 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
     if(!text) return res.json(loghandler.nottext)
 
-     var result = await barcode('code39', { data: text, width: 400, height: 100 })
-     console.log(result)
-       await fs.writeFileSync(__path + '/tmp/barcode.png', result)
+     var code = await barcode('code39', { data: text, width: 400, height: 100 })
+     var outputPath = __path + '/tmp/barcode.png'
+      await code.saveImage(outputPath, function (err) {
+          if (err) throw err
+          console.log('File has been written!')
 
-     res.sendFile(__path + '/tmp/barcode.png')
-     
+     res.sendFile(outputPath)
+  })
 } catch (e) {
      console.log(e)
 	res.sendFile(error)
@@ -7880,14 +7880,17 @@ router.get('/jedagjedug', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
 	if(!theme) return res.json(loghandler.nottheme)
 	if (!(theme == 'ff' || theme == 'ml' || theme == 'beatvn')) return res.json({ error: `Tema yang tersedia : ff, ml, beatvn` })
 
  try {
- 	 var random = await fs.readFileSync(__path + '/src/jedagjedug/' + theme + '/' + Math.floor(Math.random() * 11) + '.mp4')
-             res.sendFile(random)
-                               fs.unlinkSync(random)
+ 	 var buffer = await fs.readFileSync(__path + '/src/jedagjedug/' + theme + '/' + Math.floor(Math.random() * 11) + '.mp4')
+            await fs.writeFileSync(__path + '/tmp/jedag_jedug.mp4', buffer)
+            var result = __path + '/tmp/jedag_jedug.mp4'
+
+    res.sendFile(result)
+             fs.unlinkSync(buffer)
 } catch (e) {
    console.log(e)
     res.sendFile(error)
@@ -8398,10 +8401,10 @@ router.get('/running', async (req, res, next) => {
 	      apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-        if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
 	if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -8410,8 +8413,9 @@ router.get('/running', async (req, res, next) => {
        await fs.writeFileSync(__path + '/tmp/running_tmp.png', buffer)
        var tmp = fs.readFileSync(__path + '/tmp/running_tmp.png')
        await running(tmp, 10, 60).then(result => {
+       	fs.writeFileSync(__path + '/tmp/running.mp4', result)
 
-     res.sendFile(result)
+     res.sendFile(__path + '/tmp/running.mp4')
    })
 } catch (e) {
    console.log(e)
