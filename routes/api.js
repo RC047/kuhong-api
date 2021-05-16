@@ -8398,10 +8398,10 @@ router.get('/running', async (req, res, next) => {
 	      apikeyInput = req.query.apikey;
 
 	var maintenance = false
-    if(maintenance == true) return res.sendFile(mtc)
+        if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+        if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
 	if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -8412,7 +8412,7 @@ router.get('/running', async (req, res, next) => {
        await running(tmp, 10, 60).then(result => {
 
      res.sendFile(result)
-   }
+   })
 } catch (e) {
    console.log(e)
      res.sendFile(error)
