@@ -19,17 +19,17 @@ var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // In
 var banned_apikey = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikey yang sudah dibanned
 var free_apikey = generateApikey() // Apikey Gratis
 var apikey = 'QyiH67N1mWvbbJ891lpL67m_uy1oPHSlL01Vv-1qRi' // Apikeymu (dibutuhkan)
-var custom_apikey = '' // Custom Apikey
+var custom_apikey = 'KuhongRestAPIs' // Custom Apikey
 var vhears_key = 'ameysbot' // Apikey VhTears (dibutuhkan)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'apivinz' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 var redeem_code = generateCode() // Kode Redeem untuk dapatkan Apikey Premium
-console.log(`CHECKING APIKEY...`)
+console.log(`> CHECKING APIKEY...`)
 console.log(`Your Apikey : ${apikey}`)
 console.log(`Free Apikey : ${free_apikey}`)
-//console.log(`Custom Apikey : ${custom_apikey}`)
+console.log(`Custom Apikey : ${custom_apikey}`)
 console.log(`Xteam Apikey : ${xteam_key}`)
 console.log(`Zeks Apikey : ${zeks_key}`)
 console.log(`Melodicxt-2 Apikey : ${melodicxt_key}`)
@@ -72,6 +72,7 @@ var { fromBuffer } = require('file-type');
 var { removeBackgroundFromImageFile } = require('remove.bg');
 var { math, modes } = require(__path + '/lib/math.js');
 var { running } = require(__path + '/lib/running.js');
+var { ocr } = require(__path + '/lib/ocr.js');
 var { JSDOM } = require('jsdom');
 var { createHash } = require('crypto');
 var { spawn, exec } = require('child_process');
@@ -313,7 +314,7 @@ router.get('/cekapikey', async (req, res, next) => {
 	var limit = 'Limited! (Berubah setiap website mati)'
     if (apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) type = 'Premium User'
 	if (apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) limit = 'Unlimited!'
-	if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+	if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
     try {
          res.json({
@@ -362,7 +363,7 @@ router.get('/tiktok', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!url) return res.json(loghandler.noturl)
 
      TikTokScraper.getVideoMeta(url, options)
@@ -387,7 +388,7 @@ router.get('/tiktokstalk', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!username) return res.json(loghandler.notusername)
 
 
@@ -415,7 +416,7 @@ router.get('/randomquote', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/randomquotes`))
         .then(response => response.json())
@@ -440,7 +441,7 @@ router.get('/infonpm', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!query) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter query"})
 
        fetch(encodeURI(`https://registry.npmjs.org/${query}`))
@@ -466,7 +467,7 @@ var maintenance = false
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 const cheerio = require('cheerio')
 
 axios.get('https://jadwalnonton.com/now-playing').then(({ data }) => {
@@ -507,7 +508,7 @@ router.get('/tinyurl', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!url) return res.json(loghandler.noturl)
 
      request(`https://tinyurl.com/api-create.php?url=${url}`, function (error, response, body) {
@@ -588,7 +589,7 @@ router.get('/nulis', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
    try {
@@ -630,7 +631,7 @@ router.get('/nulis2', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
    try {
@@ -700,7 +701,7 @@ router.get('/textmaker', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'glitch' && theme != 'google-suggestion') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -786,7 +787,7 @@ router.get('/textmaker/game', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'pubg' && theme != 'battlefield') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -878,7 +879,7 @@ router.get('/textmaker/senja', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'coffee-cup' && theme != 'coffee-cup2') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -1003,7 +1004,7 @@ router.get('/hadits', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!kitab) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kitab"})
     if (!nomor) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter nomor"})
 
@@ -1029,7 +1030,7 @@ router.get('/quran', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!surah) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter surah"})
     if (!ayat) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter ayat"})
 
@@ -1055,7 +1056,7 @@ router.get('/fb', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!url) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter url"})
 
        fetch(encodeURI(`https://fb-api-zhirrr.vercel.app/?url=${url}`))
@@ -1081,7 +1082,7 @@ router.get('/textmaker/metallic', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'neon' && theme != 'glow') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -1171,7 +1172,7 @@ router.get('/textmaker/alam', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'summer' && theme != 'flower') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -1258,7 +1259,7 @@ router.get('/flaming', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
   try {
@@ -1281,7 +1282,7 @@ router.get('/neon', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
   try {
@@ -1303,7 +1304,7 @@ router.get('/muslim/tahlil', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataTahlil.json`))
         .then(response => response.json())
@@ -1326,7 +1327,7 @@ router.get('/muslim/wirid', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataWirid.json`))
         .then(response => response.json())
@@ -1349,7 +1350,7 @@ router.get('/muslim/ayatkursi', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataAyatKursi.json`))
         .then(response => response.json())
@@ -1372,7 +1373,7 @@ router.get('/muslim/doaharian', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataDoaHarian.json`))
         .then(response => response.json())
@@ -1395,7 +1396,7 @@ router.get('/muslim/bacaanshalat', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataBacaanShalat.json`))
         .then(response => response.json())
@@ -1418,7 +1419,7 @@ router.get('/muslim/niatshalat', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataNiatShalat.json`))
         .then(response => response.json())
@@ -1441,7 +1442,7 @@ router.get('/muslim/kisahnabi', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataKisahNabi.json`))
         .then(response => response.json())
@@ -1464,7 +1465,7 @@ router.get('/muslim/asmaulhusna', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/dataAsmaulHusna.json`))
         .then(response => response.json())
@@ -1509,7 +1510,7 @@ router.get('/muslim/niatdzuhur', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatDzuhur.json`))
         .then(response => response.json())
@@ -1532,7 +1533,7 @@ router.get('/muslim/niatmaghrib', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatMaghrib.json`))
         .then(response => response.json())
@@ -1555,7 +1556,7 @@ router.get('/muslim/niatisya', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatIsya.json`))
         .then(response => response.json())
@@ -1578,7 +1579,7 @@ router.get('/muslim/niatashar', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/data/NiatAshar.json`))
         .then(response => response.json())
@@ -1601,7 +1602,7 @@ router.get('/wallpaper/cyberspace', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/CyberSpace.json`))
         .then(response => response.json())
@@ -1624,7 +1625,7 @@ router.get('/wallpaper/teknologi', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/Technology.json`))
         .then(response => response.json())
@@ -1647,7 +1648,7 @@ router.get('/wallpaper/muslim', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/Islamic.json`))
         .then(response => response.json())
@@ -1670,7 +1671,7 @@ router.get('/wallpaper/programming', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/Programming.json`))
         .then(response => response.json())
@@ -1693,7 +1694,7 @@ router.get('/wallpaper/pegunungan', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQ-Results/main/Mountain.json`))
         .then(response => response.json())
@@ -1717,7 +1718,7 @@ router.get('/wikipedia', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if(!search) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter search"})
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/wiki?keyword=${search}`))
@@ -1740,7 +1741,7 @@ router.get('/randomquote/muslim', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/quote?type=agamis`))
         .then(response => response.json())
@@ -1764,7 +1765,7 @@ router.get('/drakorasia', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if(!search) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter search"})
 
        fetch(encodeURI(`http://docs-api-zahirrr.herokuapp.com/api/drakorasia?search=${search}`))
@@ -1789,7 +1790,7 @@ router.get('/jadwalshalat', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if(!kota) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kota"})
 
        fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/Zhirrr-Database/main/adzan/${kota}/2021/03.json`))
@@ -1814,7 +1815,7 @@ router.get('/fakedata', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if(!country) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter country"})
 
        fetch(encodeURI(`https://fakename-api-zhirrr.vercel.app/api/fakename?country=${country}`))
@@ -1838,7 +1839,7 @@ router.get('/halah', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!text) return res.json(loghandler.nottext)
 
     var txt = 'a'
@@ -1859,7 +1860,7 @@ router.get('/hilih', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!text) return res.json(loghandler.nottext)
 
     var txt = 'i'
@@ -1880,7 +1881,7 @@ router.get('/huluh', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!text) return res.json(loghandler.nottext)
 
     var txt = 'u'
@@ -1901,7 +1902,7 @@ router.get('/heleh', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!text) return res.json(loghandler.nottext)
 
     var txt = 'e'
@@ -1922,7 +1923,7 @@ router.get('/holoh', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!text) return res.json(loghandler.nottext)
 
     var txt = 'o'
@@ -1943,7 +1944,7 @@ router.get('/lirik', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if(!lagu) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kata" })
 
         var json = await (await fetch(`https://scrap.terhambar.com/lirik?word=${lagu}`)).json()
@@ -1962,7 +1963,7 @@ router.get('/chord', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if(!lagu) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kata"})
 
        fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/chord?q=${lagu}`))
@@ -1984,7 +1985,7 @@ router.get('/random/asmaulhusna', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/random/asmaulhusna`))
         .then(response => response.json())
@@ -2008,7 +2009,7 @@ router.get('/kbbi', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if(!kata) return res.json({ status : false, creator: `${creator}`, message : "Masukan parameter kata"})
 
        fetch(encodeURI(`https://kbbi-api-zhirrr.vercel.app/api/kbbi?text=${kata}`))
@@ -2030,7 +2031,7 @@ router.get('/covidindo', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://covid19-api-zhirrr.vercel.app/api/covid-indonesia`))
         .then(response => response.json())
@@ -2053,7 +2054,7 @@ router.get('/covidworld', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://covid19-api-zhirrr.vercel.app/api/world`))
         .then(response => responsejson())
@@ -2077,7 +2078,7 @@ router.get('/kodepos', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!kota) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter kota"})
 
        fetch(encodeURI(`https://kodepos-api-zhirrr.vercel.app/?q=${kota}`))
@@ -2102,7 +2103,7 @@ router.get('/infocuaca', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!provinsi) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter provinsi"})
        fetch(encodeURI(`https://bmkg-api-zahirr.herokuapp.com/api/cuaca/${provinsi}`))
         .then(response => response.json())
@@ -2125,7 +2126,7 @@ router.get('/infocuaca/bandara', async (req, rs, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
        fetch(encodeURI(`https://bmkg-api-zahirr.herokuapp.com/api/cuaca/bandara`))
         .then(response => response.json())
         .then(data => {
@@ -2147,7 +2148,7 @@ router.get('/infocuaca/dunia', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
        fetch(encodeURI(`https://bmkg-api-zahirr.herokuapp.com/api/cuaca/dunia`))
         .then(response => response.json())
         .then(data => {
@@ -2169,7 +2170,7 @@ router.get('/infotsunami', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
        fetch(encodeURI(`https://bmkg-api-zahirr.herokuapp.com/api/tsunami`))
         .then(response => response.json())
         .then(data => {
@@ -2191,7 +2192,7 @@ router.get('/random/meme', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/meme`))
         .then(response => response.json())
@@ -2214,7 +2215,7 @@ router.get('/quotes/kanye', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/quote?type=kanye`))
         .then(response => response.json())
@@ -2239,7 +2240,7 @@ router.get('/translate', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!lang) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter bahasa" })
 	if (!text) return res.json(loghandler.nottext)
 
@@ -2271,7 +2272,7 @@ router.get('/anime/kusonime', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!search) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter search"})
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/kusonime?search=${search}`))
         .then(response => response.json())
@@ -2294,7 +2295,7 @@ router.get('/gabut', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/bosan`))
         .then(response => response.json())
@@ -2318,7 +2319,7 @@ router.get('/manga', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!search) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter search"})
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/manga?keyword=${search}`))
         .then(response => response.json())
@@ -2340,7 +2341,7 @@ router.get('/random/wallpaper', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/random/wallpaper?genre=acak`))
         .then(response => response.json())
@@ -2364,7 +2365,7 @@ try {
   if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
     var data = fs.readFileSync(__path + '/lib/games/caklontong.js')
     var json = JSON.parse(data);
@@ -2393,7 +2394,7 @@ try {
   if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
     var data = fs.readFileSync(__path + '/lib/games/tebakgambar.js')
     var json = JSON.parse(data);
@@ -2421,7 +2422,7 @@ router.get('/news/cnn', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!type) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter type"})
 
        fetch(encodeURI(`https://news-api-zhirrr.vercel.app/v1/cnn-news/${type}`))
@@ -2447,7 +2448,7 @@ router.get('/news/cnbc', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!type) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter type"})
 
        fetch(encodeURI(`https://news-api-zhirrr.vercel.app/v1/cnbc-news/${type}`))
@@ -2473,7 +2474,7 @@ router.get('/news/republika', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!type) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter type"})
 
        fetch(encodeURI(`https://news-api-zhirrr.vercel.app/v1/republika-news/${type}`))
@@ -2499,7 +2500,7 @@ router.get('/news/tempo', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!type) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter type"})
 
        fetch(encodeURI(`https://news-api-zhirrr.verce.app/v1/tempo-news/${type}`))
@@ -2525,7 +2526,7 @@ router.get('/news/antara', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!type) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter type"})
 
        fetch(encodeURI(`https://news-api-zhirrr.vercel.app/v1/antara-news/${type}`))
@@ -2550,7 +2551,7 @@ router.get('/news/kumparan', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://news-api-zhirrr.vercel.app/v1/kumparan-news`))
         .then(response => response.json())
@@ -2575,7 +2576,7 @@ router.get('/filmapik/search', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!film) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter film"})
 
        fetch(encodeURI(`https://filmapik-api-zahirr.herokuapp.com/search?q=${film}`))
@@ -2601,7 +2602,7 @@ router.get('/filmapik/kategori', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!film) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter film"})
 
        fetch(encodeURI(`https://filmapik-api-zahirr.herokuapp.com/category?search=${film}`))
@@ -2627,7 +2628,7 @@ router.get('/filmapik/play', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!id) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter id"})
 
        fetch(encodeURI(`https://filmapik-api-zahirr.herokuapp.com/play?id=${id}`))
@@ -2652,7 +2653,7 @@ router.get('/filmapik/terbaru', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://filmapik-api-zahirr.herokuapp.com/latest`))
         .then(response => response.json())
@@ -2677,7 +2678,7 @@ router.get('/lk21/search', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!film) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter film"})
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/search?query=${film}`))
@@ -2702,7 +2703,7 @@ router.get('/lk21/terbaru', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/newupload`))
         .then(response => response.json())
@@ -2726,7 +2727,7 @@ router.get('/lk21/comingsoon', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/comingsoon`))
         .then(response => response.json())
@@ -2750,7 +2751,7 @@ router.get('/lk21/tvseries', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/tv`))
         .then(response => response.json())
@@ -2775,7 +2776,7 @@ router.get('/lk21/year', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!tahun) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter tahun"})
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/year?year=${tahun}`))
@@ -2801,7 +2802,7 @@ router.get('/lk21/country', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!negara) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter negara"})
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/country?country=${negara}`))
@@ -2827,7 +2828,7 @@ router.get('/lk21/genre', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!tipe) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter tipe"})
 
        fetch(encodeURI(`https://lk21-api-zahirr.herokuapp.com/genre?genre=${tipe}`))
@@ -2856,7 +2857,7 @@ router.get('/textmaker/random', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'text-burn' && theme != 'art-quote') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -2946,7 +2947,7 @@ router.get('/textmaker/roses', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!theme) return res.json(loghandler.nottheme)
         if (theme != 'wooden-boarch' && theme != 'golden') return res.json(loghandler.notheme)
         if (!text) return res.json(loghandler.nottext)
@@ -3033,7 +3034,7 @@ router.get('/ytmp4', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!url) return res.json(loghandler.noturl)
 
        var server = (url || 'id4').toLowerCase()
@@ -3042,7 +3043,7 @@ router.get('/ytmp4', async (req, res, next) => {
        res.json({
             status: true,
             creator: creator,
-	    result:{
+	        result:{
 		    title: title,
 		    thumb: thumb,
 		    size: filesizeF,
@@ -3060,7 +3061,7 @@ router.get('/ytmp3', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!url) return res.json(loghandler.noturl)
 
        var server = (url || 'id4').toLowerCase()
@@ -3069,7 +3070,7 @@ router.get('/ytmp3', async (req, res, next) => {
        res.json({
             status: true,
             creator: creator,
-	    result:{
+	        result:{
 		    title: title,
 		    thumb: thumb,
 		    size: filesizeF,
@@ -3087,7 +3088,7 @@ router.get('/igstalk', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!username) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter username"})
 
        fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/stalk?username=${username}`))
@@ -3113,7 +3114,7 @@ router.get('/maker', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/textmaker?text=${text}`))
@@ -3139,7 +3140,7 @@ router.get('/maker2', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/textmaker2?text=${text}`))
@@ -3165,7 +3166,7 @@ router.get('/maker3', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/textmaker3?text=${text}`))
@@ -3191,7 +3192,7 @@ router.get('/maker4', async (rq, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/textmaker4?text=${text}`))
@@ -3217,7 +3218,7 @@ router.get('/maker3d', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/text3d?text=${text}`))
@@ -3243,7 +3244,7 @@ router.get('/maker3d/no2', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/text3d-2?text=${text}`))
@@ -3269,7 +3270,7 @@ router.get('/maker3d/no3', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/text3d-3?text=${text}`))
@@ -3295,7 +3296,7 @@ router.get('/maker3d/no4', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
        fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/text3d-4?text=${text}`))
@@ -3321,7 +3322,7 @@ router.get('/ytsearch', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!q) return res.json(loghandler.notquery)
 
      var results = await yts(q)
@@ -3358,7 +3359,7 @@ router.get('/maker/special/transformer', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
  try {
        var json = await (await fetch(`https://textmaker-api-zahirr.herokuapp.com/api/special/transformer?text=${text}`)).json()
@@ -3380,7 +3381,7 @@ router.get('/maker/special/epep', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({ status : false, creator : `${creator}`, message : "Masukan parameter text"})
 
  try {
@@ -3403,7 +3404,7 @@ router.get('/tomp4', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!url) return res.json(loghandler.noturl)
 	if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -3455,21 +3456,19 @@ router.get('/ocr', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-	var media = await getBuffer(img)
-	await fs.writeFileSync(__path + '/tmp/ocr.png', media)
-	var path = __path + '/tmp/ocr.png'
-    var ocr = { lang: 'eng+ind', oem: 1, psm: 3 }
-          await tesseract.recognize(path, ocr).then(result => {
-          console.log(util.format(result.toString()))
+	var buffer = await getBuffer(img)
+	await fs.writeFileSync(__path + '/tmp/ocr.png', buffer)
+	var media = fs.readFileSync(__path + '/tmp/ocr.png')
+          await ocr(media, { lang: 'eng+ind', oem: 1, psm: 3 }).then(result => {
 
      res.json({
 		   status: true,
 		   creator: creator,
-		   result: util.format(result.toString())
+		   result: result.trim()
 	   })
   })
      .catch(error => {
@@ -3487,7 +3486,7 @@ router.get('/removebg', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -3515,7 +3514,7 @@ router.get('/simsimi', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!kata) return res.json(loghandler.notkata)
 
  try {
@@ -3540,7 +3539,7 @@ router.get('/binary', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -3564,7 +3563,7 @@ router.get('/binary', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -3588,7 +3587,7 @@ router.get('/tobase64', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!img) return res.json(loghandler.notimg)
 
  try {
@@ -3611,7 +3610,7 @@ router.get('/tomedia', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!base64) return res.json(loghandler.notbase64)
         if (base64.startsWith('data')) return res.json({ message : `Gunakan teks base64 tanpa data:image/jpeg!` })
 
@@ -3631,7 +3630,7 @@ router.get('/ttp', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -3653,7 +3652,7 @@ router.get('/dadu', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
       var random = Math.floor(Math.random() * 6) + 1
       var hasil = 'https://www.random.org/dice/dice' + random + '.png'
@@ -3675,7 +3674,7 @@ const repeat = (text, total) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
   if (!jumlah) return res.json(loghandler.notjumlah)
   if (isNaN(jumlah)) return res.json(loghandler.number)
@@ -3697,7 +3696,7 @@ router.get('/reverse', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -3721,7 +3720,7 @@ router.get('/spamcall', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!nomor) return res.json(loghandler.notnomor)
 	if (isNaN(nomor)) return res.json(loghandler.number)
 
@@ -3743,7 +3742,7 @@ router.get('/spamsms', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!nomor) return res.json(loghandler.notnomor)
     if (isNaN(nomor)) return res.json(loghandler.number)
     if (!jumlah) return res.json(loghandler.notjumlah)
@@ -3766,7 +3765,7 @@ router.get('/bokep', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
          var json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/pussy`)).json()
@@ -3788,7 +3787,7 @@ router.get('/googleimage', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!q) return res.json(loghandler.notquery)
 
  try {
@@ -3813,7 +3812,7 @@ router.get('/pinterest', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!q) return res.json(loghandler.notquery)
 
  try {
@@ -3838,7 +3837,7 @@ router.get('/say', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        res.json({
        	status : true,
@@ -3855,7 +3854,7 @@ router.get('/md5', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var result = await createHash('md5').update(text).digest('hex')
@@ -3875,7 +3874,7 @@ router.get('/tahta', async (req, res, next) => {
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await tahta('HARTA', 'TAHTA', text.toUpperCase())
@@ -3892,7 +3891,7 @@ router.get('/customtahta', async (req, res, next) => {
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var fixedText = textWrap(text, 8)
@@ -3909,7 +3908,7 @@ router.get('/anime/random', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
          var json = await (await fetch(`https://api.fdci.se/rep.php?gambar=anime`)).json()
@@ -3932,7 +3931,7 @@ router.get('/kpop/random', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
          var json = await (await fetch(`https://api.fdci.se/rep.php?gambar=kpop`)).json()
@@ -3955,7 +3954,7 @@ router.get('/random/manga', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
          var json = await (await fetch(`https://api.fdci.se/rep.php?gambar=manga`)).json()
@@ -3979,7 +3978,7 @@ router.get('/triggered', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -4004,7 +4003,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!emoji) return res.json(loghandler.notemoji)
 
      var hasil = await (await fetch(`https://api.zeks.xyz/api/emoji-image?apikey=${zeks_key}&emoji=${encodeURIComponent(emoji)}`)).buffer()
@@ -4025,7 +4024,7 @@ try {
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!soal) return res.json({ message: `Masukan parameter soal` })
 
      var result = await brainly(soal)
@@ -4050,7 +4049,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!soal) return res.json({ message: `Masukan parameter soal` })
 
      var result = await brainly(soal)
@@ -4074,7 +4073,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
      var result = await (await fetch(`https://api.zeks.xyz/api/pantun?apikey=${zeks_key}`)).json()
          res.json({
@@ -4097,7 +4096,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
      var json = await (await fetch(`https://api.zeks.xyz/api/memeindo?apikey=${zeks_key}`)).json()
      var hasil = await getBuffer(json.result)
@@ -4119,7 +4118,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!nama) return res.json(loghandler.notnama)	
 
  request.get({
@@ -4157,7 +4156,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!nama) return res.json(loghandler.notnama)
   if (!pasangan) return res.json({ message : `Masukan nama pacarmu,, ehh pasangan :v` })
 
@@ -4196,7 +4195,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
     var data = fs.readFileSync(__path + '/lib/games/family100.js')
     var json = JSON.parse(data);
@@ -4223,7 +4222,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
     if(!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
     var data = fs.readFileSync(__path + '/lib/asupan.js')
     var object = JSON.parse(data);
@@ -4249,7 +4248,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
      var json = await (await fetch(`http://zekais-api.herokuapp.com/cerpen`)).json()
          res.json({
@@ -4276,7 +4275,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -4301,7 +4300,7 @@ router.get('/tts', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
     if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
   if (text.length > 200) return res.json(loghandler.longtext)
   if (!lang) return res.json(loghandler.notlang)
@@ -4326,7 +4325,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
      var json = await (await fetch(`https://api.zeks.xyz/api/darkjokes?apikey=${zeks_key}`)).json()
      var hasil = await getBuffer(json.result)
@@ -4348,7 +4347,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/splaybutton?text=${text}&apikey=${zeks_key}`)
@@ -4370,7 +4369,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/gplaybutton?text=${text}&apikey=${zeks_key}`)
@@ -4392,7 +4391,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/sandw?apikey=${zeks_key}&text=${text}`)
@@ -4415,7 +4414,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
 
@@ -4438,7 +4437,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
     if(!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json(loghandler.nottext)
 
       var result = await alay(text)
@@ -4464,7 +4463,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/tfire?text=${text}&apikey=${zeks_key}`)
@@ -4488,7 +4487,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
   if (!t3) return res.json(loghandler.nottext3)
@@ -4512,7 +4511,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/matrix?apikey=${zeks_key}&text=${text}`)
@@ -4534,7 +4533,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/text3dbox?apikey=${zeks_key}&text=${text}`)
@@ -4557,7 +4556,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
 
@@ -4580,7 +4579,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
 
@@ -4603,7 +4602,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/logobp?text=${text}&apikey=${zeks_key}`)
@@ -4625,7 +4624,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
 
@@ -4648,7 +4647,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.zeks.xyz/api/thundertext?text=${text}&apikey=${zeks_key}`)
@@ -4668,7 +4667,7 @@ router.get('/news', async (req, res) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
      res.json({
   status: true,
@@ -4722,7 +4721,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -4744,7 +4743,7 @@ router.get('/calculator', async (req, res) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!angka) return res.json(loghanlder.notangka)
 
     var val = angka
@@ -4785,7 +4784,7 @@ router.get('/hd', async (req, res) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -4818,7 +4817,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
      var json = await (await fetch(`https://xptnbotapinew.herokuapp.com/?dare&apikey=xptn`)).json()
 
@@ -4844,7 +4843,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!quote) return res.json({ message : `Masukan parameter quote (kata quotes)` })
   if (!author) return res.json({ message : `Masukan parameter author` })
   if (!theme) return res.json(loghandler.nottheme)
@@ -4867,7 +4866,7 @@ router.get('/attp', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -4890,7 +4889,7 @@ router.get('/ttp2', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -4914,7 +4913,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/neon?text=${text}&APIKEY=${xteam_key}`)
@@ -4936,7 +4935,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!q) return res.json(loghandler.notquery)
 
      var result = await (await fetch(`https://api.zeks.xyz/api/spotify?apikey=${zeks_key}&q=${q}`)).json()
@@ -4960,7 +4959,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(logahndler.invalidLink)
 
@@ -4985,7 +4984,7 @@ try {
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(logahndler.invalidLink)
 
@@ -5036,7 +5035,7 @@ try {
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!mode) return res.json({ message : `Masukan parameter mode` })
   if (!(mode in modes)) return res.json({ status: false, creator: creator, message: 'Mode yang tersedia ' + Object.keys(modes).join(', ') })
   var data = await math(mode)
@@ -5062,7 +5061,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
      var json = await (await fetch(`https://salism3api.pythonanywhere.com/math`)).json()
 
@@ -5088,7 +5087,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!webp) return res.json(loghandler.notimg)
   if (!webp.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5113,7 +5112,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var qr = await qrcode.toDataURL(text.slice(0, 2048), { scale: 8 })
@@ -5135,7 +5134,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5164,7 +5163,7 @@ try {
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
   var len = Math.floor(Math.random() * 25)
@@ -5200,7 +5199,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
     if(!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
 var bucin = [
   "Aku memilih untuk sendiri, bukan karena menunggu yang sempurna, tetapi butuh yang tak pernah menyerah.",
@@ -5348,7 +5347,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if(!t1) return res.json(loghandler.nottext)
   if(!t2) return res.json(loghandler.nottext2)
@@ -5372,7 +5371,7 @@ router.get('/slot', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
   var emojis = ["🍎", "🍌", "🍇", "♦️", "🥇", "💵"];
     var a = Math.floor(Math.random() * emojis.length);
@@ -5426,7 +5425,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!q) return res.json(loghandler.notquery)
 
      var result = await (await fetch(`https://api.zeks.xyz/api/joox?apikey=${zeks_key}&q=${q}`)).json()
@@ -5451,7 +5450,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5477,7 +5476,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5503,7 +5502,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!username) return res.json(loghandler.notnama)
 
      var result = await (await fetch(`https://api.zeks.xyz/api/igs?apikey=${zeks_key}&username=${username}`)).json()
@@ -5527,7 +5526,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
      var result = await (await fetch(`https://api.zeks.xyz/api/nickepep?apikey=${zeks_key}`)).json()
 
@@ -5550,7 +5549,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
      var json = await (await fetch(`https://api.zeks.xyz/api/randomquran?apikey=${zeks_key}`)).json()
 
@@ -5573,7 +5572,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
      var json = await (await fetch(`https://api.banghasan.com/quran/format/json/acak`)).json()
 
@@ -5593,7 +5592,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!nama) return res.json(loghandler.notnama)
 
 
@@ -5615,7 +5614,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!q) return res.json(loghandler.notquery)
 
 
@@ -5641,7 +5640,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!url) return res.json(loghandler.noturl)
   if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5667,7 +5666,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!q) return res.json(loghandler.notquery)
 
      var result = await (await fetch(`https://api.zeks.xyz/api/searchsticker?apikey=${zeks_key}&q=${q}`)).json()
@@ -5691,7 +5690,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
      var json = await (await fetch(`http://zekais-api.herokuapp.com/tebakanime`)).json()
 
@@ -5713,7 +5712,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if(!username) return res.json(loghandler.notnama)
   if(!comment) return res.json({ message: `Masukan parameter komentar` })
@@ -5739,7 +5738,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
     if(!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if(!q) return res.json(loghandler.notquery)
 
      var results = await yts(q)
@@ -5777,7 +5776,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!url) return res.json(loghandler.noturl)
   if(!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5822,7 +5821,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5846,7 +5845,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5870,7 +5869,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5893,7 +5892,7 @@ router.get('/readmore', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!text) return res.json(loghandler.nottext)
 
     var [l, r] = text.split`|`
@@ -5917,7 +5916,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5941,7 +5940,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -5964,7 +5963,7 @@ router.get('/githubstalk', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!username) return res.json(loghandler.notusername)
 
  try {
@@ -5984,7 +5983,7 @@ router.get('/upload', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!file) return res.json({ message: `Masukan parameter file_url` })
 
  try {
@@ -6013,7 +6012,7 @@ router.get('/shopee', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!query) return res.json(loghandler.notquery)
 
  try {
@@ -6049,7 +6048,7 @@ router.get('/happymod', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!query) return res.json(loghandler.notquery)
 
  try {
@@ -6071,7 +6070,7 @@ router.get('/faktaunik', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
        var json = await (await fetch(`https://videfikri.com/api/fakta/`)).json()
@@ -6094,7 +6093,7 @@ router.get('/artimimpi', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!mimpi) return res.json({ message: "Masukan parameter mimpi" })
 
  try {
@@ -6120,7 +6119,7 @@ router.get('/tggljadian', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!tggl) return res.json({ message: "Masukan parameter tanggal" })
 	if (!bln) return res.json({ message: "Masukan parameter bulan" })
 	if (!thn) return res.json({ message: "Masukan parameter tahun" })
@@ -6152,7 +6151,7 @@ router.get('/zodiak', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!nama) return res.json(loghandler.notnama)
 	if (!tggl) return res.json({ message: "Masukan parameter tanggal" })
 	if (!bln) return res.json({ message: "Masukan parameter bulan" })
@@ -6181,7 +6180,7 @@ router.get('/spamgmail', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!email) return res.json({ message: "Masukan parameter email" })
 	if (!email.endsWith('@gmail.com')) return res.json({ message: "Email tidak valid" })
 	if (!subjek) return res.json({ message: "Masukan parameter subjek" })
@@ -6212,7 +6211,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!text) return res.json(loghandler.nottext)
 
      var json = await (await fetch(`http://zekais-api.herokuapp.com/photooxy/smoke?text=${text}`)).json()
@@ -6238,7 +6237,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if(!username) return res.json(loghandler.notusername)
   if(!comment) return res.json({ message: 'Masukan parameter komentar' })
@@ -6264,14 +6263,13 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if(!text) return res.json(loghandler.nottext)
 
      var code = await barcode('code39', { data: text, width: 400, height: 100 })
      var outputPath = __path + '/tmp/barcode.png'
       await code.saveImage(outputPath, function (err) {
           if (err) throw err
-          console.log('File has been written!')
 
      res.sendFile(outputPath)
   })
@@ -6290,7 +6288,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!text) return res.json(loghandler.nottext)
 
      var hasil = await (await fetch(`https://api.zeks.xyz/api/dropwater?apikey=${zeks_key}&text=${text}`)).buffer()
@@ -6313,7 +6311,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!text) return res.json(loghandler.nottext)
 
      var hasil = await (await fetch(`https://api.zeks.xyz/api/bneon?apikey=${zeks_key}&text=${text}`)).buffer()
@@ -6336,7 +6334,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!text) return res.json(loghandler.nottext)
 
      var hasil = await (await fetch(`https://api.zeks.xyz/api/tlight?text=${text}&apikey=${zeks_key}`)).buffer()
@@ -6360,7 +6358,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!t1) return res.json(loghandler.nottext)
   if(!t2) return res.json(loghandler.nottext2)
 
@@ -6384,7 +6382,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!text) return res.json(loghandler.nottext)
 
      var hasil = await (await fetch(`https://api.zeks.xyz/api/breakwall?apikey=${zeks_key}&text=${text}`)).buffer()
@@ -6407,7 +6405,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!text) return res.json(loghandler.nottext)
 
      var json = await (await fetch(`https://api.zeks.xyz/api/naruto?text=${text}&apikey=${zeks_key}`)).json()
@@ -6431,7 +6429,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/cloudsky?text=${text}&APIKEY=${xteam_key}`)
@@ -6453,7 +6451,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/jokerlogo?text=${text}&APIKEY=${xteam_key}`)
@@ -6476,7 +6474,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
 
@@ -6500,7 +6498,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!t1) return res.json(loghandler.nottext)
   if (!t2) return res.json(loghandler.nottext2)
 
@@ -6523,7 +6521,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/bloodontheroastedglass?text=${text}&APIKEY=${xteam_key}`)
@@ -6545,7 +6543,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/lava?text=${text}&APIKEY=${xteam_key}`)
@@ -6567,7 +6565,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/1917?text=${text}&APIKEY=${xteam_key}`)
@@ -6589,7 +6587,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://api.xteam.xyz/textpro/skeleton?text=${text}&APIKEY=${xteam_key}`)
@@ -6611,7 +6609,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://videfikri.com/api/textmaker/crossfirelogo/?text=${text}`)
@@ -6633,7 +6631,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -6657,7 +6655,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -6681,7 +6679,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -6705,7 +6703,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -6729,7 +6727,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -6753,7 +6751,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -6777,7 +6775,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`http://zekais-api.herokuapp.com/sbburn?text=${text}`)
@@ -6799,7 +6797,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`https://leyscoders-api.herokuapp.com/api/textto-image?text=${text}`)
@@ -6822,7 +6820,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
   if (!color) return res.json({ message: `Masukan parameter warna` })
 
@@ -6843,7 +6841,7 @@ router.get('/fml', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
        var json = await (await fetch(`https://api.zeks.xyz/api/fml?apikey=${zeks_key}`)).json()
@@ -6866,7 +6864,7 @@ router.get('/estetik', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
        var estetik = await (await fetch(`https://api.zeks.xyz/api/estetikpic?apikey=${zeks_key}`)).buffer()
@@ -6887,7 +6885,7 @@ router.get('/html-viewer', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
        axios.get(`https://api-self.herokuapp.com/api/htmlscrapper?url=${url}`).then((data) => {
@@ -6911,7 +6909,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -6935,7 +6933,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!text) return res.json(loghandler.nottext)
 
     var style = await stylizeText(text)
@@ -6961,7 +6959,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!code) return res.json({ message: `Masukan parameter code` })
 
      var hasil = await getBuffer(`http://zekais-api.herokuapp.com/carbon?code=${code}`)
@@ -6982,7 +6980,7 @@ router.get('/maps', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!q) return res.json(loghandler.notquery)
 
  try {
@@ -7005,7 +7003,7 @@ router.get('/search-giphy', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!q) return res.json(loghandler.notquery)
 
  try {
@@ -7026,7 +7024,7 @@ router.get('/ipcheck', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!ip) return res.json({ message: `Masukan parameter ip` })
 
  try {
@@ -7046,7 +7044,7 @@ router.get('/hentai', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
        var json = await (await fetch(`http://api-melodicxt-2.herokuapp.com/api/random/hentai?apiKey=${melodicxt_key}`)).json()
@@ -7068,7 +7066,7 @@ router.get('/nulis3', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 	if(!arah) return res.json({ message: `Masukan parameter arah, kanan/kiri.` })
 
@@ -7093,7 +7091,7 @@ router.get('/suit', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if(!text) return res.json({ message: `Masukan pilihan suitmu` })
 
     var miss = `Pilihan yang tersedia gunting, kertas, batu`
@@ -7141,7 +7139,7 @@ router.get('/sid', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!url) return res.json(loghandler.noturl)
 	if(!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -7166,7 +7164,7 @@ router.get('/jadwaltv', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!channel) return res.json({ message: `Masukan parameter channel` })
 
  try {
@@ -7190,7 +7188,7 @@ router.get('/sha1', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 
  try {
@@ -7216,7 +7214,7 @@ router.get('/sha256', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 
  try {
@@ -7242,7 +7240,7 @@ router.get('/sha512', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 
  try {
@@ -7269,7 +7267,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!text) return res.json(loghandler.nottext)
 
      var hasil = await getBuffer(`http://docs-jojo.herokuapp.com/api/gaming?text=${text}`)
@@ -7291,7 +7289,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -7315,7 +7313,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -7339,7 +7337,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -7367,7 +7365,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!nama_mem) return res.json({ message: `Masukan parameter nama member` })
   if (!avatar) return res.json({ message: `Masukan parameter avatar` })
   if (!avatar.startsWith('http')) return res.json(loghandler.invalidLink)
@@ -7399,7 +7397,7 @@ try {
     if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!nama_mem) return res.json({ message: `Masukan parameter nama member` })
   if (!avatar) return res.json({ message: `Masukan parameter avatar` })
   if (!avatar.startsWith('http')) return res.json(loghandler.invalidLink)
@@ -7426,7 +7424,7 @@ router.get('/linesticker', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!url) return res.json(loghandler.noturl)
 	if(!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -7451,7 +7449,7 @@ router.get('/kerang', async (req, res, next) => {
           if(maintenance == true) return res.sendFile(mtc)
 	  if(!apikeyInput) return res.json(loghandler.notparam)
 	  if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
        var nama_acak = await (await fetch(`https://kuhong-api.herokuapp.com/api/fakedata?country=en&apikey=${apikey}`)).json()
        var answer = 'Tidak ada pertanyaan yang dapat dijawab'
@@ -7484,7 +7482,7 @@ router.get('/google', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!q) return res.json(loghandler.notquery)
 
  try {
@@ -7513,7 +7511,7 @@ router.get('/nulis4', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 
  try {
@@ -7535,7 +7533,7 @@ router.get('/toimage', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!img) return res.json(loghandle.notimg)
 	if(!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -7555,7 +7553,7 @@ router.get('/stickerwm', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!url) return res.json(loghandle.noturl)
 	if(!url.startsWith('http')) return res.json(loghandler.invalidLink)
 	if(!pkg) return res.json({ message: `Masukan parameter packname` })
@@ -7575,7 +7573,7 @@ router.get('/underwater', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 
  try {
@@ -7597,7 +7595,7 @@ router.get('/catlogo', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 
  try {
@@ -7619,7 +7617,7 @@ router.get('/arcade', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 
  try {
@@ -7641,7 +7639,7 @@ router.get('/foxlogo', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 
  try {
@@ -7663,7 +7661,7 @@ router.get('/glitchlogo', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 
  try {
@@ -7685,7 +7683,7 @@ router.get('/bearlogo', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 
  try {
@@ -7707,7 +7705,7 @@ router.get('/freefire', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 
  try {
@@ -7729,7 +7727,7 @@ router.get('/spammer/pizzahut', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!nomor) return res.json(loghandler.notnomor)
 	if(isNaN(nomor)) return res.json(loghandler.number)
 
@@ -7755,7 +7753,7 @@ router.get('/spammer/olx', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!nomor) return res.json(loghandler.notnomor)
 	if(isNaN(nomor)) return res.json(loghandler.number)
 
@@ -7781,7 +7779,7 @@ router.get('/spammer/danacinta', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!nomor) return res.json(loghandler.notnomor)
 	if(isNaN(nomor)) return res.json(loghandler.number)
 
@@ -7808,7 +7806,7 @@ router.get('/how', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!nama) return res.json(loghandler.notnama)
 	if(!type) return res.json(loghandler.nottype)
 	if (type == 'baper' || type == 'gay' || type == 'tolol' || type == 'bucin' || type == 'sange' || type == 'gila' || type == 'pintar' || type == 'bodoh' || type == 'ganteng' || type == 'cantik' || type == 'stres' || type == 'sad') {
@@ -7832,7 +7830,7 @@ router.get('/poly', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 
  try {
@@ -7855,7 +7853,7 @@ router.get('/wattpad', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!id) return res.json({ message: `Masukan parameter id` })
 
  try {
@@ -7880,14 +7878,15 @@ router.get('/jedagjedug', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!theme) return res.json(loghandler.nottheme)
 	if (!(theme == 'ff' || theme == 'ml' || theme == 'beatvn')) return res.json({ error: `Tema yang tersedia : ff, ml, beatvn` })
 
  try {
- 	 var buffer = pickRandom(fs.readdirSync(__path + '/src/jedagjedug/' + theme))
+ 	 var buffer = await fs.readFileSync(__path + '/src/jedagjedug/' + theme + '/' + Math.floor(Math.random() * 11) + '.mp4')
+      await fs.writeFileSync(__path + '/tmp/jedag_jedug.mp4', buffer)
 
-    res.sendFile(buffer)
+    res.sendFile(__path + '/tmp/jedag_jedug.mp4')
 } catch (e) {
    console.log(e)
     res.sendFile(error)
@@ -7902,7 +7901,7 @@ router.get('/getvn', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!query) return res.json(loghandler.notquery)
 	if (!(query == 'papale' || query == 'anjay' || query == 'pota' || query == 'padepap' || query == 'iri' || query == 'ara' || query == 'bila' || query == 'cidro' || query == 'kiminoto' || query == 'baby' || query == 'bernyanyi' || query == 'umbrella' || query == 'enak' || query == 'wes' || query == 'kokoro' || query == 'bambam' || query == 'booma' || query == 'tapi' || query == 'siul' || query == 'masha')) return res.json({ status: false, list_theme: [`anjay, ara, bila, baby, bambam, booma, bernyanyi, cidro, enak, iri, masha, padepap, papale, pota, kiminoto, kokoro, siul, tapi, umbrella, wes`] })
 
@@ -7925,7 +7924,7 @@ router.get('/masadepan', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!nama) return res.json(loghandler.notnama)
 
        var result = 'Menurut Ramalan...\n\nMasa Depan ' + pickRandom([`${nama} akan menjadi orang yang Kaya, keluarga yang harmonis, memiliki 2 memiliki anak, memiliki 4 memiliki kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang harmonis, memiliki 3 memiliki anak, memiliki 1 memiliki kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Miskin, keluarga yang Sederhana, memiliki 1 anak, tidak memiliki kendaraan, rumah ngontrak`,`${nama} akan menjadi orang yang Sederhana, keluarga yang dicerai, memiliki 5 anak, memiliki 2 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Sederhana, memiliki 2 anak, memiliki 2 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Miskin, keluarga yang dicerai memiliki 2 anak, memiliki 1 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Kaya, keluarga yang Sederhana, memiliki 1 anak, memiliki 1 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Harmonis, memiliki 1 anak, memiliki 3 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Miskin, tidak memiliki keluarga (jomblo), tidak memiliki anak, tidak memiliki kendaraan, tidak memiliki rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Sederhana, memiliki 4 anak, memiliki 1 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang kacau, tidak memiliki anak (Gugur), memiliki 2 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Sangat Kaya, keluarga yang Sangat Harmonis, memiliki 5 anak, memiliki 7 kendaraan, memiliki 9 rumah`,`${nama} akan menjadi orang yang Sangat Miskin, keluarga yang Sederhana, memiliki 9 anak, tidak memiliki kendaraan, rumah ngontrak`,`${nama} akan menjadi orang yang Kaya, keluarga yang Pelit, memiliki 2 anak, memiliki 2 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Pelit, memiliki 1 anak, memiliki 1 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang dicerai, memiliki 2 anak, memiliki 1 kendaraan, rumah ngontrak`,`${nama} akan menjadi orang yang Sangat Sederhana, keluarga yang Sakinah, memiliki 1 anak, memiliki 1 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Sangat Sederhana, memiliki 11 anak, memiliki 1 kendaraan, memiliki 1 rumah`,`${nama} akan menjadi orang yang Sederhana, keluarga yang Sangat Sederhana, memiliki 2 anak kembar, memiliki 3 kendaraan, memiliki 2 rumah`,`${nama} akan menjadi orang yang Sederhana keluarga yang Sederhana, memiliki 2 anak kembar dan 1 anak lagi, memiliki 1 kendaraan, memiliki 1 rumah`])
@@ -7946,7 +7945,7 @@ try {
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if(!img) return res.json(loghandler.notimg)
   if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -7968,7 +7967,7 @@ router.get('/iqtest', async (req, res, next) => {
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
   var result = 'IQ Anda sebesar ' + Math.floor(Math.random() * 1001) + '!'
      res.json({
@@ -7985,7 +7984,7 @@ router.get('/bacot', async (req, res, next) => {
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
 var bacot = [
 'Kamu suka kopi nggak? Aku sih suka. Tau kenapa alesannya? Kopi itu ibarat kamu, pahit sih tapi bikin candu jadi pingin terus.',
@@ -8038,7 +8037,7 @@ router.get('/truth', async (req, res, next) => {
   if(maintenance == true) return res.sendFile(mtc)
   if(!apikeyInput) return res.json(loghandler.notparam)
   if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
 var truth = [
     "Acara tv apa yang paling kamu benci? Berikan alasannya!",
@@ -8140,7 +8139,7 @@ router.get('/twister', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
        var json = await (await fetch(`http://docs-jojo.herokuapp.com/api/tongue_twister`)).json()
@@ -8164,7 +8163,7 @@ router.get('/purba', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!text) return res.json(loghandler.nottext)
 
  try {
@@ -8189,7 +8188,7 @@ router.get('/tebakumur', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!nama) return res.json(loghandler.notnama)
 
  try {
@@ -8215,7 +8214,7 @@ router.get('/wattpad2', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if(!q) return res.json(loghandler.notquery)
 
  try {
@@ -8236,7 +8235,7 @@ router.get('/randombyte', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!jumlah) return res.json(loghandler.notjumlah)
 	if (isNaN(jumlah)) return res.json(loghandler.number)
 	if (jumlah > 1000) return res.json({ error: `Jumlah terlalu banyak!` })
@@ -8259,10 +8258,10 @@ router.get('/randomsticker', async (req, res, next) => {
 	var apikeyInput = req.query.apikey;
 
 	var maintenance = false
-        if(maintenance == true) return res.sendFile(mtc)
+    if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
        res.sendFile(__path + '/src/sticker/' + Math.floor(Math.random() * 205) + '.webp')
@@ -8280,7 +8279,7 @@ router.get('/intromaker', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -8289,9 +8288,8 @@ router.get('/intromaker', async (req, res, next) => {
 
     res.sendFile(__path + '/tmp/intro.mp4')
 } catch (e) {
-   console.log(e)
-    res.json({ status: 'error', code: 400, message: `Kesalahan terjadi! pastikan text ${text} tidak mengandung simbol aneh!`, beta: true })
-   }
+	res.sendFile(__path + '/src/intro/tes.webm')
+  }
 })
 
 router.get('/tomp3', async (req, res, next) => {
@@ -8302,7 +8300,7 @@ router.get('/tomp3', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!url) return res.json(loghandler.noturl)
 	if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -8311,13 +8309,12 @@ router.get('/tomp3', async (req, res, next) => {
        var buffer = Buffer.from(enc, 'base64')
        await fs.writeFileSync(__path + '/tmp/media_tmp.mp4', buffer)
            var media = await fs.readFileSync(__path + '/tmp/media_tmp.mp4')
-           var outputPath = __path + '/tmp/audio.mp3'
+           var outputPath = await fs.readFileSync(__path + '/tmp/audio.mp3')
 			  exec(`ffmpeg -i ${media} ${outputPath}`, (err) => {
 					if (err) res.json({ error: 'Gagal, pada saat mengkonversi video ke mp3' })
 					var hasil = fs.readFileSync(outputPath)
 
 	    res.sendFile(hasil)
-					fs.unlinkSync(outputPath)
 	})
 } catch (e) {
    console.log(e)
@@ -8333,7 +8330,7 @@ router.get('/attp2', async (req, res, next) => {
         if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!text) return res.json(loghandler.nottext)
 
  try {
@@ -8355,7 +8352,7 @@ router.get('/shitpost', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-  if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+  if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
  try {
        var enc = await imageToBase64(`https://api.xteam.xyz/shitpost?APIKEY=${xteam_key}`)
@@ -8377,7 +8374,7 @@ router.get('/shauntheship', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
@@ -8401,7 +8398,7 @@ router.get('/running', async (req, res, next) => {
     if(maintenance == true) return res.sendFile(mtc)
 	if(!apikeyInput) return res.json(loghandler.notparam)
 	if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-    if (apikeyInput == `${banned_apikey}`) return res.json(logahandler.banned)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 	if (!img) return res.json(loghandler.notimg)
 	if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
