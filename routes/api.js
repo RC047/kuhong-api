@@ -1,4 +1,4 @@
-__path = process.cwd()
+__path = process.cwd();
 
 // Database :
 var { saveMedia, alay, purba, stylizeText, tts, wait, simih, getBuffer, textWrap, h2k, getRandom, readMore, randomBytes, start, info, success, banner, close, pickRandom } = require(__path + '/lib/functions.js');
@@ -461,7 +461,7 @@ router.get('/infonpm', async (req, res, next) => {
 })
 })
 
-router.get('/jadwal-bioskop', (req, res) => {
+router.get('/jadwalbioskop', (req, res) => {
 var apikeyInput = req.query.apikey
 
 var maintenance = false
@@ -4441,7 +4441,7 @@ try {
   if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json(loghandler.nottext)
 
-      var result = await alay(text)
+      var result = await alay(text.toLowerCase())
 
          res.json({
 		 status : true,
@@ -5618,7 +5618,7 @@ try {
   if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
   if (!q) return res.json(loghandler.notquery)
 
-     var json = await (await fetch(`https://masak-apa-tomorisakura.vercel.app/api/recipe/${q}`)).json()
+     var json = await (await fetch(`https://masak-apa-tomorisakura.vercel.app/api/search/?q=${q}`)).json()
 
      res.json({
 	       status: true,
@@ -8169,7 +8169,7 @@ router.get('/purba', async (req, res, next) => {
 	if(!text) return res.json(loghandler.nottext)
 
  try {
-       var result = await purba(text)
+       var result = await purba(text.toLowerCase())
 
        res.json({
 	       status: true,
