@@ -3463,7 +3463,7 @@ router.get('/ocr', async (req, res, next) => {
 
 	var buffer = await getBuffer(img)
 	await fs.writeFileSync(__path + '/tmp/ocr.png', buffer)
-	var media = fs.readFileSync(__path + '/tmp/ocr.png')
+	var media = __path + '/tmp/ocr.png'
           await ocr(media, { lang: 'eng+ind', oem: 1, psm: 3 }).then(result => {
 
      res.json({
