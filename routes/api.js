@@ -7885,12 +7885,9 @@ router.get('/jedagjedug', async (req, res, next) => {
 	if (!(theme == 'ff' || theme == 'ml' || theme == 'beatvn')) return res.json({ error: `Tema yang tersedia : ff, ml, beatvn` })
 
  try {
- 	 var buffer = await fs.readFileSync(__path + '/src/jedagjedug/' + theme + '/' + Math.floor(Math.random() * 11) + '.mp4')
-            await fs.writeFileSync(__path + '/tmp/jedag_jedug.mp4', buffer)
-            var result = __path + '/tmp/jedag_jedug.mp4'
+ 	 var buffer = pickRandom(fs.readdirSync(__path + '/src/jedagjedug/' + theme))
 
-    res.sendFile(result)
-             fs.unlinkSync(buffer)
+    res.sendFile(buffer)
 } catch (e) {
    console.log(e)
     res.sendFile(error)
