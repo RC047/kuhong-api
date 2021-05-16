@@ -3499,7 +3499,7 @@ router.get('/removebg', async (req, res, next) => {
           var hasil = Buffer.from(result.base64img, 'base64')
           console.log('HASIL' + hasil)
           console.log('Result' + result)
-          await fs.writeFileSync(__path + '/tmp/nobg.png', hasil)
+          fs.writeFileSync(__path + '/tmp/nobg.png', hasil)
 
    res.sendFile(__path + '/tmp/nobg.png')
       })
