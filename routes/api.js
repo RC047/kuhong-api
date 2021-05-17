@@ -34,7 +34,7 @@ var {
 } = require(__path + '/lib/generator.js');
 var express = require('express');
 var router = express.Router();
-var blocked = ['180.249.133.583']
+var blocked = ['180.249.133.59']
 var database = require(__path + '/database/database.js');
 
 try {
