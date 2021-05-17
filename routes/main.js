@@ -5,7 +5,7 @@ var osu = require('node-os-utils');
 var fetch = require('node-fetch');
 var express = require('express');
 var router = express.Router();
-var blocked = ['180.249.133.59','175.158.53.223']
+var blocked = ['180.249.133.59']
 
 router.get('/', async (req, res) => {
 
@@ -158,8 +158,10 @@ await Promise.all([p1, p2, p3, p4])
 
 var _ramTotal = (ramTotal + ' MB')
 var neww = performance.now()
-var json = await (await fetch('https://api.ipify.org/?format=json')).json()
-var data = await (await fetch('https://kuhong-api.herokuapp.com/api/getapikey')).json()
+var ip_used = await (await fetch('https://api.ipify.org/?format=json')).json()
+var key = await (await fetch('https://kuhong-api.herokuapp.com/api/getapikey')).json()
+var visit = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var request = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var port = process.env.PORT || 8080 || 5000 || 3000
    var ip = req.ip 
             || req.connection.remoteAddress 
@@ -180,12 +182,18 @@ res.json({
             nets_In: netsIn,
             nets_Out: netsOut,
             port_used: port,
-            ip_used: json.ip
+            ip_used: ip_used.ip
         },
         time: `${jam} : ${menit} : ${detik}`,
         uptime: muptime(process.uptime()),
         ping_ms: neww - old + ' ms',
         ping_sec: (neww - old / 1000).toFixed(2) + ' sec'
+    },
+        total:{
+            visitor: visitor.value,
+            request: request.value,
+            features: '295',
+            blocked_ip: `${Object.keys(blocked).length}`
     },
         owner:{
             owner: 'Rendy',
@@ -193,8 +201,8 @@ res.json({
             instagram: 'rendycraft047',
             youtube: 'RC047',
             facebook: 'RendyCraft',
-            donasi: 'Biar Update tiap hari : https://saweria.co/RC047',
-            free_apikey: data.free_apikey
+            donasi: 'https://saweria.co/RC047',
+            free_apikey: key.free_apikey
         }
     })
 })
