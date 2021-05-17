@@ -16,14 +16,14 @@ router.get('/api', async (req, res) => {
 
 router.get('/docs', async (req, res) => {
 
-var blocked = ['175.158.53.223']
+var blocked = ['175.158.53.223', '180.249.133.59']
    var ip = req.ip 
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
 
     if(blocked.indexOf(ip) > -1) {
-        res.end()
+        res.json({ message: 'Kamu telah diblokir oleh Owner' })
     }
     res.sendFile(__path + '/views/index.html')
 })
