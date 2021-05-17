@@ -57,13 +57,14 @@ var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var imgbb_key = '3b8594f4cb11895f4084291bc655e510' // Apikey Imgbb (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 var redeem_code = generateCode() // Kode Redeem untuk dapatkan Apikey Premium
-console.log(`> CHECKING APIKEY...`)
+console.log(`> CHECKING APIKEY DATA...`)
 console.log(`Your Apikey : ${apikey}`)
 console.log(`Free Apikey : ${free_apikey}`)
 console.log(`Custom Apikey : ${custom_apikey}`)
 console.log(`Xteam Apikey : ${xteam_key}`)
 console.log(`Zeks Apikey : ${zeks_key}`)
 console.log(`Melodicxt Apikey : ${melodicxt_key}`)
+console.log(`Imgbb Apikey : ${imgbb_key}`)
 console.log(`RemoveBG Apikey : ${removebg_key}`)
 console.log(`Redeem Code : ${redeem_code}`)
 
@@ -375,7 +376,7 @@ var randomNumber = Math.floor(Math.random() * 1000)
 
 // Api Features :
 router.get('/getmusic', async (req, res, next) => {
-     var music = pickRandom(fs.readdirSync(__path + '/src/music'))
+     var music = await fs.readFileSync(pickRandom(fs.readdirSync(__path + '/src/music')))
             await fs.writeFileSync(__path + '/tmp/music.mp3', music)
 
        res.sendFile(__path + '/tmp/music.mp3')
