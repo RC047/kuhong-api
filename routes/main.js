@@ -5,50 +5,104 @@ var osu = require('node-os-utils');
 var fetch = require('node-fetch');
 var express = require('express');
 var router = express.Router();
+var blocked = global.block
 
 router.get('/', async (req, res) => {
-    res.sendFile(__path + '/views/home.html')
-})
 
-router.get('/api', async (req, res) => {
-    res.sendFile(__path + '/views/loading.html')
-})
-
-router.get('/docs', async (req, res) => {
-
-var blocked = ['175.158.53.223', '180.249.133.59']
    var ip = req.ip 
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
 
-    if(blocked.indexOf(ip) > -1) {
-        res.json({ message: 'Kamu telah diblokir oleh Owner' })
-    }
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    res.sendFile(__path + '/views/home.html')
+})
+
+router.get('/api', async (req, res) => {
+
+   var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    res.sendFile(__path + '/views/loading.html')
+})
+
+router.get('/docs', async (req, res) => {
+
+   var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     res.sendFile(__path + '/views/index.html')
 })
 
 router.get('/api/game/pingpong', async  (req, res) => {
+
+   var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     res.sendFile(__path + '/views/pingpong.html')
 })
 
 router.get('/api/game/tebakangka', async (req, res) => {
+
+   var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     res.sendFile(__path + '/views/tebakangka.html')
 })
 
 router.get('/api/game/suitjawa', async (req, res) => {
+
+   var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     res.sendFile(__path + '/views/suitjawa.html')
 })
 
 router.get('/api/game/tetris', async (req, res) => {
+
+   var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     res.sendFile(__path + '/views/tetris.html')
 })
 
 router.get('/api/game/dino', async (req, res) => {
+
+   var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     res.sendFile(__path + '/views/dino.html')
 })
 
 router.get('/api/tutorial', async (req, res) => {
+
+   var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     res.sendFile(__path + '/views/tutorial.html')
 })
 
@@ -107,6 +161,12 @@ var neww = performance.now()
 var json = await (await fetch('https://api.ipify.org/?format=json')).json()
 var data = await (await fetch('https://kuhong-api.herokuapp.com/api/getapikey')).json()
 var port = process.env.PORT || 8080 || 5000 || 3000
+   var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
 
 res.json({
     stats:{
