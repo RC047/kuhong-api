@@ -389,7 +389,7 @@ var ip = req.ip
             || req.connection.socket.remoteAddress;
 
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-     var music = await fs.readFileSync(pickRandom(fs.readdirSync(__path + '/src/music')))
+     var music = await fs.readFileSync(__path + '/src/' + pickRandom(fs.readdirSync(__path + '/src/music')))
             await fs.writeFileSync(__path + '/tmp/music.mp3', music)
 
        res.sendFile(__path + '/tmp/music.mp3')
