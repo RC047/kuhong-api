@@ -160,7 +160,7 @@ var _ramTotal = (ramTotal + ' MB')
 var neww = performance.now()
 var ip_used = await (await fetch('https://api.ipify.org/?format=json')).json()
 var key = await (await fetch('https://kuhong-api.herokuapp.com/api/getapikey')).json()
-var visit = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var visitor = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var request = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var port = process.env.PORT || 8080 || 5000 || 3000
 var ip = req.ip
