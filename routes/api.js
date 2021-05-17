@@ -59,7 +59,7 @@ var imgbb_key = '3b8594f4cb11895f4084291bc655e510' // Apikey Imgbb (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 var redeem_code = generateCode() // Kode Redeem untuk dapatkan Apikey Premium
 console.log(`> CHECKING DATA...\n\n`)
-console.log(`IP Blocked : ${blocked}\n`)
+console.log(`IP Blocked : ${global.block}\n`)
 console.log(`Your Apikey : ${apikey}`)
 console.log(`Free Apikey : ${free_apikey}`)
 console.log(`Custom Apikey : ${custom_apikey}`)
