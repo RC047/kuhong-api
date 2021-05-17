@@ -382,7 +382,8 @@ var randomNumber = Math.floor(Math.random() * 1000)
 
 // Api Features :
 router.get('/getmusic', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -395,7 +396,8 @@ var ip = req.ip
 })
 
 router.get('/cekapikey', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -429,7 +431,8 @@ var ip = req.ip
 })
 
 router.get('/redeem', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -459,7 +462,8 @@ var ip = req.ip
 })
 
 router.get('/getapikey', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -474,7 +478,8 @@ var ip = req.ip
 })
 
 router.get('/tiktok', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -505,7 +510,8 @@ var ip = req.ip
 })
 
 router.get('/tiktokstalk', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -540,7 +546,8 @@ var ip = req.ip
 })
 
 router.get('/randomquote', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -569,7 +576,8 @@ var ip = req.ip
 })
 
 router.get('/infonpm', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -648,7 +656,8 @@ router.get('/jadwalbioskop', (req, res) => {
 })
 
 router.get('/tinyurl', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -680,7 +689,8 @@ var ip = req.ip
 })
 
 router.get('/base', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -746,7 +756,8 @@ var ip = req.ip
 })
 
 router.get('/nulis', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -793,7 +804,8 @@ var ip = req.ip
 })
 
 router.get('/nulis2', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -868,7 +880,8 @@ var ip = req.ip
 })
 
 router.get('/textmaker', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -960,7 +973,8 @@ var ip = req.ip
 })
 
 router.get('/textmaker/game', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1058,7 +1072,8 @@ var ip = req.ip
 })
 
 router.get('/textmaker/senja', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1154,7 +1169,8 @@ var ip = req.ip
 })
 
 router.get('/kisahnabi', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1179,7 +1195,8 @@ var ip = req.ip
 })
 
 router.get('/infogempa', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1203,7 +1220,8 @@ var ip = req.ip
 })
 
 router.get('/hadits', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1243,7 +1261,8 @@ var ip = req.ip
 })
 
 router.get('/quran', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1284,7 +1303,8 @@ var ip = req.ip
 
 
 router.get('/fb', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1317,7 +1337,8 @@ var ip = req.ip
 
 
 router.get('/textmaker/metallic', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1413,7 +1434,8 @@ var ip = req.ip
 })
 
 router.get('/textmaker/alam', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1509,7 +1531,8 @@ var ip = req.ip
 })
 
 router.get('/flaming', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1538,7 +1561,8 @@ var ip = req.ip
 })
 
 router.get('/neon', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1567,7 +1591,8 @@ var ip = req.ip
 })
 
 router.get('/muslim/tahlil', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1596,7 +1621,8 @@ var ip = req.ip
 
 
 router.get('/muslim/wirid', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1625,7 +1651,8 @@ var ip = req.ip
 
 
 router.get('/muslim/ayatkursi', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1654,7 +1681,8 @@ var ip = req.ip
 
 
 router.get('/muslim/doaharian', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1683,7 +1711,8 @@ var ip = req.ip
 
 
 router.get('/muslim/bacaanshalat', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1712,7 +1741,8 @@ var ip = req.ip
 
 
 router.get('/muslim/niatshalat', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1741,7 +1771,8 @@ var ip = req.ip
 
 
 router.get('/muslim/kisahnabi', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1770,7 +1801,8 @@ var ip = req.ip
 
 
 router.get('/muslim/asmaulhusna', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1799,7 +1831,8 @@ var ip = req.ip
 
 
 router.get('/muslim/niatshubuh', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1827,7 +1860,8 @@ var ip = req.ip
 
 
 router.get('/muslim/niatdzuhur', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1856,7 +1890,8 @@ var ip = req.ip
 
 
 router.get('/muslim/niatmaghrib', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1885,7 +1920,8 @@ var ip = req.ip
 
 
 router.get('/muslim/niatisya', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1914,7 +1950,8 @@ var ip = req.ip
 
 
 router.get('/muslim/niatashar', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1943,7 +1980,8 @@ var ip = req.ip
 
 
 router.get('/wallpaper/cyberspace', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -1972,7 +2010,8 @@ var ip = req.ip
 
 
 router.get('/wallpaper/teknologi', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2001,7 +2040,8 @@ var ip = req.ip
 
 
 router.get('/wallpaper/muslim', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2030,7 +2070,8 @@ var ip = req.ip
 
 
 router.get('/wallpaper/programming', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2059,7 +2100,8 @@ var ip = req.ip
 
 
 router.get('/wallpaper/pegunungan', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2088,7 +2130,8 @@ var ip = req.ip
 
 
 router.get('/wikipedia', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2122,7 +2165,8 @@ var ip = req.ip
 })
 
 router.get('/randomquote/muslim', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2151,7 +2195,8 @@ var ip = req.ip
 
 
 router.get('/drakorasia', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2186,7 +2231,8 @@ var ip = req.ip
 
 
 router.get('/jadwalshalat', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2221,7 +2267,8 @@ var ip = req.ip
 
 
 router.get('/fakedata', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2255,7 +2302,8 @@ var ip = req.ip
 })
 
 router.get('/halah', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2282,7 +2330,8 @@ var ip = req.ip
 })
 
 router.get('/hilih', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2309,7 +2358,8 @@ var ip = req.ip
 })
 
 router.get('/huluh', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2336,7 +2386,8 @@ var ip = req.ip
 })
 
 router.get('/heleh', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2363,7 +2414,8 @@ var ip = req.ip
 })
 
 router.get('/holoh', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2390,7 +2442,8 @@ var ip = req.ip
 })
 
 router.get('/lirik', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2419,7 +2472,8 @@ var ip = req.ip
 })
 
 router.get('/chord', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2452,7 +2506,8 @@ var ip = req.ip
 
 
 router.get('/random/asmaulhusna', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2481,7 +2536,8 @@ var ip = req.ip
 
 
 router.get('/kbbi', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2514,7 +2570,8 @@ var ip = req.ip
 
 
 router.get('/covidindo', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2543,7 +2600,8 @@ var ip = req.ip
 
 
 router.get('/covidworld', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2572,7 +2630,8 @@ var ip = req.ip
 
 
 router.get('/kodepos', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2607,7 +2666,8 @@ var ip = req.ip
 
 
 router.get('/infocuaca', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2663,7 +2723,8 @@ router.get('/infocuaca/bandara', async (req, rs, next) => {
 
 
 router.get('/infocuaca/dunia', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2691,7 +2752,8 @@ var ip = req.ip
 
 
 router.get('/infotsunami', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2719,7 +2781,8 @@ var ip = req.ip
 
 
 router.get('/random/meme', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2748,7 +2811,8 @@ var ip = req.ip
 
 
 router.get('/quotes/kanye', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2777,7 +2841,8 @@ var ip = req.ip
 
 
 router.get('/translate', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2820,7 +2885,8 @@ var ip = req.ip
 
 
 router.get('/anime/kusonime', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2854,7 +2920,8 @@ var ip = req.ip
 
 
 router.get('/gabut', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2883,7 +2950,8 @@ var ip = req.ip
 
 
 router.get('/manga', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2917,7 +2985,8 @@ var ip = req.ip
 
 
 router.get('/random/wallpaper', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2946,7 +3015,8 @@ var ip = req.ip
 
 
 router.get('/kuis/caklontong', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -2981,7 +3051,8 @@ var ip = req.ip
 })
 
 router.get('/kuis/tebakgambar', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3015,7 +3086,8 @@ var ip = req.ip
 })
 
 router.get('/news/cnn', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3051,7 +3123,8 @@ var ip = req.ip
 
 
 router.get('/news/cnbc', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3087,7 +3160,8 @@ var ip = req.ip
 
 
 router.get('/news/republika', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3123,7 +3197,8 @@ var ip = req.ip
 
 
 router.get('/news/tempo', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3159,7 +3234,8 @@ var ip = req.ip
 
 
 router.get('/news/antara', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3195,7 +3271,8 @@ var ip = req.ip
 
 
 router.get('/news/kumparan', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3225,7 +3302,8 @@ var ip = req.ip
 
 
 router.get('/filmapik/search', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3261,7 +3339,8 @@ var ip = req.ip
 
 
 router.get('/filmapik/kategori', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3297,7 +3376,8 @@ var ip = req.ip
 
 
 router.get('/filmapik/play', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3333,7 +3413,8 @@ var ip = req.ip
 
 
 router.get('/filmapik/terbaru', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3363,7 +3444,8 @@ var ip = req.ip
 
 
 router.get('/lk21/search', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3399,7 +3481,8 @@ var ip = req.ip
 
 
 router.get('/lk21/terbaru', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3429,7 +3512,8 @@ var ip = req.ip
 
 
 router.get('/lk21/comingsoon', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3459,7 +3543,8 @@ var ip = req.ip
 
 
 router.get('/lk21/tvseries', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3489,7 +3574,8 @@ var ip = req.ip
 
 
 router.get('/lk21/year', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3525,7 +3611,8 @@ var ip = req.ip
 
 
 router.get('/lk21/country', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3561,7 +3648,8 @@ var ip = req.ip
 
 
 router.get('/lk21/genre', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3597,7 +3685,8 @@ var ip = req.ip
 
 
 router.get('/textmaker/random', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3693,7 +3782,8 @@ var ip = req.ip
 })
 
 router.get('/textmaker/roses', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3789,7 +3879,8 @@ var ip = req.ip
 })
 
 router.get('/ytmp4', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3828,7 +3919,8 @@ var ip = req.ip
 
 
 router.get('/ytmp3', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3867,7 +3959,8 @@ var ip = req.ip
 
 
 router.get('/igstalk', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3902,7 +3995,8 @@ var ip = req.ip
 
 
 router.get('/maker', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3934,7 +4028,8 @@ var ip = req.ip
 
 
 router.get('/maker2', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -3970,7 +4065,8 @@ var ip = req.ip
 
 
 router.get('/maker3', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4036,7 +4132,8 @@ router.get('/maker4', async (rq, res, next) => {
 
 
 router.get('/maker3d', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4072,7 +4169,8 @@ var ip = req.ip
 
 
 router.get('/maker3d/no2', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4108,7 +4206,8 @@ var ip = req.ip
 
 
 router.get('/maker3d/no3', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4144,7 +4243,8 @@ var ip = req.ip
 
 
 router.get('/maker3d/no4', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4180,7 +4280,8 @@ var ip = req.ip
 
 
 router.get('/ytsearch', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4231,7 +4332,8 @@ var ip = req.ip
 
 
 router.get('/maker/special/transformer', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4263,7 +4365,8 @@ var ip = req.ip
 })
 
 router.get('/maker/special/epep', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4296,7 +4399,8 @@ var ip = req.ip
 })
 
 router.get('/tomp4', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4359,7 +4463,8 @@ var ip = req.ip
 })
 
 router.get('/ocr', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4398,7 +4503,8 @@ var ip = req.ip
 })
 
 router.get('/removebg', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4439,7 +4545,8 @@ var ip = req.ip
 })
 
 router.get('/simsimi', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4470,7 +4577,8 @@ var ip = req.ip
 })
 
 router.get('/binary', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4500,7 +4608,8 @@ var ip = req.ip
 })
 
 router.get('/binary', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4530,7 +4639,8 @@ var ip = req.ip
 })
 
 router.get('/tobase64', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4559,7 +4669,8 @@ var ip = req.ip
 })
 
 router.get('/tomedia', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4587,7 +4698,8 @@ var ip = req.ip
 })
 
 router.get('/ttp', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4616,7 +4728,8 @@ var ip = req.ip
 })
 
 router.get('/dadu', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4667,7 +4780,8 @@ router.get('/repeat', (req, res, next) => {
 })
 
 router.get('/reverse', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4697,7 +4811,8 @@ var ip = req.ip
 })
 
 router.get('/spamcall', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4724,7 +4839,8 @@ var ip = req.ip
 })
 
 router.get('/spamsms', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4757,7 +4873,8 @@ var ip = req.ip
 })
 
 router.get('/bokep', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4784,7 +4901,8 @@ var ip = req.ip
 })
 
 router.get('/googleimage', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4815,7 +4933,8 @@ var ip = req.ip
 })
 
 router.get('/pinterest', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4846,7 +4965,8 @@ var ip = req.ip
 })
 
 router.get('/say', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4869,7 +4989,8 @@ var ip = req.ip
 })
 
 router.get('/md5', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4895,7 +5016,8 @@ var ip = req.ip
 })
 
 router.get('/tahta', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4918,7 +5040,8 @@ var ip = req.ip
 })
 
 router.get('/customtahta', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4942,7 +5065,8 @@ var ip = req.ip
 })
 
 router.get('/anime/random', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -4975,7 +5099,8 @@ var ip = req.ip
 })
 
 router.get('/kpop/random', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5009,7 +5134,8 @@ var ip = req.ip
 })
 
 router.get('/random/manga', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5038,7 +5164,8 @@ var ip = req.ip
 })
 
 router.get('/triggered', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5067,7 +5194,8 @@ var ip = req.ip
 })
 
 router.get('/emojitopng', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5095,7 +5223,8 @@ var ip = req.ip
 })
 
 router.get('/brainly', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5128,7 +5257,8 @@ var ip = req.ip
 })
 
 router.get('/belajar', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5161,7 +5291,8 @@ var ip = req.ip
 })
 
 router.get('/pantun', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5196,7 +5327,8 @@ var ip = req.ip
 })
 
 router.get('/memeindo', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5223,7 +5355,8 @@ var ip = req.ip
 })
 
 router.get('/artinama', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5268,7 +5401,8 @@ var ip = req.ip
 })
 
 router.get('/cekjodoh', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5319,7 +5453,8 @@ var ip = req.ip
 })
 
 router.get('/kuis/family100', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5352,7 +5487,8 @@ var ip = req.ip
 })
 
 router.get('/asupan', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5384,7 +5520,8 @@ var ip = req.ip
 })
 
 router.get('/cerpen', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5416,7 +5553,8 @@ var ip = req.ip
 })
 
 router.get('/mediafire', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5447,7 +5585,8 @@ var ip = req.ip
 })
 
 router.get('/tts', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5481,7 +5620,8 @@ var ip = req.ip
 })
 
 router.get('/darkjokes', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5508,7 +5648,8 @@ var ip = req.ip
 })
 
 router.get('/splaybutton', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5536,7 +5677,8 @@ var ip = req.ip
 })
 
 router.get('/gplaybutton', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5564,7 +5706,8 @@ var ip = req.ip
 })
 
 router.get('/textpantai', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5592,7 +5735,8 @@ var ip = req.ip
 })
 
 router.get('/textsalju', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5622,7 +5766,8 @@ var ip = req.ip
 })
 
 router.get('/alay', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5654,7 +5799,8 @@ var ip = req.ip
 })
 
 router.get('/firework', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5682,7 +5828,8 @@ var ip = req.ip
 })
 
 router.get('/retro', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5714,7 +5861,8 @@ var ip = req.ip
 })
 
 router.get('/matrix', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5742,7 +5890,8 @@ var ip = req.ip
 })
 
 router.get('/text3d', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5770,7 +5919,8 @@ var ip = req.ip
 })
 
 router.get('/phlogo', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5800,7 +5950,8 @@ var ip = req.ip
 })
 
 router.get('/marvel', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5829,7 +5980,8 @@ var ip = req.ip
 })
 
 router.get('/blackpink', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5857,7 +6009,8 @@ var ip = req.ip
 })
 
 router.get('/avengers', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5886,7 +6039,8 @@ var ip = req.ip
 })
 
 router.get('/thunder', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -5965,7 +6119,8 @@ router.get('/news', async (req, res) => {
 })
 
 router.get('/ssweb', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6072,7 +6227,8 @@ router.get('/hd', async (req, res) => {
 })
 
 router.get('/dare', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6101,7 +6257,8 @@ var ip = req.ip
 })
 
 router.get('/quotemaker', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6137,7 +6294,8 @@ var ip = req.ip
 })
 
 router.get('/attp', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6166,7 +6324,8 @@ var ip = req.ip
 })
 
 router.get('/ttp2', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6195,7 +6354,8 @@ var ip = req.ip
 })
 
 router.get('/futureneon', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6223,7 +6383,8 @@ var ip = req.ip
 })
 
 router.get('/spotify', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6253,7 +6414,8 @@ var ip = req.ip
 })
 
 router.get('/instagram', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6285,7 +6447,8 @@ var ip = req.ip
 })
 
 router.get('/towebp', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6321,7 +6484,8 @@ var ip = req.ip
 })
 
 router.get('/math', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6360,7 +6524,8 @@ var ip = req.ip
 })
 
 router.get('/math2', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6391,7 +6556,8 @@ var ip = req.ip
 })
 
 router.get('/toimg', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6422,7 +6588,8 @@ var ip = req.ip
 })
 
 router.get('/qrcode', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6452,7 +6619,8 @@ var ip = req.ip
 })
 
 router.get('/imgbb', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6487,7 +6655,8 @@ var ip = req.ip
 })
 
 router.get('/createcode', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6530,7 +6699,8 @@ var ip = req.ip
 })
 
 router.get('/bucin', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6684,7 +6854,8 @@ var ip = req.ip
 })
 
 router.get('/memegen', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6718,7 +6889,8 @@ var ip = req.ip
 })
 
 router.get('/slot', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6776,7 +6948,8 @@ var ip = req.ip
 })
 
 router.get('/joox', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6807,7 +6980,8 @@ var ip = req.ip
 })
 
 router.get('/gdrive', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6839,7 +7013,8 @@ var ip = req.ip
 })
 
 router.get('/soundcloud', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6871,7 +7046,8 @@ var ip = req.ip
 })
 
 router.get('/igstory', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6906,7 +7082,8 @@ var ip = req.ip
 })
 
 router.get('/nickff', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6935,7 +7112,8 @@ var ip = req.ip
 })
 
 router.get('/murothal', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6964,7 +7142,8 @@ var ip = req.ip
 })
 
 router.get('/randomquran', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -6989,7 +7168,8 @@ var ip = req.ip
 })
 
 router.get('/ninja', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7017,7 +7197,8 @@ var ip = req.ip
 })
 
 router.get('/resep', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7048,7 +7229,8 @@ var ip = req.ip
 })
 
 router.get('/readqr', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7082,7 +7264,8 @@ var ip = req.ip
 })
 
 router.get('/sticker', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7113,7 +7296,8 @@ var ip = req.ip
 })
 
 router.get('/tebakanime', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7138,7 +7322,8 @@ var ip = req.ip
 })
 
 router.get('/ytcomment', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7174,7 +7359,8 @@ var ip = req.ip
 })
 
 router.get('/ytplay', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7226,7 +7412,8 @@ var ip = req.ip
 })
 
 router.get('/wait', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7297,7 +7484,8 @@ var ip = req.ip
 })
 
 router.get('/wasted', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7327,7 +7515,8 @@ var ip = req.ip
 })
 
 router.get('/rainbow', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7357,7 +7546,8 @@ var ip = req.ip
 })
 
 router.get('/glass', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7387,7 +7577,8 @@ var ip = req.ip
 })
 
 router.get('/readmore', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7416,7 +7607,8 @@ var ip = req.ip
 })
 
 router.get('/8bit', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7446,7 +7638,8 @@ var ip = req.ip
 })
 
 router.get('/wanted', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7476,7 +7669,8 @@ var ip = req.ip
 })
 
 router.get('/githubstalk', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7502,7 +7696,8 @@ var ip = req.ip
 })
 
 router.get('/upload', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7542,7 +7737,8 @@ var ip = req.ip
 })
 
 router.get('/shopee', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7584,7 +7780,8 @@ var ip = req.ip
 })
 
 router.get('/happymod', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7613,7 +7810,8 @@ var ip = req.ip
 })
 
 router.get('/faktaunik', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7647,7 +7845,8 @@ var ip = req.ip
 })
 
 router.get('/artimimpi', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7679,7 +7878,8 @@ var ip = req.ip
 })
 
 router.get('/tggljadian', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7722,7 +7922,8 @@ var ip = req.ip
 })
 
 router.get('/zodiak', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7764,7 +7965,8 @@ var ip = req.ip
 })
 
 router.get('/spamgmail', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7812,7 +8014,8 @@ var ip = req.ip
 })
 
 router.get('/smoke', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7842,7 +8045,8 @@ var ip = req.ip
 })
 
 router.get('/phcomment', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7878,7 +8082,8 @@ var ip = req.ip
 })
 
 router.get('/barcode', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7913,7 +8118,8 @@ var ip = req.ip
 })
 
 router.get('/dropwater', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7942,7 +8148,8 @@ var ip = req.ip
 })
 
 router.get('/glowtext', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -7971,7 +8178,8 @@ var ip = req.ip
 })
 
 router.get('/glowtext2', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8000,7 +8208,8 @@ var ip = req.ip
 })
 
 router.get('/wolflogo', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8031,7 +8240,8 @@ var ip = req.ip
 })
 
 router.get('/breakwall', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8060,7 +8270,8 @@ var ip = req.ip
 })
 
 router.get('/naruto', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8090,7 +8301,8 @@ var ip = req.ip
 })
 
 router.get('/cloud', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8118,7 +8330,8 @@ var ip = req.ip
 })
 
 router.get('/jokerlogo', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8146,7 +8359,8 @@ var ip = req.ip
 })
 
 router.get('/lionlogo', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8176,7 +8390,8 @@ var ip = req.ip
 })
 
 router.get('/ninjalogo', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8206,7 +8421,8 @@ var ip = req.ip
 })
 
 router.get('/blood', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8234,7 +8450,8 @@ var ip = req.ip
 })
 
 router.get('/lava', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8262,7 +8479,8 @@ var ip = req.ip
 })
 
 router.get('/1917', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8290,7 +8508,8 @@ var ip = req.ip
 })
 
 router.get('/skeleton', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8318,7 +8537,8 @@ var ip = req.ip
 })
 
 router.get('/crossfire', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8346,7 +8566,8 @@ var ip = req.ip
 })
 
 router.get('/gtaposter', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8376,7 +8597,8 @@ var ip = req.ip
 })
 
 router.get('/deltrash', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8406,7 +8628,8 @@ var ip = req.ip
 })
 
 router.get('/rotate', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8436,7 +8659,8 @@ var ip = req.ip
 })
 
 router.get('/jail', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8466,7 +8690,8 @@ var ip = req.ip
 })
 
 router.get('/continue', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8496,7 +8721,8 @@ var ip = req.ip
 })
 
 router.get('/rip', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8526,7 +8752,8 @@ var ip = req.ip
 })
 
 router.get('/spongebob', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8554,7 +8781,8 @@ var ip = req.ip
 })
 
 router.get('/ttp3', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8582,7 +8810,8 @@ var ip = req.ip
 })
 
 router.get('/ttp4', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8614,7 +8843,8 @@ var ip = req.ip
 })
 
 router.get('/fml', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8643,7 +8873,8 @@ var ip = req.ip
 })
 
 router.get('/estetik', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8669,7 +8900,8 @@ var ip = req.ip
 })
 
 router.get('/html-viewer', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8698,7 +8930,8 @@ var ip = req.ip
 })
 
 router.get('/invert', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8728,7 +8961,8 @@ var ip = req.ip
 })
 
 router.get('/styletext', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8760,7 +8994,8 @@ var ip = req.ip
 })
 
 router.get('/carbon', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8790,7 +9025,8 @@ var ip = req.ip
 })
 
 router.get('/maps', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8819,7 +9055,8 @@ var ip = req.ip
 })
 
 router.get('/search-giphy', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8846,7 +9083,8 @@ var ip = req.ip
 })
 
 router.get('/ipcheck', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8875,7 +9113,8 @@ var ip = req.ip
 })
 
 router.get('/hentai', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8901,7 +9140,8 @@ var ip = req.ip
 })
 
 router.get('/nulis3', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -8937,7 +9177,8 @@ var ip = req.ip
 })
 
 router.get('/suit', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9042,7 +9283,8 @@ var ip = req.ip
 })
 
 router.get('/sid', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9073,7 +9315,8 @@ var ip = req.ip
 })
 
 router.get('/jadwaltv', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9105,7 +9348,8 @@ var ip = req.ip
 })
 
 router.get('/sha1', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9137,7 +9381,8 @@ var ip = req.ip
 })
 
 router.get('/sha256', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9169,7 +9414,8 @@ var ip = req.ip
 })
 
 router.get('/sha512', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9201,7 +9447,8 @@ var ip = req.ip
 })
 
 router.get('/gaminglogo', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9229,7 +9476,8 @@ var ip = req.ip
 })
 
 router.get('/blur', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9259,7 +9507,8 @@ var ip = req.ip
 })
 
 router.get('/sepia', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9289,7 +9538,8 @@ var ip = req.ip
 })
 
 router.get('/grey', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9319,7 +9569,8 @@ var ip = req.ip
 })
 
 router.get('/welcome', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9367,7 +9618,8 @@ var ip = req.ip
 })
 
 router.get('/bye', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9415,7 +9667,8 @@ var ip = req.ip
 })
 
 router.get('/linesticker', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9446,7 +9699,8 @@ var ip = req.ip
 })
 
 router.get('/kerang', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9485,7 +9739,8 @@ var ip = req.ip
 })
 
 router.get('/google', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9526,7 +9781,8 @@ var ip = req.ip
 })
 
 router.get('/nulis4', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9554,7 +9810,8 @@ var ip = req.ip
 })
 
 router.get('/toimage', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9578,7 +9835,8 @@ var ip = req.ip
 })
 
 router.get('/stickerwm', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9610,7 +9868,8 @@ var ip = req.ip
 })
 
 router.get('/underwater', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9638,7 +9897,8 @@ var ip = req.ip
 })
 
 router.get('/catlogo', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9666,7 +9926,8 @@ var ip = req.ip
 })
 
 router.get('/arcade', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9694,7 +9955,8 @@ var ip = req.ip
 })
 
 router.get('/foxlogo', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9722,7 +9984,8 @@ var ip = req.ip
 })
 
 router.get('/glitchlogo', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9750,7 +10013,8 @@ var ip = req.ip
 })
 
 router.get('/bearlogo', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9778,7 +10042,8 @@ var ip = req.ip
 })
 
 router.get('/freefire', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9806,7 +10071,8 @@ var ip = req.ip
 })
 
 router.get('/spammer/pizzahut', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9838,7 +10104,8 @@ var ip = req.ip
 })
 
 router.get('/spammer/olx', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9870,7 +10137,8 @@ var ip = req.ip
 })
 
 router.get('/spammer/danacinta', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9902,7 +10170,8 @@ var ip = req.ip
 })
 
 router.get('/persen', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9936,7 +10205,8 @@ var ip = req.ip
 })
 
 router.get('/poly', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -9965,7 +10235,8 @@ var ip = req.ip
 })
 
 router.get('/wattpad', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10000,7 +10271,8 @@ var ip = req.ip
 })
 
 router.get('/jedagjedug', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10031,7 +10303,8 @@ var ip = req.ip
 })
 
 router.get('/getvn', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10063,7 +10336,8 @@ var ip = req.ip
 })
 
 router.get('/masadepan', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10089,7 +10363,8 @@ var ip = req.ip
 })
 
 router.get('/laptop', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10119,7 +10394,8 @@ var ip = req.ip
 })
 
 router.get('/iqtest', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10142,7 +10418,8 @@ var ip = req.ip
 })
 
 router.get('/bacot', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10201,7 +10478,8 @@ var ip = req.ip
 })
 
 router.get('/truth', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10309,7 +10587,8 @@ var ip = req.ip
 })
 
 router.get('/twister', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10338,7 +10617,8 @@ var ip = req.ip
 })
 
 router.get('/purba', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10369,7 +10649,8 @@ var ip = req.ip
 })
 
 router.get('/tebakumur', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10401,7 +10682,8 @@ var ip = req.ip
 })
 
 router.get('/wattpad2', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10428,7 +10710,8 @@ var ip = req.ip
 })
 
 router.get('/randombyte', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10463,7 +10746,8 @@ var ip = req.ip
 })
 
 router.get('/randomsticker', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10486,7 +10770,8 @@ var ip = req.ip
 })
 
 router.get('/intromaker', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10518,7 +10803,8 @@ var ip = req.ip
 })
 
 router.get('/tomp3', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10555,7 +10841,8 @@ var ip = req.ip
 })
 
 router.get('/attp2', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10584,7 +10871,8 @@ var ip = req.ip
 })
 
 router.get('/shitpost', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10611,7 +10899,8 @@ var ip = req.ip
 })
 
 router.get('/shauntheship', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10641,7 +10930,8 @@ var ip = req.ip
 })
 
 router.get('/running', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10674,7 +10964,8 @@ var ip = req.ip
 })
 
 router.get('/citacita', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10707,7 +10998,8 @@ var ip = req.ip
 })
 
 router.get('/github', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10738,7 +11030,8 @@ var ip = req.ip
 })
 
 router.get('/minecraft-server', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10772,7 +11065,8 @@ var ip = req.ip
 })
 
 router.get('/rank', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -10823,7 +11117,8 @@ var ip = req.ip
 })
 
 router.get('/savemedia', async (req, res, next) => {
-var ip = req.ip 
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
