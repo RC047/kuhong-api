@@ -77,6 +77,7 @@ var canvacord = require('canvacord');
 var Shopee = require('shopee');
 var barcode = require('barcode');
 var brainly = require('brainly-scraper');
+var imgbb = require('imgbb-uploader');
 var imageToBase64 = require('image-to-base64');
 var upload = require(__path + '/lib/upload.js');
 var translate = require('translate-google-api');
