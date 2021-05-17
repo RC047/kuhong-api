@@ -190,8 +190,8 @@ res.json({
         ping_sec: (neww - old / 1000).toFixed(2) + ' sec'
     },
         total:{
-            visitor: visitor.value,
-            request: request.value,
+            visitor: visitor.value.toString(),
+            request: request.value.toString(),
             features: '295',
             blocked_ip: `${Object.keys(blocked).length}`
     },
