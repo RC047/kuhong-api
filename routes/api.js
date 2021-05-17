@@ -34,6 +34,7 @@ var {
 } = require(__path + '/lib/generator.js');
 var express = require('express');
 var router = express.Router();
+var blocked = global.block
 var database = require(__path + '/database/database.js');
 
 try {
@@ -57,7 +58,8 @@ var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var imgbb_key = '3b8594f4cb11895f4084291bc655e510' // Apikey Imgbb (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 var redeem_code = generateCode() // Kode Redeem untuk dapatkan Apikey Premium
-console.log(`> CHECKING APIKEY DATA...`)
+console.log(`> CHECKING DATA...\n\n`)
+console.log(`IP Blocked : ${blocked}\n`)
 console.log(`Your Apikey : ${apikey}`)
 console.log(`Free Apikey : ${free_apikey}`)
 console.log(`Custom Apikey : ${custom_apikey}`)
@@ -151,7 +153,7 @@ var {
     Base,
     Searchnabi,
     Gempa
-} = require('./../lib');
+} = require(__path + '/lib');
 var cookie = 'HSID=A7EDzLn3kae2B1Njb;SSID=AheuwUjMojTWvA5GN;APISID=cgfXh13rQbb4zbLP/AlvlPJ2xBJBsykmS_;SAPISID=m82rJG4AC9nxQ5uG/A1FotfA_gi9pvo91C;__Secure-3PAPISID=m82rJG4AC9nxQ5uG/A1FotfA_gi9pvo91C;VISITOR_INFO1_LIVE=RgZLnZtCoPU;LOGIN_INFO=AFmmF2swRQIhAOXIXsKVou2azuz-kTsCKpbM9szRExAMUD-OwHYiuB6eAiAyPm4Ag3O9rbma7umBK-AG1zoGqyJinh4ia03csp5Nkw:QUQ3MjNmeXJ0UHFRS3dzaTNGRmlWR2FfMDRxa2NRYTFiN3lfTEdOVTc4QUlwbUI4S2dlVngxSG10N3ZqcHZwTHBKano5SkN2dDlPSkhRMUtReE42TkhYeUVWS3kyUE1jY2I1QzA1MDZBaktwd1llWU9lOWE4NWhoZV92aDkxeE9vMTNlcG1uMU9rYjhOaDZWdno2ZzN3TXl5TVNhSjNBRnJaMExrQXpoa2xzRVUteFNWZDI5S0Fn;PREF=app=desktop&f4=4000000&al=id;SID=2wezCMTUkWN3YS1VmS_DXaEU84J0pZIQdemM8Zry-uzWm8y1njBpLTOpxSfN-EaYCRSiDg.;YSC=HCowA1fmvzo;__Secure-3PSID=2wezCMTUkWN3YS1VmS_DXaEU84J0pZIQdemM8Zry-uzWm8y1dajgWzlBh9TgKapGOwuXfA.;SIDCC=AJi4QfFK0ri9fSfMjMQ4tOJNp6vOb9emETXB_nf2S05mvr2jBlmeEvlSsQSzPMuJl_V0wcbL1r8;__Secure-3PSIDCC=AJi4QfGeWHx-c4uTpU1rXCciO1p0s2fJWU07KrkZhWyD1Tqi8LyR-kHuBwHY9mViVYu1fRh2PA';
 
 // Handler Logger :
@@ -346,6 +348,9 @@ var loghandler = {
         creator: `${creator}`,
         message: 'Fitur ini sedang dalam Perbaikan'
     },
+    blocked: {
+        message: 'Kamu telah diblokir oleh Owner!'
+    },
     error: {
         status: false,
         code: 403,
@@ -377,6 +382,12 @@ var randomNumber = Math.floor(Math.random() * 1000)
 
 // Api Features :
 router.get('/getmusic', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
      var music = await fs.readFileSync(pickRandom(fs.readdirSync(__path + '/src/music')))
             await fs.writeFileSync(__path + '/tmp/music.mp3', music)
 
@@ -384,6 +395,12 @@ router.get('/getmusic', async (req, res, next) => {
 })
 
 router.get('/cekapikey', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -412,6 +429,12 @@ router.get('/cekapikey', async (req, res, next) => {
 })
 
 router.get('/redeem', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var code = req.query.code;
 
     var pwd = redeem_code
@@ -436,6 +459,12 @@ router.get('/redeem', async (req, res, next) => {
 })
 
 router.get('/getapikey', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     res.json({
         status: true,
         creator: creator,
@@ -445,6 +474,12 @@ router.get('/getapikey', async (req, res, next) => {
 })
 
 router.get('/tiktok', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url
 
@@ -470,6 +505,12 @@ router.get('/tiktok', async (req, res, next) => {
 })
 
 router.get('/tiktokstalk', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         username = req.query.username
 
@@ -499,6 +540,12 @@ router.get('/tiktokstalk', async (req, res, next) => {
 })
 
 router.get('/randomquote', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -522,6 +569,12 @@ router.get('/randomquote', async (req, res, next) => {
 })
 
 router.get('/infonpm', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         query = req.query.query
 
@@ -595,6 +648,12 @@ router.get('/jadwalbioskop', (req, res) => {
 })
 
 router.get('/tinyurl', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url
 
@@ -621,6 +680,12 @@ router.get('/tinyurl', async (req, res, next) => {
 })
 
 router.get('/base', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var type = req.query.type,
         encode = req.query.encode,
         decode = req.query.decode,
@@ -681,6 +746,12 @@ router.get('/base', async (req, res, next) => {
 })
 
 router.get('/nulis', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
 
@@ -722,6 +793,12 @@ router.get('/nulis', async (req, res, next) => {
 })
 
 router.get('/nulis2', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
 
@@ -791,6 +868,12 @@ router.get('/nulis2', async (req, res, next) => {
 })
 
 router.get('/textmaker', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
         text2 = req.query.text2,
@@ -877,6 +960,12 @@ router.get('/textmaker', async (req, res, next) => {
 })
 
 router.get('/textmaker/game', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
         text2 = req.query.text2,
@@ -969,6 +1058,12 @@ router.get('/textmaker/game', async (req, res, next) => {
 })
 
 router.get('/textmaker/senja', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
         text2 = req.query.text2,
@@ -1059,6 +1154,12 @@ router.get('/textmaker/senja', async (req, res, next) => {
 })
 
 router.get('/kisahnabi', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nabi = req.query.nabi,
         apikeyInput = req.query.apikey;
 
@@ -1078,6 +1179,12 @@ router.get('/kisahnabi', async (req, res, next) => {
 })
 
 router.get('/infogempa', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     if (!apikeyInput) return res.json(loghandler.notparam)
@@ -1096,6 +1203,12 @@ router.get('/infogempa', async (req, res, next) => {
 })
 
 router.get('/hadits', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         kitab = req.query.kitab,
         nomor = req.query.nomor
@@ -1130,6 +1243,12 @@ router.get('/hadits', async (req, res, next) => {
 })
 
 router.get('/quran', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         surah = req.query.surah,
         ayat = req.query.ayat
@@ -1165,6 +1284,12 @@ router.get('/quran', async (req, res, next) => {
 
 
 router.get('/fb', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url
 
@@ -1192,6 +1317,12 @@ router.get('/fb', async (req, res, next) => {
 
 
 router.get('/textmaker/metallic', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
         text2 = req.query.text2,
@@ -1282,6 +1413,12 @@ router.get('/textmaker/metallic', async (req, res, next) => {
 })
 
 router.get('/textmaker/alam', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
         text2 = req.query.text2,
@@ -1372,6 +1509,12 @@ router.get('/textmaker/alam', async (req, res, next) => {
 })
 
 router.get('/flaming', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -1395,6 +1538,12 @@ router.get('/flaming', async (req, res, next) => {
 })
 
 router.get('/neon', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -1418,6 +1567,12 @@ router.get('/neon', async (req, res, next) => {
 })
 
 router.get('/muslim/tahlil', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1441,6 +1596,12 @@ router.get('/muslim/tahlil', async (req, res, next) => {
 
 
 router.get('/muslim/wirid', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1464,6 +1625,12 @@ router.get('/muslim/wirid', async (req, res, next) => {
 
 
 router.get('/muslim/ayatkursi', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1487,6 +1654,12 @@ router.get('/muslim/ayatkursi', async (req, res, next) => {
 
 
 router.get('/muslim/doaharian', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1510,6 +1683,12 @@ router.get('/muslim/doaharian', async (req, res, next) => {
 
 
 router.get('/muslim/bacaanshalat', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1533,6 +1712,12 @@ router.get('/muslim/bacaanshalat', async (req, res, next) => {
 
 
 router.get('/muslim/niatshalat', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1556,6 +1741,12 @@ router.get('/muslim/niatshalat', async (req, res, next) => {
 
 
 router.get('/muslim/kisahnabi', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1579,6 +1770,12 @@ router.get('/muslim/kisahnabi', async (req, res, next) => {
 
 
 router.get('/muslim/asmaulhusna', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1602,6 +1799,12 @@ router.get('/muslim/asmaulhusna', async (req, res, next) => {
 
 
 router.get('/muslim/niatshubuh', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1624,6 +1827,12 @@ router.get('/muslim/niatshubuh', async (req, res, next) => {
 
 
 router.get('/muslim/niatdzuhur', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1647,6 +1856,12 @@ router.get('/muslim/niatdzuhur', async (req, res, next) => {
 
 
 router.get('/muslim/niatmaghrib', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1670,6 +1885,12 @@ router.get('/muslim/niatmaghrib', async (req, res, next) => {
 
 
 router.get('/muslim/niatisya', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1693,6 +1914,12 @@ router.get('/muslim/niatisya', async (req, res, next) => {
 
 
 router.get('/muslim/niatashar', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1716,6 +1943,12 @@ router.get('/muslim/niatashar', async (req, res, next) => {
 
 
 router.get('/wallpaper/cyberspace', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1739,6 +1972,12 @@ router.get('/wallpaper/cyberspace', async (req, res, next) => {
 
 
 router.get('/wallpaper/teknologi', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1762,6 +2001,12 @@ router.get('/wallpaper/teknologi', async (req, res, next) => {
 
 
 router.get('/wallpaper/muslim', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1785,6 +2030,12 @@ router.get('/wallpaper/muslim', async (req, res, next) => {
 
 
 router.get('/wallpaper/programming', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1808,6 +2059,12 @@ router.get('/wallpaper/programming', async (req, res, next) => {
 
 
 router.get('/wallpaper/pegunungan', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1831,6 +2088,12 @@ router.get('/wallpaper/pegunungan', async (req, res, next) => {
 
 
 router.get('/wikipedia', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         search = req.query.search
 
@@ -1859,6 +2122,12 @@ router.get('/wikipedia', async (req, res, next) => {
 })
 
 router.get('/randomquote/muslim', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -1882,6 +2151,12 @@ router.get('/randomquote/muslim', async (req, res, next) => {
 
 
 router.get('/drakorasia', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         search = req.query.searc
 
@@ -1911,6 +2186,12 @@ router.get('/drakorasia', async (req, res, next) => {
 
 
 router.get('/jadwalshalat', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         kota = req.query.kota
 
@@ -1940,6 +2221,12 @@ router.get('/jadwalshalat', async (req, res, next) => {
 
 
 router.get('/fakedata', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         country = req.query.country
 
@@ -1968,6 +2255,12 @@ router.get('/fakedata', async (req, res, next) => {
 })
 
 router.get('/halah', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -1989,6 +2282,12 @@ router.get('/halah', async (req, res, next) => {
 })
 
 router.get('/hilih', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -2010,6 +2309,12 @@ router.get('/hilih', async (req, res, next) => {
 })
 
 router.get('/huluh', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -2031,6 +2336,12 @@ router.get('/huluh', async (req, res, next) => {
 })
 
 router.get('/heleh', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -2052,6 +2363,12 @@ router.get('/heleh', async (req, res, next) => {
 })
 
 router.get('/holoh', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -2073,6 +2390,12 @@ router.get('/holoh', async (req, res, next) => {
 })
 
 router.get('/lirik', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         lagu = req.query.lagu
 
@@ -2096,6 +2419,12 @@ router.get('/lirik', async (req, res, next) => {
 })
 
 router.get('/chord', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         lagu = req.query.lagu
 
@@ -2123,6 +2452,12 @@ router.get('/chord', async (req, res, next) => {
 
 
 router.get('/random/asmaulhusna', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2146,6 +2481,12 @@ router.get('/random/asmaulhusna', async (req, res, next) => {
 
 
 router.get('/kbbi', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         kata = req.query.kata
 
@@ -2173,6 +2514,12 @@ router.get('/kbbi', async (req, res, next) => {
 
 
 router.get('/covidindo', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2196,6 +2543,12 @@ router.get('/covidindo', async (req, res, next) => {
 
 
 router.get('/covidworld', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2219,6 +2572,12 @@ router.get('/covidworld', async (req, res, next) => {
 
 
 router.get('/kodepos', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         kota = req.query.kota
 
@@ -2248,6 +2607,12 @@ router.get('/kodepos', async (req, res, next) => {
 
 
 router.get('/infocuaca', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         provinsi = req.query.provinsi
 
@@ -2298,6 +2663,12 @@ router.get('/infocuaca/bandara', async (req, rs, next) => {
 
 
 router.get('/infocuaca/dunia', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2320,6 +2691,12 @@ router.get('/infocuaca/dunia', async (req, res, next) => {
 
 
 router.get('/infotsunami', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2342,6 +2719,12 @@ router.get('/infotsunami', async (req, res, next) => {
 
 
 router.get('/random/meme', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2365,6 +2748,12 @@ router.get('/random/meme', async (req, res, next) => {
 
 
 router.get('/quotes/kanye', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2388,6 +2777,12 @@ router.get('/quotes/kanye', async (req, res, next) => {
 
 
 router.get('/translate', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         lang = req.query.lang,
         text = req.query.text;
@@ -2425,6 +2820,12 @@ router.get('/translate', async (req, res, next) => {
 
 
 router.get('/anime/kusonime', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         search = req.query.search
 
@@ -2453,6 +2854,12 @@ router.get('/anime/kusonime', async (req, res, next) => {
 
 
 router.get('/gabut', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2476,6 +2883,12 @@ router.get('/gabut', async (req, res, next) => {
 
 
 router.get('/manga', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         search = req.query.search
 
@@ -2504,6 +2917,12 @@ router.get('/manga', async (req, res, next) => {
 
 
 router.get('/random/wallpaper', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2527,6 +2946,12 @@ router.get('/random/wallpaper', async (req, res, next) => {
 
 
 router.get('/kuis/caklontong', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -2556,6 +2981,12 @@ router.get('/kuis/caklontong', async (req, res, next) => {
 })
 
 router.get('/kuis/tebakgambar', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -2584,6 +3015,12 @@ router.get('/kuis/tebakgambar', async (req, res, next) => {
 })
 
 router.get('/news/cnn', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         type = req.query.type
 
@@ -2614,6 +3051,12 @@ router.get('/news/cnn', async (req, res, next) => {
 
 
 router.get('/news/cnbc', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         type = req.query.type
 
@@ -2644,6 +3087,12 @@ router.get('/news/cnbc', async (req, res, next) => {
 
 
 router.get('/news/republika', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         type = req.query.type
 
@@ -2674,6 +3123,12 @@ router.get('/news/republika', async (req, res, next) => {
 
 
 router.get('/news/tempo', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         type = req.query.type
 
@@ -2704,6 +3159,12 @@ router.get('/news/tempo', async (req, res, next) => {
 
 
 router.get('/news/antara', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         type = req.query.type
 
@@ -2734,6 +3195,12 @@ router.get('/news/antara', async (req, res, next) => {
 
 
 router.get('/news/kumparan', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2758,6 +3225,12 @@ router.get('/news/kumparan', async (req, res, next) => {
 
 
 router.get('/filmapik/search', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         film = req.query.film
 
@@ -2788,6 +3261,12 @@ router.get('/filmapik/search', async (req, res, next) => {
 
 
 router.get('/filmapik/kategori', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         film = req.query.film
 
@@ -2818,6 +3297,12 @@ router.get('/filmapik/kategori', async (req, res, next) => {
 
 
 router.get('/filmapik/play', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         id = req.query.id
 
@@ -2848,6 +3333,12 @@ router.get('/filmapik/play', async (req, res, next) => {
 
 
 router.get('/filmapik/terbaru', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2872,6 +3363,12 @@ router.get('/filmapik/terbaru', async (req, res, next) => {
 
 
 router.get('/lk21/search', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         film = req.query.film
 
@@ -2902,6 +3399,12 @@ router.get('/lk21/search', async (req, res, next) => {
 
 
 router.get('/lk21/terbaru', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2926,6 +3429,12 @@ router.get('/lk21/terbaru', async (req, res, next) => {
 
 
 router.get('/lk21/comingsoon', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2950,6 +3459,12 @@ router.get('/lk21/comingsoon', async (req, res, next) => {
 
 
 router.get('/lk21/tvseries', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -2974,6 +3489,12 @@ router.get('/lk21/tvseries', async (req, res, next) => {
 
 
 router.get('/lk21/year', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         tahun = req.query.tahun
 
@@ -3004,6 +3525,12 @@ router.get('/lk21/year', async (req, res, next) => {
 
 
 router.get('/lk21/country', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         negara = req.query.negara
 
@@ -3034,6 +3561,12 @@ router.get('/lk21/country', async (req, res, next) => {
 
 
 router.get('/lk21/genre', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         tipe = req.query.tipe
 
@@ -3064,6 +3597,12 @@ router.get('/lk21/genre', async (req, res, next) => {
 
 
 router.get('/textmaker/random', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
         text2 = req.query.text2,
@@ -3154,6 +3693,12 @@ router.get('/textmaker/random', async (req, res, next) => {
 })
 
 router.get('/textmaker/roses', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
         text2 = req.query.text2,
@@ -3244,6 +3789,12 @@ router.get('/textmaker/roses', async (req, res, next) => {
 })
 
 router.get('/ytmp4', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url
 
@@ -3277,6 +3828,12 @@ router.get('/ytmp4', async (req, res, next) => {
 
 
 router.get('/ytmp3', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url
 
@@ -3310,6 +3867,12 @@ router.get('/ytmp3', async (req, res, next) => {
 
 
 router.get('/igstalk', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         username = req.query.username
 
@@ -3339,6 +3902,12 @@ router.get('/igstalk', async (req, res, next) => {
 
 
 router.get('/maker', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
 
@@ -3365,6 +3934,12 @@ router.get('/maker', async (req, res, next) => {
 
 
 router.get('/maker2', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
 
@@ -3395,6 +3970,12 @@ router.get('/maker2', async (req, res, next) => {
 
 
 router.get('/maker3', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
 
@@ -3455,6 +4036,12 @@ router.get('/maker4', async (rq, res, next) => {
 
 
 router.get('/maker3d', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
 
@@ -3485,6 +4072,12 @@ router.get('/maker3d', async (req, res, next) => {
 
 
 router.get('/maker3d/no2', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
 
@@ -3515,6 +4108,12 @@ router.get('/maker3d/no2', async (req, res, next) => {
 
 
 router.get('/maker3d/no3', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.qery.text
 
@@ -3545,6 +4144,12 @@ router.get('/maker3d/no3', async (req, res, next) => {
 
 
 router.get('/maker3d/no4', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
 
@@ -3575,6 +4180,12 @@ router.get('/maker3d/no4', async (req, res, next) => {
 
 
 router.get('/ytsearch', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         q = req.query.q
 
@@ -3620,6 +4231,12 @@ router.get('/ytsearch', async (req, res, next) => {
 
 
 router.get('/maker/special/transformer', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
 
@@ -3646,6 +4263,12 @@ router.get('/maker/special/transformer', async (req, res, next) => {
 })
 
 router.get('/maker/special/epep', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
 
@@ -3673,6 +4296,12 @@ router.get('/maker/special/epep', async (req, res, next) => {
 })
 
 router.get('/tomp4', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         apikeyInput = req.query.apikey;
 
@@ -3730,6 +4359,12 @@ router.get('/tomp4', async (req, res, next) => {
 })
 
 router.get('/ocr', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         img = req.query.img;
 
@@ -3763,6 +4398,12 @@ router.get('/ocr', async (req, res, next) => {
 })
 
 router.get('/removebg', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         img = req.query.img;
 
@@ -3798,6 +4439,12 @@ router.get('/removebg', async (req, res, next) => {
 })
 
 router.get('/simsimi', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var kata = req.query.kata,
         apikeyInput = req.query.apikey;
 
@@ -3823,6 +4470,12 @@ router.get('/simsimi', async (req, res, next) => {
 })
 
 router.get('/binary', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.encode
 
@@ -3847,6 +4500,12 @@ router.get('/binary', async (req, res, next) => {
 })
 
 router.get('/binary', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.decode;
 
@@ -3871,6 +4530,12 @@ router.get('/binary', async (req, res, next) => {
 })
 
 router.get('/tobase64', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         img = req.query.img;
 
@@ -3894,6 +4559,12 @@ router.get('/tobase64', async (req, res, next) => {
 })
 
 router.get('/tomedia', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         base64 = req.query.base64;
 
@@ -3916,6 +4587,12 @@ router.get('/tomedia', async (req, res, next) => {
 })
 
 router.get('/ttp', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -3939,6 +4616,12 @@ router.get('/ttp', async (req, res, next) => {
 })
 
 router.get('/dadu', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
     var maintenance = false
@@ -3984,6 +4667,12 @@ router.get('/repeat', (req, res, next) => {
 })
 
 router.get('/reverse', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -4008,6 +4697,12 @@ router.get('/reverse', async (req, res, next) => {
 })
 
 router.get('/spamcall', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nomor = req.query.nomor,
         apikeyInput = req.query.apikey;
 
@@ -4029,6 +4724,12 @@ router.get('/spamcall', async (req, res, next) => {
 })
 
 router.get('/spamsms', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nomor = req.query.nomor,
         jumlah = req.query.jumlah,
         apikeyInput = req.query.apikey;
@@ -4056,6 +4757,12 @@ router.get('/spamsms', async (req, res, next) => {
 })
 
 router.get('/bokep', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -4077,6 +4784,12 @@ router.get('/bokep', async (req, res, next) => {
 })
 
 router.get('/googleimage', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.q,
         apikeyInput = req.query.apikey;
 
@@ -4102,6 +4815,12 @@ router.get('/googleimage', async (req, res, next) => {
 })
 
 router.get('/pinterest', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.q,
         apikeyInput = req.query.apikey;
 
@@ -4127,6 +4846,12 @@ router.get('/pinterest', async (req, res, next) => {
 })
 
 router.get('/say', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -4144,6 +4869,12 @@ router.get('/say', async (req, res, next) => {
 })
 
 router.get('/md5', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -4164,6 +4895,12 @@ router.get('/md5', async (req, res, next) => {
 })
 
 router.get('/tahta', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -4181,6 +4918,12 @@ router.get('/tahta', async (req, res, next) => {
 })
 
 router.get('/customtahta', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -4199,6 +4942,12 @@ router.get('/customtahta', async (req, res, next) => {
 })
 
 router.get('/anime/random', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -4226,6 +4975,12 @@ router.get('/anime/random', async (req, res, next) => {
 })
 
 router.get('/kpop/random', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -4254,6 +5009,12 @@ router.get('/kpop/random', async (req, res, next) => {
 })
 
 router.get('/random/manga', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -4277,6 +5038,12 @@ router.get('/random/manga', async (req, res, next) => {
 })
 
 router.get('/triggered', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -4300,6 +5067,12 @@ router.get('/triggered', async (req, res, next) => {
 })
 
 router.get('/emojitopng', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         emoji = req.query.emoji;
 
@@ -4322,6 +5095,12 @@ router.get('/emojitopng', async (req, res, next) => {
 })
 
 router.get('/brainly', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         soal = req.query.soal;
 
@@ -4349,6 +5128,12 @@ router.get('/brainly', async (req, res, next) => {
 })
 
 router.get('/belajar', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         soal = req.query.soal;
 
@@ -4376,6 +5161,12 @@ router.get('/belajar', async (req, res, next) => {
 })
 
 router.get('/pantun', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -4405,6 +5196,12 @@ router.get('/pantun', async (req, res, next) => {
 })
 
 router.get('/memeindo', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -4426,6 +5223,12 @@ router.get('/memeindo', async (req, res, next) => {
 })
 
 router.get('/artinama', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         nama = req.query.nama;
 
@@ -4465,6 +5268,12 @@ router.get('/artinama', async (req, res, next) => {
 })
 
 router.get('/cekjodoh', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         nama = req.query.nama,
         pasangan = req.query.pasangan;
@@ -4510,6 +5319,12 @@ router.get('/cekjodoh', async (req, res, next) => {
 })
 
 router.get('/kuis/family100', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -4537,6 +5352,12 @@ router.get('/kuis/family100', async (req, res, next) => {
 })
 
 router.get('/asupan', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -4563,6 +5384,12 @@ router.get('/asupan', async (req, res, next) => {
 })
 
 router.get('/cerpen', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -4589,6 +5416,12 @@ router.get('/cerpen', async (req, res, next) => {
 })
 
 router.get('/mediafire', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
 
@@ -4614,6 +5447,12 @@ router.get('/mediafire', async (req, res, next) => {
 })
 
 router.get('/tts', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         lang = req.query.lang,
         apikeyInput = req.query.apikey;
@@ -4642,6 +5481,12 @@ router.get('/tts', async (req, res, next) => {
 })
 
 router.get('/darkjokes', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -4663,6 +5508,12 @@ router.get('/darkjokes', async (req, res, next) => {
 })
 
 router.get('/splaybutton', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -4685,6 +5536,12 @@ router.get('/splaybutton', async (req, res, next) => {
 })
 
 router.get('/gplaybutton', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -4707,6 +5564,12 @@ router.get('/gplaybutton', async (req, res, next) => {
 })
 
 router.get('/textpantai', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -4729,6 +5592,12 @@ router.get('/textpantai', async (req, res, next) => {
 })
 
 router.get('/textsalju', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         t1 = req.query.t1,
         t2 = req.query.t2;
@@ -4753,6 +5622,12 @@ router.get('/textsalju', async (req, res, next) => {
 })
 
 router.get('/alay', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -4779,6 +5654,12 @@ router.get('/alay', async (req, res, next) => {
 })
 
 router.get('/firework', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -4801,6 +5682,12 @@ router.get('/firework', async (req, res, next) => {
 })
 
 router.get('/retro', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         t1 = req.query.t1,
         t2 = req.query.t2,
@@ -4827,6 +5714,12 @@ router.get('/retro', async (req, res, next) => {
 })
 
 router.get('/matrix', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -4849,6 +5742,12 @@ router.get('/matrix', async (req, res, next) => {
 })
 
 router.get('/text3d', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -4871,6 +5770,12 @@ router.get('/text3d', async (req, res, next) => {
 })
 
 router.get('/phlogo', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         t1 = req.query.t1,
         t2 = req.query.t2;
@@ -4895,6 +5800,12 @@ router.get('/phlogo', async (req, res, next) => {
 })
 
 router.get('/marvel', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         t1 = req.query.t1,
         t2 = req.query.t2;
@@ -4918,6 +5829,12 @@ router.get('/marvel', async (req, res, next) => {
 })
 
 router.get('/blackpink', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -4940,6 +5857,12 @@ router.get('/blackpink', async (req, res, next) => {
 })
 
 router.get('/avengers', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         t1 = req.query.t1,
         t2 = req.query.t2;
@@ -4963,6 +5886,12 @@ router.get('/avengers', async (req, res, next) => {
 })
 
 router.get('/thunder', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
 
@@ -5036,6 +5965,12 @@ router.get('/news', async (req, res) => {
 })
 
 router.get('/ssweb', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
 
@@ -5137,6 +6072,12 @@ router.get('/hd', async (req, res) => {
 })
 
 router.get('/dare', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -5160,6 +6101,12 @@ router.get('/dare', async (req, res, next) => {
 })
 
 router.get('/quotemaker', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var quote = req.query.quote,
         author = req.query.author,
         theme = req.query.theme,
@@ -5190,6 +6137,12 @@ router.get('/quotemaker', async (req, res, next) => {
 })
 
 router.get('/attp', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -5213,6 +6166,12 @@ router.get('/attp', async (req, res, next) => {
 })
 
 router.get('/ttp2', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -5236,6 +6195,12 @@ router.get('/ttp2', async (req, res, next) => {
 })
 
 router.get('/futureneon', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -5258,6 +6223,12 @@ router.get('/futureneon', async (req, res, next) => {
 })
 
 router.get('/spotify', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         q = req.query.q;
 
@@ -5282,6 +6253,12 @@ router.get('/spotify', async (req, res, next) => {
 })
 
 router.get('/instagram', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
 
@@ -5308,6 +6285,12 @@ router.get('/instagram', async (req, res, next) => {
 })
 
 router.get('/towebp', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
 
@@ -5338,6 +6321,12 @@ router.get('/towebp', async (req, res, next) => {
 })
 
 router.get('/math', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         mode = req.query.mode;
 
@@ -5371,6 +6360,12 @@ router.get('/math', async (req, res, next) => {
 })
 
 router.get('/math2', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -5396,6 +6391,12 @@ router.get('/math2', async (req, res, next) => {
 })
 
 router.get('/toimg', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var webp = req.query.webp,
         apikeyInput = req.query.apikey;
 
@@ -5421,6 +6422,12 @@ router.get('/toimg', async (req, res, next) => {
 })
 
 router.get('/qrcode', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -5445,6 +6452,12 @@ router.get('/qrcode', async (req, res, next) => {
 })
 
 router.get('/imgbb', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         apikeyInput = req.query.apikey;
 
@@ -5474,6 +6487,12 @@ router.get('/imgbb', async (req, res, next) => {
 })
 
 router.get('/createcode', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -5511,6 +6530,12 @@ router.get('/createcode', async (req, res, next) => {
 })
 
 router.get('/bucin', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     apikeyInput = req.query.apikey;
 
     try {
@@ -5659,6 +6684,12 @@ router.get('/bucin', async (req, res, next) => {
 })
 
 router.get('/memegen', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         t1 = req.query.t1,
         t2 = req.query.t2,
@@ -5687,6 +6718,12 @@ router.get('/memegen', async (req, res, next) => {
 })
 
 router.get('/slot', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -5739,6 +6776,12 @@ router.get('/slot', async (req, res, next) => {
 })
 
 router.get('/joox', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         q = req.query.q;
 
@@ -5764,6 +6807,12 @@ router.get('/joox', async (req, res, next) => {
 })
 
 router.get('/gdrive', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
 
@@ -5790,6 +6839,12 @@ router.get('/gdrive', async (req, res, next) => {
 })
 
 router.get('/soundcloud', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
 
@@ -5816,6 +6871,12 @@ router.get('/soundcloud', async (req, res, next) => {
 })
 
 router.get('/igstory', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         username = req.query.username;
 
@@ -5845,6 +6906,12 @@ router.get('/igstory', async (req, res, next) => {
 })
 
 router.get('/nickff', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -5868,6 +6935,12 @@ router.get('/nickff', async (req, res, next) => {
 })
 
 router.get('/murothal', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -5891,6 +6964,12 @@ router.get('/murothal', async (req, res, next) => {
 })
 
 router.get('/randomquran', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -5910,6 +6989,12 @@ router.get('/randomquran', async (req, res, next) => {
 })
 
 router.get('/ninja', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         nama = req.query.nama;
 
@@ -5932,6 +7017,12 @@ router.get('/ninja', async (req, res, next) => {
 })
 
 router.get('/resep', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         q = req.query.q;
 
@@ -5957,6 +7048,12 @@ router.get('/resep', async (req, res, next) => {
 })
 
 router.get('/readqr', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
 
@@ -5985,6 +7082,12 @@ router.get('/readqr', async (req, res, next) => {
 })
 
 router.get('/sticker', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         q = req.query.q;
 
@@ -6010,6 +7113,12 @@ router.get('/sticker', async (req, res, next) => {
 })
 
 router.get('/tebakanime', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     try {
@@ -6029,6 +7138,12 @@ router.get('/tebakanime', async (req, res, next) => {
 })
 
 router.get('/ytcomment', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         username = req.query.username,
         comment = req.query.comment;
@@ -6059,6 +7174,12 @@ router.get('/ytcomment', async (req, res, next) => {
 })
 
 router.get('/ytplay', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         q = req.query.q;
 
@@ -6105,6 +7226,12 @@ router.get('/ytplay', async (req, res, next) => {
 })
 
 router.get('/wait', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
 
@@ -6170,6 +7297,12 @@ router.get('/wait', async (req, res, next) => {
 })
 
 router.get('/wasted', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -6194,6 +7327,12 @@ router.get('/wasted', async (req, res, next) => {
 })
 
 router.get('/rainbow', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -6218,6 +7357,12 @@ router.get('/rainbow', async (req, res, next) => {
 })
 
 router.get('/glass', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -6242,6 +7387,12 @@ router.get('/glass', async (req, res, next) => {
 })
 
 router.get('/readmore', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6265,6 +7416,12 @@ router.get('/readmore', async (req, res, next) => {
 })
 
 router.get('/8bit', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -6289,6 +7446,12 @@ router.get('/8bit', async (req, res, next) => {
 })
 
 router.get('/wanted', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -6313,6 +7476,12 @@ router.get('/wanted', async (req, res, next) => {
 })
 
 router.get('/githubstalk', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         username = req.query.username;
 
@@ -6333,6 +7502,12 @@ router.get('/githubstalk', async (req, res, next) => {
 })
 
 router.get('/upload', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         file = req.query.file_url;
 
@@ -6367,6 +7542,12 @@ router.get('/upload', async (req, res, next) => {
 })
 
 router.get('/shopee', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         query = req.query.query;
 
@@ -6403,6 +7584,12 @@ router.get('/shopee', async (req, res, next) => {
 })
 
 router.get('/happymod', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         query = req.query.query;
 
@@ -6426,6 +7613,12 @@ router.get('/happymod', async (req, res, next) => {
 })
 
 router.get('/faktaunik', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -6454,6 +7647,12 @@ router.get('/faktaunik', async (req, res, next) => {
 })
 
 router.get('/artimimpi', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         mimpi = req.query.mimpi;
 
@@ -6480,6 +7679,12 @@ router.get('/artimimpi', async (req, res, next) => {
 })
 
 router.get('/tggljadian', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         tggl = req.query.tggl,
         bln = req.query.bln,
@@ -6517,6 +7722,12 @@ router.get('/tggljadian', async (req, res, next) => {
 })
 
 router.get('/zodiak', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         nama = req.query.nama,
         tggl = req.query.tggl,
@@ -6553,6 +7764,12 @@ router.get('/zodiak', async (req, res, next) => {
 })
 
 router.get('/spamgmail', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var email = req.query.email,
         subjek = req.query.subjek,
         pesan = req.query.pesan,
@@ -6595,6 +7812,12 @@ router.get('/spamgmail', async (req, res, next) => {
 })
 
 router.get('/smoke', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6619,6 +7842,12 @@ router.get('/smoke', async (req, res, next) => {
 })
 
 router.get('/phcomment', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         username = req.query.username,
         comment = req.query.comment,
@@ -6649,6 +7878,12 @@ router.get('/phcomment', async (req, res, next) => {
 })
 
 router.get('/barcode', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6678,6 +7913,12 @@ router.get('/barcode', async (req, res, next) => {
 })
 
 router.get('/dropwater', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6701,6 +7942,12 @@ router.get('/dropwater', async (req, res, next) => {
 })
 
 router.get('/glowtext', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6724,6 +7971,12 @@ router.get('/glowtext', async (req, res, next) => {
 })
 
 router.get('/glowtext2', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6747,6 +8000,12 @@ router.get('/glowtext2', async (req, res, next) => {
 })
 
 router.get('/wolflogo', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var t1 = req.query.text,
         t2 = req.query.text2,
         apikeyInput = req.query.apikey;
@@ -6772,6 +8031,12 @@ router.get('/wolflogo', async (req, res, next) => {
 })
 
 router.get('/breakwall', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6795,6 +8060,12 @@ router.get('/breakwall', async (req, res, next) => {
 })
 
 router.get('/naruto', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6819,6 +8090,12 @@ router.get('/naruto', async (req, res, next) => {
 })
 
 router.get('/cloud', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6841,6 +8118,12 @@ router.get('/cloud', async (req, res, next) => {
 })
 
 router.get('/jokerlogo', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6863,6 +8146,12 @@ router.get('/jokerlogo', async (req, res, next) => {
 })
 
 router.get('/lionlogo', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var t1 = req.query.text,
         t2 = req.query.text2,
         apikeyInput = req.query.apikey;
@@ -6887,6 +8176,12 @@ router.get('/lionlogo', async (req, res, next) => {
 })
 
 router.get('/ninjalogo', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var t1 = req.query.text,
         t2 = req.query.text2,
         apikeyInput = req.query.apikey;
@@ -6911,6 +8206,12 @@ router.get('/ninjalogo', async (req, res, next) => {
 })
 
 router.get('/blood', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6933,6 +8234,12 @@ router.get('/blood', async (req, res, next) => {
 })
 
 router.get('/lava', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6955,6 +8262,12 @@ router.get('/lava', async (req, res, next) => {
 })
 
 router.get('/1917', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6977,6 +8290,12 @@ router.get('/1917', async (req, res, next) => {
 })
 
 router.get('/skeleton', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -6999,6 +8318,12 @@ router.get('/skeleton', async (req, res, next) => {
 })
 
 router.get('/crossfire', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -7021,6 +8346,12 @@ router.get('/crossfire', async (req, res, next) => {
 })
 
 router.get('/gtaposter', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -7045,6 +8376,12 @@ router.get('/gtaposter', async (req, res, next) => {
 })
 
 router.get('/deltrash', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -7069,6 +8406,12 @@ router.get('/deltrash', async (req, res, next) => {
 })
 
 router.get('/rotate', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -7093,6 +8436,12 @@ router.get('/rotate', async (req, res, next) => {
 })
 
 router.get('/jail', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -7117,6 +8466,12 @@ router.get('/jail', async (req, res, next) => {
 })
 
 router.get('/continue', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -7141,6 +8496,12 @@ router.get('/continue', async (req, res, next) => {
 })
 
 router.get('/rip', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -7165,6 +8526,12 @@ router.get('/rip', async (req, res, next) => {
 })
 
 router.get('/spongebob', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -7187,6 +8554,12 @@ router.get('/spongebob', async (req, res, next) => {
 })
 
 router.get('/ttp3', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -7209,6 +8582,12 @@ router.get('/ttp3', async (req, res, next) => {
 })
 
 router.get('/ttp4', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         color = req.query.color,
         apikeyInput = req.query.apikey;
@@ -7235,6 +8614,12 @@ router.get('/ttp4', async (req, res, next) => {
 })
 
 router.get('/fml', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -7258,6 +8643,12 @@ router.get('/fml', async (req, res, next) => {
 })
 
 router.get('/estetik', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -7278,6 +8669,12 @@ router.get('/estetik', async (req, res, next) => {
 })
 
 router.get('/html-viewer', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         apikeyInput = req.query.apikey;
 
@@ -7301,6 +8698,12 @@ router.get('/html-viewer', async (req, res, next) => {
 })
 
 router.get('/invert', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -7325,6 +8728,12 @@ router.get('/invert', async (req, res, next) => {
 })
 
 router.get('/styletext', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -7351,6 +8760,12 @@ router.get('/styletext', async (req, res, next) => {
 })
 
 router.get('/carbon', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var code = req.query.code,
         apikeyInput = req.query.apikey;
 
@@ -7375,6 +8790,12 @@ router.get('/carbon', async (req, res, next) => {
 })
 
 router.get('/maps', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.query,
         apikeyInput = req.query.apikey;
 
@@ -7398,6 +8819,12 @@ router.get('/maps', async (req, res, next) => {
 })
 
 router.get('/search-giphy', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.query,
         apikeyInput = req.query.apikey;
 
@@ -7419,6 +8846,12 @@ router.get('/search-giphy', async (req, res, next) => {
 })
 
 router.get('/ipcheck', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var ip = req.query.ip,
         apikeyInput = req.query.apikey;
 
@@ -7442,6 +8875,12 @@ router.get('/ipcheck', async (req, res, next) => {
 })
 
 router.get('/hentai', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -7462,6 +8901,12 @@ router.get('/hentai', async (req, res, next) => {
 })
 
 router.get('/nulis3', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         arah = req.query.arah,
         apikeyInput = req.query.apikey;
@@ -7492,6 +8937,12 @@ router.get('/nulis3', async (req, res, next) => {
 })
 
 router.get('/suit', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.pilihan,
         apikeyInput = req.query.apikey;
 
@@ -7591,6 +9042,12 @@ router.get('/suit', async (req, res, next) => {
 })
 
 router.get('/sid', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         apikeyInput = req.query.apikey;
 
@@ -7616,6 +9073,12 @@ router.get('/sid', async (req, res, next) => {
 })
 
 router.get('/jadwaltv', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var channel = req.query.channel,
         apikeyInput = req.query.apikey;
 
@@ -7642,6 +9105,12 @@ router.get('/jadwaltv', async (req, res, next) => {
 })
 
 router.get('/sha1', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -7668,6 +9137,12 @@ router.get('/sha1', async (req, res, next) => {
 })
 
 router.get('/sha256', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -7694,6 +9169,12 @@ router.get('/sha256', async (req, res, next) => {
 })
 
 router.get('/sha512', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -7720,6 +9201,12 @@ router.get('/sha512', async (req, res, next) => {
 })
 
 router.get('/gaminglogo', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -7742,6 +9229,12 @@ router.get('/gaminglogo', async (req, res, next) => {
 })
 
 router.get('/blur', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -7766,6 +9259,12 @@ router.get('/blur', async (req, res, next) => {
 })
 
 router.get('/sepia', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -7790,6 +9289,12 @@ router.get('/sepia', async (req, res, next) => {
 })
 
 router.get('/grey', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -7814,6 +9319,12 @@ router.get('/grey', async (req, res, next) => {
 })
 
 router.get('/welcome', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nama_mem = req.query.nama_mem,
         avatar = req.query.avatar,
         bg = req.query.bg,
@@ -7856,6 +9367,12 @@ router.get('/welcome', async (req, res, next) => {
 })
 
 router.get('/bye', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nama_mem = req.query.nama_mem,
         avatar = req.query.avatar,
         bg = req.query.bg,
@@ -7898,6 +9415,12 @@ router.get('/bye', async (req, res, next) => {
 })
 
 router.get('/linesticker', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         apikeyInput = req.query.apikey;
 
@@ -7923,6 +9446,12 @@ router.get('/linesticker', async (req, res, next) => {
 })
 
 router.get('/kerang', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var pertanyaan = req.query.pertanyaan,
         apikeyInput = req.query.apikey;
 
@@ -7956,6 +9485,12 @@ router.get('/kerang', async (req, res, next) => {
 })
 
 router.get('/google', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.query,
         apikeyInput = req.query.apikey;
 
@@ -7991,6 +9526,12 @@ router.get('/google', async (req, res, next) => {
 })
 
 router.get('/nulis4', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -8013,6 +9554,12 @@ router.get('/nulis4', async (req, res, next) => {
 })
 
 router.get('/toimage', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -8031,6 +9578,12 @@ router.get('/toimage', async (req, res, next) => {
 })
 
 router.get('/stickerwm', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         pkg = req.query.packname,
         wm = req.query.author,
@@ -8057,6 +9610,12 @@ router.get('/stickerwm', async (req, res, next) => {
 })
 
 router.get('/underwater', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -8079,6 +9638,12 @@ router.get('/underwater', async (req, res, next) => {
 })
 
 router.get('/catlogo', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -8101,6 +9666,12 @@ router.get('/catlogo', async (req, res, next) => {
 })
 
 router.get('/arcade', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -8123,6 +9694,12 @@ router.get('/arcade', async (req, res, next) => {
 })
 
 router.get('/foxlogo', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -8145,6 +9722,12 @@ router.get('/foxlogo', async (req, res, next) => {
 })
 
 router.get('/glitchlogo', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -8167,6 +9750,12 @@ router.get('/glitchlogo', async (req, res, next) => {
 })
 
 router.get('/bearlogo', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -8189,6 +9778,12 @@ router.get('/bearlogo', async (req, res, next) => {
 })
 
 router.get('/freefire', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -8211,6 +9806,12 @@ router.get('/freefire', async (req, res, next) => {
 })
 
 router.get('/spammer/pizzahut', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nomor = req.query.nomor,
         apikeyInput = req.query.apikey;
 
@@ -8237,6 +9838,12 @@ router.get('/spammer/pizzahut', async (req, res, next) => {
 })
 
 router.get('/spammer/olx', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nomor = req.query.nomor,
         apikeyInput = req.query.apikey;
 
@@ -8263,6 +9870,12 @@ router.get('/spammer/olx', async (req, res, next) => {
 })
 
 router.get('/spammer/danacinta', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nomor = req.query.nomor,
         apikeyInput = req.query.apikey;
 
@@ -8289,6 +9902,12 @@ router.get('/spammer/danacinta', async (req, res, next) => {
 })
 
 router.get('/persen', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var type = req.query.type,
         nama = req.query.nama,
         apikeyInput = req.query.apikey;
@@ -8317,6 +9936,12 @@ router.get('/persen', async (req, res, next) => {
 })
 
 router.get('/poly', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -8340,6 +9965,12 @@ router.get('/poly', async (req, res, next) => {
 })
 
 router.get('/wattpad', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var id = req.query.id,
         apikeyInput = req.query.apikey;
 
@@ -8369,6 +10000,12 @@ router.get('/wattpad', async (req, res, next) => {
 })
 
 router.get('/jedagjedug', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         apikeyInput = req.query.apikey;
 
@@ -8394,6 +10031,12 @@ router.get('/jedagjedug', async (req, res, next) => {
 })
 
 router.get('/getvn', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var query = req.query.query,
         apikeyInput = req.query.apikey;
 
@@ -8420,6 +10063,12 @@ router.get('/getvn', async (req, res, next) => {
 })
 
 router.get('/masadepan', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nama = req.query.nama,
         apikeyInput = req.query.apikey;
 
@@ -8440,6 +10089,12 @@ router.get('/masadepan', async (req, res, next) => {
 })
 
 router.get('/laptop', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -8464,6 +10119,12 @@ router.get('/laptop', async (req, res, next) => {
 })
 
 router.get('/iqtest', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -8481,6 +10142,12 @@ router.get('/iqtest', async (req, res, next) => {
 })
 
 router.get('/bacot', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -8534,6 +10201,12 @@ router.get('/bacot', async (req, res, next) => {
 })
 
 router.get('/truth', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -8636,6 +10309,12 @@ router.get('/truth', async (req, res, next) => {
 })
 
 router.get('/twister', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -8659,6 +10338,12 @@ router.get('/twister', async (req, res, next) => {
 })
 
 router.get('/purba', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -8684,6 +10369,12 @@ router.get('/purba', async (req, res, next) => {
 })
 
 router.get('/tebakumur', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nama = req.query.nama,
         apikeyInput = req.query.apikey;
 
@@ -8710,6 +10401,12 @@ router.get('/tebakumur', async (req, res, next) => {
 })
 
 router.get('/wattpad2', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.query,
         apikeyInput = req.query.apikey;
 
@@ -8731,6 +10428,12 @@ router.get('/wattpad2', async (req, res, next) => {
 })
 
 router.get('/randombyte', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var jumlah = req.query.jumlah,
         apikeyInput = req.query.apikey;
 
@@ -8760,6 +10463,12 @@ router.get('/randombyte', async (req, res, next) => {
 })
 
 router.get('/randomsticker', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -8777,6 +10486,12 @@ router.get('/randomsticker', async (req, res, next) => {
 })
 
 router.get('/intromaker', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -8803,6 +10518,12 @@ router.get('/intromaker', async (req, res, next) => {
 })
 
 router.get('/tomp3', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         apikeyInput = req.query.apikey;
 
@@ -8834,6 +10555,12 @@ router.get('/tomp3', async (req, res, next) => {
 })
 
 router.get('/attp2', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
@@ -8857,6 +10584,12 @@ router.get('/attp2', async (req, res, next) => {
 })
 
 router.get('/shitpost', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -8878,6 +10611,12 @@ router.get('/shitpost', async (req, res, next) => {
 })
 
 router.get('/shauntheship', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -8902,6 +10641,12 @@ router.get('/shauntheship', async (req, res, next) => {
 })
 
 router.get('/running', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
 
@@ -8929,6 +10674,12 @@ router.get('/running', async (req, res, next) => {
 })
 
 router.get('/citacita', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -8956,6 +10707,12 @@ router.get('/citacita', async (req, res, next) => {
 })
 
 router.get('/github', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.query,
         apikeyInput = req.query.apikey;
 
@@ -8981,6 +10738,12 @@ router.get('/github', async (req, res, next) => {
 })
 
 router.get('/minecraft-server', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.query,
         apikeyInput = req.query.apikey;
 
@@ -9009,6 +10772,12 @@ router.get('/minecraft-server', async (req, res, next) => {
 })
 
 router.get('/rank', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var avatar = req.query.avatar,
         nama = req.query.nama,
         exp = req.query.exp,
@@ -9054,6 +10823,12 @@ router.get('/rank', async (req, res, next) => {
 })
 
 router.get('/savemedia', async (req, res, next) => {
+var ip = req.ip 
+            || req.connection.remoteAddress 
+            || req.socket.remoteAddress 
+            || req.connection.socket.remoteAddress;
+
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var file_url = req.query.file_url,
         apikeyInput = req.query.apikey;
 
