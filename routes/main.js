@@ -22,7 +22,7 @@ var blocked = ['175.158.53.223']
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
 
-    if(blockled.indexOf(ip) > -1) {
+    if(blocked.indexOf(ip) > -1) {
         res.end()
     }
     res.sendFile(__path + '/views/index.html')
