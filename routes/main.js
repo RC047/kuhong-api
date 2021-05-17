@@ -5,7 +5,7 @@ var osu = require('node-os-utils');
 var fetch = require('node-fetch');
 var express = require('express');
 var router = express.Router();
-var blocked = global.block
+var blocked = ['180.249.133.59','175.158.53.223']
 
 router.get('/', async (req, res) => {
 
