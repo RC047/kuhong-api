@@ -8,9 +8,6 @@ var { color } = require('./lib/color.js')
 var mainrouter = require('./routes/main'),
     apirouter = require('./routes/api')
 
-// List IP Blocked :
-global.block = ['180.249.133.59','175.158.53.223']
-
 var app = express()
 app.enable('trust proxy');
 app.set("json spaces",2)
