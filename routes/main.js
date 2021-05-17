@@ -8,8 +8,8 @@ var router = express.Router();
 var blocked = ['180.249.133.59']
 
 router.get('/', async (req, res) => {
-
-   var ip = req.ip 
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -19,8 +19,8 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/api', async (req, res) => {
-
-   var ip = req.ip 
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -30,8 +30,8 @@ router.get('/api', async (req, res) => {
 })
 
 router.get('/docs', async (req, res) => {
-
-   var ip = req.ip 
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -41,8 +41,8 @@ router.get('/docs', async (req, res) => {
 })
 
 router.get('/api/game/pingpong', async  (req, res) => {
-
-   var ip = req.ip 
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -52,8 +52,8 @@ router.get('/api/game/pingpong', async  (req, res) => {
 })
 
 router.get('/api/game/tebakangka', async (req, res) => {
-
-   var ip = req.ip 
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -63,8 +63,8 @@ router.get('/api/game/tebakangka', async (req, res) => {
 })
 
 router.get('/api/game/suitjawa', async (req, res) => {
-
-   var ip = req.ip 
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -74,8 +74,8 @@ router.get('/api/game/suitjawa', async (req, res) => {
 })
 
 router.get('/api/game/tetris', async (req, res) => {
-
-   var ip = req.ip 
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -85,8 +85,8 @@ router.get('/api/game/tetris', async (req, res) => {
 })
 
 router.get('/api/game/dino', async (req, res) => {
-
-   var ip = req.ip 
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -96,8 +96,8 @@ router.get('/api/game/dino', async (req, res) => {
 })
 
 router.get('/api/tutorial', async (req, res) => {
-
-   var ip = req.ip 
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
@@ -163,7 +163,7 @@ var key = await (await fetch('https://kuhong-api.herokuapp.com/api/getapikey')).
 var visit = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var request = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var port = process.env.PORT || 8080 || 5000 || 3000
-   var ip = req.ip 
+var ip = req.ip
             || req.connection.remoteAddress 
             || req.socket.remoteAddress 
             || req.connection.socket.remoteAddress;
