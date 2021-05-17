@@ -61,6 +61,7 @@ console.log(`> CHECKING APIKEY DATA...`)
 console.log(`Your Apikey : ${apikey}`)
 console.log(`Free Apikey : ${free_apikey}`)
 console.log(`Custom Apikey : ${custom_apikey}`)
+console.log(`VhTears Apikey : ${vhtears_key}`)
 console.log(`Xteam Apikey : ${xteam_key}`)
 console.log(`Zeks Apikey : ${zeks_key}`)
 console.log(`Melodicxt Apikey : ${melodicxt_key}`)
@@ -8787,12 +8788,17 @@ router.get('/intromaker', async (req, res, next) => {
     if (!text) return res.json(loghandler.nottext)
 
     try {
-        var result = await fs.readFileSync(__path + `/src/intro/${text}.webm`)
-        await fs.writeFileSync(__path + '/tmp/intro.mp4', result)
+        var media = await imageToBase64('https://raw.githubusercontent.com/RC047/intro-maker/main/' + text + '.webm')
+        var buffer = Buffer.from(media, 'base64')
+               await fs.writeFileSync(__path + '/tmp/intro.mp4', buffer)
 
-        res.sendFile(__path + '/tmp/intro.mp4')
+  res.sendFile(__path + '/tmp/intro.mp4')
     } catch (e) {
-        res.sendFile(__path + '/src/intro/tes.webm')
+    	var media = await imageToBase64('https://raw.githubusercontent.com/RC047/intro-maker/main/tes.webm')
+        var buffer = Buffer.from(media, 'base64')
+              await fs.writeFileSync(__path + '/tmp/intro_error.mp4', buffer)
+
+  res.sendFile(__path + '/tmp/intro_error.mp4')
     }
 })
 
@@ -8818,9 +8824,8 @@ router.get('/tomp3', async (req, res, next) => {
             if (err) res.json({
                 error: 'Gagal, pada saat mengkonversi video ke mp3'
             })
-            var hasil = fs.readFileSync(outputPath)
 
-            res.sendFile(hasil)
+            res.sendFile(outputPath)
         })
     } catch (e) {
         console.log(e)
