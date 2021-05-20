@@ -7727,6 +7727,7 @@ var ip = req.ip
         res.json({
             status: true,
             creator: `${creator}`,
+            filesize: media.length + ' byte(s)',
             result: result
         })
     } catch (e) {
