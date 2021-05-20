@@ -3219,7 +3219,7 @@ var ip = req.ip
         message: 'Masukan parameter type'
     })
 
-    fetch(encodeURI(`https://news-api-zhirrr.verce.app/v1/tempo-news/${type}`))
+    fetch(encodeURI(`https://news-api-zhirrr.vercel.app/v1/tempo-news/${type}`))
         .then(response => response.json())
         .then(data => {
             var result = data;
@@ -4303,7 +4303,6 @@ var ip = req.ip
     if (!data) return res.json({
         message: `Hasil pencarian '${q}' tidak ditemukan!`
     })
-    var isVideo = /2$/.test(q)
     var {
         dl_link,
         thumb,
@@ -5244,13 +5243,14 @@ var ip = req.ip
             message: `Masukan parameter soal`
         })
 
-        var result = await brainly(soal)
+          await brainly(soal).then(result => {
         res.json({
             status: true,
             creator: creator,
-            result
+            result: result.data
         })
 
+      })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -5278,13 +5278,14 @@ var ip = req.ip
             message: `Masukan parameter soal`
         })
 
-        var result = await brainly(soal)
+        await brainly(soal).then(result => {
         res.json({
             status: true,
             creator: creator,
-            result
+            result: result.data
         })
 
+      })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -6434,12 +6435,12 @@ var ip = req.ip
         if (!url) return res.json(loghandler.noturl)
         if (!url.startsWith('http')) return res.json(logahndler.invalidLink)
 
-        var json = await instagramGetUrl(url)
+        var data = await instagramGetUrl(url)
 
         res.json({
             status: true,
             creator: creator,
-            result: json.url_list
+            data
         })
     } catch (e) {
         console.log(e)
@@ -7065,7 +7066,7 @@ var ip = req.ip
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!username) return res.json(loghandler.notnama)
 
-        await instagramScraper.getUserPost(username).then((result) => {
+        await instagramScraper.getUserPosts(username).then((result) => {
             res.json({
                 status: true,
                 creator: creator,
@@ -7470,7 +7471,6 @@ var ip = req.ip
                 title: title,
                 title_chinese: title_chinese,
                 title_romaji: title_romaji,
-                title_english: title_english,
                 similarity: `${(similarity * 100).toFixed(1)}%`,
                 episode: episode.toString(),
                 season: season.toString(),
@@ -8918,16 +8918,16 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
-    axios.get(`https://api-self.herokuapp.com/api/htmlscrapper?url=${url}`).then((data) => {
+    await fetch(url)
+          .then(result => result.text())
+          .then(body => {
 
-        res.json({
-            status: true,
-            creator: creator,
-            result: data.data.result
-        })
-    }).catch(() => {
-        res.sendFile(error)
-    })
+     res.json({
+         status: true,
+         creator: creator,
+         result: body
+     })
+  })
 })
 
 router.get('/invert', async (req, res, next) => {
@@ -9766,7 +9766,6 @@ var ip = req.ip
             link,
             snippet
         }) => {
-
             return `*${title}*\n\n${link}\n${snippet}`
         }).join`\n\n`
 
@@ -10789,7 +10788,7 @@ var ip = req.ip
     if (!text) return res.json(loghandler.nottext)
 
     try {
-        var media = await imageToBase64('https://raw.githubusercontent.com/RC047/intro-maker/main/' + text + '.webm')
+        var media = await imageToBase64('https://raw.githubusercontent.com/RC047/intro-maker/main/' + text.toLowerCase() + '.webm')
         var buffer = Buffer.from(media, 'base64')
                await fs.writeFileSync(__path + '/tmp/intro.mp4', buffer)
 
@@ -10990,7 +10989,7 @@ var ip = req.ip
                 var media = Buffer.from(buffer, 'base64')
                 fs.writeFileSync(__path + '/tmp/cita_cita.mp3', media)
 
-                res.sendFile(__path + '/tmp/cita_cita.mp3')
+         res.sendFile(__path + '/tmp/cita_cita.mp3')
             })
     } catch (e) {
         console.log(e)
@@ -11049,7 +11048,7 @@ var ip = req.ip
     if (!q) return res.json(loghandler.notquery)
 
     try {
-            await util.query(q).then((result) => {
+            await util.statusBedrock(q).then((result) => {
 
                 res.json({
                     status: true,
@@ -11099,8 +11098,8 @@ var ip = req.ip
     try {
         var rank = new canvacord.Rank()
             .setAvatar(avatar)
-            .setCurrentXP(exp)
-            .setRequiredXP(max_exp)
+            .setCurrentXP(randomNumber)
+            .setRequiredXP(1000)
             .setStatus('dnd')
             .setProgressBar('#FFFFFF', 'COLOR')
             .setUsername(nama)
@@ -11141,7 +11140,7 @@ var ip = req.ip
         var encmedia = await imageToBase64(file_url)
         var media = Buffer.from(encmedia, 'base64')
         var { ext } = await fromBuffer(media)
-        var ranName = ranNumber
+        var ranName = randomNumber
         var savePath = __path + '/public/media/' + ranName + '_tmp.' + ext
               await fs.writeFileSync(savePath, media)
 
