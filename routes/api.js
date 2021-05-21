@@ -5243,11 +5243,11 @@ var ip = req.ip
             message: `Masukan parameter soal`
         })
 
-          await brainly(soal).then(result => {
+          await brainly(soal).then((result) => {
         res.json({
             status: true,
             creator: creator,
-            result: result.data
+            result
         })
 
       })
@@ -5278,11 +5278,11 @@ var ip = req.ip
             message: `Masukan parameter soal`
         })
 
-        await brainly(soal).then(result => {
+        await brainly(soal).then((result) => {
         res.json({
             status: true,
             creator: creator,
-            result: result.data
+            result
         })
 
       })
