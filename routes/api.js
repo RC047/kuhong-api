@@ -4919,7 +4919,7 @@ var ip = req.ip
     if (!q) return res.json(loghandler.notquery)
 
     try {
-        var json = await (await fetch(`https://api.fdci.se/rep.php?gambar=${q}`)).json()
+        var json = await (await fetch(`https://fdciabdul.tech/api/pinterest/?keyword=${q}`)).json()
         var body = JSON.parse(JSON.stringify(json))
         var tada = body[Math.floor(Math.random() * body.length)]
         var hasil = await getBuffer(tada)
@@ -4951,7 +4951,7 @@ var ip = req.ip
     if (!q) return res.json(loghandler.notquery)
 
     try {
-        var json = await (await fetch(`https://api.fdci.se/rep.php?gambar=${q}`)).json()
+        var json = await (await fetch(`https://fdciabdul.tech/api/pinterest/?keyword=${q}`)).json()
         var body = JSON.parse(JSON.stringify(json))
         var tada = body[Math.floor(Math.random() * boy.length)]
         var hasil = await getBuffer(tada)
