@@ -47,10 +47,10 @@ var creatorList = ['Rendy', 'RC047', 'RendyGans', 'RendyCraft047']; // Nama Lu N
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
 
 // Apikey :
-var banned_apikey = 'eh9RoPYCpE8lp272UrC8ve5RKpU4Jfb5O2L' // Apikey yang sudah dibanned
+var banned_apikey = 'KuhongRestAPIs' // Apikey yang sudah dibanned
 var free_apikey = generateApikey() // Apikey Gratis
 var apikey = 'QyiH67N1mWvbbJ891lpL67m_uy1oPHSlL01Vv-1qRi' // Apikeymu (dibutuhkan)
-var custom_apikey = 'KuhongRestAPIs' // Custom Apikey
+var custom_apikey = '04102006' // Custom Apikey
 var vhtears_key = 'ameysbot' // Apikey VhTears (dibutuhkan)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'apivinz' // Apikey Zeks (dibutuhkan)
