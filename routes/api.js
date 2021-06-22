@@ -5278,14 +5278,13 @@ var ip = req.ip
             message: `Masukan parameter soal`
         })
 
-        await brainly(soal).then((result) => {
+        var json = await (await fetch(`https://recoders-area.caliph.repl.co/api/brainly?q=${soal}`)).json()
         res.json({
             status: true,
             creator: creator,
-            result
+            result: json.data
         })
 
-      })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -11052,7 +11051,7 @@ var ip = req.ip
     if (!q) return res.json(loghandler.notquery)
 
     try {
-            await util.statusBedrock(q).then((result) => {
+            await util.statusBedrock(q).then(result => {
 
                 res.json({
                     status: true,
@@ -11100,17 +11099,18 @@ var ip = req.ip
     if (isNaN(max_exp)) return res.json(loghandler.number)
 
     try {
+    	var number = Math.floor(Math.random() * 1000)
         var rank = new canvacord.Rank()
             .setAvatar(avatar)
-            .setCurrentXP(Number(randomNumber))
+            .setCurrentXP(number)
             .setRequiredXP(1000)
             .setStatus('dnd')
             .setProgressBar('#FFFFFF', 'COLOR')
             .setUsername(nama)
-            .setDiscriminator('#' + ranNumber)
+            .setDiscriminator('#' + number)
 
-        rank.build().then(data => {
-            fs.writeFileSync(__path + '/tmp/rank_' + nama + '.png', data)
+        rank.build().then(result => {
+            fs.writeFileSync(__path + '/tmp/rank_' + nama + '.png', result)
 
             res.sendFile(__path + '/tmp/rank_' + nama + '.png')
         })
@@ -11144,14 +11144,13 @@ var ip = req.ip
         var encmedia = await imageToBase64(file_url)
         var media = Buffer.from(encmedia, 'base64')
         var { ext } = await fromBuffer(media)
-        var ranName = randomNumber
-        var savePath = __path + '/public/media/' + ranName + '_tmp.' + ext
+        var savePath = __path + '/public/media/' + randomNumber + '_tmp.' + ext
               await fs.writeFileSync(savePath, media)
 
       res.json({
       	status: true,
           creator: creator,
-          result: 'https://kuhong-api.herokuapp.com/media/' + ranName + '_tmp.' + ext
+          result: 'https://kuhong-api.herokuapp.com/media/' + randomNumber + '_tmp.' + ext
       })
 })
 
