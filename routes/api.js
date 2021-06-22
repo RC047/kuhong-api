@@ -5243,14 +5243,13 @@ var ip = req.ip
             message: `Masukan parameter soal`
         })
 
-          await brainly(soal).then((result) => {
+        var json = await (await fetch(`https://recoders-area.caliph.repl.co/api/brainly?q=${soal}`)).json()
         res.json({
             status: true,
             creator: creator,
-            result
+            result: json.data
         })
 
-      })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
