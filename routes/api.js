@@ -6879,7 +6879,7 @@ var ip = req.ip
         if (!t2) return res.json(loghandler.nottext2)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`http://zekais-api.herokuapp.com/mgen?text1=${t1}&text2=${t2}&url=${img}`)).buffer()
+        var hasil = await (await fetch(`https://api.memegen.link/images/custom/${t1}/${t2}.png?background=${img}`)).buffer()
         await fs.writeFileSync(__path + '/tmp/memegen.png', hasil)
 
         res.sendFile(__path + '/tmp/memegen.png')
@@ -10795,9 +10795,9 @@ var ip = req.ip
 
   res.sendFile(__path + '/tmp/intro.mp4')
     } catch (e) {
-    	var media = await imageToBase64('https://raw.githubusercontent.com/RC047/intro-maker/main/tes.webm')
-        var buffer = Buffer.from(media, 'base64')
-              await fs.writeFileSync(__path + '/tmp/intro_error.mp4', buffer)
+    	var tmp = await imageToBase64('https://raw.githubusercontent.com/RC047/intro-maker/main/tes.webm')
+        var result = Buffer.from(tmp, 'base64')
+              await fs.writeFileSync(__path + '/tmp/intro_error.mp4', result)
 
   res.sendFile(__path + '/tmp/intro_error.mp4')
     }
@@ -10981,17 +10981,16 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
     try {
-        await fetch('https://raw.githubusercontent.com/AlvioAdjiJanuar/citacita/main/citacita.txt')
-            .then(result => result.text())
-            .then(body => {
-                var json = body.split('\n')
-                var cita = json[Math.floor(Math.random() * json.length)]
-                var buffer = imageToBase64(cita)
+    var arr = []
+          await fetch('https://raw.githubusercontent.com/AlvioAdjiJanuar/citacita/main/citacita.txt')
+             .then(result => result.text())
+             .then(body => arr = body.split('\n'))
+                var cita = arr[Math.floor(Math.random() * arr.length)]
+                var buffer = await imageToBase64(cita)
                 var media = Buffer.from(buffer, 'base64')
                 fs.writeFileSync(__path + '/tmp/cita_cita.mp3', media)
 
          res.sendFile(__path + '/tmp/cita_cita.mp3')
-            })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -11099,7 +11098,7 @@ var ip = req.ip
     try {
         var rank = new canvacord.Rank()
             .setAvatar(avatar)
-            .setCurrentXP(randomNumber)
+            .setCurrentXP(Number(randomNumber))
             .setRequiredXP(1000)
             .setStatus('dnd')
             .setProgressBar('#FFFFFF', 'COLOR')
