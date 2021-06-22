@@ -3,6 +3,7 @@ __path = process.cwd();
 // Database :
 var {
     saveMedia,
+    getZodiac,
     alay,
     purba,
     stylizeText,
@@ -622,12 +623,12 @@ router.get('/jadwalbioskop', (req, res) => {
     if (!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
-    const cheerio = require('cheerio')
+    var cheerio = require('cheerio')
 
     axios.get('https://jadwalnonton.com/now-playing').then(({
         data
     }) => {
-        const $ = cheerio.load(data)
+        var $ = cheerio.load(data)
         var title = []
         var url = []
         var img = []
@@ -2465,10 +2466,10 @@ var ip = req.ip
     })
 
     var json = await (await fetch(`https://scrap.terhambar.com/lirik?word=${lagu}`)).json()
-    var result = json.result
     res.json({
-        creatos: creator,
-        result: result
+    	status: true,
+        creator: creator,
+        result: json.result.lirik
     })
 })
 
@@ -2494,15 +2495,16 @@ var ip = req.ip
         message: 'Masukan parameter kata'
     })
 
-    fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/chord?q=${lagu}`))
-        .then(response => response.json())
-        .then(data => {
-            var result = data;
-            res.json(result)
-        })
-        .catch(e => {
-            res.sendFile(error)
-        })
+try {
+    var json = await (await fetch(`https://arugaz.herokuapp.com/api/chord?q=${lagu}`)).json()
+    res.json({
+    	status: true,
+        creator: creator,
+        result: json.result
+    })
+  } catch (e) {
+  	res.json({ status: false, error: 'Chord tidak ditemukan!' })
+  }
 })
 
 
@@ -2586,17 +2588,12 @@ var ip = req.ip
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-    fetch(encodeURI(`https://covid19-api-zhirrr.vercel.app/api/covid-indonesia`))
-        .then(response => response.json())
-        .then(data => {
-            var result = data;
-            res.json({
-                result
-            })
-        })
-        .catch(e => {
-            res.sendFile(error)
-        })
+    var result = await (await fetch(`https://api.kawalcorona.com/indonesia`)).json()
+          res.json({
+          	status: true,
+              creator: creator,
+              result
+              })
 })
 
 
@@ -4752,7 +4749,7 @@ var ip = req.ip
 })
 
 router.get('/repeat', (req, res, next) => {
-    const repeat = (text, total) => {
+    var repeat = (text, total) => {
         return text.repeat(total)
     }
     var text = req.query.text,
@@ -7959,8 +7956,30 @@ var ip = req.ip
     if (isNaN(thn)) return res.json(loghandler.number)
 
     try {
-        var json = await (await fetch(`https://arugaz.herokuapp.com/api/getzodiak?nama=${nama}&tgl-bln-thn=${tggl}-${bln}-${thn}`)).json()
-        res.json(json)
+    var date = new Date(tggl, bln, thn)
+    if (date == 'Invalid Date') throw date
+    var d = new Date()
+    var [tahun, bulan, tanggal] = [d.getFullYear(), d.getMonth() + 1, d.getDate()]
+    var birth = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
+    
+    var zodiac = getZodiac(birth[1], birth[2])
+    var ageD = new Date(d - date)
+    var age = ageD.getFullYear() - new Date(1970, 0, 1).getFullYear()
+
+    var birthday = [tahun + (birth[1] < bulan), ...birth.slice(1)]
+    var umur = bulan === birth[1] && tanggal === birth[2] ? `Selamat ulang tahun yang ke ${age}!` : age
+
+    res.json({
+    	   status: true,
+           creator: creator,
+           result:{
+           	nama: nama,
+           	lahir: birth.join('-'),
+               ultah: birthday.join('-'),
+               usia: umur,
+               zodiak: zodiac
+               }
+      })
 
     } catch (e) {
         console.log(e)
