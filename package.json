@@ -40,6 +40,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "file-type": "^16.1.0",
     "google-it": "^1.6.2",
+    "img2braille": "1.0.1",
     "instagram-url-direct": "1.0.9",
     "instagram-scraper": "1.0.6",
     "image-reader": "^0.2.5",
