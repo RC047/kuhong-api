@@ -7719,8 +7719,8 @@ var ip = req.ip
         var encmedia = await imageToBase64(file)
         var media = Buffer.from(encmedia, 'base64')
         var { ext } = await fromBuffer(media)
-        await fs.writeFileSync(__path + '/tmp/file_uploader' + '.' + ext, media)
-        var file_result = fs.readFileSync(__path + '/tmp/file_uploader' + '.' + ext)
+        await fs.writeFileSync(__path + '/tmp/file_uploader.' + ext, media)
+        var file_result = fs.readFileSync(__path + '/tmp/file_uploader.' + ext)
         var result = await upload(file_result)
 
         res.json({
