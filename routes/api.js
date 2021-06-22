@@ -107,6 +107,14 @@ var fs = require('fs');
 var util = require('minecraft-server-util');
 var options = require(__path + '/lib/options.js');
 var {
+    braillefy
+} = require('img2braille');
+var {
+	toMP3,
+	toPTT,
+	toMP4
+} = require(__path + '/lib/converter.js');
+var {
     servers,
     yta,
     ytv
@@ -162,192 +170,192 @@ var cookie = 'HSID=A7EDzLn3kae2B1Njb;SSID=AheuwUjMojTWvA5GN;APISID=cgfXh13rQbb4z
 var loghandler = {
     notparam: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter apikey!'
     },
     nottype: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter type'
     },
     notnama: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter nama'
     },
     notimg: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter img'
     },
     notemoji: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter emoji'
     },
     notangka: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter angka'
     },
     notnomor: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter nomor'
     },
     notjumlah: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter jumlah'
     },
     notkey: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter key'
     },
     noturl: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter url'
     },
     notquery: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter query'
     },
     notkata: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter kata'
     },
     notlang: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter bahasa'
     },
     nottext: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter text'
     },
     nottext2: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter text2'
     },
     notnabi: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter nabi'
     },
     nottext3: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter text3'
     },
     nottheme: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter theme'
     },
     notusername: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter username'
     },
     notfound: {
         status: error,
-        creator: `${creator}`,
+        creator: creator,
         code: 404,
         message: 'Nyasar ya? yang lu cari disini nggak ada!'
     },
     notvalue: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter value'
     },
     notheme: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Tema tidak tersedia silahkan masukkan texmaker/list atau baca dokumentasi'
     },
     invalidKey: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: `Apikey tidak ditemukan! Silahkan kontak Owner untuk dapatkan Apikey wa.me/62895337278647`
     },
     invalidLink: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan link yang valid!'
     },
     invalidkata: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Kata tidak valid'
     },
     invalidtext: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Teks tidak valid'
     },
     longtext: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Teks terlalu panjang!'
     },
     notAddApiKey: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter status, apikeyInput, email, nomorhp, name, age, country, exp'
     },
     notbase64: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Masukan parameter teks base64'
     },
     number: {
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         code: 406,
         message: 'Teks harus berupa angka!'
     },
     banned: {
         status: false,
         code: 406,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Apikey ini sudah diblokir oleh Owner!',
         apiLink: 'kuhong-api.herokuapp.com'
     },
     maintenance: {
         status: false,
         code: 404,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Fitur ini sedang dalam Perbaikan'
     },
     blocked: {
@@ -356,7 +364,7 @@ var loghandler = {
     error: {
         status: false,
         code: 403,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Erorr! :('
     }
 }
@@ -385,11 +393,7 @@ var randomNumber = Math.floor(Math.random() * 10000)
 // Api Features :
 router.get('/getmusic', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
      var music = await fs.readFileSync(__path + '/src/music/' + pickRandom(fs.readdirSync(__path + '/src/music')))
             await fs.writeFileSync(__path + '/tmp/music.mp3', music)
@@ -399,11 +403,7 @@ var ip = req.ip
 
 router.get('/cekapikey', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -434,11 +434,7 @@ var ip = req.ip
 
 router.get('/redeem', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var code = req.query.code;
 
@@ -465,11 +461,7 @@ var ip = req.ip
 
 router.get('/getapikey', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     res.json({
         status: true,
@@ -481,11 +473,7 @@ var ip = req.ip
 
 router.get('/tiktok', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url
@@ -502,7 +490,7 @@ var ip = req.ip
             console.log(vid)
             res.json({
                 status: true,
-                creator: `${creator}`,
+                creator: creator,
                 videoNoWm: vid
             })
         })
@@ -513,11 +501,7 @@ var ip = req.ip
 
 router.get('/tiktokstalk', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         username = req.query.username
@@ -534,14 +518,14 @@ var ip = req.ip
         .then(user => {
             res.json({
                 status: true,
-                creator: `${creator}`,
+                creator: creator,
                 result: user
             })
         })
         .catch(e => {
             res.json({
                 status: false,
-                creator: `${creator}`,
+                creator: creator,
                 message: 'Username tidak ditemukan!'
             })
         })
@@ -549,11 +533,7 @@ var ip = req.ip
 
 router.get('/randomquote', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -579,11 +559,7 @@ var ip = req.ip
 
 router.get('/infonpm', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         query = req.query.query
@@ -595,7 +571,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!query) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter query'
     })
 
@@ -605,7 +581,7 @@ var ip = req.ip
             var result = data;
             res.json({
                 status: true,
-                creator: `${creator}`,
+                creator: creator,
                 result,
                 message: 'succes'
             })
@@ -650,7 +626,7 @@ router.get('/jadwalbioskop', (req, res) => {
             })
         }
         res.send({
-            creator: `${creator}`,
+            creator: creator,
             status: true,
             result: result
         })
@@ -659,11 +635,7 @@ router.get('/jadwalbioskop', (req, res) => {
 
 router.get('/tinyurl', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url
@@ -679,7 +651,7 @@ var ip = req.ip
         try {
             res.json({
                 status: true,
-                creator: `${creator}`,
+                creator: creator,
                 result: body,
                 message: 'succes'
             })
@@ -692,11 +664,7 @@ var ip = req.ip
 
 router.get('/base', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var type = req.query.type,
         encode = req.query.encode,
@@ -715,7 +683,7 @@ var ip = req.ip
             .then(result => {
                 res.json({
                     status: true,
-                    creator: `${creator}`,
+                    creator: creator,
                     result
                 })
             })
@@ -724,7 +692,7 @@ var ip = req.ip
             .then(result => {
                 res.json({
                     status: true,
-                    creator: `${creator}`,
+                    creator: creator,
                     result
                 })
             })
@@ -733,7 +701,7 @@ var ip = req.ip
             .then(result => {
                 res.json({
                     status: true,
-                    creator: `${creator}`,
+                    creator: creator,
                     result
                 })
             })
@@ -742,14 +710,14 @@ var ip = req.ip
             .then(result => {
                 res.json({
                     status: true,
-                    creator: `${creator}`,
+                    creator: creator,
                     result
                 })
             })
     } else if (!(encode || decode)) {
         res.json({
             status: false,
-            creator: `${creator}`,
+            creator: creator,
             message: 'tambahkan parameter encode/decode'
         })
     } else {
@@ -759,11 +727,7 @@ var ip = req.ip
 
 router.get('/nulis', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
@@ -807,11 +771,7 @@ var ip = req.ip
 
 router.get('/nulis2', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
@@ -883,11 +843,7 @@ var ip = req.ip
 
 router.get('/textmaker', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
@@ -957,7 +913,7 @@ var ip = req.ip
                                 delete_url = data.data.delete_url;
                             res.json({
                                 status: true,
-                                creator: `${creator}`,
+                                creator: creator,
                                 message: 'succes',
                                 result: {
                                     url: urlnya,
@@ -976,11 +932,7 @@ var ip = req.ip
 
 router.get('/textmaker/game', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
@@ -1019,7 +971,7 @@ var ip = req.ip
                                     delete_url = data.data.delete_url;
                                 res.json({
                                     status: true,
-                                    creator: `${creator}`,
+                                    creator: creator,
                                     message: 'succes',
                                     result: {
                                         url: urlnya,
@@ -1056,7 +1008,7 @@ var ip = req.ip
                                 delete_url = data.data.delete_url;
                             res.json({
                                 status: true,
-                                creator: `${creator}`,
+                                creator: creator,
                                 message: 'succes',
                                 result: {
                                     url: urlnya,
@@ -1075,11 +1027,7 @@ var ip = req.ip
 
 router.get('/textmaker/senja', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
@@ -1117,7 +1065,7 @@ var ip = req.ip
                                     delete_url = data.data.delete_url;
                                 res.json({
                                     status: true,
-                                    creator: `${creator}`,
+                                    creator: creator,
                                     message: 'succes',
                                     result: {
                                         url: urlnya,
@@ -1153,7 +1101,7 @@ var ip = req.ip
                                 delete_url = data.data.delete_url;
                             res.json({
                                 status: true,
-                                creator: `${creator}`,
+                                creator: creator,
                                 message: 'succes',
                                 result: {
                                     url: urlnya,
@@ -1172,11 +1120,7 @@ var ip = req.ip
 
 router.get('/kisahnabi', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nabi = req.query.nabi,
         apikeyInput = req.query.apikey;
@@ -1198,11 +1142,7 @@ var ip = req.ip
 
 router.get('/infogempa', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1223,11 +1163,7 @@ var ip = req.ip
 
 router.get('/hadits', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         kitab = req.query.kitab,
@@ -1240,12 +1176,12 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!kitab) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter kitab'
     })
     if (!nomor) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter nomor'
     })
 
@@ -1264,11 +1200,7 @@ var ip = req.ip
 
 router.get('/quran', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         surah = req.query.surah,
@@ -1281,12 +1213,12 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!surah) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter surah'
     })
     if (!ayat) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter ayat'
     })
 
@@ -1306,11 +1238,7 @@ var ip = req.ip
 
 router.get('/fb', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url
@@ -1322,7 +1250,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!url) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter url'
     })
 
@@ -1340,11 +1268,7 @@ var ip = req.ip
 
 router.get('/textmaker/metallic', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
@@ -1382,7 +1306,7 @@ var ip = req.ip
                                     delete_url = data.data.delete_url;
                                 res.json({
                                     status: true,
-                                    creator: `${creator}`,
+                                    creator: creator,
                                     message: 'succes',
                                     result: {
                                         url: urlnya,
@@ -1418,7 +1342,7 @@ var ip = req.ip
                                 delete_url = data.data.delete_url;
                             res.json({
                                 status: true,
-                                creator: `${creator}`,
+                                creator: creator,
                                 message: 'succes',
                                 result: {
                                     url: urlnya,
@@ -1437,11 +1361,7 @@ var ip = req.ip
 
 router.get('/textmaker/alam', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
@@ -1479,7 +1399,7 @@ var ip = req.ip
                                     delete_url = data.data.delete_url;
                                 res.json({
                                     status: true,
-                                    creator: `${creator}`,
+                                    creator: creator,
                                     message: 'succes',
                                     result: {
                                         url: urlnya,
@@ -1515,7 +1435,7 @@ var ip = req.ip
                                 delete_url = data.data.delete_url;
                             res.json({
                                 status: true,
-                                creator: `${creator}`,
+                                creator: creator,
                                 message: 'succes',
                                 result: {
                                     url: urlnya,
@@ -1534,11 +1454,7 @@ var ip = req.ip
 
 router.get('/flaming', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -1564,11 +1480,7 @@ var ip = req.ip
 
 router.get('/neon', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -1594,11 +1506,7 @@ var ip = req.ip
 
 router.get('/muslim/tahlil', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1624,11 +1532,7 @@ var ip = req.ip
 
 router.get('/muslim/wirid', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1654,11 +1558,7 @@ var ip = req.ip
 
 router.get('/muslim/ayatkursi', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1684,11 +1584,7 @@ var ip = req.ip
 
 router.get('/muslim/doaharian', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1714,11 +1610,7 @@ var ip = req.ip
 
 router.get('/muslim/bacaanshalat', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1744,11 +1636,7 @@ var ip = req.ip
 
 router.get('/muslim/niatshalat', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1774,11 +1662,7 @@ var ip = req.ip
 
 router.get('/muslim/kisahnabi', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1804,11 +1688,7 @@ var ip = req.ip
 
 router.get('/muslim/asmaulhusna', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1834,11 +1714,7 @@ var ip = req.ip
 
 router.get('/muslim/niatshubuh', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1863,11 +1739,7 @@ var ip = req.ip
 
 router.get('/muslim/niatdzuhur', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1893,11 +1765,7 @@ var ip = req.ip
 
 router.get('/muslim/niatmaghrib', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1923,11 +1791,7 @@ var ip = req.ip
 
 router.get('/muslim/niatisya', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1953,11 +1817,7 @@ var ip = req.ip
 
 router.get('/muslim/niatashar', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -1983,11 +1843,7 @@ var ip = req.ip
 
 router.get('/wallpaper/cyberspace', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2013,11 +1869,7 @@ var ip = req.ip
 
 router.get('/wallpaper/teknologi', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2043,11 +1895,7 @@ var ip = req.ip
 
 router.get('/wallpaper/muslim', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2073,11 +1921,7 @@ var ip = req.ip
 
 router.get('/wallpaper/programming', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2103,11 +1947,7 @@ var ip = req.ip
 
 router.get('/wallpaper/pegunungan', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2133,11 +1973,7 @@ var ip = req.ip
 
 router.get('/wikipedia', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         search = req.query.search
@@ -2149,7 +1985,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!search) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter search'
     })
 
@@ -2168,11 +2004,7 @@ var ip = req.ip
 
 router.get('/randomquote/muslim', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2198,11 +2030,7 @@ var ip = req.ip
 
 router.get('/drakorasia', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         search = req.query.searc
@@ -2214,7 +2042,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!search) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter search'
     })
 
@@ -2234,11 +2062,7 @@ var ip = req.ip
 
 router.get('/jadwalshalat', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         kota = req.query.kota
@@ -2250,7 +2074,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!kota) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter kota'
     })
 
@@ -2270,11 +2094,7 @@ var ip = req.ip
 
 router.get('/fakedata', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         country = req.query.country
@@ -2286,7 +2106,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!country) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter country'
     })
 
@@ -2305,11 +2125,7 @@ var ip = req.ip
 
 router.get('/halah', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -2333,11 +2149,7 @@ var ip = req.ip
 
 router.get('/hilih', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -2361,11 +2173,7 @@ var ip = req.ip
 
 router.get('/huluh', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -2389,11 +2197,7 @@ var ip = req.ip
 
 router.get('/heleh', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -2417,11 +2221,7 @@ var ip = req.ip
 
 router.get('/holoh', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -2445,11 +2245,7 @@ var ip = req.ip
 
 router.get('/lirik', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         lagu = req.query.lagu
@@ -2461,7 +2257,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!lagu) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter kata'
     })
 
@@ -2475,11 +2271,7 @@ var ip = req.ip
 
 router.get('/chord', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         lagu = req.query.lagu
@@ -2491,7 +2283,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!lagu) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter kata'
     })
 
@@ -2510,11 +2302,7 @@ try {
 
 router.get('/random/asmaulhusna', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2540,11 +2328,7 @@ var ip = req.ip
 
 router.get('/kbbi', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         kata = req.query.kata
@@ -2556,7 +2340,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!kata) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter kata'
     })
 
@@ -2574,11 +2358,7 @@ var ip = req.ip
 
 router.get('/covidindo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2599,11 +2379,7 @@ var ip = req.ip
 
 router.get('/covidworld', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2629,11 +2405,7 @@ var ip = req.ip
 
 router.get('/kodepos', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         kota = req.query.kota
@@ -2645,7 +2417,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!kota) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter kota'
     })
 
@@ -2665,11 +2437,7 @@ var ip = req.ip
 
 router.get('/infocuaca', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         provinsi = req.query.provinsi
@@ -2681,7 +2449,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!provinsi) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter provinsi'
     })
     fetch(encodeURI(`https://bmkg-api-zahirr.herokuapp.com/api/cuaca/${provinsi}`))
@@ -2722,11 +2490,7 @@ router.get('/infocuaca/bandara', async (req, rs, next) => {
 
 router.get('/infocuaca/dunia', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2751,11 +2515,7 @@ var ip = req.ip
 
 router.get('/infotsunami', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2780,11 +2540,7 @@ var ip = req.ip
 
 router.get('/random/meme', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2810,11 +2566,7 @@ var ip = req.ip
 
 router.get('/quotes/kanye', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2840,11 +2592,7 @@ var ip = req.ip
 
 router.get('/translate', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         lang = req.query.lang,
@@ -2857,7 +2605,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!lang) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter bahasa'
     })
     if (!text) return res.json(loghandler.nottext)
@@ -2884,11 +2632,7 @@ var ip = req.ip
 
 router.get('/anime/kusonime', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         search = req.query.search
@@ -2900,7 +2644,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!search) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter search'
     })
     fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/kusonime?search=${search}`))
@@ -2919,11 +2663,7 @@ var ip = req.ip
 
 router.get('/gabut', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -2949,11 +2689,7 @@ var ip = req.ip
 
 router.get('/manga', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         search = req.query.search
@@ -2965,7 +2701,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!search) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter search'
     })
     fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/manga?keyword=${search}`))
@@ -2984,11 +2720,7 @@ var ip = req.ip
 
 router.get('/random/wallpaper', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -3014,11 +2746,7 @@ var ip = req.ip
 
 router.get('/kuis/caklontong', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -3036,7 +2764,7 @@ var ip = req.ip
 
         res.json({
             status: true,
-            creator: `${creator}`,
+            creator: creator,
             soal: object.result.soal,
             jawaban: object.result.jawaban,
             desk: object.result.desc,
@@ -3050,11 +2778,7 @@ var ip = req.ip
 
 router.get('/kuis/tebakgambar', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -3072,7 +2796,7 @@ var ip = req.ip
 
         res.json({
             status: true,
-            creator: `${creator}`,
+            creator: creator,
             soal: object.result.soal,
             jawaban: object.result.jawaban,
             poin: object.result.poin
@@ -3085,11 +2809,7 @@ var ip = req.ip
 
 router.get('/news/cnn', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         type = req.query.type
@@ -3101,7 +2821,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!type) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter type'
     })
 
@@ -3122,11 +2842,7 @@ var ip = req.ip
 
 router.get('/news/cnbc', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         type = req.query.type
@@ -3138,7 +2854,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!type) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter type'
     })
 
@@ -3159,11 +2875,7 @@ var ip = req.ip
 
 router.get('/news/republika', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         type = req.query.type
@@ -3175,7 +2887,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!type) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter type'
     })
 
@@ -3196,11 +2908,7 @@ var ip = req.ip
 
 router.get('/news/tempo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         type = req.query.type
@@ -3212,7 +2920,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!type) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter type'
     })
 
@@ -3233,11 +2941,7 @@ var ip = req.ip
 
 router.get('/news/antara', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         type = req.query.type
@@ -3249,7 +2953,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!type) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter type'
     })
 
@@ -3270,11 +2974,7 @@ var ip = req.ip
 
 router.get('/news/kumparan', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -3301,11 +3001,7 @@ var ip = req.ip
 
 router.get('/filmapik/search', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         film = req.query.film
@@ -3317,7 +3013,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!film) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter film'
     })
 
@@ -3338,11 +3034,7 @@ var ip = req.ip
 
 router.get('/filmapik/kategori', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         film = req.query.film
@@ -3354,7 +3046,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!film) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter film'
     })
 
@@ -3375,11 +3067,7 @@ var ip = req.ip
 
 router.get('/filmapik/play', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         id = req.query.id
@@ -3391,7 +3079,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!id) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter id'
     })
 
@@ -3412,11 +3100,7 @@ var ip = req.ip
 
 router.get('/filmapik/terbaru', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -3443,11 +3127,7 @@ var ip = req.ip
 
 router.get('/lk21/search', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         film = req.query.film
@@ -3459,7 +3139,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!film) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter film'
     })
 
@@ -3480,11 +3160,7 @@ var ip = req.ip
 
 router.get('/lk21/terbaru', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -3511,11 +3187,7 @@ var ip = req.ip
 
 router.get('/lk21/comingsoon', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -3542,11 +3214,7 @@ var ip = req.ip
 
 router.get('/lk21/tvseries', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -3573,11 +3241,7 @@ var ip = req.ip
 
 router.get('/lk21/year', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         tahun = req.query.tahun
@@ -3589,7 +3253,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!tahun) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter tahun'
     })
 
@@ -3610,11 +3274,7 @@ var ip = req.ip
 
 router.get('/lk21/country', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         negara = req.query.negara
@@ -3626,7 +3286,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!negara) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter negara'
     })
 
@@ -3647,11 +3307,7 @@ var ip = req.ip
 
 router.get('/lk21/genre', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         tipe = req.query.tipe
@@ -3663,7 +3319,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!tipe) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter tipe'
     })
 
@@ -3684,11 +3340,7 @@ var ip = req.ip
 
 router.get('/textmaker/random', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
@@ -3726,7 +3378,7 @@ var ip = req.ip
                                     delete_url = data.data.delete_url;
                                 res.json({
                                     status: true,
-                                    creator: `${creator}`,
+                                    creator: creator,
                                     message: 'succes',
                                     result: {
                                         url: urlnya,
@@ -3762,7 +3414,7 @@ var ip = req.ip
                                 delete_url = data.data.delete_url;
                             res.json({
                                 status: true,
-                                creator: `${creator}`,
+                                creator: creator,
                                 message: 'succes',
                                 result: {
                                     url: urlnya,
@@ -3781,11 +3433,7 @@ var ip = req.ip
 
 router.get('/textmaker/roses', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         text = req.query.text,
@@ -3823,7 +3471,7 @@ var ip = req.ip
                                     delete_url = data.data.delete_url;
                                 res.json({
                                     status: true,
-                                    creator: `${creator}`,
+                                    creator: creator,
                                     message: 'succes',
                                     result: {
                                         url: urlnya,
@@ -3859,7 +3507,7 @@ var ip = req.ip
                                 delete_url = data.data.delete_url;
                             res.json({
                                 status: true,
-                                creator: `${creator}`,
+                                creator: creator,
                                 message: 'succes',
                                 result: {
                                     url: urlnya,
@@ -3878,11 +3526,7 @@ var ip = req.ip
 
 router.get('/ytmp4', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url
@@ -3918,11 +3562,7 @@ var ip = req.ip
 
 router.get('/ytmp3', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url
@@ -3958,11 +3598,7 @@ var ip = req.ip
 
 router.get('/igstalk', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         username = req.query.username
@@ -3974,7 +3610,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!username) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter username'
     })
 
@@ -3994,11 +3630,7 @@ var ip = req.ip
 
 router.get('/maker', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
@@ -4027,11 +3659,7 @@ var ip = req.ip
 
 router.get('/maker2', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
@@ -4043,7 +3671,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter text'
     })
 
@@ -4064,11 +3692,7 @@ var ip = req.ip
 
 router.get('/maker3', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
@@ -4080,7 +3704,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter text'
     })
 
@@ -4110,7 +3734,7 @@ router.get('/maker4', async (rq, res, next) => {
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter text'
     })
 
@@ -4131,11 +3755,7 @@ router.get('/maker4', async (rq, res, next) => {
 
 router.get('/maker3d', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
@@ -4147,7 +3767,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter text'
     })
 
@@ -4168,11 +3788,7 @@ var ip = req.ip
 
 router.get('/maker3d/no2', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
@@ -4184,7 +3800,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter text'
     })
 
@@ -4205,11 +3821,7 @@ var ip = req.ip
 
 router.get('/maker3d/no3', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.qery.text
@@ -4221,7 +3833,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter text'
     })
 
@@ -4242,11 +3854,7 @@ var ip = req.ip
 
 router.get('/maker3d/no4', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
@@ -4258,7 +3866,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter text'
     })
 
@@ -4279,11 +3887,7 @@ var ip = req.ip
 
 router.get('/ytsearch', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         q = req.query.q
@@ -4330,11 +3934,7 @@ var ip = req.ip
 
 router.get('/maker/special/transformer', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
@@ -4346,7 +3946,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter text'
     })
     try {
@@ -4363,11 +3963,7 @@ var ip = req.ip
 
 router.get('/maker/special/epep', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text
@@ -4379,7 +3975,7 @@ var ip = req.ip
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json({
         status: false,
-        creator: `${creator}`,
+        creator: creator,
         message: 'Masukan parameter text'
     })
 
@@ -4397,11 +3993,7 @@ var ip = req.ip
 
 router.get('/tomp4', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         apikeyInput = req.query.apikey;
@@ -4446,7 +4038,7 @@ var ip = req.ip
 
                 res.json({
                     status: true,
-                    creator: `${creator}`,
+                    creator: creator,
                     message: 'succes',
                     result: result
                 })
@@ -4461,11 +4053,7 @@ var ip = req.ip
 
 router.get('/ocr', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         img = req.query.img;
@@ -4501,11 +4089,7 @@ var ip = req.ip
 
 router.get('/removebg', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         img = req.query.img;
@@ -4543,11 +4127,7 @@ var ip = req.ip
 
 router.get('/simsimi', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var kata = req.query.kata,
         apikeyInput = req.query.apikey;
@@ -4564,7 +4144,7 @@ var ip = req.ip
         var result = json.success
         res.json({
             status: true,
-            creator: `${creator}`,
+            creator: creator,
             result: result
         })
     } catch (e) {
@@ -4575,11 +4155,7 @@ var ip = req.ip
 
 router.get('/binary', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.encode
@@ -4596,7 +4172,7 @@ var ip = req.ip
         var result = json.binary
         res.json({
             status: true,
-            creator: `${creator}`,
+            creator: creator,
             result: result
         })
     } catch (e) {
@@ -4606,11 +4182,7 @@ var ip = req.ip
 
 router.get('/binary', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.decode;
@@ -4627,7 +4199,7 @@ var ip = req.ip
         var result = json.text
         res.json({
             status: true,
-            creator: `${creator}`,
+            creator: creator,
             result: result
         })
     } catch (e) {
@@ -4637,11 +4209,7 @@ var ip = req.ip
 
 router.get('/tobase64', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         img = req.query.img;
@@ -4657,7 +4225,7 @@ var ip = req.ip
         var result = await imageToBase64(img)
         res.json({
             status: true,
-            creator: `${creator}`,
+            creator: creator,
             result: result
         })
     } catch (e) {
@@ -4667,11 +4235,7 @@ var ip = req.ip
 
 router.get('/tomedia', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         base64 = req.query.base64;
@@ -4696,11 +4260,7 @@ var ip = req.ip
 
 router.get('/ttp', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -4726,11 +4286,7 @@ var ip = req.ip
 
 router.get('/dadu', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey
 
@@ -4771,18 +4327,14 @@ router.get('/repeat', (req, res, next) => {
     var result = repeat(text, jumlah)
     res.json({
         status: true,
-        creator: `${creator}`,
+        creator: creator,
         result: result
     })
 })
 
 router.get('/reverse', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -4799,7 +4351,7 @@ var ip = req.ip
         var result = json.result.kata
         res.json({
             status: true,
-            creator: `${creator}`,
+            creator: creator,
             result: result
         })
     } catch (e) {
@@ -4809,11 +4361,7 @@ var ip = req.ip
 
 router.get('/spamcall', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nomor = req.query.nomor,
         apikeyInput = req.query.apikey;
@@ -4837,11 +4385,7 @@ var ip = req.ip
 
 router.get('/spamsms', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nomor = req.query.nomor,
         jumlah = req.query.jumlah,
@@ -4871,11 +4415,7 @@ var ip = req.ip
 
 router.get('/bokep', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -4899,11 +4439,7 @@ var ip = req.ip
 
 router.get('/googleimage', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.q,
         apikeyInput = req.query.apikey;
@@ -4931,11 +4467,7 @@ var ip = req.ip
 
 router.get('/pinterest', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.q,
         apikeyInput = req.query.apikey;
@@ -4963,11 +4495,7 @@ var ip = req.ip
 
 router.get('/say', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -4980,18 +4508,14 @@ var ip = req.ip
 
     res.json({
         status: true,
-        creator: `${creator}`,
+        creator: creator,
         result: text
     })
 })
 
 router.get('/md5', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -5007,18 +4531,14 @@ var ip = req.ip
 
     res.json({
         status: true,
-        creator: `${creator}`,
+        creator: creator,
         result: result
     })
 })
 
 router.get('/tahta', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -5038,11 +4558,7 @@ var ip = req.ip
 
 router.get('/customtahta', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -5063,11 +4579,7 @@ var ip = req.ip
 
 router.get('/anime/random', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -5097,11 +4609,7 @@ var ip = req.ip
 
 router.get('/kpop/random', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -5130,13 +4638,99 @@ var ip = req.ip
     }
 })
 
+router.get('/kpop/bts', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+
+    try {
+        await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/kpop/bts.txt')
+            .then(result => result.text())
+            .then(body => {
+                var json = body.split('\n')
+                var kpop = json[Math.floor(Math.random() * json.length)]
+                var buffer = imageToBase64(kpop)
+                var media = Buffer.from(buffer, 'base64')
+                fs.writeFileSync(__path + '/tmp/bts.png', media)
+
+                res.sendFile(__path + '/tmp/bts.png')
+            })
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/kpop/exo', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+
+    try {
+        await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/kpop/exo.txt')
+            .then(result => result.text())
+            .then(body => {
+                var json = body.split('\n')
+                var kpop = json[Math.floor(Math.random() * json.length)]
+                var buffer = imageToBase64(kpop)
+                var media = Buffer.from(buffer, 'base64')
+                fs.writeFileSync(__path + '/tmp/exo.png', media)
+
+                res.sendFile(__path + '/tmp/exo.png')
+            })
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/kpop/blackpink', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+
+    try {
+        await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/kpop/blackpink.txt')
+            .then(result => result.text())
+            .then(body => {
+                var json = body.split('\n')
+                var kpop = json[Math.floor(Math.random() * json.length)]
+                var buffer = imageToBase64(kpop)
+                var media = Buffer.from(buffer, 'base64')
+                fs.writeFileSync(__path + '/tmp/blackpink.png', media)
+
+                res.sendFile(__path + '/tmp/blackpink.png')
+            })
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
 router.get('/random/manga', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -5162,11 +4756,7 @@ var ip = req.ip
 
 router.get('/triggered', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -5192,11 +4782,7 @@ var ip = req.ip
 
 router.get('/emojitopng', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         emoji = req.query.emoji;
@@ -5221,11 +4807,7 @@ var ip = req.ip
 
 router.get('/brainly', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         soal = req.query.soal;
@@ -5255,11 +4837,7 @@ var ip = req.ip
 
 router.get('/belajar', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         soal = req.query.soal;
@@ -5289,11 +4867,7 @@ var ip = req.ip
 
 router.get('/pantun', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -5304,7 +4878,7 @@ var ip = req.ip
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-        await fetch('https://raw.githubusercontent.com/RC047/Kuhong-V4/main/pantun.txt')
+        await fetch('https://raw.githubusercontent.com/RC047/intro-maker/main/pantun')
             .then(result => result.text())
             .then(body => {
                 var json = body.split('\n')
@@ -5325,11 +4899,7 @@ var ip = req.ip
 
 router.get('/memeindo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -5340,9 +4910,13 @@ var ip = req.ip
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-        var json = await (await fetch(`https://api.zeks.xyz/api/memeindo?apikey=${zeks_key}`)).json()
-        var hasil = await getBuffer(json.result)
-        await fs.writeFileSync(__path + '/tmp/memeindo.png', hasil)
+        var data = fs.readFileSync(__path + '/lib/scraper/memeindo.json')
+        var object = JSON.parse(data);
+        var index = Math.floor(Math.random() * object.length);
+        var json = object[index]
+        var enc = await imageToBase64(json.result)
+        var result = Buffer.from(enc, 'base64')
+        await fs.writeFileSync(__path + '/tmp/memeindo.png', result)
 
         res.sendFile(__path + '/tmp/memeindo.png')
     } catch (e) {
@@ -5353,11 +4927,7 @@ var ip = req.ip
 
 router.get('/artinama', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         nama = req.query.nama;
@@ -5386,7 +4956,7 @@ var ip = req.ip
             var result = `Arti dari namamu adalah\n\nNama *${nama}*\n${h}`
             res.json({
                 status: true,
-                creator: `${creator}`,
+                creator: creator,
                 result: result
             })
         })
@@ -5399,11 +4969,7 @@ var ip = req.ip
 
 router.get('/cekjodoh', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         nama = req.query.nama,
@@ -5438,7 +5004,7 @@ var ip = req.ip
             var result = `Kecocokan Berdasarkan Nama :\n\n${d}`
             res.json({
                 status: true,
-                creator: `${creator}`,
+                creator: creator,
                 result: result
             })
         })
@@ -5451,11 +5017,7 @@ var ip = req.ip
 
 router.get('/kuis/family100', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -5473,7 +5035,7 @@ var ip = req.ip
 
         res.json({
             status: true,
-            creator: `${creator}`,
+            creator: creator,
             soal: object.result.soal,
             jawaban: object.result.jawaban
         })
@@ -5485,11 +5047,7 @@ var ip = req.ip
 
 router.get('/asupan', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -5500,7 +5058,7 @@ var ip = req.ip
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-        var data = fs.readFileSync(__path + '/lib/asupan.js')
+        var data = fs.readFileSync(__path + '/lib/scraper/asupan.json')
         var object = JSON.parse(data);
         var index = Math.floor(Math.random() * object.length);
         var json = object[index]
@@ -5518,11 +5076,7 @@ var ip = req.ip
 
 router.get('/cerpen', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -5551,11 +5105,7 @@ var ip = req.ip
 
 router.get('/mediafire', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
@@ -5583,11 +5133,7 @@ var ip = req.ip
 
 router.get('/tts', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         lang = req.query.lang,
@@ -5618,11 +5164,7 @@ var ip = req.ip
 
 router.get('/darkjokes', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -5633,9 +5175,13 @@ var ip = req.ip
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-        var json = await (await fetch(`https://api.zeks.xyz/api/darkjokes?apikey=${zeks_key}`)).json()
-        var hasil = await getBuffer(json.result)
-        await fs.writeFileSync(__path + '/tmp/darkjokes.png', hasil)
+        var data = fs.readFileSync(__path + '/lib/scraper/darkjokes.json')
+        var object = JSON.parse(data);
+        var index = Math.floor(Math.random() * object.length);
+        var json = object[index]
+        var enc = await imageToBase64(json.result)
+        var result = Buffer.from(enc, 'base64')
+        await fs.writeFileSync(__path + '/tmp/darkjokes.png', result)
 
         res.sendFile(__path + '/tmp/darkjokes.png')
     } catch (e) {
@@ -5646,11 +5192,7 @@ var ip = req.ip
 
 router.get('/splaybutton', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -5675,11 +5217,7 @@ var ip = req.ip
 
 router.get('/gplaybutton', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -5704,11 +5242,7 @@ var ip = req.ip
 
 router.get('/textpantai', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -5733,11 +5267,7 @@ var ip = req.ip
 
 router.get('/textsalju', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         t1 = req.query.t1,
@@ -5764,11 +5294,7 @@ var ip = req.ip
 
 router.get('/alay', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -5797,11 +5323,7 @@ var ip = req.ip
 
 router.get('/firework', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -5826,11 +5348,7 @@ var ip = req.ip
 
 router.get('/retro', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         t1 = req.query.t1,
@@ -5859,11 +5377,7 @@ var ip = req.ip
 
 router.get('/matrix', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -5888,11 +5402,7 @@ var ip = req.ip
 
 router.get('/text3d', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -5917,11 +5427,7 @@ var ip = req.ip
 
 router.get('/phlogo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         t1 = req.query.t1,
@@ -5948,11 +5454,7 @@ var ip = req.ip
 
 router.get('/marvel', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         t1 = req.query.t1,
@@ -5978,11 +5480,7 @@ var ip = req.ip
 
 router.get('/blackpink', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -6007,11 +5505,7 @@ var ip = req.ip
 
 router.get('/avengers', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         t1 = req.query.t1,
@@ -6037,11 +5531,7 @@ var ip = req.ip
 
 router.get('/thunder', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         text = req.query.text;
@@ -6117,11 +5607,7 @@ router.get('/news', async (req, res) => {
 
 router.get('/ssweb', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
@@ -6225,11 +5711,7 @@ router.get('/hd', async (req, res) => {
 
 router.get('/dare', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -6255,11 +5737,7 @@ var ip = req.ip
 
 router.get('/quotemaker', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var quote = req.query.quote,
         author = req.query.author,
@@ -6292,11 +5770,7 @@ var ip = req.ip
 
 router.get('/attp', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -6322,11 +5796,7 @@ var ip = req.ip
 
 router.get('/ttp2', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -6352,11 +5822,7 @@ var ip = req.ip
 
 router.get('/futureneon', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -6381,11 +5847,7 @@ var ip = req.ip
 
 router.get('/spotify', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         q = req.query.q;
@@ -6412,11 +5874,7 @@ var ip = req.ip
 
 router.get('/instagram', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
@@ -6445,11 +5903,7 @@ var ip = req.ip
 
 router.get('/towebp', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
@@ -6470,7 +5924,7 @@ var ip = req.ip
 
                 res.json({
                     status: true,
-                    creator: `${creator}`,
+                    creator: creator,
                     message: 'succes',
                     result: result.display_url
                 })
@@ -6482,11 +5936,7 @@ var ip = req.ip
 
 router.get('/math', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         mode = req.query.mode;
@@ -6522,11 +5972,7 @@ var ip = req.ip
 
 router.get('/math2', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -6554,11 +6000,7 @@ var ip = req.ip
 
 router.get('/toimg', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var webp = req.query.webp,
         apikeyInput = req.query.apikey;
@@ -6586,11 +6028,7 @@ var ip = req.ip
 
 router.get('/qrcode', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -6617,11 +6055,7 @@ var ip = req.ip
 
 router.get('/imgbb', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         apikeyInput = req.query.apikey;
@@ -6653,11 +6087,7 @@ var ip = req.ip
 
 router.get('/createcode', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -6697,11 +6127,7 @@ var ip = req.ip
 
 router.get('/bucin', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     apikeyInput = req.query.apikey;
 
@@ -6852,11 +6278,7 @@ var ip = req.ip
 
 router.get('/memegen', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         t1 = req.query.t1,
@@ -6887,11 +6309,7 @@ var ip = req.ip
 
 router.get('/slot', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -6946,11 +6364,7 @@ var ip = req.ip
 
 router.get('/joox', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         q = req.query.q;
@@ -6978,11 +6392,7 @@ var ip = req.ip
 
 router.get('/gdrive', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
@@ -7011,11 +6421,7 @@ var ip = req.ip
 
 router.get('/soundcloud', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
@@ -7044,11 +6450,7 @@ var ip = req.ip
 
 router.get('/igstory', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         username = req.query.username;
@@ -7080,11 +6482,7 @@ var ip = req.ip
 
 router.get('/nickff', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -7110,11 +6508,7 @@ var ip = req.ip
 
 router.get('/murothal', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -7140,11 +6534,7 @@ var ip = req.ip
 
 router.get('/randomquran', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -7166,11 +6556,7 @@ var ip = req.ip
 
 router.get('/ninja', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         nama = req.query.nama;
@@ -7195,11 +6581,7 @@ var ip = req.ip
 
 router.get('/resep', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         q = req.query.q;
@@ -7227,11 +6609,7 @@ var ip = req.ip
 
 router.get('/readqr', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
@@ -7262,11 +6640,7 @@ var ip = req.ip
 
 router.get('/sticker', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         q = req.query.q;
@@ -7294,11 +6668,7 @@ var ip = req.ip
 
 router.get('/tebakanime', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -7320,11 +6690,7 @@ var ip = req.ip
 
 router.get('/ytcomment', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         username = req.query.username,
@@ -7357,11 +6723,7 @@ var ip = req.ip
 
 router.get('/ytplay', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         q = req.query.q;
@@ -7410,11 +6772,7 @@ var ip = req.ip
 
 router.get('/wait', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         url = req.query.url;
@@ -7481,11 +6839,7 @@ var ip = req.ip
 
 router.get('/wasted', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -7512,11 +6866,7 @@ var ip = req.ip
 
 router.get('/rainbow', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -7543,11 +6893,7 @@ var ip = req.ip
 
 router.get('/glass', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -7574,11 +6920,7 @@ var ip = req.ip
 
 router.get('/readmore', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -7604,11 +6946,7 @@ var ip = req.ip
 
 router.get('/8bit', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -7635,11 +6973,7 @@ var ip = req.ip
 
 router.get('/wanted', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -7666,11 +7000,7 @@ var ip = req.ip
 
 router.get('/githubstalk', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
           username = req.query.username;
@@ -7697,11 +7027,7 @@ var ip = req.ip
 
 router.get('/upload', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         file = req.query.file_url;
@@ -7725,7 +7051,7 @@ var ip = req.ip
 
         res.json({
             status: true,
-            creator: `${creator}`,
+            creator: creator,
             ext: `${ext} (${ext.toUpperCase()})`,
             filesize: media.length + ' byte(s)',
             result: result
@@ -7740,11 +7066,7 @@ var ip = req.ip
 
 router.get('/shopee', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         query = req.query.query;
@@ -7783,11 +7105,7 @@ var ip = req.ip
 
 router.get('/happymod', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         query = req.query.query;
@@ -7813,11 +7131,7 @@ var ip = req.ip
 
 router.get('/faktaunik', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -7848,11 +7162,7 @@ var ip = req.ip
 
 router.get('/artimimpi', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         mimpi = req.query.mimpi;
@@ -7881,11 +7191,7 @@ var ip = req.ip
 
 router.get('/tggljadian', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         tggl = req.query.tggl,
@@ -7925,11 +7231,7 @@ var ip = req.ip
 
 router.get('/zodiak', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
         nama = req.query.nama,
@@ -7990,11 +7292,7 @@ var ip = req.ip
 
 router.get('/spamgmail', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var email = req.query.email,
         subjek = req.query.subjek,
@@ -8039,11 +7337,7 @@ var ip = req.ip
 
 router.get('/smoke', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8070,11 +7364,7 @@ var ip = req.ip
 
 router.get('/phcomment', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         username = req.query.username,
@@ -8107,11 +7397,7 @@ var ip = req.ip
 
 router.get('/barcode', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8143,11 +7429,7 @@ var ip = req.ip
 
 router.get('/dropwater', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8173,11 +7455,7 @@ var ip = req.ip
 
 router.get('/glowtext', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8203,11 +7481,7 @@ var ip = req.ip
 
 router.get('/glowtext2', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8233,11 +7507,7 @@ var ip = req.ip
 
 router.get('/wolflogo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var t1 = req.query.text,
         t2 = req.query.text2,
@@ -8265,11 +7535,7 @@ var ip = req.ip
 
 router.get('/breakwall', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8295,11 +7561,7 @@ var ip = req.ip
 
 router.get('/naruto', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8326,11 +7588,7 @@ var ip = req.ip
 
 router.get('/cloud', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8355,11 +7613,7 @@ var ip = req.ip
 
 router.get('/jokerlogo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8384,11 +7638,7 @@ var ip = req.ip
 
 router.get('/lionlogo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var t1 = req.query.text,
         t2 = req.query.text2,
@@ -8415,11 +7665,7 @@ var ip = req.ip
 
 router.get('/ninjalogo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var t1 = req.query.text,
         t2 = req.query.text2,
@@ -8446,11 +7692,7 @@ var ip = req.ip
 
 router.get('/blood', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8475,11 +7717,7 @@ var ip = req.ip
 
 router.get('/lava', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8504,11 +7742,7 @@ var ip = req.ip
 
 router.get('/1917', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8533,11 +7767,7 @@ var ip = req.ip
 
 router.get('/skeleton', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8562,11 +7792,7 @@ var ip = req.ip
 
 router.get('/crossfire', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8591,11 +7817,7 @@ var ip = req.ip
 
 router.get('/gtaposter', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -8622,11 +7844,7 @@ var ip = req.ip
 
 router.get('/deltrash', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -8653,11 +7871,7 @@ var ip = req.ip
 
 router.get('/rotate', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -8684,11 +7898,7 @@ var ip = req.ip
 
 router.get('/jail', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -8715,11 +7925,7 @@ var ip = req.ip
 
 router.get('/continue', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -8746,11 +7952,7 @@ var ip = req.ip
 
 router.get('/rip', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -8777,11 +7979,7 @@ var ip = req.ip
 
 router.get('/spongebob', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8806,11 +8004,7 @@ var ip = req.ip
 
 router.get('/ttp3', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -8835,11 +8029,7 @@ var ip = req.ip
 
 router.get('/ttp4', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         color = req.query.color,
@@ -8868,11 +8058,7 @@ var ip = req.ip
 
 router.get('/fml', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -8898,11 +8084,7 @@ var ip = req.ip
 
 router.get('/estetik', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -8925,11 +8107,7 @@ var ip = req.ip
 
 router.get('/html-viewer', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         apikeyInput = req.query.apikey;
@@ -8955,11 +8133,7 @@ var ip = req.ip
 
 router.get('/invert', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -8986,11 +8160,7 @@ var ip = req.ip
 
 router.get('/styletext', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -9019,11 +8189,7 @@ var ip = req.ip
 
 router.get('/carbon', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var code = req.query.code,
         apikeyInput = req.query.apikey;
@@ -9050,11 +8216,7 @@ var ip = req.ip
 
 router.get('/maps', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.query,
         apikeyInput = req.query.apikey;
@@ -9080,11 +8242,7 @@ var ip = req.ip
 
 router.get('/search-giphy', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.query,
         apikeyInput = req.query.apikey;
@@ -9108,11 +8266,7 @@ var ip = req.ip
 
 router.get('/ipcheck', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var ip = req.query.ip,
         apikeyInput = req.query.apikey;
@@ -9138,11 +8292,7 @@ var ip = req.ip
 
 router.get('/hentai', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -9165,11 +8315,7 @@ var ip = req.ip
 
 router.get('/nulis3', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         arah = req.query.arah,
@@ -9202,11 +8348,7 @@ var ip = req.ip
 
 router.get('/suit', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.pilihan,
         apikeyInput = req.query.apikey;
@@ -9308,11 +8450,7 @@ var ip = req.ip
 
 router.get('/sid', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         apikeyInput = req.query.apikey;
@@ -9340,11 +8478,7 @@ var ip = req.ip
 
 router.get('/jadwaltv', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var channel = req.query.channel,
         apikeyInput = req.query.apikey;
@@ -9373,11 +8507,7 @@ var ip = req.ip
 
 router.get('/sha1', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -9406,11 +8536,7 @@ var ip = req.ip
 
 router.get('/sha256', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -9439,11 +8565,7 @@ var ip = req.ip
 
 router.get('/sha512', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -9472,11 +8594,7 @@ var ip = req.ip
 
 router.get('/gaminglogo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -9501,11 +8619,7 @@ var ip = req.ip
 
 router.get('/blur', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -9532,11 +8646,7 @@ var ip = req.ip
 
 router.get('/sepia', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -9563,11 +8673,7 @@ var ip = req.ip
 
 router.get('/grey', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -9594,11 +8700,7 @@ var ip = req.ip
 
 router.get('/welcome', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nama_mem = req.query.nama_mem,
         avatar = req.query.avatar,
@@ -9643,11 +8745,7 @@ var ip = req.ip
 
 router.get('/bye', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nama_mem = req.query.nama_mem,
         avatar = req.query.avatar,
@@ -9692,11 +8790,7 @@ var ip = req.ip
 
 router.get('/linesticker', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         apikeyInput = req.query.apikey;
@@ -9724,11 +8818,7 @@ var ip = req.ip
 
 router.get('/kerang', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var pertanyaan = req.query.pertanyaan,
         apikeyInput = req.query.apikey;
@@ -9764,11 +8854,7 @@ var ip = req.ip
 
 router.get('/google', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.query,
         apikeyInput = req.query.apikey;
@@ -9805,11 +8891,7 @@ var ip = req.ip
 
 router.get('/nulis4', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -9834,11 +8916,7 @@ var ip = req.ip
 
 router.get('/toimage', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -9859,11 +8937,7 @@ var ip = req.ip
 
 router.get('/stickerwm', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         pkg = req.query.packname,
@@ -9892,11 +8966,7 @@ var ip = req.ip
 
 router.get('/underwater', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -9921,11 +8991,7 @@ var ip = req.ip
 
 router.get('/catlogo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -9950,11 +9016,7 @@ var ip = req.ip
 
 router.get('/arcade', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -9979,11 +9041,7 @@ var ip = req.ip
 
 router.get('/foxlogo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -10008,11 +9066,7 @@ var ip = req.ip
 
 router.get('/glitchlogo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -10037,11 +9091,7 @@ var ip = req.ip
 
 router.get('/bearlogo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -10066,11 +9116,7 @@ var ip = req.ip
 
 router.get('/freefire', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -10095,11 +9141,7 @@ var ip = req.ip
 
 router.get('/spammer/pizzahut', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nomor = req.query.nomor,
         apikeyInput = req.query.apikey;
@@ -10128,11 +9170,7 @@ var ip = req.ip
 
 router.get('/spammer/olx', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nomor = req.query.nomor,
         apikeyInput = req.query.apikey;
@@ -10161,11 +9199,7 @@ var ip = req.ip
 
 router.get('/spammer/danacinta', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nomor = req.query.nomor,
         apikeyInput = req.query.apikey;
@@ -10194,11 +9228,7 @@ var ip = req.ip
 
 router.get('/persen', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var type = req.query.type,
         nama = req.query.nama,
@@ -10229,11 +9259,7 @@ var ip = req.ip
 
 router.get('/poly', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -10259,11 +9285,7 @@ var ip = req.ip
 
 router.get('/wattpad', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var id = req.query.id,
         apikeyInput = req.query.apikey;
@@ -10295,11 +9317,7 @@ var ip = req.ip
 
 router.get('/jedagjedug', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var theme = req.query.theme,
         apikeyInput = req.query.apikey;
@@ -10327,11 +9345,7 @@ var ip = req.ip
 
 router.get('/getvn', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var query = req.query.query,
         apikeyInput = req.query.apikey;
@@ -10360,11 +9374,7 @@ var ip = req.ip
 
 router.get('/masadepan', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nama = req.query.nama,
         apikeyInput = req.query.apikey;
@@ -10387,11 +9397,7 @@ var ip = req.ip
 
 router.get('/laptop', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -10418,11 +9424,7 @@ var ip = req.ip
 
 router.get('/iqtest', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -10442,11 +9444,7 @@ var ip = req.ip
 
 router.get('/bacot', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -10502,11 +9500,7 @@ var ip = req.ip
 
 router.get('/truth', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -10611,11 +9605,7 @@ var ip = req.ip
 
 router.get('/twister', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -10641,11 +9631,7 @@ var ip = req.ip
 
 router.get('/purba', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -10673,11 +9659,7 @@ var ip = req.ip
 
 router.get('/tebakumur', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nama = req.query.nama,
         apikeyInput = req.query.apikey;
@@ -10706,11 +9688,7 @@ var ip = req.ip
 
 router.get('/wattpad2', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.query,
         apikeyInput = req.query.apikey;
@@ -10734,11 +9712,7 @@ var ip = req.ip
 
 router.get('/randombyte', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var jumlah = req.query.jumlah,
         apikeyInput = req.query.apikey;
@@ -10770,11 +9744,7 @@ var ip = req.ip
 
 router.get('/randomsticker', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -10794,11 +9764,7 @@ var ip = req.ip
 
 router.get('/intromaker', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -10827,11 +9793,7 @@ var ip = req.ip
 
 router.get('/tomp3', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
         apikeyInput = req.query.apikey;
@@ -10847,16 +9809,11 @@ var ip = req.ip
     try {
         var enc = await imageToBase64(url)
         var buffer = Buffer.from(enc, 'base64')
-        await fs.writeFileSync(__path + '/tmp/media_tmp.mp4', buffer)
-        var media = await fs.readFileSync(__path + '/tmp/media_tmp.mp4')
-        var outputPath = await fs.readFileSync(__path + '/tmp/audio.mp3')
-        exec(`ffmpeg -i ${media} ${outputPath}`, (err) => {
-            if (err) res.json({
-                error: 'Gagal, pada saat mengkonversi video ke mp3'
-            })
+        await fs.writeFileSync(__path + '/tmp/media_tomp3.mp4', buffer)
+        var media = await fs.readFileSync(__path + '/tmp/media_tomp3.mp4')
+        var result = await toMP3(media, 'mp4')
 
-            res.sendFile(outputPath)
-        })
+            res.sendFile(result)
     } catch (e) {
         console.log(e)
         res.json(loghandler.invalidLink)
@@ -10865,11 +9822,7 @@ var ip = req.ip
 
 router.get('/attp2', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var text = req.query.text,
         apikeyInput = req.query.apikey;
@@ -10895,11 +9848,7 @@ var ip = req.ip
 
 router.get('/shitpost', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -10923,11 +9872,7 @@ var ip = req.ip
 
 router.get('/shauntheship', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -10954,11 +9899,7 @@ var ip = req.ip
 
 router.get('/running', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         apikeyInput = req.query.apikey;
@@ -10988,11 +9929,7 @@ var ip = req.ip
 
 router.get('/citacita', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
@@ -11021,11 +9958,7 @@ var ip = req.ip
 
 router.get('/github', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var q = req.query.query,
         apikeyInput = req.query.apikey;
@@ -11051,16 +9984,12 @@ var ip = req.ip
     }
 })
 
-router.get('/minecraft-server', async (req, res, next) => {
+router.get('/minecraft', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var q = req.query.query,
-        apikeyInput = req.query.apikey;
+    var server = req.query.server,
+          apikeyInput = req.query.apikey;
 
     var maintenance = false
     if (maintenance == true) return res.sendFile(mtc)
@@ -11070,7 +9999,7 @@ var ip = req.ip
     if (!q) return res.json(loghandler.notquery)
 
     try {
-            await util.statusBedrock(q).then(result => {
+            await util.statusBedrock(server).then(result => {
 
                 res.json({
                     status: true,
@@ -11088,11 +10017,7 @@ var ip = req.ip
 
 router.get('/rank', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var avatar = req.query.avatar,
         nama = req.query.nama,
@@ -11121,12 +10046,12 @@ var ip = req.ip
     	var number = Math.floor(Math.random() * 1000)
         var rank = new canvacord.Rank()
             .setAvatar(avatar)
-            .setCurrentXP(number)
-            .setRequiredXP(1000)
+            .setCurrentXP(exp.toNumber())
+            .setRequiredXP(max_exp.toNumber())
             .setStatus('dnd')
             .setProgressBar('#FFFFFF', 'COLOR')
             .setUsername(nama)
-            .setDiscriminator('#' + number)
+            .setDiscriminator('#' + Math.floor(Math.random() * 1000))
 
         rank.build().then(result => {
             fs.writeFileSync(__path + '/tmp/rank_' + nama + '.png', result)
@@ -11141,11 +10066,7 @@ var ip = req.ip
 
 router.get('/savemedia', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip
-            || req.connection.remoteAddress 
-            || req.socket.remoteAddress 
-            || req.connection.socket.remoteAddress;
-
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var file_url = req.query.file_url,
         apikeyInput = req.query.apikey;
@@ -11172,6 +10093,94 @@ var ip = req.ip
           ext: `${ext} (${ext.toUpperCase()})`,
           result: 'https://kuhong-api.herokuapp.com/media/' + randomNumber + '_tmp.' + ext
       })
+})
+
+router.get('/waifu', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var type = req.query.type,
+          apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (!type) return res.json(loghandler.nottype)
+    if (!(type == 'sfw' || type == 'nsfw')) return res.json({ status: false, message: 'Pilih sfw atau nsfw!' })
+
+    try {
+        var json = await (await fetch(`https://api.waifu.pics/${type}/waifu`)).json()
+        var result = await getBuffer(json.url)
+               await fs.writeFileSync(__path + '/tmp/' + type + '_waifu.png', result) 
+
+  res.sendFile(__path + '/tmp/' + type + '_waifu.png')
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/neko', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var type = req.query.type,
+          apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (!type) return res.json(loghandler.nottype)
+    if (!(type == 'sfw' || type == 'nsfw')) return res.json({ status: false, message: 'Pilih sfw atau nsfw!' })
+
+    try {
+        var json = await (await fetch(`https://api.waifu.pics/${type}/neko`)).json()
+        var result = await getBuffer(json.url)
+               await fs.writeFileSync(__path + '/tmp/' + type + '_neko.png', result) 
+
+  res.sendFile(__path + '/tmp/' + type + '_neko.png')
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/tobraille', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var img = req.query.img,
+          apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (!img) return res.json(loghandler.notimg)
+
+    try {
+    var media = await getBuffer(img)
+    var path = __path + '/tmp/' + randomNumber + '.png'
+    await fs.writeFileSync(path, media)
+    var result = await braillefy(path, 30, {
+        invert: false,
+        dither: true
+    })
+
+        res.json({
+            status: true,
+            creator: creator,
+            result: result.toString()
+         })
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
 })
 
 // End of script
