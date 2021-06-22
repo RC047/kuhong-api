@@ -378,8 +378,8 @@ var random2 = '';
 for (var i = lenn; i > 0; i--) {
     random2 += arr[Math.floor(Math.random() * arr.length)];
 }
-var randomText = 'kuhong-api-storage/' + random + random2
-var randomNumber = Math.floor(Math.random() * 1000)
+var randomText = random + random2
+var randomNumber = Math.floor(Math.random() * 10000)
 
 
 // Api Features :
@@ -7726,6 +7726,7 @@ var ip = req.ip
         res.json({
             status: true,
             creator: `${creator}`,
+            ext: `${ext} (${ext.toUpperCase()})`,
             filesize: media.length + ' byte(s)',
             result: result
         })
@@ -7976,7 +7977,7 @@ var ip = req.ip
            	nama: nama,
            	lahir: birth.join('-'),
                ultah: birthday.join('-'),
-               usia: umur,
+               usia: umur.toString(),
                zodiak: zodiac
                }
       })
@@ -11168,6 +11169,7 @@ var ip = req.ip
       res.json({
       	status: true,
           creator: creator,
+          ext: `${ext} (${ext.toUpperCase()})`,
           result: 'https://kuhong-api.herokuapp.com/media/' + randomNumber + '_tmp.' + ext
       })
 })
