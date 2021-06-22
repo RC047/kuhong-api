@@ -108,7 +108,7 @@ var ip = req.ip
 
 router.get('/api/status', async (req, res, next) => {  
 
-var date = new Date
+var date = new Date()
 var jam = date.getHours()
 var menit = date.getMinutes()
 var detik = date.getSeconds()
@@ -192,7 +192,7 @@ res.json({
         total:{
             visitor: visitor.value.toString(),
             request: request.value.toString(),
-            features: '295',
+            features: '308',
             blocked_ip: `${Object.keys(blocked).length}`
     },
         owner:{
