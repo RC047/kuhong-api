@@ -1,4 +1,4 @@
-__path = process.cwd()
+__path = process.cwd();
 
 // Database :
 var {
