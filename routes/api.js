@@ -7678,7 +7678,7 @@ var ip = req.ip
 
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
-        username = req.query.username;
+          username = req.query.username;
 
     var maintenance = false
     if (maintenance == true) return res.sendFile(mtc)
@@ -7688,11 +7688,15 @@ var ip = req.ip
     if (!username) return res.json(loghandler.notusername)
 
     try {
-        var json = await (await fetch(`http://zekais-api.herokuapp.com/github?user=${username}`)).json()
-        res.json(json.result)
+        var result = await (await fetch(`https://api.github.com/users/${username}`)).json()
+        res.json({
+        	     status: true,
+                 creator: creator,
+                 result
+        })
     } catch (e) {
         console.log(e)
-        res.sendFile(error)
+        res.json({ status: false, error: 'User tidak ditemukan!' })
     }
 })
 
