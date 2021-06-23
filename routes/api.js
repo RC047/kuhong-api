@@ -77,7 +77,8 @@ var http = require('http');
 var canvacord = require('canvacord');
 var Shopee = require('shopee');
 var barcode = require('barcode');
-var brainly = require('brainly-scraper-v2');
+var brainly = require('brainly-scraper');
+var brainly2 = require('brainly-scraper-v2');
 var imgbb = require('imgbb-uploader');
 var imageToBase64 = require('image-to-base64');
 var upload = require(__path + '/lib/upload.js');
@@ -4816,7 +4817,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: `Masukan parameter soal`
         })
 
-        brainly(soal).then(result => {
+        await brainly(soal).then(result => {
 
         res.json({
         	status: true,
@@ -4847,7 +4848,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: `Masukan parameter soal`
         })
 
-        brainly(soal).then(result => {
+        await brainly(soal).then(result => {
 
         res.json({
         	status: true,
@@ -9803,10 +9804,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var buffer = Buffer.from(enc, 'base64')
         await fs.writeFileSync(__path + '/tmp/media_tomp3.mp4', buffer)
         var media = await fs.readFileSync(__path + '/tmp/media_tomp3.mp4')
-        await toMP3(media, 'mp4').then(result => {
+        var mp3 = await toMP3(media, 'mp4')
+        var result = await upload(mp3)
 
-           res.sendFile(result)
-       })
+           res.json({
+           	status: true,
+               creator: creator,
+               mp3: result
+           })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -10268,13 +10273,14 @@ try {
     res.json(json)
 
 } catch (e) {
-	var txt = await data.text()
+	var ress = await data.text()
 	res.json({
 		status: true,
 		creator: creator,
-		result: txt.toString()
+		header: data.headers,
+		body: data
 	})
-   }
+  }
 })
 
 // End of script
