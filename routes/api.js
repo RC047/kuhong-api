@@ -77,7 +77,7 @@ var http = require('http');
 var canvacord = require('canvacord');
 var Shopee = require('shopee');
 var barcode = require('barcode');
-var brainly = require('brainly-scraper');
+var brainly = require('brainly-scraper-v2');
 var imgbb = require('imgbb-uploader');
 var imageToBase64 = require('image-to-base64');
 var upload = require(__path + '/lib/upload.js');
@@ -4814,13 +4814,15 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: `Masukan parameter soal`
         })
 
-        var json = await (await fetch(`https://recoders-area.caliph.repl.co/api/brainly?q=${soal}`)).json()
+        await brainly(soal).then(result => {
+        var json = JSON.stringify(result)
+
         res.json({
             status: true,
             creator: creator,
             result: json.data
         })
-
+      })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -4844,13 +4846,15 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: `Masukan parameter soal`
         })
 
-        var json = await (await fetch(`https://recoders-area.caliph.repl.co/api/brainly?q=${soal}`)).json()
+        await brainly(soal).then(result => {
+        var json = JSON.stringify(result)
+
         res.json({
             status: true,
             creator: creator,
             result: json.data
         })
-
+      })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
