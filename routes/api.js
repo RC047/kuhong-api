@@ -9980,7 +9980,8 @@ router.get('/minecraft', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var server = req.query.server,
+    var type = req.query.type,
+          server = req.query.server,
           apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -9988,17 +9989,32 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (!type) return res.json(loghandler.nottype)
+    if (!(type == 'bedrock' || type == 'java')) return res.json({ message: 'Pilih bedrock atau java!' })
     if (!server) return res.json({ message: 'Masukan parameter server' })
 
     try {
+    	if (type.toLowerCase() == 'bedrock'.toLowerCase()) {
             await util.statusBedrock(server).then(result => {
 
                 res.json({
                     status: true,
                     creator: creator,
+                    type: type.toLowerCase(),
                     result: result
                 })
             })
+         } else if (type.toLowerCase() == 'java'.toLowerCase()) {
+            await util.status(server).then(result => {
+
+                res.json({
+                    status: true,
+                    creator: creator,
+                    type: type.toLowerCase(),
+                    result: result
+                })
+              })
+           }
     } catch (e) {
         console.log(e)
         res.json({
