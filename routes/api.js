@@ -10041,7 +10041,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (isNaN(max_exp)) return res.json(loghandler.number)
 
     try {
-    	var number = Math.floor(Math.random() * 1000)
         var rank = new canvacord.Rank()
             .setAvatar(avatar)
             .setCurrentXP(Number(exp))
@@ -10175,6 +10174,55 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             creator: creator,
             result: result.toString()
          })
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/spotifycard', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var avatar = req.query.avatar,
+        nama = req.query.nama,
+        album = req.query.album,
+        title = req.query.title,
+        start = req.query.start,
+        end = req.query.end,
+        apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (!avatar) return res.json(loghandler.notimg)
+    if (!avatar.startsWith('http')) return res.json(loghandler.invalidLink)
+    if (!nama) return res.json(loghandler.nama)
+    if (!album) return res.json({ message: 'Masukan parameter album' })
+    if (!title) return res.json({ message: 'Masukan parameter title' })
+    if (!start) return res.json({
+        message: 'Masukan parameter start'
+    })
+    if (!end) return res.json({
+        message: 'Masukan parameter end'
+    })
+
+    try {
+        var card = new canvacord.Spotify()
+         .setAuthor(nama)
+         .setAlbum(album)
+         .setStartTimestamp(start)
+         .setEndTimestamp(end)
+         .setImage(avatar)
+         .setTitle(title)
+
+        card.build().then(result => {
+            fs.writeFileSync(__path + '/tmp/' + nama + '_spotify.png', result)
+
+            res.sendFile(__path + '/tmp/' + nama + '_spotify.png')
+        })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
