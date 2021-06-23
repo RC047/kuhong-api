@@ -82,6 +82,7 @@ var brainly2 = require('brainly-scraper-v2');
 var imgbb = require('imgbb-uploader');
 var imageToBase64 = require('image-to-base64');
 var upload = require(__path + '/lib/upload.js');
+var upload2 = require(__path + '/lib/upload2.js');
 var translate = require('translate-google-api');
 var tesseract = require('node-tesseract-ocr');
 var googleIt = require('google-it');
@@ -7061,6 +7062,43 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }
 })
 
+router.get('/fileio', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey,
+        url = req.query.url;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (!url) return res.json(loghandler.noturl)
+
+    try {
+        var encmedia = await imageToBase64(url)
+        var media = Buffer.from(encmedia, 'base64')
+        var { ext } = await fromBuffer(media)
+        await fs.writeFileSync(__path + '/tmp/file_io.' + ext, media)
+        var file_result = fs.readFileSync(__path + '/tmp/file_io.' + ext)
+        var result = await upload2(file_result)
+
+        res.json({
+            status: true,
+            creator: creator,
+            ext: `${ext} (${ext.toUpperCase()})`,
+            filesize: media.length + ' byte(s)',
+            result: result
+        })
+    } catch (e) {
+        res.json({
+            error: e
+        })
+        console.log(e)
+    }
+})
+
 router.get('/shopee', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
@@ -9805,7 +9843,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         await fs.writeFileSync(__path + '/tmp/media_tomp3.mp4', buffer)
         var media = await fs.readFileSync(__path + '/tmp/media_tomp3.mp4')
         var mp3 = await toMP3(media, 'mp4')
-        var result = await upload(mp3)
+        var result = await upload2(mp3)
 
            res.json({
            	status: true,
@@ -10273,7 +10311,6 @@ try {
     res.json(json)
 
 } catch (e) {
-	var ress = await data.text()
 	res.json({
 		status: true,
 		creator: creator,
