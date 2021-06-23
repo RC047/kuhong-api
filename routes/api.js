@@ -77,7 +77,7 @@ var http = require('http');
 var canvacord = require('canvacord');
 var Shopee = require('shopee');
 var barcode = require('barcode');
-var brainly = require('brainly-scraper');
+var brainly = require('brainly-scraper-v2');
 var imgbb = require('imgbb-uploader');
 var imageToBase64 = require('image-to-base64');
 var upload = require(__path + '/lib/upload.js');
@@ -2368,7 +2368,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
           	status: true,
               creator: creator,
               result
-              })
+          })
 })
 
 
@@ -2384,17 +2384,12 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-    fetch(encodeURI(`https://covid19-api-zhirrr.vercel.app/api/world`))
-        .then(response => responsejson())
-        .then(data => {
-            var result = data;
-            res.json({
-                result
-            })
-        })
-        .catch(e => {
-            res.sendFile(error)
-        })
+    var result = await (await fetch(`https://api.kawalcorona.com`)).json()
+          res.json({
+          	status: true,
+              creator: creator,
+              result
+              })
 })
 
 
@@ -4815,11 +4810,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         })
 
         brainly(soal).then(result => {
-        var json = JSON.stringify(result)
 
         res.json({
+        	status: true,
             creator: creator,
-            result: json
+            result: result.data
         })
       })
     } catch (e) {
@@ -4846,11 +4841,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         })
 
         brainly(soal).then(result => {
-        var json = JSON.stringify(result)
 
         res.json({
+        	status: true,
             creator: creator,
-            result: json
+            result: result.data
         })
       })
     } catch (e) {
@@ -10237,6 +10232,42 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         console.log(e)
         res.sendFile(error)
     }
+})
+
+router.get('/fetch', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var url = req.query.url,
+          apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (!url) return res.json(loghandler.noturl)
+    if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
+
+try {
+	var text = url
+    var data = await fetch(url)
+    if (!/text|json/.test(data.headers.get('content-type'))) {
+    var buffer = await data.buffer()
+           fs.writeFileSync(__path + '/tmp/fetcher.png', buffer)
+           res.sendFile(__path + '/tmp/fetcher.png')
+    }
+    var json = await data.json()
+    res.json(json)
+
+} catch (e) {
+	var txt = await data.text()
+	res.json({
+		status: true,
+		creator: creator,
+		result: txt.toString()
+	})
+   }
 })
 
 // End of script
