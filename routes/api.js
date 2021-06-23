@@ -10049,7 +10049,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             .setStatus('dnd')
             .setProgressBar('#FFFFFF', 'COLOR')
             .setUsername(nama)
-            .setDiscriminator('#' + Math.floor(Math.random() * 1000))
+            .setDiscriminator(Math.floor(Math.random() * 1000))
 
         rank.build().then(result => {
             fs.writeFileSync(__path + '/tmp/rank_' + nama + '.png', result)
