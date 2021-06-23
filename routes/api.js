@@ -4815,10 +4815,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         })
 
         brainly(soal).then(result => {
-        var json = JSON.stringify(result.data)
+        var json = JSON.stringify(result)
 
         res.json({
-            status: true,
             creator: creator,
             result: json
         })
@@ -4847,10 +4846,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         })
 
         brainly(soal).then(result => {
-        var json = JSON.stringify(result.data)
+        var json = JSON.stringify(result)
 
         res.json({
-            status: true,
             creator: creator,
             result: json
         })
@@ -9779,11 +9777,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
   res.sendFile(__path + '/tmp/intro.mp4')
     } catch (e) {
-    	var tmp = await imageToBase64('https://raw.githubusercontent.com/RC047/intro-maker/main/tes.webm')
-        var result = Buffer.from(tmp, 'base64')
-              await fs.writeFileSync(__path + '/tmp/intro_error.mp4', result)
-
-  res.sendFile(__path + '/tmp/intro_error.mp4')
+  res.sendFile(__path + '/public/media/intro.mp4')
     }
 })
 
@@ -9807,12 +9801,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var buffer = Buffer.from(enc, 'base64')
         await fs.writeFileSync(__path + '/tmp/media_tomp3.mp4', buffer)
         var media = await fs.readFileSync(__path + '/tmp/media_tomp3.mp4')
-        var result = await toMP3(media, 'mp4')
+        await toMP3(media, 'mp4').then(result => {
 
-            res.sendFile(result)
+           res.sendFile(result)
+       })
     } catch (e) {
         console.log(e)
-        res.json(loghandler.invalidLink)
+        res.sendFile(error)
     }
 })
 
@@ -10063,7 +10058,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             .setStatus('dnd')
             .setProgressBar('#FFFFFF', 'COLOR')
             .setUsername(nama)
-            .setDiscriminator(Math.floor(Math.random() * 1000).toString())
+            .setDiscriminator('000' + Math.floor(Math.random() * 9))
 
         rank.build().then(result => {
             fs.writeFileSync(__path + '/tmp/rank_' + nama + '.png', result)
