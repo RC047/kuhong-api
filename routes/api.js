@@ -105,9 +105,10 @@ var instagramGetUrl = require('instagram-url-direct');
 var TikTokScraper = require('tiktok-scraper');
 var yts = require('yt-search');
 var fs = require('fs');
-var util = require('minecraft-server-util');
+var msu = require('minecraft-server-util');
 var options = require(__path + '/lib/options.js');
 var {
+	util,
     promisify
 } = require('util');
 var {
@@ -4472,10 +4473,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!q) return res.json(loghandler.notquery)
 
     try {
-        var json = await (await fetch(`https://fdciabdul.tech/api/pinterest/?keyword=${q}`)).json()
-        var body = JSON.parse(JSON.stringify(json))
-        var tada = body[Math.floor(Math.random() * boy.length)]
-        var hasil = await getBuffer(tada)
+        var pinterest = promisify(gis)
+        var result = await pinterest(q) || []
+        var image = pickRandom(result) || {}
+        if (!image) return res.json({ status: false, erorr: '404 Not Found' })
+        var hasil = await getBuffer(image)
         await fs.writeFileSync(__path + '/tmp/pinterest.png', hasil)
 
         res.sendFile(__path + '/tmp/pinterest.png')
@@ -9994,7 +9996,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
     try {
     	if (type.toLowerCase() == 'bedrock'.toLowerCase()) {
-            await util.statusBedrock(server).then(result => {
+            await msu.statusBedrock(server).then(result => {
 
                 res.json({
                     status: true,
@@ -10004,7 +10006,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 })
             })
          } else if (type.toLowerCase() == 'java'.toLowerCase()) {
-            await util.status(server).then(result => {
+            await msu.status(server).then(result => {
 
                 res.json({
                     status: true,
