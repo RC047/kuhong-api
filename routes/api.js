@@ -136,9 +136,6 @@ var {
     running
 } = require(__path + '/lib/running.js');
 var {
-    ocr
-} = require(__path + '/lib/ocr.js');
-var {
     JSDOM
 } = require('jsdom');
 var {
@@ -4066,12 +4063,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
     var buffer = await getBuffer(img)
     await fs.writeFileSync(__path + '/tmp/ocr.png', buffer)
-    var media = fs.readFile(__path + '/tmp/ocr.png')
-    await ocr(media, {
-            lang: 'eng+ind',
-            oem: 1,
-            psm: 3
-        }).then(result => {
+    var media = __path + '/tmp/ocr.png'
+    await tesseract.recognize(media, { lang: 'eng+ind', oem: 1, psm: 3 })
+               .then(result => {
 
             res.json({
                 status: true,
@@ -4081,7 +4075,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         })
         .catch(error => {
             res.sendFile(error)
-            console.log('OCR ERROR\n' + error.message)
+            console.log(error.message)
         })
 })
 
@@ -10002,13 +9996,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 res.json({
                     status: true,
                     creator: creator,
-                    result
+                    result: result
                 })
             })
     } catch (e) {
         console.log(e)
         res.json({
-        	error: 'Nama Server tidak ditemukan'
+        	status: false,
+        	error: 'Server tidak ditemukan!'
         })
     }
 })
@@ -10048,7 +10043,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             .setStatus('dnd')
             .setProgressBar('#FFFFFF', 'COLOR')
             .setUsername(nama)
-            .setDiscriminator(Math.floor(Math.random() * 1000))
+            .setDiscriminator(Math.floor(Math.random() * 1000).toString())
 
         rank.build().then(result => {
             fs.writeFileSync(__path + '/tmp/rank_' + nama + '.png', result)
