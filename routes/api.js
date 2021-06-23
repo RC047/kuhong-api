@@ -84,6 +84,7 @@ var upload = require(__path + '/lib/upload.js');
 var translate = require('translate-google-api');
 var tesseract = require('node-tesseract-ocr');
 var googleIt = require('google-it');
+var gis = require('g-i-s');
 var axios = require('axios');
 var FormData = require('form-data');
 var ytdl = require('ytdl-core');
@@ -106,6 +107,9 @@ var yts = require('yt-search');
 var fs = require('fs');
 var util = require('minecraft-server-util');
 var options = require(__path + '/lib/options.js');
+var {
+    promisify
+} = require('util');
 var {
     braillefy
 } = require('img2braille');
@@ -4439,13 +4443,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!q) return res.json(loghandler.notquery)
 
     try {
-        var json = await (await fetch(`https://fdciabdul.tech/api/pinterest/?keyword=${q}`)).json()
-        var body = JSON.parse(JSON.stringify(json))
-        var tada = body[Math.floor(Math.random() * body.length)]
-        var hasil = await getBuffer(tada)
-        await fs.writeFileSync(__path + '/tmp/image.png', hasil)
+        var gimage = promisify(gis)
+        var result = await gimage(q) || []
+        var image = pickRandom(result) || {}
+        if (!image) return res.json({ status: false, erorr: '404 Not Found' })
+        var hasil = await getBuffer(image)
+        await fs.writeFileSync(__path + '/tmp/gimage.png', hasil)
 
-        res.sendFile(__path + '/tmp/image.png')
+        res.sendFile(__path + '/tmp/gimage.png')
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -4496,7 +4501,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.json({
         status: true,
         creator: creator,
-        result: text
+        result: text.toString()
     })
 })
 
