@@ -4447,10 +4447,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
     try {
         var gimage = promisify(gis)
-        var result = await gimage(q) || []
-        var image = pickRandom(result) || {}
+        var result = await gimage(q)
+        var image = pickRandom(result)
         if (!image) return res.json({ status: false, erorr: '404 Not Found' })
-        var hasil = await getBuffer(image)
+        var hasil = await (await fetch(image)).buffer()
         await fs.writeFileSync(__path + '/tmp/gimage.png', hasil)
 
         res.sendFile(__path + '/tmp/gimage.png')
@@ -4476,10 +4476,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
     try {
         var pinterest = promisify(gis)
-        var result = await pinterest(q) || []
-        var image = pickRandom(result) || {}
+        var result = await pinterest(q)
+        var image = pickRandom(result)
         if (!image) return res.json({ status: false, erorr: '404 Not Found' })
-        var hasil = await getBuffer(image)
+        var hasil = await (await fetch(image)).buffer()
         await fs.writeFileSync(__path + '/tmp/pinterest.png', hasil)
 
         res.sendFile(__path + '/tmp/pinterest.png')
@@ -4791,7 +4791,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!emoji) return res.json(loghandler.notemoji)
 
-        var hasil = await (await fetch(`https://api.zeks.xyz/api/emoji-image?apikey=${zeks_key}&emoji=${encodeURIComponent(emoji)}`)).buffer()
+        var hasil = await (await fetch(`https://docs-jojo.herokuapp.com/api/emoji2png?emoji=${encodeURIComponent(emoji)}&type=apple`)).buffer()
         await fs.writeFileSync(__path + '/tmp/emojitopng.png', hasil)
 
         res.sendFile(__path + '/tmp/emojitopng.png')
@@ -5739,7 +5739,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var quote = req.query.quote,
         author = req.query.author,
-        theme = req.query.theme,
         apikeyInput = req.query.apikey;
 
     try {
@@ -5754,10 +5753,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!author) return res.json({
             message: `Masukan parameter author`
         })
-        if (!theme) return res.json(loghandler.nottheme)
 
-        var json = await (await fetch(`https://terhambar.com/aw/qts/?kata=${quote}&author=${author}&tipe=${theme}`)).json()
-        await fs.writeFileSync(__path + '/tmp/quotemaker.png', await getBuffer(json.result))
+        var json = await (await fetch('https://docs-api-zahirrr.herokuapp.com/api/random/wallpaper?genre=acak')).json()
+        var theme = json.url
+        var hasil = await canvacord.Canvas.quote(theme, quote, author);
+        await fs.writeFileSync(__path + '/tmp/quotemaker.png', hasil)
 
         res.sendFile(__path + '/tmp/quotemaker.png')
     } catch (e) {
@@ -6375,12 +6375,40 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!q) return res.json(loghandler.notquery)
 
-        var result = await (await fetch(`https://api.zeks.xyz/api/joox?apikey=${zeks_key}&q=${q}`)).json()
+        var json = await (await fetch(`https://api.xteam.xyz/search/jooxfind?q=${q}&APIKEY=${xteam_key}`)).json()
 
         res.json({
             status: true,
             creator: creator,
-            result: result.data
+            result: json.result
+        })
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/joox/lirik', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey,
+        q = req.query.q;
+
+    try {
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!q) return res.json(loghandler.notquery)
+
+        var json = await (await fetch(`https://api.xteam.xyz/search/jooxlyrics?q=${q}&APIKEY=${xteam_key}`)).json()
+
+        res.json({
+            status: true,
+            creator: creator,
+            result: json.result.data
         })
     } catch (e) {
         console.log(e)
@@ -6545,7 +6573,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
         var json = await (await fetch(`https://api.banghasan.com/quran/format/json/acak`)).json()
 
-        res.json(json.acak)
+        res.json({
+           status: true,
+           creator: creator,
+           result: json.acak
+        })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -6570,7 +6602,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
         var json = await (await fetch(`https://api.terhambar.com/ninja?nama=${nama}`)).json()
 
-        res.json(json)
+        res.json({
+        	status: true,
+            creator: creator,
+            result: json.result.ninja
+        })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -6708,7 +6744,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         })
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`https://some-random-api.ml/canvas/youtube-comment?avatar=${img}&comment=${comment}&username=${username}`)).buffer()
+        var isDark = pickRandom([true, false])
+        var hasil = await canvacord.Canvas.youtube(username, comment, img, isDark)
         await fs.writeFileSync(__path + '/tmp/ytcomment.png', hasil)
 
         res.sendFile(__path + '/tmp/ytcomment.png')
@@ -6851,7 +6888,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`https://some-random-api.ml/canvas/wasted?avatar=${img}`)).buffer()
+        var hasil = await canvacord.Canvas.wasted(img);
         await fs.writeFileSync(__path + '/tmp/wasted.png', hasil)
 
         res.sendFile(__path + '/tmp/wasted.png')
@@ -6878,7 +6915,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`https://some-random-api.ml/canvas/gay?avatar=${img}`)).buffer()
+        var hasil = await canvacord.Canvas.rainbow(img);
         await fs.writeFileSync(__path + '/tmp/rainbow.png', hasil)
 
         res.sendFile(__path + '/tmp/rainbow.png')
@@ -6958,7 +6995,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`http://zekais-api.herokuapp.com/pixelate?url=${img}`)).buffer()
+        var hasil = await canvacord.Canvas.pixelate(img);
         await fs.writeFileSync(__path + '/tmp/8bit.png', hasil)
 
         res.sendFile(__path + '/tmp/8bit.png')
@@ -6985,7 +7022,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`http://zekais-api.herokuapp.com/wanted?url=${img}`)).buffer()
+        var hasil = await canvacord.Canvas.wanted(img);
         await fs.writeFileSync(__path + '/tmp/wanted.png', hasil)
 
         res.sendFile(__path + '/tmp/wanted.png')
@@ -7419,7 +7456,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         })
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`https://api.zeks.xyz/api/phub?apikey=${zeks_key}&img=${img}&username=${username}&msg=${comment}`)).buffer()
+        var hasil = await canvacord.Canvas.phub(username, comment, img);
         await fs.writeFileSync(__path + '/tmp/phcomment.png', hasil)
 
         res.sendFile(__path + '/tmp/phcomment.png')
@@ -7893,7 +7930,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`http://zekais-api.herokuapp.com/delete?url=${img}`)).buffer()
+        var hasil = await canvacord.Canvas.trash(img);
         await fs.writeFileSync(__path + '/tmp/deltrash.png', hasil)
 
         res.sendFile(__path + '/tmp/deltrash.png')
@@ -7947,7 +7984,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`http://zekais-api.herokuapp.com/jail?url=${img}`)).buffer()
+        var hasil = await canvacord.Canvas.jail(img);
         await fs.writeFileSync(__path + '/tmp/jail.png', hasil)
 
         res.sendFile(__path + '/tmp/jail.png')
@@ -8001,7 +8038,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`http://zekais-api.herokuapp.com/rip?url=${img}`)).buffer()
+        var hasil = await canvacord.Canvas.rip(img);
         await fs.writeFileSync(__path + '/tmp/rip.png', hasil)
 
         res.sendFile(__path + '/tmp/rip.png')
@@ -8182,7 +8219,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`https://api-self.herokuapp.com/api/invert?url=${img}`)).buffer()
+        var hasil = await canvacord.Canvas.invert(img);
         await fs.writeFileSync(__path + '/tmp/invert.png', hasil)
 
         res.sendFile(__path + '/tmp/invert.png')
@@ -8499,11 +8536,41 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
     try {
-        var result = await (await fetch(`https://api.zeks.xyz/api/sid-shortener?apikey=${zeks_key}&url=${url}`)).json()
+        var json = await (await fetch(`https://api.xteam.xyz/shorturl/sid?url=${url}&APIKEY=${xteam_key}`)).json()
 
         res.json({
+        	status: true,
             creator: creator,
-            result
+            result: json.result.shorturl
+        })
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/bitly', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var url = req.query.url,
+        apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (!url) return res.json(loghandler.noturl)
+    if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
+
+    try {
+        var json = await (await fetch(`https://api.xteam.xyz/shorturl/bitly?url=${url}&APIKEY=${xteam_key}`)).json()
+
+        res.json({
+        	status: true,
+            creator: creator,
+            result: json.result.link
         })
     } catch (e) {
         console.log(e)
@@ -8668,7 +8735,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`https://api-self.herokuapp.com/api/blur?url=${img}`)).buffer()
+        var hasil = await canvacord.Canvas.blur(img);
         await fs.writeFileSync(__path + '/tmp/blur.png', hasil)
 
         res.sendFile(__path + '/tmp/blur.png')
@@ -8695,7 +8762,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`https://api-self.herokuapp.com/api/sepia?url=${img}`)).buffer()
+        var hasil = await canvacord.Canvas.sepia(img);
         await fs.writeFileSync(__path + '/tmp/sepia.png', hasil)
 
         res.sendFile(__path + '/tmp/sepia.png')
@@ -8722,7 +8789,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`https://api-self.herokuapp.com/api/greyscale?url=${img}`)).buffer()
+        var hasil = await canvacord.Canvas.greyscale(img);
         await fs.writeFileSync(__path + '/tmp/grey.png', hasil)
 
         res.sendFile(__path + '/tmp/grey.png')
@@ -8739,7 +8806,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nama_mem = req.query.nama_mem,
         avatar = req.query.avatar,
-        bg = req.query.bg,
         nama_gc = req.query.nama_gc,
         jumlah_mem = req.query.jumlah_mem,
         apikeyInput = req.query.apikey;
@@ -8757,21 +8823,26 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: `Masukan parameter avatar`
         })
         if (!avatar.startsWith('http')) return res.json(loghandler.invalidLink)
-        if (!bg) return res.json({
-            message: `Masukan parameter background`
-        })
-        if (!bg.startsWith('http')) return res.json(loghandler.invalidLink)
         if (!nama_gc) return res.json({
             message: `Masukan parameter nama group`
         })
+        if (isNaN(jumlah_mem)) return res.json(loghandler.number)
         if (!jumlah_mem) return res.json({
             message: `Masukan parameter jumlah member`
         })
 
-        var hasil = await (await fetch(`https://api-self.herokuapp.com/api/canvaswelbg?name=${nama_mem}&avatar=${avatar}&background=${bg}&gcname=${nama_gc}&jumlahmem=${jumlah_mem}`)).buffer()
-        await fs.writeFileSync(__path + '/tmp/welcome.png', hasil)
+        var card = new canvacord.Welcomer()
+            .setUsername(nama_mem)
+            .setDiscriminator('000' + Math.floor(Math.random() * 9))
+            .setMemberCount(Number(jumlah_mem))
+            .setGuildName(nama_gc)
+            .setAvatar(avatar)
 
-        res.sendFile(__path + '/tmp/welcome.png')
+        card.build().then(result => {
+            fs.writeFileSync(__path + '/tmp/welcome.png', result)
+
+            res.sendFile(__path + '/tmp/welcome.png')
+        })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -9811,15 +9882,15 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json(loghandler.nottext)
 
-    try {
-        var media = await imageToBase64('https://raw.githubusercontent.com/RC047/intro-maker/main/' + text.toLowerCase() + '.webm')
+        await imageToBase64('https://raw.githubusercontent.com/RC047/intro-maker/main/' + text.toLowerCase() + '.webm')
+        .then(media => {
         var buffer = Buffer.from(media, 'base64')
-               await fs.writeFileSync(__path + '/tmp/intro.mp4', buffer)
+              fs.writeFileSync(__path + '/tmp/intro.mp4', buffer)
 
   res.sendFile(__path + '/tmp/intro.mp4')
-    } catch (e) {
+        }).catch(() => {
   res.sendFile(__path + '/public/media/intro.mp4')
-    }
+    })
 })
 
 router.get('/tomp3', async (req, res, next) => {
@@ -10311,13 +10382,341 @@ try {
     res.json(json)
 
 } catch (e) {
+	await fetch(url)
+	.then(result => result.text())
+	.then(body => {
 	res.json({
 		status: true,
 		creator: creator,
-		header: data.headers,
-		body: data
+		header: body.headers,
+		body: body
 	})
+   })
   }
+})
+
+router.get('/groupwa', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var q = req.query.query,
+        apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (!q) return res.json(loghandler.notquery)
+
+    try {
+        var json = await (await fetch(`https://api.xteam.xyz/search/grupwa?q=${q}&APIKEY=${xteam_key}`)).json()
+
+        res.json({
+            status: true,
+            creator: creator,
+            result: json.result
+        })
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/burning', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+    try {
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!img) return res.json(loghandler.notimg)
+        if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+        var hasil = await canvacord.Canvas.burn(img);
+        await fs.writeFileSync(__path + '/tmp/burning.gif', hasil)
+
+        res.sendFile(__path + '/tmp/burning.gif')
+
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/brightness', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var img = req.query.img,
+        level = req.query.level,
+        apikeyInput = req.query.apikey;
+
+    try {
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!img) return res.json(loghandler.notimg)
+        if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+        if (!level) return res.json({ message: 'Masukan parameter level' })
+        if (isNaN(level)) return res.json(loghandler.number)
+
+        var hasil = await canvacord.Canvas.brightness(img, Number(level));
+        await fs.writeFileSync(__path + '/tmp/brightness.png', hasil)
+
+        res.sendFile(__path + '/tmp/brightness.png')
+
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/threshold', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var img = req.query.img,
+        level = req.query.level,
+        apikeyInput = req.query.apikey;
+
+    try {
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!img) return res.json(loghandler.notimg)
+        if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+        if (!level) return res.json({ message: 'Masukan parameter level' })
+        if (isNaN(level)) return res.json(loghandler.number)
+
+        var hasil = await canvacord.Canvas.threshold(img, Number(level));
+        await fs.writeFileSync(__path + '/tmp/threshold.png', hasil)
+
+        res.sendFile(__path + '/tmp/threshold.png')
+
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/darkness', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var img = req.query.img,
+        level = req.query.level,
+        apikeyInput = req.query.apikey;
+
+    try {
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!img) return res.json(loghandler.notimg)
+        if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+        if (!level) return res.json({ message: 'Masukan parameter level' })
+        if (isNaN(level)) return res.json(loghandler.number)
+
+        var hasil = await canvacord.Canvas.darkness(img, Number(level));
+        await fs.writeFileSync(__path + '/tmp/darkness.png', hasil)
+
+        res.sendFile(__path + '/tmp/darkness.png')
+
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/fuse', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var img = req.query.img,
+        img2 = req.query.img2,
+        apikeyInput = req.query.apikey;
+
+    try {
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!img) return res.json(loghandler.notimg)
+        if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+        if (!img2) return res.json({ message: 'Masukan parameter img2' })
+        if (!img2.startsWith('http')) return res.json(loghandler.invalidLink)
+
+        var hasil = await canvacord.Canvas.fuse(img, img2);
+        await fs.writeFileSync(__path + '/tmp/fuse.png', hasil)
+
+        res.sendFile(__path + '/tmp/fuse.png')
+
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/slap', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var img = req.query.img,
+        img2 = req.query.img2,
+        apikeyInput = req.query.apikey;
+
+    try {
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!img) return res.json(loghandler.notimg)
+        if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+        if (!img2) return res.json({ message: 'Masukan parameter img2' })
+        if (!img2.startsWith('http')) return res.json(loghandler.invalidLink)
+
+        var hasil = await canvacord.Canvas.slap(img, img2);
+        await fs.writeFileSync(__path + '/tmp/slap.png', hasil)
+
+        res.sendFile(__path + '/tmp/slap.png')
+
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/kiss', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var img = req.query.img,
+        img2 = req.query.img2,
+        apikeyInput = req.query.apikey;
+
+    try {
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!img) return res.json(loghandler.notimg)
+        if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+        if (!img2) return res.json({ message: 'Masukan parameter img2' })
+        if (!img2.startsWith('http')) return res.json(loghandler.invalidLink)
+
+        var hasil = await canvacord.Canvas.kiss(img, img2);
+        await fs.writeFileSync(__path + '/tmp/kiss.png', hasil)
+
+        res.sendFile(__path + '/tmp/kiss.png')
+
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/imgcolor', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var img = req.query.img,
+        color = req.query.color,
+        apikeyInput = req.query.apikey;
+
+    try {
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!img) return res.json(loghandler.notimg)
+        if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+        if (!color) return res.json({ message: 'Masukan parameter color' })
+
+        var hasil = await canvacord.Canvas.colorfy(img, color);
+        await fs.writeFileSync(__path + '/tmp/color.png', hasil)
+
+        res.sendFile(__path + '/tmp/color.png')
+
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/hitler', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var img = req.query.img,
+        apikeyInput = req.query.apikey;
+
+    try {
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!img) return res.json(loghandler.notimg)
+        if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+
+        var hasil = await canvacord.Canvas.hitler(img);
+        await fs.writeFileSync(__path + '/tmp/hitler.png', hasil)
+
+        res.sendFile(__path + '/tmp/hitler.png')
+
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/resize', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var img = req.query.img,
+        width = req.query.width,
+        height = req.query.height,
+        apikeyInput = req.query.apikey;
+
+    try {
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!img) return res.json(loghandler.notimg)
+        if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+        if (!width) return res.json({ message: 'Masukan parameter width' })
+        if (isNaN(width)) return res.json(loghandler.number)
+        if (!height) return res.json({ message: 'Masukan parameter height' })
+        if (isNaN(height)) return res.json(loghandler.number)
+
+        var hasil = await canvacord.Canvas.resize(img, Number(width), Number(height));
+        await fs.writeFileSync(__path + '/tmp/resize.png', hasil)
+
+        res.sendFile(__path + '/tmp/resize.png')
+
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
 })
 
 // End of script
