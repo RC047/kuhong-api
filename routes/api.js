@@ -2287,16 +2287,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         message: 'Masukan parameter kata'
     })
 
-try {
     var json = await (await fetch(`https://arugaz.herokuapp.com/api/chord?q=${lagu}`)).json()
+    if (json.status !== 200) return res.json({ status: false, error: 'Chord tidak ditemukan!' })
+
     res.json({
     	status: true,
         creator: creator,
         result: json.result
     })
-  } catch (e) {
-  	res.json({ status: false, error: 'Chord tidak ditemukan!' })
-  }
 })
 
 
@@ -9724,17 +9722,17 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!jumlah) return res.json(loghandler.notjumlah)
     if (isNaN(jumlah)) return res.json(loghandler.number)
-    if (jumlah > 1000) return res.json({
-        error: `Jumlah terlalu banyak!`
+    if (jumlah > 100) return res.json({
+        error: 'Maximal 100!'
     })
 
     try {
-        var result = await randomBytes(Math.floor(Math.random() * 100))
+        var result = await randomBytes(Number(jumlah))
 
         res.json({
             status: true,
             creator: creator,
-            result: result.toString()
+            result: result
         })
     } catch (e) {
         console.log(e)
@@ -9996,7 +9994,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
-    if (!q) return res.json(loghandler.notquery)
+    if (!server) return res.json({ message: 'Masukan parameter server' })
 
     try {
             await util.statusBedrock(server).then(result => {
@@ -10046,8 +10044,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     	var number = Math.floor(Math.random() * 1000)
         var rank = new canvacord.Rank()
             .setAvatar(avatar)
-            .setCurrentXP(exp.toNumber())
-            .setRequiredXP(max_exp.toNumber())
+            .setCurrentXP(Number(exp))
+            .setRequiredXP(Number(max_exp))
             .setStatus('dnd')
             .setProgressBar('#FFFFFF', 'COLOR')
             .setUsername(nama)
