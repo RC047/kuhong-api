@@ -114,6 +114,11 @@ var {
     promisify
 } = require('util');
 var {
+	photooxy,
+	textpro,
+	ephoto
+} = require(__path + '/lib/scraper.js');
+var {
     braillefy
 } = require('img2braille');
 var {
@@ -2298,6 +2303,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     })
 
     var json = await (await fetch(`https://scrap.terhambar.com/lirik?word=${lagu}`)).json()
+    if (json.result.lirik == undefined) return res.json({ status: false, error: 'Lirik tidak ditemukan!' })
     res.json({
     	status: true,
         creator: creator,
@@ -2323,8 +2329,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         message: 'Masukan parameter kata'
     })
 
-    var json = await (await fetch(`https://arugaz.herokuapp.com/api/chord?q=${lagu}`)).json()
-    if (json.status !== 200) return res.json({ status: false, error: 'Chord tidak ditemukan!' })
+    var json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/chord?q=${lagu}`)).json()
+    if (json.result == undefined) return res.json({ status: false, error: 'Chord tidak ditemukan!' })
 
     res.json({
     	status: true,
@@ -2859,7 +2865,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -2892,7 +2898,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -2925,7 +2931,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -2958,7 +2964,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -2991,7 +2997,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3018,7 +3024,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3051,7 +3057,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3084,7 +3090,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3117,7 +3123,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3144,7 +3150,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3177,7 +3183,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3204,7 +3210,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3231,7 +3237,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3258,7 +3264,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3291,7 +3297,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3324,7 +3330,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3357,7 +3363,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3676,7 +3682,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3709,7 +3715,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3742,7 +3748,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3772,7 +3778,7 @@ router.get('/maker4', async (rq, res, next) => {
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3805,7 +3811,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3838,7 +3844,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3871,7 +3877,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -3904,7 +3910,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         .then(data => {
             var result = data;
             res.json({
-                author: 'RC047',
+                creator: creator,
                 result
             })
         })
@@ -4036,9 +4042,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
     try {
-        axios.get(`https://ezgif.com/webp-to-mp4?url=${url}`).then(({
-            data
-        }) => {
+        axios.get(`https://ezgif.com/webp-to-mp4?url=${url}`).then((data) => {
             var $ = cheerio.load(data)
             var bodyFormThen = new FormData()
             var file = $('input[name="file"]').attr('value')
@@ -4059,10 +4063,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 headers: {
                     'Content-Type': `multipart/form-data; boundary=${bodyFormThen._boundary}`
                 }
-            }).then(({
-                data
-            }) => {
-                var $ = cheerio.load(data)
+            }).then((hasil) => {
+                var $ = cheerio.load(hasil)
                 var result = 'https:' + $('div#output > p.outfile > video > source').attr('src')
 
                 res.json({
@@ -4482,7 +4484,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var result = await gimage(q)
         var image = pickRandom(result)
         if (!image) return res.json({ status: false, erorr: '404 Not Found' })
-        var hasil = await (await fetch(image)).buffer()
+        var hasil = await getBuffer(image)
+        console.log(image)
         await fs.writeFileSync(__path + '/tmp/gimage.png', hasil)
 
         res.sendFile(__path + '/tmp/gimage.png')
@@ -4511,7 +4514,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var result = await pinterest(q)
         var image = pickRandom(result)
         if (!image) return res.json({ status: false, erorr: '404 Not Found' })
-        var hasil = await (await fetch(image)).buffer()
+        var hasil = await getBuffer(mage)
         await fs.writeFileSync(__path + '/tmp/pinterest.png', hasil)
 
         res.sendFile(__path + '/tmp/pinterest.png')
@@ -4823,7 +4826,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!emoji) return res.json(loghandler.notemoji)
 
-        var hasil = await (await fetch(`https://docs-jojo.herokuapp.com/api/emoji2png?emoji=${encodeURIComponent(emoji)}&type=apple`)).buffer()
+        var hasil = await getBuffer(`https://docs-jojo.herokuapp.com/api/emoji2png?emoji=${encodeURIComponent(emoji)}&type=apple`)
         await fs.writeFileSync(__path + '/tmp/emojitopng.png', hasil)
 
         res.sendFile(__path + '/tmp/emojitopng.png')
@@ -4977,8 +4980,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 'content-type': 'application/x-www-form-urlencoded'
             },
             url: 'http://www.primbon.com/arti_nama.php?nama1=' + nama + '&proses=+Submit%21+',
+
         }, function(error, response, body) {
-            let $ = cheerio.load(body);
+            var $ = cheerio.load(body);
             var y = $.html().split('arti:')[1];
             var t = y.split('method="get">')[1];
             var f = y.replace(t, ' ');
@@ -5025,7 +5029,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             url: 'http://www.primbon.com/kecocokan_nama_pasangan.php?nama1=' + nama + '&nama2=' + pasangan + '&proses=+Submit%21+',
 
         }, function(error, response, body) {
-            let $ = cheerio.load(body);
+            var $ = cheerio.load(body);
             var y = $.html().split('<b>KECOCOKAN JODOH BERDASARKAN NAMA PASANGAN</b><br><br>')[1];
             var t = y.split('.<br><br>')[1];
             var f = y.replace(t, ' ');
@@ -5287,7 +5291,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://api.zeks.xyz/api/sandw?apikey=${zeks_key}&text=${text}`)
+        var result = await textpro('https://textpro.me/sand-engraved-3d-text-effect-989.html', text)
+        var hasil = await getBuffer(result)
         await fs.writeFileSync(__path + '/tmp/pantai.png', hasil)
 
         res.sendFile(__path + '/tmp/pantai.png')
@@ -5368,7 +5373,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://api.zeks.xyz/api/tfire?text=${text}&apikey=${zeks_key}`)
+        var result = await textpro('https://textpro.me/firework-sparkle-text-effect-930.html', text)
+        var hasil = await getBuffer(result)
         await fs.writeFileSync(__path + '/tmp/firework.png', hasil)
 
         res.sendFile(__path + '/tmp/firework.png')
@@ -5422,7 +5428,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://api.zeks.xyz/api/matrix?apikey=${zeks_key}&text=${text}`)
+        var result = await textpro('https://textpro.me/matrix-style-text-effect-online-884.html', text)
+        var hasil = await getBuffer(result)
         await fs.writeFileSync(__path + '/tmp/matrix.png', hasil)
 
         res.sendFile(__path + '/tmp/matrix.png')
@@ -5447,10 +5454,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://api.zeks.xyz/api/text3dbox?apikey=${zeks_key}&text=${text}`)
-        await fs.writeFileSync(__path + '/tmp/3d.png', hasil)
+        var result = await textpro('https://textpro.me/3d-box-text-effect-online-880.html', text)
 
-        res.sendFile(__path + '/tmp/3d.png')
+       res.json({
+       	status: true,
+           creator: creator,
+           result: result
+       })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -5474,10 +5484,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!t1) return res.json(loghandler.nottext)
         if (!t2) return res.json(loghandler.nottext2)
 
-        var hasil = await getBuffer(`https://api.zeks.xyz/api/phlogo?text1=${t1}&text2=${t2}&apikey=${zeks_key}`)
-        await fs.writeFileSync(__path + '/tmp/phlogo.png', hasil)
+        var result = await textpro('https://textpro.me/pornhub-style-logo-online-generator-free-977.html', [t1], [t2])
+        var hasil = await getBuffer(result)
+              await fs.writeFileSync(__path + '/tmp/phlogo.png', hasil)
 
-        res.sendFile(__path + '/tmp/phlogo.png')
+  res.sendFile(__path + '/tmp/phlogo.png')
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -5500,7 +5511,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!t1) return res.json(loghandler.nottext)
         if (!t2) return res.json(loghandler.nottext2)
 
-        var hasil = await getBuffer(`https://api.zeks.xyz/api/marvellogo?text1=${t1}&text2=${t2}&apikey=${zeks_key}`)
+        var result = await textpro('https://textpro.me/create-logo-style-marvel-studios-online-971.html', [t1], [t2])
+        var hasil = await getBuffer(result)
         await fs.writeFileSync(__path + '/tmp/marvel.png', hasil)
 
         res.sendFile(__path + '/tmp/marvel.png')
@@ -5525,10 +5537,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://api.zeks.xyz/api/logobp?text=${text}&apikey=${zeks_key}`)
-        await fs.writeFileSync(__path + '/tmp/bp.png', hasil)
+        var result = await textpro('https://textpro.me/create-blackpink-logo-style-online-1001.html', text)
+        var hasil = await getBuffer(result)
+        await fs.writeFileSync(__path + '/tmp/bplogo.png', hasil)
 
-        res.sendFile(__path + '/tmp/bp.png')
+        res.sendFile(__path + '/tmp/bplogo.png')
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -5551,10 +5564,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!t1) return res.json(loghandler.nottext)
         if (!t2) return res.json(loghandler.nottext2)
 
-        var hasil = await getBuffer(`https://api.zeks.xyz/api/logoaveng?text1=${t1}&text2=${t2}&apikey=${zeks_key}`)
-        await fs.writeFileSync(__path + '/tmp/avenger.png', hasil)
+        var result = await textpro('https://textpro.me/create-3d-avengers-logo-online-974.html', [t1], [t2])
 
-        res.sendFile(__path + '/tmp/avenger.png')
+      res.json({
+      	status: true,
+          creator: creator,
+          result: result
+      })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -5576,7 +5592,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://api.zeks.xyz/api/thundertext?text=${text}&apikey=${zeks_key}`)
+        var result = await textpro('https://textpro.me/create-thunder-text-effect-online-881.html', text)
+        var hasil = await getBuffer(result)
         await fs.writeFileSync(__path + '/tmp/thunder.png', hasil)
 
         res.sendFile(__path + '/tmp/thunder.png')
@@ -5867,7 +5884,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://api.xteam.xyz/textpro/neon?text=${text}&APIKEY=${xteam_key}`)
+        var result = await textpro('https://textpro.me/create-a-futuristic-technology-neon-light-text-effect-1006.html', text)
+        var hasil = await getBuffer(result)
         await fs.writeFileSync(__path + '/tmp/futureneon.png', hasil)
 
         res.sendFile(__path + '/tmp/futureneon.png')
@@ -6762,7 +6780,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var img = req.query.img,
         username = req.query.username,
-        comment = req.query.comment;
+        comment = req.query.comment,
     apikeyInput = req.query.apikey;
 
     try {
@@ -6779,7 +6797,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
         var isDark = pickRandom([true, false])
-        var hasil = await canvacord.Canvas.youtube(username, comment, img, isDark)
+        var hasil = await canvacord.Canvas.youtube({ username: username, content: comment, avatar: img, dark: isDark })
         await fs.writeFileSync(__path + '/tmp/ytcomment.png', hasil)
 
         res.sendFile(__path + '/tmp/ytcomment.png')
@@ -7283,12 +7301,26 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     })
 
     try {
-        var json = await (await fetch(`https://videfikri.com/api/primbon/artimimpi/?mimpi=${mimpi}`)).json()
-        res.json({
-            status: true,
-            creator: creator,
-            result: json.result.artimimpi
-        })
+        request.get({
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            url: 'https://www.primbon.com/tafsir_mimpi.php?mimpi=' + mimpi + '&submit=+Submit+',
+
+        }, function(error, response, body) {
+            var $ = cheerio.load(body);
+            var y = $.html().split('Hasil pencarian untuk kata kunci: ' + mimpi)[1];
+            var t = y.split('method="get">')[1];
+            var f = y.replace(t, ' ');
+            var x = f.replace(/<br\s*[\/]?>/gi, '\n');
+            var result = x.replace(/<[^>]*>?/gm, '');
+
+          res.json({
+              status: true,
+              creator: creator,
+              result: result.split`.`[0]
+          })
+       })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -7323,12 +7355,27 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (isNaN(thn)) return res.json(loghandler.number)
 
     try {
-        var json = await (await fetch(`https://videfikri.com/api/primbon/tgljadian/?tgl=${tggl}&bln=${bln}&thn=${thn}`)).json()
-        res.json({
-            status: true,
-            creator: creator,
-            result: json.result.hasil
-        })
+    request.get({
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            url: `https://www.primbon.com/tanggal_jadian_pernikahan.php?tgl=${Number(tggl)}&bln=${Number(bln)}&thn=${Number(thn)}&proses=+Submit%21+`,
+            
+        }, function(e, r, b) {
+            var $ = cheerio.load(b);
+            var y = $.html().split('MAKNA TANGGAL JADIAN, PERNIKAHAN')[1];
+            var t = y.split('method="get">')[1];
+            var f = y.replace(t, ' ');
+            var x = f.replace(/<br\s*[\/]?>/gi, '\n');
+            var h = x.replace(/<[^>]*>?/gm, '');
+            var result = h.split`&lt;`[0]
+
+          res.json({
+              status: true,
+              creator: creator,
+              result: result
+          })
+       })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -7505,7 +7552,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         })
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await canvacord.Canvas.phub(username, comment, img);
+        var hasil = await canvacord.Canvas.phub({ username: username, message: comment, image: img });
         await fs.writeFileSync(__path + '/tmp/phcomment.png', hasil)
 
         res.sendFile(__path + '/tmp/phcomment.png')
@@ -7563,7 +7610,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await (await fetch(`https://api.zeks.xyz/api/dropwater?apikey=${zeks_key}&text=${text}`)).buffer()
+        var result = await textpro('https://textpro.me/dropwater-text-effect-872.html', text)
+        var hasil = await getBuffer(result)
         await fs.writeFileSync(__path + '/tmp/dropwater.png', hasil)
 
         res.sendFile(__path + '/tmp/dropwater.png')
@@ -7687,7 +7735,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
-    try {
         var maintenance = false
         if (maintenance == true) return res.sendFile(mtc)
         if (!apikeyInput) return res.json(loghandler.notparam)
@@ -7695,15 +7742,31 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var json = await (await fetch(`https://api.zeks.xyz/api/naruto?text=${text}&apikey=${zeks_key}`)).json()
-        var data = await (await fetch(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${json.result}&name=result`)).json()
-        await fs.writeFileSync(__path + '/tmp/naruto.png', await getBuffer(data.data.url))
+    try {
+            request.post({
+                url: 'https://photooxy.com/manga-and-anime/make-naruto-banner-online-free-378.html',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `text_1=${text}&login=OK`,
+            }, (e, r, b) => {
+                if (!e) {
+                    $ = cheerio.load(b)
+                    $('.thumbnail').find('img').each(function() {
+                        h = $(this).attr('src')
+                        var result = 'https://photooxy.com/' + h
 
-        res.sendFile(__path + '/tmp/naruto.png')
-
+                        res.json({
+                        	status: true,
+                            creator: creator,
+                            result: result
+                        })
+                    })
+                }
+            })
     } catch (e) {
-        console.log(e)
-        res.sendFile(error)
+            console.log(e);
+            res.sendFile(error)
     }
 })
 
@@ -7722,10 +7785,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://api.xteam.xyz/textpro/cloudsky?text=${text}&APIKEY=${xteam_key}`)
-        await fs.writeFileSync(__path + '/tmp/cloud.png', hasil)
-
-        res.sendFile(__path + '/tmp/cloud.png')
+        var result = await textpro('https://textpro.me/create-a-cloud-text-effect-on-the-sky-online-1004.html', text)
+        
+        res.json({
+        	status: true,
+            creator: creator,
+            result: result
+        })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -7979,7 +8045,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await canvacord.Canvas.trash(img);
+        var hasil = await canvacord.Canvas.delete(img);
         await fs.writeFileSync(__path + '/tmp/deltrash.png', hasil)
 
         res.sendFile(__path + '/tmp/deltrash.png')
@@ -8855,6 +8921,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var nama_mem = req.query.nama_mem,
         avatar = req.query.avatar,
+        bg = req.query.bg,
         nama_gc = req.query.nama_gc,
         jumlah_mem = req.query.jumlah_mem,
         apikeyInput = req.query.apikey;
@@ -8871,6 +8938,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!avatar) return res.json({
             message: `Masukan parameter avatar`
         })
+        if (!bg) return res.json({
+            message: `Masukan parameter bg`
+        })
+        if (!bg.startsWith('http')) return res.json(loghandler.invalidLink)
         if (!avatar.startsWith('http')) return res.json(loghandler.invalidLink)
         if (!nama_gc) return res.json({
             message: `Masukan parameter nama group`
@@ -8886,6 +8957,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             .setMemberCount(Number(jumlah_mem))
             .setGuildName(nama_gc)
             .setAvatar(avatar)
+            .setBackground(bg)
+            .setText(`Welcome to ${nama_gc}`)
 
         card.build().then(result => {
             fs.writeFileSync(__path + '/tmp/welcome.png', result)
@@ -8933,10 +9006,20 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: `Masukan parameter jumlah member`
         })
 
-        var hasil = await (await fetch(`https://api-self.herokuapp.com/api/canvasbyebg?name=${nama_mem}&avatar=${avatar}&background=${bg}&gcname=${nama_gc}&jumlahmem=${jumlah_mem}`)).buffer()
-        await fs.writeFileSync(__path + '/tmp/bye.png', hasil)
+        var card = new canvacord.Leaver()
+            .setUsername(nama_mem)
+            .setDiscriminator('000' + Math.floor(Math.random() * 9))
+            .setMemberCount(Number(jumlah_mem))
+            .setGuildName(nama_gc)
+            .setAvatar(avatar)
+            .setBackground(bg)
+            .setText(`Leave to ${nama_gc}`)
 
-        res.sendFile(__path + '/tmp/bye.png')
+        card.build().then(result => {
+            fs.writeFileSync(__path + '/tmp/bye.png', result)
+
+            res.sendFile(__path + '/tmp/bye.png')
+        })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -9427,48 +9510,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         result: `Tipe yang tersedia : baper, gay, tolol, bucin, sange, gila, pintar, bodoh, ganteng, cantik, stres, sad`
     })
 
-})
-
-router.get('/poly', async (req, res, next) => {
-var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var text = req.query.text,
-        apikeyInput = req.query.apikey;
-
-    var maintenance = false
-    if (maintenance == true) return res.sendFile(mtc)
-    if (!apikeyInput) return res.json(loghandler.notparam)
-    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
-    if (!text) return res.json(loghandler.nottext)
-
-    try {
-            request.post({
-                url: 'https://photooxy.com/other-design/make-a-video-that-spells-your-name-237.html',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `text_1=${text}&login=OK`,
-            }, (e, r, b) => {
-                if (!e) {
-                    $ = cheerio.load(b)
-                    $('.thumbnail').find('img').each(function() {
-                        h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
-
-                        res.json({
-                        	status: true,
-                            creator: creator,
-                            result: result
-                        })
-                    })
-                }
-            })
-    } catch (e) {
-            console.log(e);
-            res.sendFile(error)
-    }
 })
 
 router.get('/wattpad', async (req, res, next) => {
@@ -10451,7 +10492,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
 try {
-	var text = url
     var data = await fetch(url)
     if (!/text|json/.test(data.headers.get('content-type'))) {
     var buffer = await data.buffer()
@@ -10462,16 +10502,18 @@ try {
     res.json(json)
 
 } catch (e) {
-	await fetch(url)
-	.then(result => result.text())
-	.then(body => {
-	res.json({
-		status: true,
-		creator: creator,
-		header: body.headers,
-		body: body
-	})
-   })
+       axios.get(url).then(result => {
+
+       res.json({
+ 	        status: true,
+             creator: creator,
+             result:{
+                  headers: result.headers,
+                  config: result.config,
+                  body: result.data
+                  }
+       })
+    })
   }
 })
 
@@ -10520,9 +10562,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
         var hasil = await canvacord.Canvas.burn(img);
-        await fs.writeFileSync(__path + '/tmp/burning.gif', hasil)
+        await fs.writeFileSync(__path + '/tmp/burning.png', hasil)
 
-        res.sendFile(__path + '/tmp/burning.gif')
+        res.sendFile(__path + '/tmp/burning.png')
 
     } catch (e) {
         console.log(e)
@@ -10804,9 +10846,7 @@ var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var url = req.query.url,
-        text1 = req.query.text1,
-        text2 = req.query.text2,
-        text3 = req.query.text3,
+        text = req.query.text,
         apikeyInput = req.query.apikey;
 
         var maintenance = false
@@ -10815,40 +10855,140 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!url) return res.json(loghandler.notimg)
-        if (!url.startsWith('https://photooxy.com')) return res.json(loghandler.invalidLink)
-        if (!text1) return res.json({ message: 'Masukan data text1' })
+        if (!url.startsWith('https://photooxy.com/')) return res.json({ status: false, message: 'Masukan url photooxy!' })
+        if (!text) return res.json({ status: false, message: 'Masukan parameter text', info: `Gunakan [ ] jika text lebih dari 1 (2-3). Misal : ['Teks1'], ['Teks2']` })
 
        try {
-        var textData;
-        if (text1) textData = `text_1=${text1}&login=OK`
-        if (text1 && text2) textData = `text_1=${text1}&text_2=${text2}&login=OK`
-        if (text1 && text2 && text3) textData = `text_1=${text1}&text_2=${text2}&text_3=${text3}&login=OK`,
-            request.post({
-                url: url,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: textData,
-            }, (e, r, b) => {
-                if (!e) {
-                    $ = cheerio.load(b)
-                    $('.thumbnail').find('img').each(function() {
-                        h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
+       var result = await photooxy(url, text)
 
-                        res.json({
-                        	status: true,
-                            creator: creator,
-                            url: url,
-                            result: result
-                        })
-                    })
-                }
-            })
-        } catch (e) {
+           res.json({
+           	status: true,
+               creator: creator,
+               result: result
+           })
+       } catch (e) {
             console.log(e);
-            res.sendFile(error)
-        }
+            res.json({
+            	status: false,
+                creator: creator,
+                error: util.format(e).split`at`[0]
+            })
+    }
+})
+
+router.get('/scraper/textpro', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var url = req.query.url,
+        text = req.query.text,
+        apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!url) return res.json(loghandler.notimg)
+        if (!url.startsWith('https://textpro.me/')) return res.json({ status: false, message: 'Masukan url textpro.me!' })
+        if (!text) return res.json({ status: false, message: 'Masukan parameter text', info: `Gunakan [ ] jika text lebih dari 1 (2-3). Misal : ['Teks1'], ['Teks2']` })
+
+       try {
+       var result = await textpro(url, text)
+
+           res.json({
+           	status: true,
+               creator: creator,
+               result: result
+           })
+       } catch (e) {
+            console.log(e);
+            res.json({
+            	status: false,
+                creator: creator,
+                error: util.format(e).split`at`[0]
+            })
+    }
+})
+
+router.get('/scraper/ephoto360', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var url = req.query.url,
+        text = req.query.text,
+        apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!url) return res.json(loghandler.notimg)
+        if (!url.startsWith('https://en.ephoto360.com/')) return res.json({ status: false, message: 'Masukan url ephoto360!' })
+        if (!text) return res.json({ status: false, message: 'Masukan parameter text', info: `Gunakan [ ] jika text lebih dari 1 (2-3). Misal : ['Teks1'], ['Teks2']` })
+
+       try {
+       var result = await ephoto(url, text)
+
+           res.json({
+           	status: true,
+               creator: creator,
+               result: result
+           })
+       } catch (e) {
+            console.log(e);
+            res.json({
+            	status: false,
+                creator: creator,
+                error: util.format(e).split`at`[0]
+            })
+    }
+})
+
+router.get('/nomorhoki', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var url = req.query.url,
+        nomor = req.query.nomor,
+        apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!nomor) return res.json(loghandler.notimg)
+        if (isNaN(nomor)) return res.json(number)
+
+    try {
+    request.post({
+    	    url: 'https://www.primbon.com/no_hoki_bagua_shuzi.php',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            body: `nomer=${nomor}&submit=+Submit+`,
+            
+        }, (e, r, b) => {
+            var $ = cheerio.load(b);
+            var y = $.html().split('No. HP : ')[1];
+            var t = y.split('method="post">')[1];
+            var f = y.replace(t, ' ');
+            var x = f.replace(/<br\s*[\/]?>/gi, '\n');
+            var h = x.replace(/<[^>]*>?/gm, '');
+            var result = h.split`(adsbygoogle`[0];
+
+          res.json({
+           	status: true,
+               creator: creator,
+               result: 'Nomor HP ' + result
+          })
+       })
+    } catch (e) {
+    	console.log(e)
+     res.sendFile(error)
+   }
 })
 
 // End of script
