@@ -6796,7 +6796,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         })
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var isDark = pickRandom([true, false])
+        var isDark = pickRandom(true, false)
         var hasil = await canvacord.Canvas.youtube({ username: username, content: comment, avatar: img, dark: isDark })
         await fs.writeFileSync(__path + '/tmp/ytcomment.png', hasil)
 
@@ -10712,7 +10712,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img2.startsWith('http')) return res.json(loghandler.invalidLink)
 
         var hasil = await canvacord.Canvas.slap(img, img2);
-        await fs.writeFileSync(__path + '/tmp/slap.png', hasil)
+        var hasil2 = await canvacord.Canvas.spank(img, img2);
+        await fs.writeFileSync(__path + '/tmp/slap.png', pickRandom(hasil, hasil2))
 
         res.sendFile(__path + '/tmp/slap.png')
 
