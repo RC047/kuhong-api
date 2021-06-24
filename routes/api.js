@@ -2,7 +2,7 @@ __path = process.cwd();
 
 // Database :
 var {
-    saveMedia,
+    saveToMedia,
     getZodiac,
     alay,
     purba,
@@ -56,7 +56,7 @@ var vhtears_key = 'ameysbot' // Apikey VhTears (dibutuhkan)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'apivinz' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
-var imgbb_key = '3b8594f4cb11895f4084291bc655e510' // Apikey Imgbb (dibutuhkan)
+var imgbb_key = '761ea2d5575581057a799d14e9c78e28' // Apikey Imgbb API (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 var redeem_code = generateCode() // Kode Redeem untuk dapatkan Apikey Premium
 console.log(`> CHECKING DATA...\n\n`)
@@ -879,7 +879,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
                         var result = 'https://photooxy.com/' + h
-                        fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                        fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
                                 res.json({
@@ -910,7 +910,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
                     var result = 'https://photooxy.com/' + h
-                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
                             var urlnya = data.data.url,
@@ -968,7 +968,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
                         var result = 'https://photooxy.com/' + h
-                        fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                        fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
                                 var urlnya = data.data.url,
@@ -1005,7 +1005,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
                     var result = 'https://photooxy.com/' + h
-                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
                             var urlnya = data.data.url,
@@ -1062,7 +1062,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
                         var result = 'https://photooxy.com/' + h
-                        fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                        fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
                                 var urlnya = data.data.url,
@@ -1098,7 +1098,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
                     var result = 'https://photooxy.com/' + h
-                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
                             var urlnya = data.data.url,
@@ -1303,7 +1303,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
                         var result = 'https://photooxy.com/' + h
-                        fetch(encodeURI(`https://api.imgbb.om/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                        fetch(encodeURI(`https://api.imgbb.om/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
                                 var urlnya = data.data.url,
@@ -1339,7 +1339,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
                     var result = 'https://photooxy.com/' + h
-                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
                             var urlnya = data.data.url,
@@ -1396,7 +1396,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $('.thumbnai').find('img').each(function() {
                         h = $(this).attr('src')
                         var result = 'https://photooxy.com/' + h
-                        fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                        fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
                                 var urlnya = data.data.url,
@@ -1432,7 +1432,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
                     var result = 'https://photooxy.com/' + h
-                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
                             var urlnya = data.data.url,
@@ -1471,14 +1471,30 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!text) return res.json(loghandler.nottext)
 
     try {
-        var json = await (await fetch(`http://zekais-api.herokuapp.com/photooxy/flaming?text=${text}`)).json()
-        var buffer = await (await fetch(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${json.result}&name=RC047`)).json()
-        await fs.writeFileSync(__path + '/tmp/flaming.png', await getBuffer(buffer.data.url))
+            request.post({
+                url: 'https://photooxy.com/logo-and-text-effects/realistic-flaming-text-effect-online-197.html',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `text_1=${text}&login=OK`,
+            }, (e, r, b) => {
+                if (!e) {
+                    $ = cheerio.load(b)
+                    $('.thumbnail').find('img').each(function() {
+                        h = $(this).attr('src')
+                        var result = 'https://photooxy.com/' + h
 
-        res.sendFile(__path + '/tmp/flaming.png')
+                        res.json({
+                        	status: true,
+                            creator: creator,
+                            result: result
+                        })
+                    })
+                }
+            })
     } catch (e) {
-        console.log(e);
-        res.sendFile(error)
+            console.log(e);
+            res.sendFile(error)
     }
 })
 
@@ -1497,14 +1513,30 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!text) return res.json(loghandler.nottext)
 
     try {
-        var json = await (await fetch(`http://zekais-api.herokuapp.com/photooxy/neon?text=${text}`)).json()
-        var buffer = await (await fetch(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${json.result}&name=RC047`)).json()
-        await fs.writeFileSync(__path + '/tmp/neon.png', await getBuffer(buffer.data.url))
+            request.post({
+                url: 'https://photooxy.com/logo-and-text-effects/create-glowing-neon-text-effect-343.html',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `text_1=${text}&login=OK`,
+            }, (e, r, b) => {
+                if (!e) {
+                    $ = cheerio.load(b)
+                    $('.thumbnail').find('img').each(function() {
+                        h = $(this).attr('src')
+                        var result = 'https://photooxy.com/' + h
 
-        res.sendFile(__path + '/tmp/neon.png')
+                        res.json({
+                        	status: true,
+                            creator: creator,
+                            result: result
+                        })
+                    })
+                }
+            })
     } catch (e) {
-        console.log(e);
-        res.sendFile(error)
+            console.log(e);
+            res.sendFile(error)
     }
 })
 
@@ -2754,7 +2786,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-        var data = fs.readFileSync(__path + '/lib/games/caklontong.js')
+        var data = fs.readFileSync(__path + '/lib/scraper/caklontong.json')
         var json = JSON.parse(data);
         var index = Math.floor(Math.random() * json.length);
         var object = json[index];
@@ -2786,7 +2818,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-        var data = fs.readFileSync(__path + '/lib/games/tebakgambar.js')
+        var data = fs.readFileSync(__path + '/lib/scraper/tebakgambar.json')
         var json = JSON.parse(data);
         var index = Math.floor(Math.random() * json.length);
         var object = json[index];
@@ -3368,7 +3400,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
                         var result = 'https://photooxy.com/' + h
-                        fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                        fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
                                 var urlnya = data.data.url,
@@ -3404,7 +3436,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
                     var result = 'https://photooxy.com/' + h
-                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
                             var urlnya = data.data.url,
@@ -3461,7 +3493,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
                         var result = 'https://photooxy.com/' + h
-                        fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                        fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
                                 var urlnya = data.data.url,
@@ -3497,7 +3529,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
                     var result = 'https://photooxy.com/' + h
-                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${result}&name=${randomText}`))
+                    fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
                             var urlnya = data.data.url,
@@ -3620,7 +3652,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }).catch(() => res.json({
         status: false,
         creator: creator,
-        message: `Username not found`
+        message: 'User tidak ditemukan!'
     }))
 })
 
@@ -4819,6 +4851,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         })
 
         await brainly(soal).then(result => {
+        if (result.data == undefined) return res.json({ status: false, message: 'Soal tidak ditemukan!' })
 
         res.json({
         	status: true,
@@ -4850,6 +4883,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         })
 
         await brainly(soal).then(result => {
+        if (result.data == undefined) return res.json({ status: false, message: 'Soal tidak ditemukan!' })
 
         res.json({
         	status: true,
@@ -5026,7 +5060,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-        var data = fs.readFileSync(__path + '/lib/games/family100.js')
+        var data = fs.readFileSync(__path + '/lib/scraper/family100.json')
         var json = JSON.parse(data);
         var index = Math.floor(Math.random() * json.length);
         var object = json[index];
@@ -6067,7 +6101,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!url) return res.json(loghandler.noturl)
         if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var json = await (await fetch(`https://api.imgbb.com/1/upload?expiration=180&key=761ea2d5575581057a799d14e9c78e28&image=${url}&name=imgbb-uploader`)).json()
+        var json = await (await fetch(`https://api.imgbb.com/1/upload?expiration=180&key=${imgbb_key}&image=${url}&name=imgbb-uploader`)).json()
 
         res.json({
             status: true,
@@ -6498,7 +6532,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         }).catch(() => res.json({
             status: false,
             creator: creator,
-            message: `Stories not found`
+            message: 'Stories tidak ditemukan!'
         }))
     } catch (e) {
         console.log(e)
@@ -7060,7 +7094,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }
 })
 
-router.get('/upload', async (req, res, next) => {
+router.get('/telegraph', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
@@ -7414,7 +7448,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var text = req.query.text,
         apikeyInput = req.query.apikey;
 
-    try {
         var maintenance = false
         if (maintenance == true) return res.sendFile(mtc)
         if (!apikeyInput) return res.json(loghandler.notparam)
@@ -7422,15 +7455,31 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var json = await (await fetch(`http://zekais-api.herokuapp.com/photooxy/smoke?text=${text}`)).json()
-        var data = await (await fetch(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${json.result}&name=result`)).json()
-        await fs.writeFileSync(__path + '/tmp/smoke.png', await getBuffer(data.data.url))
+    try {
+            request.post({
+                url: 'https://photooxy.com/other-design/create-a-smoke-text-effect-online-free-390.html',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `text_1=${text}&login=OK`,
+            }, (e, r, b) => {
+                if (!e) {
+                    $ = cheerio.load(b)
+                    $('.thumbnail').find('img').each(function() {
+                        h = $(this).attr('src')
+                        var result = 'https://photooxy.com/' + h
 
-        res.sendFile(__path + '/tmp/smoke.png')
-
+                        res.json({
+                        	status: true,
+                            creator: creator,
+                            result: result
+                        })
+                    })
+                }
+            })
     } catch (e) {
-        console.log(e)
-        res.sendFile(error)
+            console.log(e);
+            res.sendFile(error)
     }
 })
 
@@ -7647,7 +7696,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!text) return res.json(loghandler.nottext)
 
         var json = await (await fetch(`https://api.zeks.xyz/api/naruto?text=${text}&apikey=${zeks_key}`)).json()
-        var data = await (await fetch(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${json.result}&name=result`)).json()
+        var data = await (await fetch(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${json.result}&name=result`)).json()
         await fs.writeFileSync(__path + '/tmp/naruto.png', await getBuffer(data.data.url))
 
         res.sendFile(__path + '/tmp/naruto.png')
@@ -8302,7 +8351,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
     try {
         var json = await (await fetch(`https://mnazria.herokuapp.com/api/maps?search=${q}`)).json()
-        var result = await (await fetch(`https://api.imgbb.com/1/upload?expiration=120&key=761ea2d5575581057a799d14e9c78e28&image=${json.gambar}&name=kuhong-api-storage---maps`)).json()
+        var result = await (await fetch(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${json.gambar}&name=kuhong-api-storage---maps`)).json()
         await fs.writeFileSync(__path + '/tmp/maps.png', await getBuffer(result.data.url))
 
         res.sendFile(__path + '/tmp/maps.png')
@@ -9085,13 +9134,30 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!text) return res.json(loghandler.nottext)
 
     try {
-        var hasil = await (await fetch(`https://videfikri.com/api/textmaker/underwater/?text=${text}`)).buffer()
-        await fs.writeFileSync(__path + '/tmp/underwater.png', hasil)
+            request.post({
+                url: 'https://photooxy.com/logo-and-text-effects/creating-text-underwater-ocean-363.html',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `text_1=${text}&login=OK`,
+            }, (e, r, b) => {
+                if (!e) {
+                    $ = cheerio.load(b)
+                    $('.thumbnail').find('img').each(function() {
+                        h = $(this).attr('src')
+                        var result = 'https://photooxy.com/' + h
 
-        res.sendFile(__path + '/tmp/underwater.png')
+                        res.json({
+                        	status: true,
+                            creator: creator,
+                            result: result
+                        })
+                    })
+                }
+            })
     } catch (e) {
-        console.log(e)
-        res.sendFile(error)
+            console.log(e);
+            res.sendFile(error)
     }
 })
 
@@ -9378,14 +9444,30 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!text) return res.json(loghandler.nottext)
 
     try {
-        var buffer = await imageToBase64(`http://zekais-api.herokuapp.com/photooxy/poly?text=${text}`)
-        var media = Buffer.from(buffer, 'base64')
-        await fs.writeFileSync(__path + '/tmp/poly.mp4', media)
+            request.post({
+                url: 'https://photooxy.com/other-design/make-a-video-that-spells-your-name-237.html',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `text_1=${text}&login=OK`,
+            }, (e, r, b) => {
+                if (!e) {
+                    $ = cheerio.load(b)
+                    $('.thumbnail').find('img').each(function() {
+                        h = $(this).attr('src')
+                        var result = 'https://photooxy.com/' + h
 
-        res.sendFile(__path + '/tmp/poly.mp4')
+                        res.json({
+                        	status: true,
+                            creator: creator,
+                            result: result
+                        })
+                    })
+                }
+            })
     } catch (e) {
-        console.log(e)
-        res.sendFile(error)
+            console.log(e);
+            res.sendFile(error)
     }
 })
 
@@ -9888,9 +9970,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
               fs.writeFileSync(__path + '/tmp/intro.mp4', buffer)
 
   res.sendFile(__path + '/tmp/intro.mp4')
-        }).catch(() => {
-  res.sendFile(__path + '/public/media/intro.mp4')
-    })
+        }).catch(() => res.sendFile(__path + '/public/media/intro.mp4'))
 })
 
 router.get('/tomp3', async (req, res, next) => {
@@ -9914,12 +9994,12 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         await fs.writeFileSync(__path + '/tmp/media_tomp3.mp4', buffer)
         var media = await fs.readFileSync(__path + '/tmp/media_tomp3.mp4')
         var mp3 = await toMP3(media, 'mp4')
-        var result = await upload2(mp3)
+        var result = await saveToMedia(mp3)
 
            res.json({
            	status: true,
                creator: creator,
-               mp3: result
+               result: result
            })
     } catch (e) {
         console.log(e)
@@ -10205,16 +10285,16 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!file_url.startsWith('http')) return res.json(loghandler.invalidLink)
 
         var encmedia = await imageToBase64(file_url)
-        var media = Buffer.from(encmedia, 'base64')
-        var { ext } = await fromBuffer(media)
-        var savePath = __path + '/public/media/' + randomNumber + '_tmp.' + ext
-              await fs.writeFileSync(savePath, media)
+        var buffer = Buffer.from(encmedia, 'base64')
+        var { ext } = await fromBuffer(buffer)
+        var extension = `${ext} (${ext.toUpperCase()})`
+        var result = await saveToMedia(buffer)
 
       res.json({
       	status: true,
           creator: creator,
-          ext: `${ext} (${ext.toUpperCase()})`,
-          result: 'https://kuhong-api.herokuapp.com/media/' + randomNumber + '_tmp.' + ext
+          ext: extension,
+          result: result
       })
 })
 
@@ -10717,6 +10797,58 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         console.log(e)
         res.sendFile(error)
     }
+})
+
+router.get('/scraper/photooxy', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var url = req.query.url,
+        text1 = req.query.text1,
+        text2 = req.query.text2,
+        text3 = req.query.text3,
+        apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!url) return res.json(loghandler.notimg)
+        if (!url.startsWith('https://photooxy.com')) return res.json(loghandler.invalidLink)
+        if (!text1) return res.json({ message: 'Masukan data text1' })
+
+       try {
+        var textData;
+        if (text1) textData = `text_1=${text1}&login=OK`
+        if (text1 && text2) textData = `text_1=${text1}&text_2=${text2}&login=OK`
+        if (text1 && text2 && text3) textData = `text_1=${text1}&text_2=${text2}&text_3=${text3}&login=OK`,
+            request.post({
+                url: url,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: textData,
+            }, (e, r, b) => {
+                if (!e) {
+                    $ = cheerio.load(b)
+                    $('.thumbnail').find('img').each(function() {
+                        h = $(this).attr('src')
+                        var result = 'https://photooxy.com/' + h
+
+                        res.json({
+                        	status: true,
+                            creator: creator,
+                            url: url,
+                            result: result
+                        })
+                    })
+                }
+            })
+        } catch (e) {
+            console.log(e);
+            res.sendFile(error)
+        }
 })
 
 // End of script
