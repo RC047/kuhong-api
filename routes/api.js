@@ -5829,7 +5829,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
         var json = await (await fetch('https://docs-api-zahirrr.herokuapp.com/api/random/wallpaper?genre=acak')).json()
         var theme = json.url
-        var hasil = await canvacord.Canvas.quote({ theme, quote, author, '#FFFFFF' });
+        var color = '#FFFFFF'
+        var hasil = await canvacord.Canvas.quote({ image: theme, message: quote, username: author, color: '#FFFFFF' });
         await fs.writeFileSync(__path + '/tmp/quotemaker.png', hasil)
 
         res.sendFile(__path + '/tmp/quotemaker.png')
