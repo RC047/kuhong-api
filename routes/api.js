@@ -406,10 +406,7 @@ router.get('/getmusic', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-     var music = await fs.readFileSync(__path + '/src/music/' + pickRandom(fs.readdirSync(__path + '/src/music')))
-            await fs.writeFileSync(__path + '/tmp/music.mp3', music)
-
-       res.sendFile(__path + '/tmp/music.mp3')
+    res.sendFile(__path + '/src/music/' + pickRandom(fs.readdirSync(__path + '/src/music')))
 })
 
 router.get('/cekapikey', async (req, res, next) => {
@@ -496,13 +493,12 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!url) return res.json(loghandler.noturl)
 
-    TikTokScraper.getVideoMeta(url, options)
-        .then(vid => {
-            console.log(vid)
+    TikTokScraper.getVideoMeta(url)
+        .then(result => {
             res.json({
                 status: true,
                 creator: creator,
-                videoNoWm: vid
+                result: result
             })
         })
         .catch(e => {
@@ -526,18 +522,18 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
 
     TikTokScraper.getUserProfileInfo(username)
-        .then(user => {
+        .then(result => {
             res.json({
                 status: true,
                 creator: creator,
-                result: user
+                result: result
             })
         })
         .catch(e => {
             res.json({
                 status: false,
                 creator: creator,
-                message: 'Username tidak ditemukan!'
+                message: 'User tidak ditemukan!'
             })
         })
 })
@@ -580,26 +576,15 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
-    if (!query) return res.json({
-        status: false,
-        creator: creator,
-        message: 'Masukan parameter query'
-    })
+    if (!query) return res.json(loghandler.notquery)
 
-    fetch(encodeURI(`https://registry.npmjs.org/${query}`))
-        .then(response => response.json())
-        .then(data => {
-            var result = data;
-            res.json({
+    var result = await (await fetch(`https://registry.npmjs.org/${query}`)).json()
+
+           res.json({
                 status: true,
                 creator: creator,
-                result,
-                message: 'succes'
-            })
-        })
-        .catch(e => {
-            res.sendFile(error)
-        })
+                result: result
+           })
 })
 
 router.get('/jadwalbioskop', (req, res) => {
@@ -612,10 +597,8 @@ router.get('/jadwalbioskop', (req, res) => {
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     var cheerio = require('cheerio')
 
-    axios.get('https://jadwalnonton.com/now-playing').then(({
-        data
-    }) => {
-        var $ = cheerio.load(data)
+    axios.get('https://jadwalnonton.com/now-playing').then((result) => {
+        var $ = cheerio.load(result.data)
         var title = []
         var url = []
         var img = []
@@ -843,7 +826,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             ])
             .on('error', () => res.sendFile(error))
             .on('exit', () => {
-
                 res.sendFile(outputPath)
             })
     } catch (e) {
