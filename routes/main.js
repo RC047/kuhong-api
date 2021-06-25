@@ -134,7 +134,7 @@ res.json({
     stats:{
         status: 'online',
         name: 'kuhong-api',
-        os: OS,
+        os: OS.toUpperCase(),
         ram: `${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})`,
         storage: `${driveUsed} GB / ${driveTotal} (${drivePer} Used)`,
         cpu: `${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)`,
@@ -144,15 +144,15 @@ res.json({
             port_used: port,
             ip_used: ip_used.ip
         },
-        time: `${jam} : ${menit} : ${detik}`,
+        time: `${jam}:${menit}:${detik}`,
         uptime: muptime(process.uptime()),
         ping_ms: neww - old + ' ms',
         ping_sec: (neww - old / 1000).toFixed(2) + ' sec'
     },
         total:{
-            visitor: visitor.value.toString(),
-            request: request.value.toString(),
-            features: '308',
+            visitors: visitor.value.toString(),
+            requests: request.value.toString(),
+            features: '327',
             blocked_ip: `${Object.keys(blocked).length}`
     },
         owner:{
@@ -177,5 +177,5 @@ function muptime(seconds){
   var minutes = Math.floor(seconds % (60*60) / 60);
   var seconds = Math.floor(seconds % 60);
 
-  return pad(hours) + ' : ' + pad(minutes) + ' : ' + pad(seconds)
+  return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds)
 }
