@@ -4174,8 +4174,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!text) return res.json(loghandler.nottext)
 
     try {
-        var json = await (await fetch(`https://some-random-api.ml/binary?encode=${text}`)).json()
-        var result = json.binary
+        var result = ''
+        for (var i = 0; i < text.length; i++) {
+            result += text[i].charCodeAt(0).toString(2)
+        }
+
         res.json({
             status: true,
             creator: creator,
@@ -4203,6 +4206,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     try {
         var json = await (await fetch(`https://some-random-api.ml/binary?decode=${text}`)).json()
         var result = json.text
+
         res.json({
             status: true,
             creator: creator,
@@ -5825,7 +5829,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
         var json = await (await fetch('https://docs-api-zahirrr.herokuapp.com/api/random/wallpaper?genre=acak')).json()
         var theme = json.url
-        var hasil = await canvacord.Canvas.quote({ theme, quote, author });
+        var hasil = await canvacord.Canvas.quote({ theme, quote, author, '#FFFFFF' });
         await fs.writeFileSync(__path + '/tmp/quotemaker.png', hasil)
 
         res.sendFile(__path + '/tmp/quotemaker.png')
@@ -9000,7 +9004,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: `Masukan parameter jumlah member`
         })
 
-        var card = new canvacord.Welcomer()
+        var card = new canvacord.Welcome()
             .setUsername(nama_mem)
             .setDiscriminator('000' + Math.floor(Math.random() * 9))
             .setMemberCount(Number(jumlah_mem))
@@ -9055,7 +9059,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: `Masukan parameter jumlah member`
         })
 
-        var card = new canvacord.Leaver()
+        var card = new canvacord.Leave()
             .setUsername(nama_mem)
             .setDiscriminator('000' + Math.floor(Math.random() * 9))
             .setMemberCount(Number(jumlah_mem))
@@ -10760,10 +10764,40 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img2) return res.json({ message: 'Masukan parameter img2' })
         if (!img2.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await pickRandom(await canvacord.Canvas.slap(img, img2), await canvacord.Canvas.spank(img, img2))
+        var hasil = await canvacord.Canvas.slap(img, img2)
         await fs.writeFileSync(__path + '/tmp/slap.png', hasil)
 
         res.sendFile(__path + '/tmp/slap.png')
+
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/slap2', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var img = req.query.img,
+        img2 = req.query.img2,
+        apikeyInput = req.query.apikey;
+
+    try {
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!img) return res.json(loghandler.notimg)
+        if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+        if (!img2) return res.json({ message: 'Masukan parameter img2' })
+        if (!img2.startsWith('http')) return res.json(loghandler.invalidLink)
+
+        var hasil = await canvacord.Canvas.spank(img, img2)
+        await fs.writeFileSync(__path + '/tmp/slap2.png', hasil)
+
+        res.sendFile(__path + '/tmp/slap2.png')
 
     } catch (e) {
         console.log(e)
