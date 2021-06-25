@@ -74,6 +74,7 @@ console.log(`Redeem Code : ${redeem_code}`)
 
 // Required Modules :
 var http = require('http');
+var htmlToText = require('html-to-text');
 var canvacord = require('canvacord');
 var Shopee = require('shopee');
 var barcode = require('barcode');
@@ -83,6 +84,7 @@ var imgbb = require('imgbb-uploader');
 var imageToBase64 = require('image-to-base64');
 var upload = require(__path + '/lib/upload.js');
 var upload2 = require(__path + '/lib/upload2.js');
+var upload3 = require(__path + '/lib/upload3.js');
 var translate = require('translate-google-api');
 var tesseract = require('node-tesseract-ocr');
 var googleIt = require('google-it');
@@ -883,7 +885,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
+                        var result = 'https://photooxy.com' + h
                         fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
@@ -914,7 +916,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $ = cheerio.load(b)
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
-                    var result = 'https://photooxy.com/' + h
+                    var result = 'https://photooxy.com' + h
                     fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
@@ -972,7 +974,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
+                        var result = 'https://photooxy.com' + h
                         fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
@@ -1009,7 +1011,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $ = cheerio.load(b)
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
-                    var result = 'https://photooxy.com/' + h
+                    var result = 'https://photooxy.com' + h
                     fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
@@ -1066,7 +1068,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
+                        var result = 'https://photooxy.com' + h
                         fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
@@ -1102,7 +1104,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $ = cheerio.load(b)
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
-                    var result = 'https://photooxy.com/' + h
+                    var result = 'https://photooxy.com' + h
                     fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
@@ -1307,7 +1309,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
+                        var result = 'https://photooxy.com' + h
                         fetch(encodeURI(`https://api.imgbb.om/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
@@ -1343,7 +1345,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $ = cheerio.load(b)
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
-                    var result = 'https://photooxy.com/' + h
+                    var result = 'https://photooxy.com' + h
                     fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
@@ -1400,7 +1402,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnai').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
+                        var result = 'https://photooxy.com' + h
                         fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
@@ -1436,7 +1438,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $ = cheerio.load(b)
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
-                    var result = 'https://photooxy.com/' + h
+                    var result = 'https://photooxy.com' + h
                     fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
@@ -1487,13 +1489,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
+                        var result = getBuffer(upload3('https://photooxy.com' + h, false))
+                        fs.writeFileSync(__path + '/tmp/flaming.png', result)
 
-                        res.json({
-                        	status: true,
-                            creator: creator,
-                            result: result
-                        })
+                  res.sendFile(__path + '/tmp/flaming.png')
                     })
                 }
             })
@@ -1503,7 +1502,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }
 })
 
-router.get('/neon', async (req, res, next) => {
+router.get('/darkneon', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
@@ -1529,13 +1528,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
+                        var result = getBuffer(upload3('https://photooxy.com' + h, false))
+                        fs.writeFileSync(__path + '/tmp/darkneon.png', result)
 
-                        res.json({
-                        	status: true,
-                            creator: creator,
-                            result: result
-                        })
+                  res.sendFile(__path + '/tmp/darkneon.png')
                     })
                 }
             })
@@ -3405,7 +3401,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
+                        var result = 'https://photooxy.com' + h
                         fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
@@ -3441,7 +3437,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $ = cheerio.load(b)
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
-                    var result = 'https://photooxy.com/' + h
+                    var result = 'https://photooxy.com' + h
                     fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
@@ -3498,7 +3494,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
+                        var result = 'https://photooxy.com' + h
                         fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                             .then(response => response.json())
                             .then(data => {
@@ -3534,7 +3530,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 $ = heerio.load(b)
                 $('.thumbnail').find('img').each(function() {
                     h = $(this).attr('src')
-                    var result = 'https://photooxy.com/' + h
+                    var result = 'https://photooxy.com' + h
                     fetch(encodeURI(`https://api.imgbb.com/1/upload?expiration=120&key=${imgbb_key}&image=${result}&name=${randomText}`))
                         .then(response => response.json())
                         .then(data => {
@@ -4042,7 +4038,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
     try {
-        axios.get(`https://ezgif.com/webp-to-mp4?url=${url}`).then((data) => {
+        axios.get(`https://ezgif.com/webp-to-mp4?url=${url}`).then(({ data }) => {
             var $ = cheerio.load(data)
             var bodyFormThen = new FormData()
             var file = $('input[name="file"]').attr('value')
@@ -4063,8 +4059,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 headers: {
                     'Content-Type': `multipart/form-data; boundary=${bodyFormThen._boundary}`
                 }
-            }).then((hasil) => {
-                var $ = cheerio.load(hasil)
+            }).then(({ data }) => {
+                var $ = cheerio.load(data)
                 var result = 'https:' + $('div#output > p.outfile > video > source').attr('src')
 
                 res.json({
@@ -4303,7 +4299,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     try {
         var json = await (await fetch(`https://api.areltiyan.site/sticker_maker?text=${text}`)).json()
         var hasil = json.base64.split`,` [1]
-        await fs.writeFileSync(__path + `/tmp/ttp.png`, hasil, 'base64')
+        await fs.writeFileSync(__path + '/tmp/ttp.png', hasil, 'base64')
 
         res.sendFile(__path + '/tmp/ttp.png')
     } catch (e) {
@@ -4375,8 +4371,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!text) return res.json(loghandler.nottext)
 
     try {
-        var json = await (await fetch(`https://videfikri.com/api/hurufterbalik/?query=${text}`)).json()
-        var result = json.result.kata
+    var result = ''
+    for (var index = text.length-1; index >= 0; index--) {
+        result += text[index]
+    }
+
         res.json({
             status: true,
             creator: creator,
@@ -4429,7 +4428,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!jumlah) return res.json(loghandler.notjumlah)
     if (isNaN(jumlah)) return res.json(loghandler.number)
     if (jumlah > 20) return res.json({
-        message: `Maximal 20 Bang`
+        message: 'Maximal 20 Bang'
     })
 
     try {
@@ -4465,7 +4464,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }
 })
 
-router.get('/googleimage', async (req, res, next) => {
+router.get('/gimage', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
@@ -4482,10 +4481,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     try {
         var gimage = promisify(gis)
         var result = await gimage(q)
-        var image = pickRandom(result)
+        var image = pickRandom(result.url)
         if (!image) return res.json({ status: false, erorr: '404 Not Found' })
         var hasil = await getBuffer(image)
-        console.log(image)
         await fs.writeFileSync(__path + '/tmp/gimage.png', hasil)
 
         res.sendFile(__path + '/tmp/gimage.png')
@@ -4512,9 +4510,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     try {
         var pinterest = promisify(gis)
         var result = await pinterest(q)
-        var image = pickRandom(result)
+        var image = pickRandom(result.url)
         if (!image) return res.json({ status: false, erorr: '404 Not Found' })
-        var hasil = await getBuffer(mage)
+        var hasil = await getBuffer(image)
         await fs.writeFileSync(__path + '/tmp/pinterest.png', hasil)
 
         res.sendFile(__path + '/tmp/pinterest.png')
@@ -4850,18 +4848,22 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!soal) return res.json({
-            message: `Masukan parameter soal`
+            message: 'Masukan parameter soal'
         })
 
         await brainly(soal).then(result => {
-        if (result.data == undefined) return res.json({ status: false, message: 'Soal tidak ditemukan!' })
+        var hasil = result.data
+        if (result.data == undefined) brainly2(soal).then(result2 => {
+        hasil = result2.data
+        if (result2.data == undefined) return res.json({ status: false, message: 'Soal tidak ditemukan!' })
 
-        res.json({
-        	status: true,
-            creator: creator,
-            result: result.data
+           res.json({
+            	status: true,
+                creator: creator,
+                result: hasil
+           })
         })
-      })
+     })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -4882,18 +4884,22 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!soal) return res.json({
-            message: `Masukan parameter soal`
+            message: 'Masukan parameter soal'
         })
 
         await brainly(soal).then(result => {
-        if (result.data == undefined) return res.json({ status: false, message: 'Soal tidak ditemukan!' })
+        var hasil = result.data
+        if (result.data == undefined) brainly2(soal).then(result2 => {
+        hasil = result2.data
+        if (result2.data == undefined) return res.json({ status: false, message: 'Soal tidak ditemukan!' })
 
-        res.json({
-        	status: true,
-            creator: creator,
-            result: result.data
+           res.json({
+            	status: true,
+                creator: creator,
+                result: hasil
+           })
         })
-      })
+     })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -5116,23 +5122,53 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
-    try {
         var maintenance = false
         if (maintenance == true) return res.sendFile(mtc)
         if (!apikeyInput) return res.json(loghandler.notparam)
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-        var json = await (await fetch(`http://zekais-api.herokuapp.com/cerpen`)).json()
-        res.json({
-            status: true,
-            creator: creator,
-            judul: json.title,
-            pengarang: json.pengarang,
-            kategori: json.category,
-            cerpen: json.post
-        })
+    try {
+        var cerita = ['cerpen-horor-hantu', 'cerpen-bahasa-inggris', 'cerpen-cinta', 'cerpen-cinta-dalam-hati-terpendam', 'cerpen-cinta-islami']
+        var category = cerita[Math.floor(Math.random() * cerita.length)]
+        var page = Math.floor(Math.random() * 30)
+        var url = 'http://cerpenmu.com/category/' + category + '/page/' + page
 
+        request.get({
+               headers: {
+                   'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0'
+               },
+               url: url,
+        }, function(error, response, body) {
+            var $ = cheerio.load(body)
+            var cerpen = []
+            $('article[class="post"] > h2 > a').each(function (i, e) {
+            cerpen[i] = $(this).attr('href')
+            })
+            var nomor = Math.floor(Math.random() * 10)
+            var url = cerpen[nomor]
+
+            request.get({
+                    headers: {
+                        'content-type' : 'application/x-www-form-urlencoded'
+                        },
+                    url: url,
+             }, function(error, response, body) {
+                     var $ = cheerio.load(body);
+                     var h = $.html().replace(/<[^>]*>?/gm, '');
+                     var result = htmlToText.fromString($.html(), {
+                                 noLinkBrackets: true,
+                                 ignoreHref: true,
+                                 ignoreImage:true
+                      })
+
+              res.json({
+                   status: true,
+                   creator: creator,
+                   result: result.split('Share ke Facebook Twitter Google+')[0].split('Kontak Kami')[1]
+              })
+           })
+       })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -5374,7 +5410,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!text) return res.json(loghandler.nottext)
 
         var result = await textpro('https://textpro.me/firework-sparkle-text-effect-930.html', text)
-        var hasil = await getBuffer(result)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/firework.png', hasil)
 
         res.sendFile(__path + '/tmp/firework.png')
@@ -5429,7 +5465,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!text) return res.json(loghandler.nottext)
 
         var result = await textpro('https://textpro.me/matrix-style-text-effect-online-884.html', text)
-        var hasil = await getBuffer(result)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/matrix.png', hasil)
 
         res.sendFile(__path + '/tmp/matrix.png')
@@ -5485,7 +5521,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!t2) return res.json(loghandler.nottext2)
 
         var result = await textpro('https://textpro.me/pornhub-style-logo-online-generator-free-977.html', [t1], [t2])
-        var hasil = await getBuffer(result)
+        var hasil = await getBuffer(await upload3(result, false))
               await fs.writeFileSync(__path + '/tmp/phlogo.png', hasil)
 
   res.sendFile(__path + '/tmp/phlogo.png')
@@ -5512,7 +5548,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!t2) return res.json(loghandler.nottext2)
 
         var result = await textpro('https://textpro.me/create-logo-style-marvel-studios-online-971.html', [t1], [t2])
-        var hasil = await getBuffer(result)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/marvel.png', hasil)
 
         res.sendFile(__path + '/tmp/marvel.png')
@@ -5538,7 +5574,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!text) return res.json(loghandler.nottext)
 
         var result = await textpro('https://textpro.me/create-blackpink-logo-style-online-1001.html', text)
-        var hasil = await getBuffer(result)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/bplogo.png', hasil)
 
         res.sendFile(__path + '/tmp/bplogo.png')
@@ -5593,7 +5629,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!text) return res.json(loghandler.nottext)
 
         var result = await textpro('https://textpro.me/create-thunder-text-effect-online-881.html', text)
-        var hasil = await getBuffer(result)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/thunder.png', hasil)
 
         res.sendFile(__path + '/tmp/thunder.png')
@@ -5807,7 +5843,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
         var json = await (await fetch('https://docs-api-zahirrr.herokuapp.com/api/random/wallpaper?genre=acak')).json()
         var theme = json.url
-        var hasil = await canvacord.Canvas.quote(theme, quote, author);
+        var hasil = await canvacord.Canvas.quote({ theme, quote, author });
         await fs.writeFileSync(__path + '/tmp/quotemaker.png', hasil)
 
         res.sendFile(__path + '/tmp/quotemaker.png')
@@ -5885,7 +5921,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!text) return res.json(loghandler.nottext)
 
         var result = await textpro('https://textpro.me/create-a-futuristic-technology-neon-light-text-effect-1006.html', text)
-        var hasil = await getBuffer(result)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/futureneon.png', hasil)
 
         res.sendFile(__path + '/tmp/futureneon.png')
@@ -7514,7 +7550,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
+                        var result = 'https://photooxy.com' + h
 
                         res.json({
                         	status: true,
@@ -7611,7 +7647,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!text) return res.json(loghandler.nottext)
 
         var result = await textpro('https://textpro.me/dropwater-text-effect-872.html', text)
-        var hasil = await getBuffer(result)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/dropwater.png', hasil)
 
         res.sendFile(__path + '/tmp/dropwater.png')
@@ -7622,7 +7658,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }
 })
 
-router.get('/glowtext', async (req, res, next) => {
+router.get('/advancedglow', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
@@ -7637,10 +7673,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await (await fetch(`https://api.zeks.xyz/api/bneon?apikey=${zeks_key}&text=${text}`)).buffer()
-        await fs.writeFileSync(__path + '/tmp/glowtext.png', hasil)
+        var result = await textpro('https://textpro.me/free-advanced-glow-text-effect-873.html', text)
+        var hasil = await getBuffer(await upload3(result, false))
+        await fs.writeFileSync(__path + '/tmp/advancedglow.png', hasil)
 
-        res.sendFile(__path + '/tmp/glowtext.png')
+        res.sendFile(__path + '/tmp/advancedglow.png')
 
     } catch (e) {
         console.log(e)
@@ -7648,7 +7685,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }
 })
 
-router.get('/glowtext2', async (req, res, next) => {
+router.get('/neonlight', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
@@ -7663,10 +7700,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await (await fetch(`https://api.zeks.xyz/api/tlight?text=${text}&apikey=${zeks_key}`)).buffer()
-        await fs.writeFileSync(__path + '/tmp/glowtext2.png', hasil)
+        var result = await textpro('https://textpro.me/neon-light-text-effect-with-galaxy-style-981.html', text)
+        var hasil = await getBuffer(await upload3(result, false))
+        await fs.writeFileSync(__path + '/tmp/neonlight.png', hasil)
 
-        res.sendFile(__path + '/tmp/glowtext2.png')
+        res.sendFile(__path + '/tmp/neonlight.png')
 
     } catch (e) {
         console.log(e)
@@ -7691,7 +7729,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!t1) return res.json(loghandler.nottext)
         if (!t2) return res.json(loghandler.nottext2)
 
-        var hasil = await (await fetch(`https://api.zeks.xyz/api/wolflogo?apikey=${zeks_key}&text1=${t1}&text2=${t2}`)).buffer()
+        var result = await textpro('https://textpro.me/create-wolf-logo-galaxy-online-936.html', [t1], [t2])
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/wolflogo.png', hasil)
 
         res.sendFile(__path + '/tmp/wolflogo.png')
@@ -7717,7 +7756,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await (await fetch(`https://api.zeks.xyz/api/breakwall?apikey=${zeks_key}&text=${text}`)).buffer()
+        var result = await textpro('https://textpro.me/break-wall-text-effect-871.html', text)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/breakwall.png', hasil)
 
         res.sendFile(__path + '/tmp/breakwall.png')
@@ -7754,7 +7794,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
+                        var result = 'https://photooxy.com' + h
 
                         res.json({
                         	status: true,
@@ -7813,7 +7853,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://api.xteam.xyz/textpro/jokerlogo?text=${text}&APIKEY=${xteam_key}`)
+        var result = await textpro('https://textpro.me/create-logo-joker-online-934.html', text)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/jokerlogo.png', hasil)
 
         res.sendFile(__path + '/tmp/jokerlogo.png')
@@ -7840,7 +7881,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!t1) return res.json(loghandler.nottext)
         if (!t2) return res.json(loghandler.nottext2)
 
-        var hasil = await getBuffer(`https://api.xteam.xyz/textpro/lionlogomascot?text=${t1}&text2=${t2}&APIKEY=${xteam_key}`)
+        var result = await textpro('https://textpro.me/create-lion-logo-mascot-online-938.html', [t1], [t2])
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/lionlogo.png', hasil)
 
         res.sendFile(__path + '/tmp/lionlogo.png')
@@ -7867,7 +7909,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!t1) return res.json(loghandler.nottext)
         if (!t2) return res.json(loghandler.nottext2)
 
-        var hasil = await getBuffer(`https://api.xteam.xyz/textpro/ninjalogo?text=${t1}&text2=${t2}&APIKEY=${xteam_key}`)
+        var result = await textpro('https://textpro.me/create-ninja-logo-online-935.html', [t1], [t2])
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/ninjalogo.png', hasil)
 
         res.sendFile(__path + '/tmp/ninjalogo.png')
@@ -7892,7 +7935,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://api.xteam.xyz/textpro/bloodontheroastedglass?text=${text}&APIKEY=${xteam_key}`)
+        var result = await textpro('https://textpro.me/blood-text-on-the-frosted-glass-941.html', text)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/blood.png', hasil)
 
         res.sendFile(__path + '/tmp/blood.png')
@@ -7917,7 +7961,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://api.xteam.xyz/textpro/lava?text=${text}&APIKEY=${xteam_key}`)
+        var result = await textpro('https://textpro.me/lava-text-effect-online-914.html', text)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/lava.png', hasil)
 
         res.sendFile(__path + '/tmp/lava.png')
@@ -7942,7 +7987,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://api.xteam.xyz/textpro/1917?text=${text}&APIKEY=${xteam_key}`)
+        var result = await textpro('https://textpro.me/1917-style-text-effect-online-980.html', text)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/1917.png', hasil)
 
         res.sendFile(__path + '/tmp/1917.png')
@@ -7967,7 +8013,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://api.xteam.xyz/textpro/skeleton?text=${text}&APIKEY=${xteam_key}`)
+        var result = await textpro('https://textpro.me/skeleton-text-effect-online-929.html', text)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/skeleton.png', hasil)
 
         res.sendFile(__path + '/tmp/skeleton.png')
@@ -7992,7 +8039,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!text) return res.json(loghandler.nottext)
 
-        var hasil = await getBuffer(`https://videfikri.com/api/textmaker/crossfirelogo/?text=${text}`)
+        var result = await photooxy('https://photooxy.com/fps-game-effect/make-crossfire-facebook-cover-photo-137.html', text)
+        var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/crossfire.png', hasil)
 
         res.sendFile(__path + '/tmp/crossfire.png')
@@ -8018,11 +8066,30 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await (await fetch(`https://videfikri.com/api/textmaker/gtavposter/?urlgbr=${img}`)).buffer()
+        await fs.writeFileSync(__path + '/tmp/gta_tmp.png', await getBuffer(img))
+        var buffer = await fs.readFileSync(__path + '/tmp/gta_tmp.png')
+        var form = new FormData();
+        form.append('thumb_1', buffer);
+        form.append('selectImage_1', buffer);
+        form.append('image_1', '');
+        form.append('login', 'OK');
+        var web = await fetch('https://photooxy.com/game-effects/make-grand-theft-auto-v-official-poster-132.html', {
+             method: 'POST',
+             headers: {
+             Accept: '/',
+             'Accept-Language': 'en-US,en;q=0.9',
+             'User-Agent': 'GoogleBot',
+             ...form.getHeaders(),
+             },
+             body: form.getBuffer(),
+        });
+              var html = await web.text();
+              var $ = cheerio.load(html);
+              var result = $('a[class="btn btn-primary"]').attr('href');
+              var hasil = await getBuffer(await upload3(result, false))
         await fs.writeFileSync(__path + '/tmp/gtaposter.png', hasil)
 
         res.sendFile(__path + '/tmp/gtaposter.png')
-
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -9228,7 +9295,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = 'https://photooxy.com/' + h
+                        var result = 'https://photooxy.com' + h
 
                         res.json({
                         	status: true,
@@ -10561,8 +10628,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img) return res.json(loghandler.notimg)
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await canvacord.Canvas.burn(img);
-        await fs.writeFileSync(__path + '/tmp/burning.png', hasil)
+        var hasil = await imageToBase64(`https://api-rull.herokuapp.com/api/photofunia/burning-fire?url=${img}`)
+        await fs.writeFileSync(__path + '/tmp/burning.png', hasil, 'base64')
 
         res.sendFile(__path + '/tmp/burning.png')
 
@@ -10711,9 +10778,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img2) return res.json({ message: 'Masukan parameter img2' })
         if (!img2.startsWith('http')) return res.json(loghandler.invalidLink)
 
-        var hasil = await canvacord.Canvas.slap(img, img2);
-        var hasil2 = await canvacord.Canvas.spank(img, img2);
-        await fs.writeFileSync(__path + '/tmp/slap.png', pickRandom(hasil, hasil2))
+        var hasil = await pickRandom(await canvacord.Canvas.slap(img, img2), await canvacord.Canvas.spank(img, img2))
+        await fs.writeFileSync(__path + '/tmp/slap.png', hasil)
 
         res.sendFile(__path + '/tmp/slap.png')
 
