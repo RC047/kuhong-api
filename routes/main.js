@@ -132,7 +132,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
 res.json({
     stats:{
-        status: 'online',
+        status: 'Online',
         name: 'kuhong-api',
         os: OS.toUpperCase(),
         ram: `${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})`,
@@ -156,7 +156,7 @@ res.json({
             blocked_ip: `${Object.keys(blocked).length}`
     },
         owner:{
-            owner: 'Rendy',
+            nama: 'Rendy',
             deskripsi: 'Hanya sekedar untuk belajar :)',
             instagram: 'rendycraft047',
             youtube: 'RC047',
