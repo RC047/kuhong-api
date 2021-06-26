@@ -1,50 +1,5 @@
-var { getFreeApikey, getApikey, getCustomApikey } = require('../../../database/apikey.js');
-var { generateCode } = require('../../../lib/generator.js');
+var { exec } = require('child_process');
 
-// Login Features
-var name = prompt(`
-LOGIN REQUIRED :
-
-Silahkan masukan namamu untuk identitas dalam web ini :)
-
-*Informasimu bersifat pribadi.
-`.trim(), 'Guest');
-console.log(`LOGIN :\n${name} just logged in to your website`);
-
-var ranNumber = Math.floor(Math.random() * 10000000);
-var date = new Date();
-var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-var mail = name + '@gmail.com';
-var user_id = ranNumber;
-var account_type = 'Free';
-var apikey = 'Not Premium';
-if (name == 'administrator') {
-    account_type = 'Premium';
-    apikey = 'KuhongRestAPIs';
-    }
-if (name == '' || name == 'Guest' || name == 'guest') {
-    name = 'Guest';
-    mail = name + ranNumber + '@gmail.com';
-    user_id = 'Login First';
-    account_type = 'Login First';
-    apikey = 'Login First';
-    }
-
-var event = Math.floor(Math.random() * 24);
-if (date.getHours() == event) {
-var rate = confirm('Menyukai web ini?\nNilai Anda adalah semangat bagi Owner :)\n\nPilih "Oke" untuk Bagus, "Batal" untuk Tidak Bagus.');
-if (rate) {
-    alert('Terimakasih!');
-    } else {
-    var alasan = prompt('Tidak menyukai web ini?\n\nBerikan kami alasannya :');
-    if (alasan !== '') alert('Terimakasih atas masukan Anda!');
-    console.log('TIDAK SUKA :\n' + alasan);
-    }
-}
-
-document.getElementById("name").innerHTML = name;
-
-// Functions
 window.setTimeout("setTimes();", 1000);
 function setTimes() {
   if (document.getElementById("jam")) {
@@ -56,16 +11,16 @@ function setTimes() {
         }
 }
 
-function restartWebsite() {
-
-var password = prompt(`
-Anda ingin merestart website ini?
-
-Silahkan masukan Password untuk mengkonfirmasi bahwa Anda adalah Owner :)
-`.trim());
-
-if (password == '') alert('Password tidak boleh Kosong!');
-if (password == generateCode()) process.send('reset');
+function runConsole() {
+  var console = prompt('Silahkan masukan kode JavaScript untuk menjalankan Console :');
+  if (console == '') alert('Masukan Kode!')
+  if (console !== '') {
+      exec(console, (err, stderr, stdout) => {
+      var result = 'Result:\n' + stderr
+      if (err) result = 'Error:\n' + err
+      alert(result)
+      })
+  }
 }
 
 function getNotification() {
@@ -86,20 +41,13 @@ o Some Update & Improvements
 
 function checkApikey() {
   var apikeyInput = prompt('Silahkan masukan Apikey yang ingin dicek :')
+  if (apikeyInput == '') alert('Masukan Apikey!')
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/cekapikey?apikey=' + apikeyInput;
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
-         if (!(apikeyInput == getFreeApikey() || apikeyInput == getApikey() || apikeyInput == getCustomApikey())) alert('Apikey Tidak Valid!');
 
-alert(`
-Apikey Valid!
-
-Status: ${json.status}
-Type: ${json.type}
-Apikey: ${json.apikey}
-Limit: ${json.limit}
-`.trim());
+         alert(json.result);
          }
 
   xhr.open('GET', url, true);
@@ -123,6 +71,47 @@ function getReport() {
 }
 
 function getUserData() {
+
+var name = prompt(`
+LOGIN REQUIRED :
+
+Silahkan masukan namamu untuk identitas dalam web ini :)
+
+*Informasimu bersifat pribadi.
+`.trim(), 'Guest');
+console.log(`LOGIN :\n${name} just logged in to your website`);
+document.getElementById("name").innerHTML = name;
+
+  var ranNumber = Math.floor(Math.random() * 10000000);
+  var date = new Date();
+  var mail = name + '@gmail.com';
+  var user_id = ranNumber;
+  var account_type = 'Free';
+  var apikey = 'Not Premium';
+  if (name == 'administrator') {
+      account_type = 'Premium';
+      apikey = 'KuhongRestAPIs';
+  }
+  if (name == '' || name == 'Guest' || name == 'guest') {
+      name = 'Guest';
+      mail = name + ranNumber + '@gmail.com';
+      user_id = 'Login First';
+      account_type = 'Login First';
+      apikey = 'Login First';
+  }
+
+  var event = Math.floor(Math.random() * 24);
+  if (date.getHours() == event) {
+  var rate = confirm('Menyukai web ini?\nNilai Anda adalah semangat bagi Owner :)\n\nPilih "Oke" untuk Bagus, "Batal" untuk Tidak Bagus.');
+  if (rate) {
+      alert('Terimakasih!');
+  } else {
+    var alasan = prompt('Tidak menyukai web ini?\n\nBerikan kami alasannya :');
+    if (alasan !== '') alert('Terimakasih atas masukan Anda!');
+    console.log('TIDAK SUKA :\n' + alasan);
+  }
+}
+
   var xhr = new XMLHttpRequest();
   var url = 'http://api.ipify.org/?format=json';
          xhr.onloadend = function() {
@@ -147,6 +136,8 @@ Apikey: ${apikey}
 }
 
 function getStatistics() {
+  var date = new Date();
+  var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/status';
          xhr.onloadend = function() {
