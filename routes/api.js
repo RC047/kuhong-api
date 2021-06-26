@@ -11323,7 +11323,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var tmp = await imageToBase64(audio)
         await fs.writeFileSync(__path + '/tmp/audio.mp3', tmp, 'base64')
         var mp3 = __path + '/tmp/audio.mp3'
-        var output = __path + '/tmp/result.mp3'
+        var output = './result.mp3'
         var tipe = type.toLowerCase()
         var result
         if (!(tipe == 'bass' || tipe == 'slow' || tipe == 'tupai' || tipe == 'berat')) return res.json({ message: 'Pilih bass, slow, tupai, dan berat!' })
