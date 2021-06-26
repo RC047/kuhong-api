@@ -60,7 +60,7 @@ function getReport() {
          }
 }
 
-function getUserData() {
+function actionLogin() {
 
 var name = prompt(`
 LOGIN REQUIRED :
@@ -87,7 +87,10 @@ console.log(`LOGIN :\n${name} just logged in to your website`);
       account_type = 'Login First';
       apikey = 'Login First';
   }
+}
 
+function getUserData() {
+  var { mail, user_id, account_type, apikey } = actionLogin();
   var xhr = new XMLHttpRequest();
   var url = 'http://api.ipify.org/?format=json';
          xhr.onloadend = function() {
