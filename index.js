@@ -15,11 +15,11 @@ app.use(cors());
 app.use(secure);
 app.use(express.static('public'));
 
-app.use('/', mainrouter)
-app.use('/api', apirouter)
+app.use('/', mainrouter);
+app.use('/api', apirouter);
 
 app.listen(PORT, () => {
-    console.log(color('Server running on port ' + PORT, 'green'))
-})
+    console.log(color('Server running on port ' + PORT, 'green'));
+});
 
 module.exports = app
