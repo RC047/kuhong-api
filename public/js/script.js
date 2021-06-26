@@ -1,3 +1,5 @@
+var { generateCode } = require('../../lib/generator.js')
+
 // Login Features
 var name = prompt(`
 LOGIN REQUIRED :
@@ -54,7 +56,16 @@ function setTimes() {
 }
 
 function restartWebsite() {
-process.send('reset')
+
+var code = generateCode();
+var password = prompt(`
+Anda ingin merestart website ini?
+
+Silahkan masukan Password untuk mengkonfirmasi bahwa Anda adalah Owner :)
+`.trim());
+
+if (password == '') alert('Password tidak boleh Kosong!');
+if (password == code) process.send('reset')
 }
 
 function getNotification() {
