@@ -1,23 +1,12 @@
 var { exec } = require('child_process');
 var fs = require('fs');
 
-window.setTimeout("setTimes();", 1000);
-function setTimes() {
-  if (document.getElementById("jam")) {
-  var time = new Date();
-        setTimeout("setTimes();", 1000);
-        document.getElementById("jam").innerHTML = time.getHours();
-        document.getElementById("menit").innerHTML = time.getMinutes();
-        document.getElementById("detik").innerHTML = time.getSeconds();
-        }
-}
-
 function runConsole() {
   var console = prompt('Silahkan masukan kode JavaScript untuk menjalankan Console :');
   if (console == '') alert('Masukan Kode!');
       fs.writeFileSync('./console.js', console);
       exec('node console.js', (err, stderr, stdout) => {
-      var result = 'Result: ' + stderr + stdout;
+      var result = 'Result: ' + stderr;
       if (err) result = 'Error: ' + err;
       alert(result)
   })
@@ -35,7 +24,8 @@ function getChangelog() {
 alert(`
 CHANGELOG :
 
-o Some Update & Improvements
+o Update Encrypt Menu!
+o Some Update & Improvements!
 `.trim());
 }
 
@@ -82,7 +72,6 @@ Silahkan masukan namamu untuk mengetahui data akun Anda :)
 console.log(`LOGIN :\n${name} just logged in to your website`);
 
   var ranNumber = Math.floor(Math.random() * 10000000);
-  var date = new Date();
   var mail = name + '@gmail.com';
   var user_id = ranNumber;
   var account_type = 'Free';
