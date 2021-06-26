@@ -1,4 +1,5 @@
-var { generateCode } = require('../../../lib/generator.js')
+var { getFreeApikey, getApikey, getCustomApikey } = require('../../../database/apikey.js');
+var { generateCode } = require('../../../lib/generator.js');
 
 // Login Features
 var name = prompt(`
@@ -57,7 +58,6 @@ function setTimes() {
 
 function restartWebsite() {
 
-var code = generateCode();
 var password = prompt(`
 Anda ingin merestart website ini?
 
@@ -65,7 +65,7 @@ Silahkan masukan Password untuk mengkonfirmasi bahwa Anda adalah Owner :)
 `.trim());
 
 if (password == '') alert('Password tidak boleh Kosong!');
-if (password == code) process.send('reset')
+if (password == generateCode()) process.send('reset');
 }
 
 function getNotification() {
@@ -73,7 +73,7 @@ alert(`
 NOTIFICATION :
 
 Kalo masih ada fitur yang dianggap kalian nembak,, dimohon untuk segera hubungi Owner agar fitur langsung segera diupdate!
-`.trim())
+`.trim());
 }
 
 function getChangelog() {
@@ -82,6 +82,28 @@ CHANGELOG :
 
 o Some Update & Improvements
 `.trim());
+}
+
+function checkApikey() {
+  var apikeyInput = prompt('Silahkan masukan Apikey yang ingin dicek :')
+  var xhr = new XMLHttpRequest();
+  var url = 'https://kuhong-api.herokuapp.com/api/cekapikey?apikey=' + apikeyInput;
+         xhr.onloadend = function() {
+         var json = JSON.parse(this.responseText);
+         if (!(apikeyInput == getFreeApikey() || apikeyInput == getApikey() || apikeyInput == getCustomApikey())) alert('Apikey Tidak Valid!');
+
+alert(`
+Apikey Valid!
+
+Status: ${json.status}
+Type: ${json.type}
+Apikey: ${json.apikey}
+Limit: ${json.limit}
+`.trim());
+         }
+
+  xhr.open('GET', url, true);
+  xhr.send();
 }
 
 function getRequest() {
