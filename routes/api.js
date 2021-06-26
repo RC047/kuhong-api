@@ -11394,7 +11394,7 @@ router.get('/execute', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var code = req.query.code,
+    var bash = req.query.bash,
           apikeyInput = req.query.apikey;
 
         var maintenance = false
@@ -11402,9 +11402,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!apikeyInput) return res.json(loghandler.notparam)
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
-        if (!code) return res.json({ message: 'Masukan parameter code' })
+        if (!bash) return res.json({ message: 'Masukan parameter bash' })
 
-        exec(code, (err, stderr, stdout) => {
+        exec(bash, (err, stderr, stdout) => {
         var result = stderr
         if (err) result = err
 
@@ -11414,6 +11414,52 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
          result: result
      })
   })
+})
+
+router.get('/escape', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var data = req.query.data,
+          apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!data) return res.json({ message: 'Masukan parameter data' })
+
+        var result = await escape(data)
+
+     res.json({
+     	status: true,
+         creator: creator,
+         result: result
+    })
+})
+
+router.get('/unescape', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var data = req.query.data,
+          apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!data) return res.json({ message: 'Masukan parameter data' })
+
+        var result = await unescape(data)
+
+     res.json({
+     	status: true,
+         creator: creator,
+         result: result
+    })
 })
 
 // End of script
