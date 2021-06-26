@@ -11325,9 +11325,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var tmp = await imageToBase64(audio)
         await fs.writeFileSync(__path + '/tmp/audio_tmp.mp3', tmp, 'base64')
         var mp3 = await fs.readFileSync(__path + '/tmp/audio_tmp.mp3')
-        var ran = await getRandom('.mp3')
+        var ran = __path + '/tmp/' + randomNumber + '.mp3'
         var tipe = type.toLowerCase()
         var result = null
+        if (!(tipe == 'bass' || tipe == 'slow' || tipe == 'tupai' || tipe == 'berat')) return res.json(loghandler.nottype)
         if (tipe == 'bass') {
 		await exec(`ffmpeg -i ${mp3} -af equalizer=f=94:width_type=o:width=2:g=30 ${ran}`, (err, stderr, stdout) => {
 				   if (err) {
