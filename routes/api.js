@@ -35,8 +35,10 @@ var {
 } = require(__path + '/lib/generator.js');
 var express = require('express');
 var router = express.Router();
+var owner = ['175.158.53.97'];
 var blocked = ['180.249.133.59'];
-var database = require(__path + '/database/database.js');
+var database = require(__path + '/lib/database.js');
+var creator = pickRandom(['Rendy', 'RendyGans', 'RendyGamteng', 'RendyCraft047', 'RC047']);
 
 try {
     var kuhong = database.get('RC047'); // jan diubah
@@ -44,14 +46,10 @@ try {
     console.log(e)
 }
 
-var creatorList = ['Rendy', 'RC047', 'RendyGans', 'RendyCraft047']; // Nama Lu Ngab (dibutuhkan)
-var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
-
 // Apikey :
 var free_apikey = generateApikey() // Apikey Gratis
 var apikey = 'QyiH67N1mWvbbJ891lpL67m_uy1oPHSlL01Vv-1qRi' // Apikeymu (dibutuhkan)
 var custom_apikey = '04102006' // Custom Apikey
-var owner_key = 'RendyVadya03' // Apikey Owner (dibutuhkan)
 var banned_apikey = 'KuhongRestAPIs' // Apikey yang sudah dibanned
 var vhtears_key = 'ameysbot' // Apikey VhTears (dibutuhkan)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
@@ -427,13 +425,12 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var type = 'Free'
     var limit = 'Limited! (Berubah setiap website mati)'
     if (!apikeyInput) return res.json(loghandler.notparam)
-    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) {
          type = 'Premium'
          limit = 'Unlimited!'
     }
     var result = `Apikey Valid!\n\nApikey: ${apikeyInput}\nStatus: ${status}\nType: ${type}\nLimit: ${limit}`
-    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) result = 'Apikey Tidak Valid!'
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) result = 'Apikey Tidak Valid!'
 
         res.json({
             status: true,
@@ -1478,10 +1475,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = getBuffer(upload3('https://photooxy.com' + h, false))
-                        fs.writeFileSync(__path + '/tmp/flaming.png', result)
+                        var result = 'https://photooxy.com' + h
 
-                  res.sendFile(__path + '/tmp/flaming.png')
+                        res.json({
+                        	status: true,
+                            creator: creator,
+                            result: result
+                        })
                     })
                 }
             })
@@ -1517,10 +1517,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     $ = cheerio.load(b)
                     $('.thumbnail').find('img').each(function() {
                         h = $(this).attr('src')
-                        var result = getBuffer(upload3('https://photooxy.com' + h, false))
-                        fs.writeFileSync(__path + '/tmp/darkneon.png', result)
+                        var result = 'https://photooxy.com' + h
 
-                  res.sendFile(__path + '/tmp/darkneon.png')
+                        res.json({
+                        	status: true,
+                            creator: creator,
+                            result: result
+                        })
                     })
                 }
             })
@@ -4448,7 +4451,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var gimage = promisify(gis)
         var result = await gimage(q)
         var { url } = pickRandom(result)
-        if (!url) return res.json({ status: false, message: 'Gambar tidak ditemukan!' })
+        if (url == undefined) return res.json({ status: false, message: 'Gambar tidak ditemukan!' })
         var hasil = await getBuffer(url)
         await fs.writeFileSync(__path + '/tmp/gimage.png', hasil)
 
@@ -4477,7 +4480,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var pinterest = promisify(gis)
         var result = await pinterest(q)
         var { url } = pickRandom(result.url)
-        if (!url) return res.json({ status: false, message: 'Gambar tidak ditemukan!' })
+        if (url == undefined) return res.json({ status: false, message: 'Gambar tidak ditemukan!' })
         var hasil = await getBuffer(url)
         await fs.writeFileSync(__path + '/tmp/pinterest.png', hasil)
 
@@ -4769,7 +4772,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var search = promisify(gis)
         var result = await search('manga')
         var { url } = pickRandom(result)
-        if (!url) return res.json({ status: false, message: 'Manga tidak ditemukan!' })
+        if (url == undefined) return res.json({ status: false, message: 'Manga tidak ditemukan!' })
         var hasil = await getBuffer(url)
         await fs.writeFileSync(__path + '/tmp/manga.png', hasil)
 
@@ -4796,7 +4799,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var search = promisify(gis)
         var result = await search('kusonime')
         var { url } = pickRandom(result)
-        if (!url) return res.json({ status: false, message: 'Kusonime tidak ditemukan!' })
+        if (url == undefined) return res.json({ status: false, message: 'Kusonime tidak ditemukan!' })
         var hasil = await getBuffer(url)
         await fs.writeFileSync(__path + '/tmp/kusonime.png', hasil)
 
@@ -5933,10 +5936,20 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var json = await (await fetch('https://docs-api-zahirrr.herokuapp.com/api/random/wallpaper?genre=acak')).json()
         var theme = json.url
         var color = '#FFFFFF'
-        var hasil = await canvacord.Canvas.quote({ image: theme, message: quote, username: author, color: '#FFFFFF' });
+        await canvacord.Canvas.quote({ image: theme, message: quote, username: author, color: '#FFFFFF' }).then((hasil) => {
         await fs.writeFileSync(__path + '/tmp/quotemaker.png', hasil)
 
         res.sendFile(__path + '/tmp/quotemaker.png')
+
+            }).catch(() => {
+         var json2 = await (await fetch(`https://terhambar.com/aw/qts/?kata=${quote}&author=${author}&tipe=random`)).json()
+
+          res.json({
+          	status: true,
+              creator: creator,
+              result: json2.result
+          })
+       })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -8182,10 +8195,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
               var html = await web.text();
               var $ = cheerio.load(html);
               var result = $('a[class="btn btn-primary"]').attr('href');
-              var hasil = await getBuffer(await upload3(result, false))
-        await fs.writeFileSync(__path + '/tmp/gtaposter.png', hasil)
+              var hasil = await upload3(result, false);
 
-        res.sendFile(__path + '/tmp/gtaposter.png')
+      res.json({
+      	status: true,
+          creator: creator,
+          result: hasil
+      })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -11004,7 +11020,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }
 })
 
-router.get('/slap2', async (req, res, next) => {
+router.get('/spank', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
@@ -11024,9 +11040,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img2.startsWith('http')) return res.json(loghandler.invalidLink)
 
         var hasil = await canvacord.Canvas.spank(img, img2)
-        await fs.writeFileSync(__path + '/tmp/slap2.png', hasil)
+        await fs.writeFileSync(__path + '/tmp/spank.png', hasil)
 
-        res.sendFile(__path + '/tmp/slap2.png')
+        res.sendFile(__path + '/tmp/spank.png')
 
     } catch (e) {
         console.log(e)
@@ -11323,18 +11339,16 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var tmp = await imageToBase64(audio)
         await fs.writeFileSync(__path + '/tmp/audio.mp3', tmp, 'base64')
         var mp3 = __path + '/tmp/audio.mp3'
-        var output = './result.mp3'
+        var output = __path + '/public/media/soundchanger_result.mp3'
         var tipe = type.toLowerCase()
-        var result
+        var result = 'https://kuhong-api.herokuapp.com/media/soundchanger_result.mp3'
         if (!(tipe == 'bass' || tipe == 'slow' || tipe == 'tupai' || tipe == 'berat')) return res.json({ message: 'Pilih bass, slow, tupai, dan berat!' })
         if (tipe == 'bass') {
-	    exec(`ffmpeg -i ${mp3} -af equalizer=f=94:width_type=o:width=2:g=30 ${output}`, (err, stderr, stdout) => {
+	    await exec(`ffmpeg -i ${mp3} -af equalizer=f=94:width_type=o:width=2:g=30 ${output}`, (err, stderr, stdout) => {
 				   if (err) {
 				   console.log(util.format(err))
                    res.sendFile(error)
                    }
-				   var bass = fs.readFileSync(output)
-				         result = saveToMedia(bass)
 
              res.json({
               	status: true,
@@ -11343,13 +11357,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
               })
            })
         } else if (tipe == 'slow') {
-	    exec(`ffmpeg -i ${mp3} -filter:a 'atempo=0.7,asetrate=44100' ${output}`, (err, stderr, stdout) => {
+	    await exec(`ffmpeg -i ${mp3} -filter:a 'atempo=0.7,asetrate=44100' ${output}`, (err, stderr, stdout) => {
 				   if (err) {
 				   console.log(util.format(err))
                    res.sendFile(error)
                    }
-				   var slow = fs.readFileSync(output)
-				         result = saveToMedia(slow)
 
              res.json({
               	status: true,
@@ -11358,13 +11370,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
               })
            })
         } else if (tipe == 'tupai') {
-		await exec(`ffmpeg -i ${mp3} -filter:a 'atempo=0.5,asetrate=65100' ${output}`, (err, stderr, stdout) => {
+		await await exec(`ffmpeg -i ${mp3} -filter:a 'atempo=0.5,asetrate=65100' ${output}`, (err, stderr, stdout) => {
 				   if (err) {
 				   console.log(util.format(err))
                    res.sendFile(error)
                    }
-				   var tupai = fs.readFileSync(output)
-				         result = saveToMedia(tupai)
 
              res.json({
               	status: true,
@@ -11373,13 +11383,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
               })
            })
         } else if (tipe == 'berat') {
-		exec(`ffmpeg -i ${mp3} -filter:a 'atempo=1.6,asetrate=22100' ${output}`, (err, stderr, stdout) => {
+		await exec(`ffmpeg -i ${mp3} -filter:a 'atempo=1.6,asetrate=22100' ${output}`, (err, stderr, stdout) => {
 				   if (err) {
 				   console.log(util.format(err))
                    res.sendFile(error)
                    }
-				   var berat = fs.readFileSync(output)
-				         result = saveToMedia(berat)
 
              res.json({
               	status: true,
@@ -11403,8 +11411,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!bash) return res.json({ message: 'Masukan parameter bash' })
+        if (!owner.indexOf(ip) > -1 && bash.startsWith('rm') || bash.startsWith('rmdir') || bash.startsWith('mv') || bash.startsWith('cp') || bash.startsWith('mkdir') || bash.startsWith('node') || bash.starsWith('heroku')) return res.json({ status: false, creator: creator, result: 'Command ini hanya dapat digunakan oleh Owner!' })
 
-        exec(bash, (err, stderr, stdout) => {
+        await exec(bash, (err, stderr, stdout) => {
         var result = stderr
         if (err) result = err
 
