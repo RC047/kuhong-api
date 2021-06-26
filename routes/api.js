@@ -5933,23 +5933,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: `Masukan parameter author`
         })
 
-        var json = await (await fetch('https://docs-api-zahirrr.herokuapp.com/api/random/wallpaper?genre=acak')).json()
-        var theme = json.url
-        var color = '#FFFFFF'
-        await canvacord.Canvas.quote({ image: theme, message: quote, username: author, color: '#FFFFFF' }).then((hasil) => {
-        await fs.writeFileSync(__path + '/tmp/quotemaker.png', hasil)
+        var json = await (await fetch(`https://terhambar.com/aw/qts/?kata=${quote}&author=${author}&tipe=random`)).json()
+        await fs.writeFileSync(__path + '/tmp/quotemaker.png', await getBuffer(json.result))
 
         res.sendFile(__path + '/tmp/quotemaker.png')
-
-            }).catch(() => {
-         var json2 = await (await fetch(`https://terhambar.com/aw/qts/?kata=${quote}&author=${author}&tipe=random`)).json()
-
-          res.json({
-          	status: true,
-              creator: creator,
-              result: json2.result
-          })
-       })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
