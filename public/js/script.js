@@ -1,3 +1,4 @@
+// Login Features
 var name = prompt(`
 LOGIN REQUIRED :
 
@@ -40,6 +41,7 @@ if (rate) {
 
 document.getElementById("name").innerHTML = name;
 
+// Functions
 window.setTimeout("setTimes();", 1000);
 function setTimes() {
   if (document.getElementById("jam")) {
@@ -49,6 +51,10 @@ function setTimes() {
         document.getElementById("menit").innerHTML = time.getMinutes();
         document.getElementById("detik").innerHTML = time.getSeconds();
         }
+}
+
+function restartWebsite() {
+process.send('reset')
 }
 
 function getNotification() {
