@@ -1,4 +1,4 @@
-var { generateCode } = require('../../lib/generator.js')
+var { generateCode } = require('../../../lib/generator.js')
 
 // Login Features
 var name = prompt(`
