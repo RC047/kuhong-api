@@ -423,23 +423,21 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey;
 
-    var maintenance = false
-    if (maintenance == true) return res.sendFile(mtc)
-    if (!apikeyInput) return res.json(loghandler.notparam)
-    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
     var status = 'Active'
-    var type = 'Free User'
+    var type = 'Free'
     var limit = 'Limited! (Berubah setiap website mati)'
-    if (apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) type = 'Premium User'
-    if (apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) limit = 'Unlimited!'
+    if (!apikeyInput) return res.json(loghandler.notparam)
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+    if (apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) {
+         type = 'Premium'
+         limit = 'Unlimited!'
+    }
+    var result = `Apikey Valid!\n\nStatus: ${status}\nType: ${type}\nLimit: ${limit}`
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) result = 'Apikey Tidak Valid!'
 
         res.json({
-            creator: creator,
-            status: status,
-            type: type,
-            apikey: apikeyInput,
-            limit: limit
+            status: true,
+            result: result
         })
 })
 
@@ -11327,7 +11325,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var mp3 = await fs.readFileSync(__path + '/tmp/audio_tmp.mp3')
         var ran = __path + '/tmp/' + randomNumber + '.mp3'
         var tipe = type.toLowerCase()
-        var result = null
+        var result
         if (!(tipe == 'bass' || tipe == 'slow' || tipe == 'tupai' || tipe == 'berat')) return res.json(loghandler.nottype)
         if (tipe == 'bass') {
 		await exec(`ffmpeg -i ${mp3} -af equalizer=f=94:width_type=o:width=2:g=30 ${ran}`, (err, stderr, stdout) => {
