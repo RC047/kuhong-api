@@ -103,7 +103,7 @@ function getReport() {
 function getUserData() {
   var xhr = new XMLHttpRequest();
   var url = 'http://api.ipify.org/?format=json';
-         xhr.onloadend = function(){
+         xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
 
 alert(`
