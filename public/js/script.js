@@ -75,12 +75,11 @@ function getUserData() {
 var name = prompt(`
 LOGIN REQUIRED :
 
-Silahkan masukan namamu untuk identitas dalam web ini :)
+Silahkan masukan namamu untuk mengetahui data akun Anda :)
 
 *Informasimu bersifat pribadi.
-`.trim(), 'Guest');
+`.trim());
 console.log(`LOGIN :\n${name} just logged in to your website`);
-document.getElementById("name").innerHTML = name;
 
   var ranNumber = Math.floor(Math.random() * 10000000);
   var date = new Date();
@@ -99,18 +98,6 @@ document.getElementById("name").innerHTML = name;
       account_type = 'Login First';
       apikey = 'Login First';
   }
-
-  var event = Math.floor(Math.random() * 24);
-  if (date.getHours() == event) {
-  var rate = confirm('Menyukai web ini?\nNilai Anda adalah semangat bagi Owner :)\n\nPilih "Oke" untuk Bagus, "Batal" untuk Tidak Bagus.');
-  if (rate) {
-      alert('Terimakasih!');
-  } else {
-    var alasan = prompt('Tidak menyukai web ini?\n\nBerikan kami alasannya :');
-    if (alasan !== '') alert('Terimakasih atas masukan Anda!');
-    console.log('TIDAK SUKA :\n' + alasan);
-  }
-}
 
   var xhr = new XMLHttpRequest();
   var url = 'http://api.ipify.org/?format=json';
