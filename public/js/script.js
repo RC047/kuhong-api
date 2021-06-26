@@ -70,6 +70,7 @@ Silahkan masukan namamu untuk mengetahui data akun Anda :)
 *Informasimu bersifat pribadi.
 `.trim());
 console.log(`LOGIN :\n${name} just logged in to your website`);
+document.getElementById("name").innerHTML = name;
 
   var ranNumber = Math.floor(Math.random() * 10000000);
   var mail = name + '@gmail.com';
@@ -90,6 +91,7 @@ console.log(`LOGIN :\n${name} just logged in to your website`);
 }
 
 function getUserData() {
+
   var { mail, user_id, account_type, apikey } = actionLogin();
   var xhr = new XMLHttpRequest();
   var url = 'http://api.ipify.org/?format=json';
