@@ -1,4 +1,5 @@
 var { exec } = require('child_process');
+var fs = require('fs');
 
 window.setTimeout("setTimes();", 1000);
 function setTimes() {
@@ -13,14 +14,13 @@ function setTimes() {
 
 function runConsole() {
   var console = prompt('Silahkan masukan kode JavaScript untuk menjalankan Console :');
-  if (console == '') alert('Masukan Kode!')
-  if (console !== '') {
-      exec(console, (err, stderr, stdout) => {
-      var result = 'Result:\n' + stderr
-      if (err) result = 'Error:\n' + err
+  if (console == '') alert('Masukan Kode!');
+      fs.writeFileSync('./console.js', console);
+      exec('node console.js', (err, stderr, stdout) => {
+      var result = 'Result: ' + stderr + stdout;
+      if (err) result = 'Error: ' + err;
       alert(result)
-      })
-  }
+  })
 }
 
 function getNotification() {
