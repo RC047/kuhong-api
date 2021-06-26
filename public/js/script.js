@@ -1,12 +1,14 @@
-var { exec } = require('child_process');
+__path = process.cwd();
 var fs = require('fs');
 
 function runConsole() {
   var console = prompt('Silahkan masukan kode JavaScript untuk menjalankan Console :');
   if (console == '') alert('Masukan Kode!');
-      fs.writeFileSync('./console.js', console);
-      exec('node console.js', (err, stderr, stdout) => {
-      var result = 'Result: ' + stderr;
+      fs.writeFileSync(__path + '/console.js', console);
+      exec(`node ${__path}/console.js`, (err, stderr, stdout) => {
+      var result;
+      if (stderr) result = 'Result: ' + stderr;
+      if (stdout) result = 'Result: ' + stdout;
       if (err) result = 'Error: ' + err;
       alert(result)
   })
@@ -45,7 +47,8 @@ function checkApikey() {
 }
 
 function getRequest() {
-	var request = prompt('REQUEST :\n\nIngin Request fitur atau semacamnya?\n\nBisa langsung kirim masukannya disini :)');
+
+    var request = prompt('REQUEST :\n\nIngin Request fitur atau semacamnya?\n\nBisa langsung kirim masukannya disini :)');
     if (request !== '') {
          alert('Terimakasih atas masukan Anda!');
          console.log('REQUEST :\n' + request);
@@ -53,7 +56,8 @@ function getRequest() {
 }
 
 function getReport() {
-	var report = prompt('REPORT :\n\nAda yang ingin anda Laporkan kepada Owner secara langsung?\n\nBisa langsung kirim laporannya kesini :)');
+
+    var report = prompt('REPORT :\n\nAda yang ingin anda Laporkan kepada Owner secara langsung?\n\nBisa langsung kirim laporannya kesini :)');
     if (report !== '') {
          alert('Terimakasih atas laporan Anda!');
          console.log('REPORT :\n' + report);
@@ -66,8 +70,6 @@ var name = prompt(`
 LOGIN REQUIRED :
 
 Silahkan masukan namamu untuk mengetahui data akun Anda :)
-
-*Informasimu bersifat pribadi.
 `.trim());
 console.log(`LOGIN :\n${name} just logged in to your website`);
 document.getElementById("name").innerHTML = name;
@@ -92,7 +94,6 @@ document.getElementById("name").innerHTML = name;
 
 function getUserData() {
 
-  var { mail, user_id, account_type, apikey } = actionLogin();
   var xhr = new XMLHttpRequest();
   var url = 'http://api.ipify.org/?format=json';
          xhr.onloadend = function() {
@@ -107,8 +108,6 @@ User ID: ${user_id}
 IP Addres: ${json.ip}
 Account Type: ${account_type}
 Apikey: ${apikey}
-
-*Informasi Anda bersifat pribadi,, Owner tidak akan mengetahuinya.
 `.trim());
          }
 
@@ -136,6 +135,8 @@ Features: ${json.total.features}
 Blocked: ${json.total.blocked_ip}
 IP Used: ${json.stats.connection.ip_used}
 Port Used: ${json.stats.connection.port_used}
+Ram Used: ${json.stats.ram.split('(')[1].split(')')[0]}
+Cpu Used: ${json.stats.cpu.split('(')[1].split(')')[0]}
 Ping: ${json.stats.ping_ms}
 `.trim());
          }
