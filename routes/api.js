@@ -35,7 +35,7 @@ var {
 } = require(__path + '/lib/generator.js');
 var express = require('express');
 var router = express.Router();
-var blocked = ['180.249.133.59']
+var blocked = ['180.249.133.59'];
 var database = require(__path + '/database/database.js');
 
 try {
@@ -48,10 +48,11 @@ var creatorList = ['Rendy', 'RC047', 'RendyGans', 'RendyCraft047']; // Nama Lu N
 var creator = creatorList[Math.floor(Math.random() * creatorList.length)]; // Ini jan diubah
 
 // Apikey :
-var banned_apikey = 'KuhongRestAPIs' // Apikey yang sudah dibanned
 var free_apikey = generateApikey() // Apikey Gratis
 var apikey = 'QyiH67N1mWvbbJ891lpL67m_uy1oPHSlL01Vv-1qRi' // Apikeymu (dibutuhkan)
 var custom_apikey = '04102006' // Custom Apikey
+var owner_key = 'RendyVadya03' // Apikey Owner (dibutuhkan)
+var banned_apikey = 'KuhongRestAPIs' // Apikey yang sudah dibanned
 var vhtears_key = 'ameysbot' // Apikey VhTears (dibutuhkan)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'apivinz' // Apikey Zeks (dibutuhkan)
@@ -124,6 +125,7 @@ var {
     braillefy
 } = require('img2braille');
 var {
+	ffmpeg,
 	toMP3,
 	toPTT,
 	toMP4
@@ -245,6 +247,12 @@ var loghandler = {
         code: 406,
         message: 'Masukan parameter query'
     },
+    notaudio: {
+        status: false,
+        creator: creator,
+        code: 406,
+        message: 'Masukan parameter audio'
+    },
     notkata: {
         status: false,
         creator: creator,
@@ -315,7 +323,7 @@ var loghandler = {
         status: false,
         creator: creator,
         code: 406,
-        message: `Apikey tidak ditemukan! Silahkan kontak Owner untuk dapatkan Apikey wa.me/62895337278647`
+        message: 'Apikey tidak ditemukan! Silahkan kontak Owner untuk dapatkan Apikey wa.me/62895337278647'
     },
     invalidLink: {
         status: false,
@@ -419,14 +427,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (maintenance == true) return res.sendFile(mtc)
     if (!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-    var status = 'active'
+    var status = 'Active'
     var type = 'Free User'
     var limit = 'Limited! (Berubah setiap website mati)'
     if (apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) type = 'Premium User'
     if (apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) limit = 'Unlimited!'
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-    try {
         res.json({
             creator: creator,
             status: status,
@@ -434,10 +441,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             apikey: apikeyInput,
             limit: limit
         })
-
-    } catch (e) {
-        res.sendFile(error)
-    }
 })
 
 router.get('/redeem', async (req, res, next) => {
@@ -446,24 +449,27 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var code = req.query.code;
 
-    var pwd = redeem_code
     if (!code) return res.json({
-        message: `Masukan parameter code`
-    })
-    if (code !== `${pwd}`) return res.json({
-        status: false,
-        code: 406,
-        creator: creator,
-        message: 'Kode Redeem Invalid! Silahkan beli Owner untuk dapatkan kode redeem.',
-        premium_apikey: null
+        message: 'Masukan parameter code'
     })
 
+    var status = true
+    var code = 200
+    var msg = 'Kode Redeem Valid!'
+    var prem_key = apikey
+    if (code !== `${redeem_code}`) {
+    	status = false
+        code = 406
+        msg = 'Kode Redeem Invalid!'
+        prem_key = null
+    }
+
     res.json({
-        status: true,
-        code: 200,
+        status: status,
+        code: status_code,
         creator: creator,
-        message: 'Kode Redeem Valid!',
-        premium_apikey: apikey
+        message: msg,
+        premium_apikey: prem_key
     })
 })
 
@@ -620,8 +626,8 @@ router.get('/jadwalbioskop', (req, res) => {
             })
         }
         res.send({
+        	status: true,
             creator: creator,
-            status: true,
             result: result
         })
     })
@@ -641,19 +647,22 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!url) return res.json(loghandler.noturl)
 
-    request(`https://tinyurl.com/api-create.php?url=${url}`, function(error, response, body) {
-        try {
+    try {
+    await fetch(`https://tinyurl.com/api-create.php?url=${url}`)
+        .then(result => result.text())
+        .then(body => {
+
             res.json({
                 status: true,
                 creator: creator,
                 result: body,
                 message: 'succes'
             })
-        } catch (e) {
-            console.log('Error :', color(e, 'red'))
-            res.json(loghandler.invalidLink)
-        }
-    })
+        })
+    } catch (e) {
+            console.log(e)
+        res.json(loghandler.invalidLink)
+     }
 })
 
 router.get('/base', async (req, res, next) => {
@@ -2550,33 +2559,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         })
 })
 
-
-router.get('/random/meme', async (req, res, next) => {
-var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var apikeyInput = req.query.apikey
-
-    var maintenance = false
-    if (maintenance == true) return res.sendFile(mtc)
-    if (!apikeyInput) return res.json(loghandler.notparam)
-    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
-
-    fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/meme`))
-        .then(response => response.json())
-        .then(data => {
-            var result = data;
-            res.json({
-                result
-            })
-        })
-        .catch(e => {
-            res.sendFile(error)
-        })
-})
-
-
 router.get('/quotes/kanye', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
@@ -4020,8 +4002,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
     try {
-        axios.get(`https://ezgif.com/webp-to-mp4?url=${url}`).then(({ data }) => {
-            var $ = cheerio.load(data)
+        axios.get(`https://ezgif.com/webp-to-mp4?url=${url}`).then((data) => {
+            var $ = cheerio.load(data.data)
             var bodyFormThen = new FormData()
             var file = $('input[name="file"]').attr('value')
             var token = $('input[name="token"]').attr('value')
@@ -4041,8 +4023,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 headers: {
                     'Content-Type': `multipart/form-data; boundary=${bodyFormThen._boundary}`
                 }
-            }).then(({ data }) => {
-                var $ = cheerio.load(data)
+            }).then((data2) => {
+                var $ = cheerio.load(data2.data)
                 var result = 'https:' + $('div#output > p.outfile > video > source').attr('src')
 
                 res.json({
@@ -4426,7 +4408,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }
 })
 
-router.get('/bokep', async (req, res, next) => {
+router.get('/porno', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
@@ -4441,9 +4423,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     try {
         var json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/pussy`)).json()
         var hasil = await getBuffer(json.result)
-        await fs.writeFileSync(__path + '/tmp/bokep.png', hasil)
+        await fs.writeFileSync(__path + '/tmp/porno.png', hasil)
 
-        res.sendFile(__path + '/tmp/bokep.png')
+        res.sendFile(__path + '/tmp/porno.png')
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -4467,9 +4449,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     try {
         var gimage = promisify(gis)
         var result = await gimage(q)
-        var image = pickRandom(result.url)
-        if (!image) return res.json({ status: false, erorr: '404 Not Found' })
-        var hasil = await getBuffer(image)
+        var { url } = pickRandom(result)
+        if (!url) return res.json({ status: false, message: 'Gambar tidak ditemukan!' })
+        var hasil = await getBuffer(url)
         await fs.writeFileSync(__path + '/tmp/gimage.png', hasil)
 
         res.sendFile(__path + '/tmp/gimage.png')
@@ -4496,9 +4478,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     try {
         var pinterest = promisify(gis)
         var result = await pinterest(q)
-        var image = pickRandom(result.url)
-        if (!image) return res.json({ status: false, erorr: '404 Not Found' })
-        var hasil = await getBuffer(image)
+        var { url } = pickRandom(result.url)
+        if (!url) return res.json({ status: false, message: 'Gambar tidak ditemukan!' })
+        var hasil = await getBuffer(url)
         await fs.writeFileSync(__path + '/tmp/pinterest.png', hasil)
 
         res.sendFile(__path + '/tmp/pinterest.png')
@@ -4615,6 +4597,36 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 fs.writeFileSync(__path + '/tmp/anime.png', media)
 
                 res.sendFile(__path + '/tmp/anime.png')
+            })
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/anime/husbu', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+
+    try {
+        await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/anime/husbu.txt')
+            .then(result => result.text())
+            .then(body => {
+                var json = body.split('\n')
+                var anime = json[Math.floor(Math.random() * json.length)]
+                var buffer = imageToBase64(anime)
+                var media = Buffer.from(buffer, 'base64')
+                fs.writeFileSync(__path + '/tmp/husbu.png', media)
+
+                res.sendFile(__path + '/tmp/husbu.png')
             })
     } catch (e) {
         console.log(e)
@@ -4743,7 +4755,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }
 })
 
-router.get('/random/manga', async (req, res, next) => {
+router.get('/manga/random', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
@@ -4756,13 +4768,41 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
     try {
-        var json = await (await fetch(`https://api.fdci.se/rep.php?gambar=manga`)).json()
-        var body = JSON.parse(JSON.stringify(json))
-        var tada = body[Math.floor(Math.random() * body.length)]
-        var hasil = await getBuffer(tada)
+        var search = promisify(gis)
+        var result = await search('manga')
+        var { url } = pickRandom(result)
+        if (!url) return res.json({ status: false, message: 'Manga tidak ditemukan!' })
+        var hasil = await getBuffer(url)
         await fs.writeFileSync(__path + '/tmp/manga.png', hasil)
 
         res.sendFile(__path + '/tmp/manga.png')
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/anime/kusonime', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+
+    try {
+        var search = promisify(gis)
+        var result = await search('kusonime')
+        var { url } = pickRandom(result)
+        if (!url) return res.json({ status: false, message: 'Kusonime tidak ditemukan!' })
+        var hasil = await getBuffer(url)
+        await fs.writeFileSync(__path + '/tmp/kusonime.png', hasil)
+
+        res.sendFile(__path + '/tmp/kusonime.png')
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -5793,12 +5833,77 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-        var json = await (await fetch(`https://xptnbotapinew.herokuapp.com/?dare&apikey=xptn`)).json()
+        var dare = [
+    "Ajak orang yg tidak kamu kenal itu selfie berdua dengan mu lalu upload ke snapgram", 
+    "Ambil beberapa nomor dari kontakmu secara acak dan kirim sms 'Aku hamil' sama mereka.",
+    "Ambil minuman apa saja yg ada didekat mu lalu campurkan dengan cabai dan minum!",
+    "Ambil nomor secara acak dari kontakmu, telepon dia, dan bilang 'Aku mencintaimu'",
+    "Beli makanan paling murah di kantin (atau beli sebotol aqua) dan bilang sambil tersedu-sedu pada teman sekelasmu 'Ini.. adalah makanan yang paling mahal yang pernah kubeli.. Hiks'",
+    "Beli satu botol coca cola dan siram bunga dengan coca cola itu di depan orang banyak.",
+    "Berdiri deket kulkas, tutup mata, pilih makanan secara acak didalemnya, pas makanpun mata harus tetep ditutup.",
+    "Berdiri di tengah lapangan basket dan berteriak, 'AKU MENCINTAIMU PANGERANKU/PUTRIKU'",
+    "Beri hormat pada seseorang di kelas, lalu bilang 'Hamba siap melayani Anda, Yang Mulia.'",
+    "Berjalan sambil bertepuk tangan dan menyanyi lagu 'Selamat Ulang Tahun' dari kelas ke koridor.",
+    "Berlutut satu kaki dan bilang 'Marry me?' sama orang pertama yang masuk ke ruangan.",
+    "Bikin hiasan kepala absurd dari tisu, apapun itu, terus suruh pose didepan kamera, terus upload",
+    "Bilang 'KAMU CANTIK BANGET NGGAK BOHONG' sama cewek yang menurutmu paling cantik di kelas ini",
+    "Bilang pada seorang guru, 'Bu/Pak, baju saya terasa sempit' dengan ekspresi memelas.",
+    "Bilang pada seseorang di kelas, 'Aku baru saja diberi tahu aku adalah kembaranmu dulu, kita dipisahkan, lalu aku menjalani operasi plastik. Dan ini adalah hal paling serius yang pernah aku katakan.'",
+    "Buang buku catatan seseorang ke tempat sampah, di depan matanya, sambil bilang 'Buku ini isinya tidak ada yang bisa memahami'",
+    "Cabut bulu kaki mu sendiri sebanyak 3x",
+    "Chat kedua orangtuamu, katakan bahwa kamu kangen dengan mereka lengkap dengan emoticon sedih.",
+    "Coba searcing google mengenai hal-hal yang mengerikan atau menggelikan seperti trypophobia, dll.",
+    "Duduk relaks di tengah lapangan basket sambil berpura-pura itu adalah pantai untuk berjemur.",
+    "isi mulut penuh dengan air dan harus tahan hingga dua putaran. Jika tertawa dan tumpah atau terminum, maka harus ngisi ulang dan ditambah satu putaran lagi.",
+    "Jabat tangan orang pertama yang masuk ke ruangan ini dan bilang 'Selamat datang di Who Wants To Be a Millionaire!'",
+    "Kirim sms pada orangtuamu 'Hai, bro! Aku baru beli majalah Playboy edisi terbaru!'",
+    "Kirim sms pada orangtuamu, 'Ma, Pa, aku sudah tahu bahwa aku adalah anak adopsi dari Panti Asuhan. Jangan menyembunyikan hal ini lagi.'",
+    "Kirim sms pada tiga nomor acak di kontakmu dan tulis 'Aku baru saja menjadi model majalah Playboy.'",
+    "Makan 1 Sendok makan kecap manis dan kecap asin!",
+    "Makan sesuatu tapi gak pake tangan.",
+    "Marah-marah ketemen kamu yang gak dateng padahal udah janjian mau main 'truth or dare' bareng-bareng",
+    "Mecahin telur pake kepala.",
+    "Memakan makanan yang sudah dicampur-campur dan rasanya pasti aneh, namun pastikan bahwa makanan itu tidak berbahaya untuk kesehatan jangka panjang maupun jangka pendek.",
+    "Menari ala Girls' Generation untuk cowok di depan kelas, atau menari ala Super Junior untuk cewek.",
+    "Mengerek tiang bendera tanpa ada benderanya.",
+    "Menggombali orang yang ditaksir, sahabat terdekat, lawan jenis yang tidak dikenal sama sekali dan  sejenisnya.",
+    "Meniru style rambut semua temen kamu.",
+    "Menyanyikan lagu HAI TAYO di depan banyak orang sambil menari",
+    "Menyanyikan lagu Iwak Peyek dengan keras di ruang kelas.",
+    "Minjem sesuatu ke tetangga",
+    "Minta tandatangan pada seorang guru yang paling kamu benci sambil bilang 'Anda benar-benar orang yang paling saya kagumi di dunia.'",
+    "Minta uang pada seseorang (random/acak) di jalan sambil bilang 'Saya tidak punya uang untuk naik angkot.'",
+    "Minum sesuatu yang udah dibuat/disepakatin, tapi pastiin gak berbahaya, bisa kayak minum sirup yang digaremin terus ditambah kecap.",
+    "Minum tiga teguk teh atau coke (coca-cola atau sprite) yang dicampur sambal.",
+    "Ngomong ke gebetannya emoticon-Takut, ngobrol ngalurngidul apapun lah boleh ,via manapun juga bisa.",
+    "Nyanyi-nyanyi lagu favorit difilm disney diluar rumah sambil teriak-teriak.",
+    "Nyebutin 1 biru sampai 10 biru dengan cepat dan tidak boleh melakukan kesalahan. Jika salah maka harus diulang dari awal.",
+    "Pakai mahkota tiruan dari kertas buku dan bilang sama setiap orang di ruangan 'BERI PENGHORMATAN PADA YANG MULIA RAJA' sambil menunjuk setiap orang dengan penggaris.",
+    "Pake celana kebalik sampe besok paginya.",
+    "Pegang bola basket, berdiri di depan kelas, dan berteriak, 'ADA YANG TAHU MENGAPA BOLA GOLF INI SANGAT BESAR? APA PABRIKNYA SALAH CETAK?'",
+    "Peluk orang yang NGGAK kamu sukai di kelas dan bilang, 'Terimakasih banyak kamu sudah bersedia menjadi orang paling baik untukku.'",
+    "Pergi ke lapangan yg luas, lalu berlari sekencang kencangnya sambil mengatakan 'aku gila aku gila'",
+    "Petik 1 bunga lalu tancapkan bunga itu ke orang yg tidak kamu kenal (harus lawan jenis ya)",
+    "Pilih orang secara acak di jalan, lalu bilang 'You don't know you're beautiful' (ala One Direction)",
+    "Pura pura kerasukan ex: kerasukan macan dll",
+    "Suruh bersiul pas mulutnya lagi penuh dijejelin makanan.",
+    "Suruh jadi pelayan buat ngelayanin kamu sama temen-temen kamu buat makan siang.",
+    "Suruh pake kaos kaki buat dijadiin sarung tangan.",
+    "Suruh pake topi paling aneh/helm paling absurd selama 3 putaraann kedepan.",
+    "Telpon mama kamu dan bilang 'ma, aku mau nikah secepatnya'",
+    "Telpon mantan kamu dan bialng 'aku rindu kamu'",
+    "Teriak 'WOI GW JACK, DENGER NIH RAUNGAN GW, ROAAAAR!' ditempat rame",
+    "Tuker baju sama orang terdekat sampe ronde berikutnya.",
+    "Update status di BBM, Line, WA, atau apapun itu dengan kata kata yang semuanya berawalan 'T'",
+    "Upload video dia nyanyi ke youtube yang lagi nyanyiin lagu-lagu populer",
+    "Warnain kuku kaki dan tangan tapi dengan warna berbeda-beda buat seminggu"
+     ]
+     var result = pickRandom(dare)
 
         res.json({
             status: true,
             creator: creator,
-            result: json.Dare
+            result: result
         })
     } catch (e) {
         console.log(e)
@@ -5990,16 +6095,16 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!url) return res.json(loghandler.noturl)
         if (!url.startsWith('http')) return res.json(logahndler.invalidLink)
 
-        var enc = await imageToBase64(url)
-        var buffer = Buffer.from(enc, 'base64')
-              await fs.writeFileSync(__path + '/tmp/towebp.webp', buffer)
-              var result = await imgbb(imgbb_key, media)
+        var buffer = await imageToBase64(url)
+              await fs.writeFileSync(__path + '/tmp/towebp.webp', buffer, 'base64')
+              var sticker = await fs.readFileSync(__path + '/tmp/towebp.webp')
+              var result = await saveToMedia(sticker)
 
                 res.json({
                     status: true,
                     creator: creator,
                     message: 'succes',
-                    result: result.display_url
+                    result: result
                 })
     } catch (e) {
         console.log(e)
@@ -6090,9 +6195,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var convert = await imageToBase64(webp)
         var img = Buffer.from(convert, 'base64')
         await fs.writeFileSync(__path + '/tmp/toimg.png', img)
+                   var image = await fs.readFileSync(__path +'/tmp/toimg.png')
+                   var result = await saveToMedia(image)
 
-        res.sendFile(__path + '/tmp/toimg.png')
-
+      res.json({
+      	status: true,
+          creator: creator,
+          result: result
+      })
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -6450,12 +6560,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!q) return res.json(loghandler.notquery)
 
-        var json = await (await fetch(`https://api.xteam.xyz/search/jooxfind?q=${q}&APIKEY=${xteam_key}`)).json()
+        var json = await (await fetch(`http://nzcha-apii.herokuapp.com/joox?q=${q}`)).json()
+        if (json.data == undefined) return res.json({ status: false, message: 'Lagu tidak ditemukan!' })
 
         res.json({
             status: true,
             creator: creator,
-            result: json.result
+            result: json.data
         })
     } catch (e) {
         console.log(e)
@@ -6849,7 +6960,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var results = await yts(q)
         var vid = results.all.find(video => video.seconds < 3600)
         if (!vid) return res.json({
-            message: 'Video/Audio Tidak ditemukan'
+            message: 'Video/Audio tidak ditemukan!'
         })
         var isVideo = /2$/.test(q)
         var {
@@ -7179,7 +7290,7 @@ var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
-        url = req.query.url;
+        url = req.query.file_url;
 
     var maintenance = false
     if (maintenance == true) return res.sendFile(mtc)
@@ -8531,7 +8642,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }
 })
 
-router.get('/hentai', async (req, res, next) => {
+router.get('/nsfw/hentai', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
@@ -8544,10 +8655,60 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
     try {
-        var json = await (await fetch(`http://api-melodicxt-2.herokuapp.com/api/random/hentai?apiKey=${melodicxt_key}`)).json()
-        await fs.writeFileSync(__path + '/tmp/hentai.png', await getBuffer(json.result.result))
+    	var nime = pickRandom(['waifu', 'neko'])
+        var json = await (await fetch(`https://api.waifu.pics/nsfw/${nime}`)).json()
+        var result = await getBuffer(json.url)
+               await fs.writeFileSync(__path + '/tmp/hentai.png', result) 
 
-        res.sendFile(__path + '/tmp/hentai.png')
+  res.sendFile(__path + '/tmp/hentai.png')
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/nsfw/neko', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+
+    try {
+        var json = await (await fetch('https://api.waifu.pics/nsfw/neko')).json()
+        var result = await getBuffer(json.url)
+               await fs.writeFileSync(__path + '/tmp/nsfw_neko.png', result) 
+
+  res.sendFile(__path + '/tmp/nsfw_neko.png')
+    } catch (e) {
+        console.log(e)
+        res.sendFile(error)
+    }
+})
+
+router.get('/nsfw/waifu', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+
+    try {
+        var json = await (await fetch('https://api.waifu.pics/nsfw/waifu')).json()
+        var result = await getBuffer(json.url)
+               await fs.writeFileSync(__path + '/tmp/nsfw_waifu.png', result) 
+
+  res.sendFile(__path + '/tmp/nsfw_waifu.png')
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -9005,7 +9166,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: `Masukan parameter jumlah member`
         })
 
-        var card = new canvacord.Welcome()
+        var card = new canvacord.Welcomer()
             .setUsername(nama_mem)
             .setDiscriminator('000' + Math.floor(Math.random() * 9))
             .setMemberCount(Number(jumlah_mem))
@@ -9060,7 +9221,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: `Masukan parameter jumlah member`
         })
 
-        var card = new canvacord.Leave()
+        var card = new canvacord.Leaver()
             .setUsername(nama_mem)
             .setDiscriminator('000' + Math.floor(Math.random() * 9))
             .setMemberCount(Number(jumlah_mem))
@@ -9206,11 +9367,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }
 })
 
-router.get('/toimage', async (req, res, next) => {
+router.get('/url2image', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var img = req.query.img,
+    var url = req.query.url,
         apikeyInput = req.query.apikey;
 
     var maintenance = false
@@ -9218,10 +9379,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
-    if (!img) return res.json(loghandle.notimg)
-    if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
+    if (!url) return res.json(loghandle.notimg)
+    if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
-    var media = await getBuffer(img)
+    var media = await getBuffer(url)
     await fs.writeFileSync(__path + '/tmp/image.png', media)
 
     res.sendFile(__path + '/tmp/image.png')
@@ -9886,6 +10047,66 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     })
 })
 
+router.get('/katailham', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+
+    var katailham = [
+          'Nggak ada yang peduli denganmu di sosmed kecuali kamu cakep.',
+          'Sesimpel ini deh sibuk itu palsu, semua tergantung prioritas.',
+          'Dia hanya menghargaimu bukan mencintaimu.',
+          'Keadilan sosial hanya berlaku bagi warna negara yang good looking.',
+          'Jangan jadi pelangi untuk orang yang buta warna.',
+          'Dia yang tertidur nyenyak setelah mematahkan hatimu tidak pantas untuk kamu ingat.',
+          'Dia cuman bercanda, harusnya kamu ketawa, bukan malah jatuh cinta.',
+          'Mencintaimu adalah seni menyakiti diri.',
+          'Dia gak jahat, bapermu aja yang salah tempat.',
+          'Jika tidak bisa mewarnai hidup seseorang, maka jangan pudarkan warna aslinya.',
+          'Cukup tahu namaku, jangan rupaku.',
+          'Sesuatu akan terasa berharga jika sudah kehilangan- kata ilham.',
+          'Jangan pernah mengeluh ketika kopimu dingin, ia pernah hangat, namun kau diamkan.'
+     ]
+    var result = pickRandom(katailham)
+
+    res.json({
+        status: true,
+        creator: creator,
+        result: result
+    })
+})
+
+router.get('/sindiran', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+
+    var data = fs.readFileSync(__path + '/lib/scraper/sindiran.json')
+    var object = JSON.parse(data);
+    var index = Math.floor(Math.random() * object.length);
+    var json = object[index];
+
+    res.json({
+        status: true,
+        creator: creator,
+        result: json.result.sindiran
+    })
+})
+
 router.get('/twister', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
@@ -10284,33 +10505,48 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!server) return res.json({ message: 'Masukan parameter server' })
 
     try {
-    	if (type.toLowerCase() == 'bedrock'.toLowerCase()) {
+    	var tipe = type.toLowerCase()
+    	if (tipe == 'bedrock') {
             await msu.statusBedrock(server).then(result => {
+            if (result.host == undefined) return res.json({ status: false, message: 'Server tidak ditemukan!' })
 
                 res.json({
                     status: true,
                     creator: creator,
-                    type: type.toLowerCase(),
-                    result: result
+                    type: tipe,
+                    result:{
+                    	host: result.host,
+                        port: result.port,
+                        edition: result.edition,
+                        serverGUID: result.serverGUID.toString(),
+                        version: result.version,
+                        protocolVersion: result.protocolVersion,
+                        maxPlayers: result.maxPlayers,
+                        onlinePlayers: result.onlinePlayers,
+                        serverID: result.serverID,
+                        gameMode: result.gameMode,
+                        gameModeID: result.gameModeID,
+                        portIPv4: result.portIPv4,
+                        portIPv6: result.portIPv6,
+                        roundTripLatency: result.roundTripLatency
+                        }
                 })
             })
-         } else if (type.toLowerCase() == 'java'.toLowerCase()) {
+         } else if (tipe == 'java') {
             await msu.status(server).then(result => {
+            if (result.host == undefined) return res.json({ status: false, message: 'Server tidak ditemukan!' })
 
                 res.json({
                     status: true,
                     creator: creator,
-                    type: type.toLowerCase(),
+                    type: tipe,
                     result: result
                 })
               })
            }
     } catch (e) {
         console.log(e)
-        res.json({
-        	status: false,
-        	error: 'Server tidak ditemukan!'
-        })
+    res.sendFile(error)
     }
 })
 
@@ -10397,23 +10633,20 @@ router.get('/waifu', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var type = req.query.type,
-          apikeyInput = req.query.apikey;
+    var apikeyInput = req.query.apikey;
 
     var maintenance = false
     if (maintenance == true) return res.sendFile(mtc)
     if (!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
-    if (!type) return res.json(loghandler.nottype)
-    if (!(type == 'sfw' || type == 'nsfw')) return res.json({ status: false, message: 'Pilih sfw atau nsfw!' })
 
     try {
-        var json = await (await fetch(`https://api.waifu.pics/${type}/waifu`)).json()
+        var json = await (await fetch('https://api.waifu.pics/sfw/waifu')).json()
         var result = await getBuffer(json.url)
-               await fs.writeFileSync(__path + '/tmp/' + type + '_waifu.png', result) 
+               await fs.writeFileSync(__path + '/tmp/waifu.png', result) 
 
-  res.sendFile(__path + '/tmp/' + type + '_waifu.png')
+  res.sendFile(__path + '/tmp/waifu.png')
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -10424,23 +10657,20 @@ router.get('/neko', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var type = req.query.type,
-          apikeyInput = req.query.apikey;
+    var apikeyInput = req.query.apikey;
 
     var maintenance = false
     if (maintenance == true) return res.sendFile(mtc)
     if (!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
-    if (!type) return res.json(loghandler.nottype)
-    if (!(type == 'sfw' || type == 'nsfw')) return res.json({ status: false, message: 'Pilih sfw atau nsfw!' })
 
     try {
-        var json = await (await fetch(`https://api.waifu.pics/${type}/neko`)).json()
+        var json = await (await fetch('https://api.waifu.pics/sfw/neko')).json()
         var result = await getBuffer(json.url)
-               await fs.writeFileSync(__path + '/tmp/' + type + '_neko.png', result) 
+               await fs.writeFileSync(__path + '/tmp/neko.png', result) 
 
-  res.sendFile(__path + '/tmp/' + type + '_neko.png')
+  res.sendFile(__path + '/tmp/neko.png')
     } catch (e) {
         console.log(e)
         res.sendFile(error)
@@ -10616,9 +10846,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
 
         var hasil = await imageToBase64(`https://api-rull.herokuapp.com/api/photofunia/burning-fire?url=${img}`)
-        await fs.writeFileSync(__path + '/tmp/burning.png', hasil, 'base64')
+        await fs.writeFileSync(__path + '/tmp/burning.gif', hasil, 'base64')
 
-        res.sendFile(__path + '/tmp/burning.png')
+        res.sendFile(__path + '/tmp/burning.gif')
 
     } catch (e) {
         console.log(e)
@@ -11073,6 +11303,92 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     	console.log(e)
      res.sendFile(error)
    }
+})
+
+router.get('/soundchanger', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var type = req.query.type,
+          audio = req.query.audio,
+          apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!type) return res.json(loghandler.nottype)
+        if (!audio) return res.json(loghandler.notaudio)
+        if (!audio.startsWith('http')) return res.json(loghandler.invalidLink)
+
+        var tmp = await imageToBase64(audio)
+        await fs.writeFileSync(__path + '/tmp/audio_tmp.mp3', tmp, 'base64')
+        var mp3 = await fs.readFileSync(__path + '/tmp/audio_tmp.mp3')
+        var ran = await getRandom('.mp3')
+        var tipe = type.toLowerCase()
+        var result = null
+        if (tipe == 'bass') {
+		await exec(`ffmpeg -i ${mp3} -af equalizer=f=94:width_type=o:width=2:g=30 ${ran}`, (err, stderr, stdout) => {
+				   if (err) {
+				   console.log(err)
+                   res.sendFile(error)
+                   }
+				   var bass = fs.readFileSync(ran)
+				         result = saveToMedia(bass)
+
+             res.json({
+              	status: true,
+                  creator: creator,
+                  result: result
+              })
+           })
+        } else if (tipe == 'slow') {
+		await exec(`ffmpeg -i ${mp3} -filter:a 'atempo=0.7,asetrate=44100' ${ran}`, (err, stderr, stdout) => {
+				   if (err) {
+				   console.log(err)
+                   res.sendFile(error)
+                   }
+				   var slow = fs.readFileSync(ran)
+				         result = saveToMedia(slow)
+
+             res.json({
+              	status: true,
+                  creator: creator,
+                  result: result
+              })
+           })
+        } else if (tipe == 'tupai') {
+		await exec(`ffmpeg -i ${mp3} -filter:a 'atempo=0.5,asetrate=65100' ${ran}`, (err, stderr, stdout) => {
+				   if (err) {
+				   console.log(err)
+                   res.sendFile(error)
+                   }
+				   var tupai = fs.readFileSync(ran)
+				         result = saveToMedia(tupai)
+
+             res.json({
+              	status: true,
+                  creator: creator,
+                  result: result
+              })
+           })
+        } else if (tipe == 'berat') {
+		await exec(`ffmpeg -i ${mp3} -filter:a 'atempo=1.6,asetrate=22100' ${ran}`, (err, stderr, stdout) => {
+				   if (err) {
+				   console.log(err)
+                   res.sendFile(error)
+                   }
+				   var berat = fs.readFileSync(ran)
+				         result = saveToMedia(berat)
+
+             res.json({
+              	status: true,
+                  creator: creator,
+                  result: result
+              })
+           })
+        }
 })
 
 // End of script
