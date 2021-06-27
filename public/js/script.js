@@ -1,5 +1,9 @@
 // Functions :
 
+function timeOut(ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function runConsole() {
 
   var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :');
@@ -91,10 +95,12 @@ function getReport() {
 
 function getRating() {
 
+    if (timeSet > 7200000)
     var rating = prompt('RATING :\n\nSilahkan masukan nomor jumlah bintang yang ingin Anda berikan (max 10) :');
     if (isNaN(rating)) alert('Rating harus berupa angka!')
     if (!isNaN(rating) && rating !== '') {
          alert('Terimakasih atas rating Anda!');
+         timeSet = timeOut(10000000)
     }
 }
 
