@@ -1,15 +1,22 @@
-const typedTextSpan = document.querySelector(".typed-text"),
+var typedTextSpan = document.querySelector(".typed-text"),
     textArray = ["WELCOME TO MY REST API ^_^", "MOHON JANGAN DISPAM YAA", "ENJOYIN AJA!"],
     typingDelay = 200,
     erasingDelay = 100,
     newTextDelay = 2e3;
-let textArrayIndex = 0,
+var textArrayIndex = 0,
     charIndex = 0;
 
-function type() { charIndex < textArray[textArrayIndex].length ? (typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex), charIndex++, setTimeout(type, 200)) : setTimeout(erase, 2e3) }
+function type() {
+charIndex < textArray[textArrayIndex].length ? (typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex), charIndex++, setTimeout(type, 200)) : setTimeout(erase, 2e3)
+}
 
-function erase() { charIndex > 0 ? (typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1), charIndex--, setTimeout(erase, 100)) : (textArrayIndex++, textArrayIndex >= textArray.length && (textArrayIndex = 0), setTimeout(type, 1300)) }
-document.addEventListener("DOMContentLoaded", (function() { setTimeout(type, 2250) }));
+function erase() {
+charIndex > 0 ? (typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1), charIndex--, setTimeout(erase, 100)) : (textArrayIndex++, textArrayIndex >= textArray.length && (textArrayIndex = 0), setTimeout(type, 1300))
+}
+
+document.addEventListener("DOMContentLoaded", (function() {
+setTimeout(type, 2250)
+}));
 
 $(document).ready((function() {
     $(".changeprofile").submit((function(e) {
