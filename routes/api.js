@@ -451,7 +451,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
            }
            if (name == '' || name == 'Guest' || name == 'GUEST' || name == 'guest') {
                 name = 'Guest'
-                mail = name + randomNumber + '@gmail.com'
+                mail = name.toLowerCase() + randomNumber + '@gmail.com'
                 user_id = 'Login First'
                 account_type = 'Login First'
                 key = 'Login First'
@@ -506,9 +506,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
       await fs.writeFileSync(__path + '/console.js', console)
       await exec('node ' + __path + '/console.js', (err, stderr, stdout) => {
       var result
-      if (stderr) result = 'Result: ' + stderr
-      if (stdout) result = 'Result: ' + stdout
-      if (err) result = 'Error: ' + err
+      if (stderr) result = stderr
+      if (stdout) result = stdout
+      if (err) result = util.format(err)
 
            res.json({ result: result })
        })
