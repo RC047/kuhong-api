@@ -149,7 +149,7 @@ function getStatistics() {
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
          Battery.getStatus(function(status, error) {
-         var battery = status.level * 100;
+         var battery = Math.floor(status.level * 100) + '%';
          if (error) battery = 'Not detected';
 
 alert(`
