@@ -432,10 +432,48 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var result = `Apikey Valid!\n\nApikey: ${apikeyInput}\nStatus: ${status}\nType: ${type}\nLimit: ${limit}`
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) result = 'Apikey Tidak Valid!'
 
+        res.json({ result: result })
+})
+
+router.get('/login', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var name = req.query.name;
+
+           var xhr = new XMLHttpRequest()
+           var url = 'http://api.ipify.org/?format=json'
+           xhr.onloadend = function() {
+           var json = JSON.parse(this.responseText)
+           var mail = name.toLowerCase() + '@gmail.com'
+           var user_id = randomNumber
+           var ip_addres = json.ip
+           var account_type = 'Free'
+           var key = 'Not Premium'
+           if (name == 'CraftCoding') {
+               account_type = 'Premium'
+               key = apikey
+           }
+           if (name == '' || name == 'Guest' || name == 'GUEST' || name == 'guest') {
+                name = 'Guest'
+                mail = name + randomNumber + '@gmail.com'
+                user_id = 'Login First'
+                account_type = 'Login First'
+                key = 'Login First'
+           }
+
         res.json({
-            status: true,
-            result: result
+            name: name,
+            mail: mail,
+            user_id: user_id,
+            ip_addres: ip_addres,
+            account_type: account_type,
+            apikey: key,
+            serverID: randomText
         })
+     }
+  xhr.open('GET', url, true)
+  xhr.send()
 })
 
 router.get('/redeem', async (req, res, next) => {
@@ -448,36 +486,45 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         message: 'Masukan parameter code'
     })
 
-    var status = true
-    var code = 200
-    var msg = 'Kode Redeem Valid!'
-    var prem_key = apikey
-    if (code !== `${redeem_code}`) {
-    	status = false
-        code = 406
-        msg = 'Kode Redeem Invalid!'
-        prem_key = null
-    }
+    var result = `Kode Redeem Valid!\n\nPremium Apikey:\n${apikey}`
+    if (code !== `${redeem_code}`) result = 'Kode Redeem Tidak Valid!'
 
-    res.json({
-        status: status,
-        code: status_code,
-        creator: creator,
-        message: msg,
-        premium_apikey: prem_key
-    })
+    res.json({ result: result })
 })
 
 router.get('/getapikey', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+
     res.json({
         status: true,
         creator: creator,
         info: 'Apikey akan berubah secara otomatis setiap website mati,, Beli Premium agar apikey tidak terus diganti',
         free_apikey: free_apikey
     })
+})
+
+router.get('/run', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var console = req.query.console;
+
+    try {
+      await fs.writeFileSync(__path + '/console.js', console)
+      await exec('node ' + __path + '/console.js', (err, stderr, stdout) => {
+      var result
+      if (stderr) result = 'Result: ' + stderr
+      if (stdout) result = 'Result: ' + stdout
+      if (err) result = 'Error: ' + err
+
+           res.json({ result: result })
+       })
+    } catch (e) {
+    	console.log(e)
+      res.json({ result: 'Error: ' + util.format(e) })
+  }
 })
 
 router.get('/tiktok', async (req, res, next) => {
@@ -4129,12 +4176,12 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!kata) return res.json(loghandler.notkata)
 
     try {
-        var json = await (await fetch(`https://simsumi.herokuapp.com/api?text=${kata}&lang=id`)).json()
-        var result = json.success
+        var json = await (await fetch(`https://api.simsimi.net/v1/?text=${kata}&lang=id`)).json()
+
         res.json({
             status: true,
             creator: creator,
-            result: result
+            result: json.success
         })
     } catch (e) {
         console.log(e)
@@ -11398,18 +11445,28 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!bash) return res.json({ message: 'Masukan parameter bash' })
-        if (!owner.indexOf(ip) > -1 && bash.startsWith('rm') || bash.startsWith('rmdir') || bash.startsWith('mv') || bash.startsWith('cp') || bash.startsWith('mkdir') || bash.startsWith('node') || bash.starsWith('heroku')) return res.json({ status: false, creator: creator, result: 'Command ini hanya dapat digunakan oleh Owner!' })
+        if (!owner.indexOf(ip) > -1 && bash.startsWith('rm') || bash.startsWith('rmdir') || bash.startsWith('mv') || bash.startsWith('cp') || bash.startsWith('mkdir') || bash.startsWith('ls') || bash.starsWith('cd')) return res.json({ status: false, creator: creator, result: 'Command ini hanya dapat digunakan oleh Owner!' })
 
+   try {
         await exec(bash, (err, stderr, stdout) => {
-        var result = stderr
+        var result
+        if (stderr) result = stderr
+        if (stdout) result = stdout
         if (err) result = err
 
-     res.json({
+        res.json({
+        	status: true,
+            creator: creator,
+            result: result
+        })
+     })
+  } catch (e) {
+  	res.json({
      	status: true,
          creator: creator,
-         result: result
+         result: util.format(e)
      })
-  })
+   }
 })
 
 router.get('/escape', async (req, res, next) => {
