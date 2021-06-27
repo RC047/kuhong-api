@@ -450,7 +450,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                account_type = 'Premium'
                key = apikey
            }
-           if (name == '' || name == 'Guest' || name == 'GUEST' || name == 'guest') {
+           if (!name || name == '' || name == 'Guest' || name == 'GUEST' || name == 'guest') {
                 name = 'Guest'
                 mail = name.toLowerCase() + randomNumber + '@gmail.com'
                 user_id = 'Login First'
