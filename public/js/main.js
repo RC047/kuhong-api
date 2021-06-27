@@ -1,5 +1,12 @@
-window.setTimeout("setTimes();", 1000);
+var name = prompt(`
+LOGIN REQUIRED :
 
+Silahkan masukan namamu untuk mengetahui data akun Anda :)
+`.trim(), 'Guest');
+console.log(`LOGIN :\n${name} just logged in to your website`);
+document.getElementById("name").innerHTML = name;
+
+window.setTimeout("setTimes();", 1000);
 function setTimes() {
     var date = new Date();
     var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
@@ -10,5 +17,5 @@ function setTimes() {
     if (date.getHours() == 18 || date.getHours() == 19 || date.getHours() == 20 || date.getHours() == 21 || date.getHours() == 22 || date.getHours() == 23) ucapan = 'Selamat Malam!';
           setTimeout("setTimes();", 1000);
           document.getElementById("time").innerHTML = time;
-          document.getElementById("notif").innerHTML = ucapan;
+          document.getElementById("ucapan").innerHTML = ucapan;
 }
