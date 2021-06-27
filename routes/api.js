@@ -5792,6 +5792,7 @@ router.get('/calculator', async (req, res) => {
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!angka) return res.json(loghanlder.notangka)
 
+    try {
     var val = angka
         .replace(/[^0-9\-\/+*×÷πEe()piPI/]/g, '')
         .replace(/×/g, '*')
@@ -5806,8 +5807,6 @@ router.get('/calculator', async (req, res) => {
         .replace(/Math\.E/g, 'e')
         .replace(/\//g, '÷')
         .replace(/\*×/g, '×')
-    try {
-        console.log(val)
         var result = (new Function('return ' + val))()
         if (!result) result = result
 
@@ -5818,10 +5817,10 @@ router.get('/calculator', async (req, res) => {
         })
     } catch (e) {
         if (e == undefined) res.json({
-            error: `Kesalahan Terjadi`
+            error: 'Upss.. terjadi kesalahan!'
         })
         res.json({
-            message: `Format salah, hanya 0-9 dan Simbol -, +, *, /, ×, ÷, π, e, (, ) yang disupport`
+            message: 'Format salah, hanya 0-9 dan Simbol -, +, *, /, ×, ÷, π, e, (, ) yang disupport'
         })
     }
 })
