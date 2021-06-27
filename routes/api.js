@@ -462,7 +462,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             name: name,
             mail: mail,
             user_id: user_id,
-            ip_addres: json.data.ip,
+            ip_address: json.data.ip,
             account_type: account_type,
             apikey: key,
             serverID: randomText
@@ -507,7 +507,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
     try {
       await fs.writeFileSync(__path + '/console.js', console)
-      await exec('node ' + __path + '/console.js', (err, stderr, stdout) => {
+      await exec(`node ${__path}/console.js`, (err, stderr, stdout) => {
       var result
       if (stderr) result = stderr
       if (stdout) result = stdout
@@ -517,7 +517,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
        })
     } catch (e) {
     	console.log(e)
-      res.json({ result: util.format(e) })
+      res.json({ result: e })
   }
 })
 
@@ -11457,7 +11457,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
   	res.json({
      	status: true,
          creator: creator,
-         result: util.format(e)
+         result: e
      })
    }
 })
