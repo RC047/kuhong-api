@@ -37,6 +37,10 @@ function setTimes() {
           document.getElementById("notif").innerHTML = ucapan + '\n' + name + '!';
 }
 
+var ads = new Date();
+var timeOut = Math.floor(Math.random() * 24);
+if (ads.getHours == timeOut) alert('IKLAN :\n\nJangan lupa donasi ke Owner biar update tiap hari!\n\nhttps://saweria.co/RC047');
+
 var Battery = (function(self) {
 
   var _events = 'chargingchange chargingtimechange dischargingtimechange levelchange'
