@@ -1,3 +1,3 @@
-console.log('Database kosong!');
+console.log('Blank');
 
 // Ini tempat untuk menjalankan Console
