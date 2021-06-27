@@ -38,8 +38,8 @@ function getChangelog() {
 alert(`
 CHANGELOG :
 
-o Update Encrypt Menu!
-o Some Update & Improvements!
+o Add Text Counter!
+o Update & Fix Templates!
 `.trim());
 }
 
