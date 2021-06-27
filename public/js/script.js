@@ -4,10 +4,6 @@ request.onloadend = function() {
 var get = JSON.parse(this.responseText);
 
 
-function timeOut(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function runConsole() {
 
   var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :', 'var res = "examples";console.log(res);');
