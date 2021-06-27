@@ -1,10 +1,4 @@
-var name = prompt(`
-LOGIN REQUIRED :
-
-Silahkan masukan namamu untuk mengetahui data akun Anda :)
-`.trim(), 'Guest');
-console.log(`LOGIN :\n${name} just logged in to your website`);
-document.getElementById("name").innerHTML = name;
+// Functions :
 
 function runConsole() {
 
@@ -91,7 +85,7 @@ function getReport() {
 
 function getIpAddress() {
   var xhr = new XMLHttpRequest();
-  var url = 'api.ipify.org/?format=json';
+  var url = 'https://api.ipify.org/?format=json';
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
          return json.ip
@@ -103,7 +97,6 @@ function getIpAddress() {
 
 function getUserData() {
 
-try {
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
          xhr.onloadend = function() {
@@ -124,9 +117,6 @@ Server ID: ${json.serverID}
 
   xhr.open('GET', url, true);
   xhr.send();
-} catch (e) {
-    alert(e)
-  }
 }
 
 function getStatistics() {
@@ -149,9 +139,9 @@ Features: ${json.total.features}
 Blocked: ${json.total.blocked_ip}
 IP Used: ${json.stats.connection.ip_used}
 Port Used: ${json.stats.connection.port_used}
-Storage Used: ${json.stats.storage.split('(')[1].split(')')[0]}
-Ram Used: ${json.stats.ram.split('(')[1].split(')')[0]}
-Cpu Used: ${json.stats.cpu.split('(')[1].split(')')[0]}
+Storage Used: ${json.stats.storage.split('(')[1].split(' Used)')[0]}
+Ram Used: ${json.stats.ram.split('(')[1].split(' Used)')[0]}
+Cpu Used: ${json.stats.cpu.split('Core (')[1].split(' Used)')[0]}
 Ping: ${json.stats.ping_ms}
 `.trim());
          }
