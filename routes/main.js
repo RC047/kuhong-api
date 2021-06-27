@@ -123,7 +123,7 @@ var neww = performance.now()
 var ip_used = await (await fetch('https://api.ipify.org/?format=json')).json()
 var visitor = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var request = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var rating = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating')).json()
+var star = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating')).json()
 var port = process.env.PORT || 8080 || 5000 || 3000
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
@@ -139,8 +139,8 @@ res.json({
         connection:{
             nets_In: netsIn,
             nets_Out: netsOut,
-            port_used: port,
-            ip_used: ip_used.ip
+            port_used: port.toString(),
+            ip_used: ip_used.ip.toString()
         },
         time: time,
         uptime: muptime(process.uptime()),
@@ -148,11 +148,11 @@ res.json({
         ping_sec: (neww - old / 100000).toFixed(2) + ' sec'
     },
         total:{
-            visitors: visitor.value.toString(),
             requests: request.value.toString(),
-            rating: rating.value.toString(),
+            visitors: visitor.value.toString(),
+            stars: star.value.toString(),
             features: '339',
-            blocked_ip: Object.keys(blocked).length.toString()
+            ip_blocked: Object.keys(blocked).length.toString()
     },
         owner:{
             nama: 'Rendy',
