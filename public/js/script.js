@@ -105,6 +105,11 @@ function getRating() {
 
 function getUserData() {
 
+  var request = new XMLHttpRequest();
+  var ip = 'http://api.ipify.org/?format=json';
+        request.onloadend = function() {
+        var getData = JSON.parse(this.responseText);
+
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
          xhr.onloadend = function() {
@@ -116,7 +121,7 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.user_id}
-IP Address: ${json.ip_addres}
+IP Address: ${getData.ip}
 Account Type: ${json.account_type}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
@@ -125,8 +130,13 @@ Server ID: ${json.serverID}
 
   xhr.open('GET', url, true);
   xhr.send();
+         }
+
+request.open('GET', ip, true);
+request.send();
 }
 
+window.setTimeout('getStatistics();', 1000);
 function getStatistics() {
   var date = new Date();
   var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
@@ -140,8 +150,10 @@ function getStatistics() {
          } else app = 'Unknown App';
          Battery.getStatus(function(status, error) {
          var battery = Math.floor(status.level * 100) + '%';
+         if (battery == 'NaN%') battery = 'Not Detected';
          if (status.charging == true || status.charging == 'true') battery = Math.floor(status.level * 100) + '% (Charging)';
          if (error) battery = 'Not Detected';
+         setTimeout('getStatistics();', 1000);
 
 alert(`
 STATISTICS :
