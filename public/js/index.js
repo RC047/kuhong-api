@@ -23,6 +23,19 @@ Silahkan masukan namamu untuk mengetahui data akun Anda :)
 `.trim(), 'Guest');
 console.log(`LOGIN :\n${name} just logged in to your website`);
 
+var date = new Date();
+var event = Math.floor(Math.random() * 24);
+if (date.getHours() == event) {
+    var rate = confirm('Menyukai web ini?\nNilai Anda adalah semangat bagi Owner :)\n\nPilih "Oke" untuk Bagus, "Batal" untuk Tidak Bagus.');
+    if (rate) {
+        alert('Terimakasih!');
+} else {
+    var alasan = prompt('Tidak menyukai web ini?\n\nBerikan kami alasannya :');
+    if (alasan !== '') alert('Terimakasih atas masukan Anda!');
+    console.log('TIDAK SUKA :\n' + alasan);
+  }
+}
+
 window.setTimeout("setTimes();", 1000);
 function setTimes() {
     var date = new Date();
