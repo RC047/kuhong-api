@@ -1,9 +1,3 @@
-var request = new XMLHttpRequest();
-var url = 'https://api.ipify.org/?format=json';
-request.onloadend = function() {
-var get = JSON.parse(this.responseText);
-
-
 function runConsole() {
 
   var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :', 'var res = "examples";console.log(res);');
@@ -126,7 +120,7 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.user_id}
-IP Addres: ${get.ip}
+IP Addres: ${json.ip}
 Account Type: ${json.account_type}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
@@ -134,6 +128,7 @@ Server ID: ${json.serverID}
          }
 
   xhr.open('GET', url, true);
+  xhr.open('GET', 'https://api.ipify.org/?format=json', true);
   xhr.send();
 }
 
@@ -173,7 +168,3 @@ Ping: ${json.stats.ping_ms}
   xhr.open('GET', url, true);
   xhr.send();
 }
-
-}
-request.open('GET', url, true);
-request.send();
