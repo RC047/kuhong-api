@@ -441,13 +441,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var name = req.query.name;
 
-           var xhr = new XMLHttpRequest()
-           var url = 'http://api.ipify.org/?format=json'
-           xhr.onloadend = function() {
-           var json = JSON.parse(this.responseText)
            var mail = name.toLowerCase() + '@gmail.com'
            var user_id = randomNumber
-           var ip_addres = json.ip
            var account_type = 'Free'
            var key = 'Not Premium'
            if (name == 'CraftCoding') {
@@ -466,14 +461,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             name: name,
             mail: mail,
             user_id: user_id,
-            ip_addres: ip_addres,
             account_type: account_type,
             apikey: key,
             serverID: randomText
         })
-     }
-  xhr.open('GET', url, true)
-  xhr.send()
 })
 
 router.get('/redeem', async (req, res, next) => {
@@ -523,7 +514,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
        })
     } catch (e) {
     	console.log(e)
-      res.json({ result: 'Error: ' + util.format(e) })
+      res.json({ result: util.format(e) })
   }
 })
 
@@ -8558,7 +8549,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }
 })
 
-router.get('/styletext', async (req, res, next) => {
+router.get('/style', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
@@ -11375,7 +11366,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var mp3 = __path + '/tmp/audio.mp3'
         var output = __path + '/public/media/soundchanger_result.mp3'
         var tipe = type.toLowerCase()
-        var result = 'https://kuhong-api.herokuapp.com/media/soundchanger_result.mp3'
+        var result = 'https://kuhong-api.herokuapp.com/media/' + tipe + '.mp3'
         if (!(tipe == 'bass' || tipe == 'slow' || tipe == 'tupai' || tipe == 'berat')) return res.json({ message: 'Pilih bass, slow, tupai, dan berat!' })
         if (tipe == 'bass') {
 	    await exec(`ffmpeg -i ${mp3} -af equalizer=f=94:width_type=o:width=2:g=30 ${output}`, (err, stderr, stdout) => {
@@ -11436,7 +11427,7 @@ router.get('/execute', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var bash = req.query.bash,
+    var command = req.query.command,
           apikeyInput = req.query.apikey;
 
         var maintenance = false
@@ -11444,11 +11435,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!apikeyInput) return res.json(loghandler.notparam)
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
-        if (!bash) return res.json({ message: 'Masukan parameter bash' })
-        if (!owner.indexOf(ip) > -1 && bash.startsWith('rm') || bash.startsWith('rmdir') || bash.startsWith('mv') || bash.startsWith('cp') || bash.startsWith('mkdir') || bash.startsWith('ls') || bash.starsWith('cd')) return res.json({ status: false, creator: creator, result: 'Command ini hanya dapat digunakan oleh Owner!' })
+        if (!command) return res.json({ message: 'Masukan parameter command' })
+        if (command.startsWith('rm') || command.startsWith('rmdir') || command.startsWith('mv') || command.startsWith('cp') || command.startsWith('mkdir') || command.startsWith('ls') || command.startsWith('cd') || command.startsWith('cat') || command.startsWith('more')) return res.json({ status: false, creator: creator, result: 'Access denied' })
 
    try {
-        await exec(bash, (err, stderr, stdout) => {
+        await exec(command, (err, stderr, stdout) => {
         var result
         if (stderr) result = stderr
         if (stdout) result = stdout
@@ -11512,6 +11503,27 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
      	status: true,
          creator: creator,
          result: result
+    })
+})
+
+router.get('/count', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var text = req.query.text,
+          apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!text) return res.json(loghandler.nottext)
+
+     res.json({
+     	status: true,
+         creator: creator,
+         result: text.length
     })
 })
 
