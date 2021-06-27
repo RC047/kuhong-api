@@ -99,14 +99,14 @@ function getReport() {
 
 function getRating() {
 
-    var timeSet = timeOut(10);
-    if (timeSet > 1000) alert('Anda sudah memberikan rating pada website ini');
+    var rateTime = 0;
+    if (rateTime > 1000) alert('Anda sudah memberikan rating pada website ini');
     var rating = prompt('RATING :\n\nSilahkan masukan nomor jumlah bintang yang ingin Anda berikan (max 10) :');
     if (isNaN(rating)) alert('Rating harus berupa angka!')
     if (rating > 10) alert('Maximal 10!');
     if (rating < 10 && !isNaN(rating) && rating !== '') {
          alert('Terimakasih atas rating Anda!');
-         timeSet = timeOut(10000000)!
+         rateTime = setTimeout('getRating()', 3600000);
     }
     var xhr = new XMLHttpRequest();
     var url = 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating';
