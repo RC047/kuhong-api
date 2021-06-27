@@ -89,15 +89,10 @@ function getReport() {
 
 function getRating() {
 
-    var rateTime = 0;
-    if (rateTime > 1000) alert('Anda sudah memberikan rating pada website ini');
-    var rating = prompt('RATING :\n\nSilahkan masukan nomor jumlah bintang yang ingin Anda berikan (max 10) :');
-    if (isNaN(rating)) alert('Rating harus berupa angka!')
-    if (rating > 10) alert('Maximal 10!');
-    if (rating < 10 && !isNaN(rating) && rating !== '') {
-         alert('Terimakasih atas rating Anda!');
-         rateTime = setTimeout('getRating()', 3600000);
-    }
+    var rating = confirm('RATING :\n\nIngin menilai website ini?\n\nSilahkan pilih "Oke" untuk memberikan 1 Bintang ke website ini :)');
+    if (rating) {
+        alert('Terimakasih atas 1 Bintang Anda!');
+
     var xhr = new XMLHttpRequest();
     var url = 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating';
          xhr.onloadend = function() {
@@ -105,6 +100,7 @@ function getRating() {
   }
   xhr.open('GET', url, true);
   xhr.send();
+     }
 }
 
 function getUserData() {
@@ -144,7 +140,8 @@ function getStatistics() {
          } else app = 'Unknown App';
          Battery.getStatus(function(status, error) {
          var battery = Math.floor(status.level * 100) + '%';
-         if (error) battery = 'Not detected';
+         if (status.charging == true || status.charging == 'true') battery = Math.floor(status.level * 100) + '% (Charging)';
+         if (error) battery = 'Not Detected';
 
 alert(`
 STATISTICS :
