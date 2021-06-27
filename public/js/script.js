@@ -50,13 +50,14 @@ var Battery = (function(self) {
   return self;
 })(Battery || {});
 
+
 var request = new XMLHttpRequest();
 var url = 'https://api.ipify.org/?format=json';
 request.onloadend = function() {
 var get = JSON.parse(this.responseText);
 
 
-function timeOut(ms) => {
+function timeOut(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -200,6 +201,9 @@ function getStatistics() {
   var url = 'https://kuhong-api.herokuapp.com/api/status';
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
+         Battery.getStatus(function(status, error) {
+         var battery = status.level * 100;
+         if (error) battery = 'Not detected';
 
 alert(`
 STATISTICS :
@@ -216,6 +220,7 @@ Features: ${json.total.features}
 Blocked: ${json.total.ip_blocked}
 Ping: ${json.stats.ping_ms}
 `.trim());
+            });
          }
 
   xhr.open('GET', url, true);
