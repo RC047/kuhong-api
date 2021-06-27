@@ -10,7 +10,7 @@ function timeOut(ms) {
 
 function runConsole() {
 
-  var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :');
+  var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :', 'var res = "examples";console.log(res);');
   if (console == '') alert('Masukan Kode!');
   if (console !== '') {
   var xhr = new XMLHttpRequest();
@@ -99,14 +99,14 @@ function getReport() {
 
 function getRating() {
 
-    var timeSet = timeOut(0);
-    if (timeSet > 10000) alert('Anda sudah memberikan rating pada website ini');
+    var timeSet = timeOut(10);
+    if (timeSet > 1000) alert('Anda sudah memberikan rating pada website ini');
     var rating = prompt('RATING :\n\nSilahkan masukan nomor jumlah bintang yang ingin Anda berikan (max 10) :');
     if (isNaN(rating)) alert('Rating harus berupa angka!')
     if (rating > 10) alert('Maximal 10!');
     if (rating < 10 && !isNaN(rating) && rating !== '') {
          alert('Terimakasih atas rating Anda!');
-         timeSet = timeOut(10000000)
+         timeSet = timeOut(10000000)!
     }
     var xhr = new XMLHttpRequest();
     var url = 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating';
