@@ -5,7 +5,7 @@ var osu = require('node-os-utils');
 var fetch = require('node-fetch');
 var express = require('express');
 var router = express.Router();
-var blocked = ['180.249.133.59']
+var blocked = ['180.249.133.59'];
 
 router.get('/', async (req, res) => {
 var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
