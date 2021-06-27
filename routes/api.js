@@ -95,8 +95,6 @@ var ytpl = require('ytpl');
 var qrcode = require('qrcode');
 var qrdecode = require('node-qrdecode');
 var secure = require('ssl-express-www');
-var formidable = require('formidable');
-var mv = require('mv');
 var cors = require('cors');
 var scrapeYt = require('scrape-yt');
 var gtts = require('node-gtts');
@@ -465,7 +463,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             apikey: key,
             serverID: randomText
         })
-   })
 })
 
 router.get('/redeem', async (req, res, next) => {
