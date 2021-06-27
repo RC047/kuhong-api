@@ -1,6 +1,13 @@
+var name = prompt(`
+LOGIN REQUIRED :
+
+Silahkan masukan namamu untuk mengetahui data akun Anda :)
+`.trim(), 'Guest');
+console.log(`LOGIN :\n${name} just logged in to your website`);
+document.getElementById("name").innerHTML = name;
+
 function runConsole() {
 
-try {
   var console = prompt('Silahkan masukan kode JavaScript untuk menjalankan Console :');
   if (console == '') alert('Masukan Kode!');
   var xhr = new XMLHttpRequest();
@@ -82,17 +89,25 @@ function getReport() {
          }
 }
 
+function getIpAddress() {
+  var xhr = new XMLHttpRequest();
+  var url = 'api.ipify.org/?format=json';
+         xhr.onloadend = function() {
+         var json = JSON.parse(this.responseText);
+         return json.ip
+         }
+
+  xhr.open('GET', url, true);
+  xhr.send();
+}
+
 function getUserData() {
 
 try {
   var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/login?name=' name;
-  var xhr2 = new XMLHttpRequest();
-  var url2 = 'https://kuhong-api.herokuapp.com/api/login?name=' name;
+  var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
          xhr.onloadend = function() {
-         xhr2.onloadend = function() {
          var json = JSON.parse(this.responseText);
-         var data = JSON.parse(this.responseText);
 
 alert(`
 MY ACCOUNT :
@@ -100,10 +115,10 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.user_id}
-IP Addres: ${data.ip_addres}
+IP Addres: ${getIpAddress()}
 Account Type: ${json.account_type}
 Apikey: ${json.apikey}
-ServerID: ${json.serverID}
+Server ID: ${json.serverID}
 `.trim());
          }
 
@@ -134,6 +149,7 @@ Features: ${json.total.features}
 Blocked: ${json.total.blocked_ip}
 IP Used: ${json.stats.connection.ip_used}
 Port Used: ${json.stats.connection.port_used}
+Storage Used: ${json.stats.storage.split('(')[1].split(')')[0]}
 Ram Used: ${json.stats.ram.split('(')[1].split(')')[0]}
 Cpu Used: ${json.stats.cpu.split('(')[1].split(')')[0]}
 Ping: ${json.stats.ping_ms}
