@@ -1,5 +1,11 @@
 // Functions :
 
+var request = new XMLHttpRequest();
+var url = 'https://api.ipify.org/?format=json';
+request.onloadend = function() {
+var get = JSON.parse(this.responseText);
+
+
 function timeOut(ms) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -95,23 +101,20 @@ function getReport() {
 
 function getRating() {
 
-    if (timeSet > 7200000)
+    var timeSet = timeOut(0);
+    if (timeSet > 10000) alert('Anda sudah memberikan rating pada website ini');
     var rating = prompt('RATING :\n\nSilahkan masukan nomor jumlah bintang yang ingin Anda berikan (max 10) :');
     if (isNaN(rating)) alert('Rating harus berupa angka!')
-    if (!isNaN(rating) && rating !== '') {
+    if (rating > 10) alert('Maximal 10!');
+    if (rating < 10 && !isNaN(rating) && rating !== '') {
          alert('Terimakasih atas rating Anda!');
          timeSet = timeOut(10000000)
     }
-}
-
-function getIpAddress() {
-  var xhr = new XMLHttpRequest();
-  var url = 'https://api.ipify.org/?format=json';
+    var xhr = new XMLHttpRequest();
+    var url = 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating';
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
-         return json.ip
   }
-
   xhr.open('GET', url, true);
   xhr.send();
 }
@@ -129,7 +132,7 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.user_id}
-IP Addres: ${getIpAddress()}
+IP Addres: ${get.ip}
 Account Type: ${json.account_type}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
@@ -156,9 +159,9 @@ Time: ${time}
 Uptime: ${json.stats.uptime}
 Requests: ${json.total.requests}
 Visitors: ${json.total.visitors}
+Stars: ${json.total.stars}
 Features: ${json.total.features}
 Blocked: ${json.total.blocked_ip}
-Stars: ${json.total.stars}
 Ping: ${json.stats.ping_ms}
 `.trim());
          }
@@ -166,3 +169,7 @@ Ping: ${json.stats.ping_ms}
   xhr.open('GET', url, true);
   xhr.send();
 }
+
+}
+request.open('GET', url, true);
+request.send();
