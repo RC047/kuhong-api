@@ -1,7 +1,12 @@
 __path = process.cwd();
+
+var util = require('util');
 var fs = require('fs');
 
+
 function runConsole() {
+
+try {
   var console = prompt('Silahkan masukan kode JavaScript untuk menjalankan Console :');
   if (console == '') alert('Masukan Kode!');
       fs.writeFileSync(__path + '/console.js', console);
@@ -12,6 +17,9 @@ function runConsole() {
       if (err) result = 'Error: ' + err;
       alert(result)
   })
+} catch (e) {
+    alert(util.format(e))
+  }
 }
 
 function getNotification() {
@@ -77,7 +85,7 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.user_id}
-IP Addres: ${json.ip}
+IP Addres: ${json.ip_addres}
 Account Type: ${json.account_type}
 Apikey: ${json.apikey}
 `.trim());
