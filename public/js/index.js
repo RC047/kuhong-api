@@ -16,14 +16,6 @@ $(document).ready(function() {
     });
 });
 
-var name = prompt(`
-LOGIN REQUIRED :
-
-Silahkan masukan namamu untuk mengetahui data akun Anda :)
-`.trim(), 'Guest');
-console.log(`LOGIN :\n${name} just logged in to your website`);
-document.getElementById("name").innerHTML = name;
-
 window.setTimeout("setTimes();", 1000);
 function setTimes() {
     var date = new Date();
