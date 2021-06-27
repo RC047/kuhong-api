@@ -508,7 +508,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
       var result
       if (stderr) result = stderr
       if (stdout) result = stdout
-      if (err) result = util.format(err)
+      if (err) result = err
 
            res.json({ result: result })
        })
@@ -11522,7 +11522,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
      res.json({
      	status: true,
          creator: creator,
-         result: text.length
+         result: text.length.toString()
     })
 })
 
