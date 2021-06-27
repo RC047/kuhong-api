@@ -39,7 +39,7 @@ function setTimes() {
 
 var ads = new Date();
 var timeOut = Math.floor(Math.random() * 24);
-if (ads.getHours == timeOut) alert('IKLAN :\n\nJangan lupa donasi ke Owner biar update tiap hari!\n\nhttps://saweria.co/RC047');
+if (ads.getHours() == timeOut) alert('IKLAN :\n\nJangan lupa donasi ke Owner biar update tiap hari!\n\nhttps://saweria.co/RC047');
 
 var Battery = (function(self) {
 
