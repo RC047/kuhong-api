@@ -73,9 +73,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 router.get('/api/status', async (req, res, next) => {  
 
 var date = new Date()
-var jam = date.getHours()
-var menit = date.getMinutes()
-var detik = date.getSeconds()
+var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 var NotDetect = 'Not Detected'
 var old = performance.now()
 var cpu = osu.cpu
@@ -123,7 +121,6 @@ await Promise.all([p1, p2, p3, p4])
 var _ramTotal = (ramTotal + ' MB')
 var neww = performance.now()
 var ip_used = await (await fetch('https://api.ipify.org/?format=json')).json()
-var key = await (await fetch('https://kuhong-api.herokuapp.com/api/getapikey')).json()
 var visitor = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var request = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var port = process.env.PORT || 8080 || 5000 || 3000
@@ -144,7 +141,7 @@ res.json({
             port_used: port,
             ip_used: ip_used.ip
         },
-        time: `${jam}:${menit}:${detik}`,
+        time: time,
         uptime: muptime(process.uptime()),
         ping_ms: neww - old + ' ms',
         ping_sec: (neww - old / 1000).toFixed(2) + ' sec'
@@ -152,8 +149,8 @@ res.json({
         total:{
             visitors: visitor.value.toString(),
             requests: request.value.toString(),
-            features: '327',
-            blocked_ip: `${Object.keys(blocked).length}`
+            features: '339',
+            blocked_ip: `${Object.keys(blocked).length}`.toString()
     },
         owner:{
             nama: 'Rendy',
@@ -161,8 +158,7 @@ res.json({
             instagram: 'rendycraft047',
             youtube: 'RC047',
             facebook: 'RendyCraft',
-            donasi: 'https://saweria.co/RC047',
-            free_apikey: key.free_apikey
+            donasi: 'https://saweria.co/RC047'
         }
     })
 })
