@@ -120,7 +120,7 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.user_id}
-IP Addres: ${json.ip}
+IP Address: ${json.ip_addres}
 Account Type: ${json.account_type}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
@@ -128,7 +128,6 @@ Server ID: ${json.serverID}
          }
 
   xhr.open('GET', url, true);
-  xhr.open('GET', 'https://api.ipify.org/?format=json', true);
   xhr.send();
 }
 
