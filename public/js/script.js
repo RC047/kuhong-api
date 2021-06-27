@@ -1,25 +1,18 @@
-__path = process.cwd();
-
-var util = require('util');
-var fs = require('fs');
-
-
 function runConsole() {
 
 try {
   var console = prompt('Silahkan masukan kode JavaScript untuk menjalankan Console :');
   if (console == '') alert('Masukan Kode!');
-      fs.writeFileSync(__path + '/console.js', console);
-      exec(`node ${__path}/console.js`, (err, stderr, stdout) => {
-      var result;
-      if (stderr) result = 'Result: ' + stderr;
-      if (stdout) result = 'Result: ' + stdout;
-      if (err) result = 'Error: ' + err;
-      alert(result)
-  })
-} catch (e) {
-    alert(util.format(e))
-  }
+  var xhr = new XMLHttpRequest();
+  var url = 'https://kuhong-api.herokuapp.com/api/run?console=' + console;
+         xhr.onloadend = function() {
+         var json = JSON.parse(this.responseText);
+
+         alert(json.result);
+         }
+
+  xhr.open('GET', url, true);
+  xhr.send();
 }
 
 function getNotification() {
@@ -60,7 +53,7 @@ function redeemCode() {
   var inputCode = prompt('Silahkan masukan Kode Redeem untuk mendapatkan Apikey Premium :')
   if (inputCode == '') alert('Masukan Kode Redeem!')
   var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/redeem?codeBdTL14c6vvU89o1v1b673=' + inputCode;
+  var url = 'https://kuhong-api.herokuapp.com/api/redeem?code=' + inputCode;
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
 
@@ -91,6 +84,7 @@ function getReport() {
 
 function getUserData() {
 
+try {
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/login?name=' name;
          xhr.onloadend = function() {
@@ -111,6 +105,9 @@ ServerID: ${json.serverID}
 
   xhr.open('GET', url, true);
   xhr.send();
+} catch (e) {
+    alert(e)
+  }
 }
 
 function getStatistics() {
