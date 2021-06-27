@@ -136,7 +136,19 @@ request.open('GET', ip, true);
 request.send();
 }
 
-window.setTimeout('getStatistics();', 1000);
+window.setTimeout('getBattery();', 1000);
+function getBattery() {
+
+Battery.getStatus(function(status, error) {
+   var result = Math.floor(status.level * 100) + '%';
+   if (status.charging == true || status.charging == 'true') result = Math.floor(status.level * 100) + '% (Charging)';
+   if (status.level == 'NaN%') result = 'Not Detected';
+   if (error) result = 'Not Detected';
+
+  return result;
+  });
+}
+
 function getStatistics() {
   var date = new Date();
   var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
@@ -148,12 +160,8 @@ function getStatistics() {
          if (json.stats.os == 'LINUX') {
          app = 'Linux';
          } else app = 'Unknown App';
-         Battery.getStatus(function(status, error) {
-         var battery = Math.floor(status.level * 100) + '%';
-         if (battery == 'NaN%') battery = 'Not Detected';
-         if (status.charging == true || status.charging == 'true') battery = Math.floor(status.level * 100) + '% (Charging)';
-         if (error) battery = 'Not Detected';
-         setTimeout('getStatistics();', 1000);
+         var battery = getBattery();
+         setTimeout('getBattery();', 1000);
 
 alert(`
 STATISTICS :
@@ -170,7 +178,6 @@ Features: ${json.total.features}
 Blocked: ${json.total.ip_blocked}
 Ping: ${json.stats.ping_ms}
 `.trim());
-            });
          }
 
   xhr.open('GET', url, true);
