@@ -40,10 +40,27 @@ o Some Update & Improvements!
 }
 
 function checkApikey() {
+
   var apikeyInput = prompt('Silahkan masukan Apikey yang ingin dicek :')
   if (apikeyInput == '') alert('Masukan Apikey!')
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/cekapikey?apikey=' + apikeyInput;
+         xhr.onloadend = function() {
+         var json = JSON.parse(this.responseText);
+
+         alert(json.result);
+         }
+
+  xhr.open('GET', url, true);
+  xhr.send();
+}
+
+function redeemCode() {
+
+  var inputCode = prompt('Silahkan masukan Kode Redeem untuk mendapatkan Apikey Premium :')
+  if (inputCode == '') alert('Masukan Kode Redeem!')
+  var xhr = new XMLHttpRequest();
+  var url = 'https://kuhong-api.herokuapp.com/api/redeem?codeBdTL14c6vvU89o1v1b673=' + inputCode;
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
 
@@ -88,6 +105,7 @@ User ID: ${json.user_id}
 IP Addres: ${json.ip_addres}
 Account Type: ${json.account_type}
 Apikey: ${json.apikey}
+ServerID: ${json.serverID}
 `.trim());
          }
 
