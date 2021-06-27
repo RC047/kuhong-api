@@ -441,6 +441,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var name = req.query.name;
 
+    axios.get('https://api.ipify.org/?format=json').then(json => {
            var mail = name.toLowerCase() + '@gmail.com'
            var user_id = randomNumber
            var account_type = 'Free'
@@ -461,10 +462,12 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             name: name,
             mail: mail,
             user_id: user_id,
+            ip_addres: json.data.ip,
             account_type: account_type,
             apikey: key,
             serverID: randomText
         })
+   })
 })
 
 router.get('/redeem', async (req, res, next) => {
