@@ -161,7 +161,7 @@ Requests: ${json.total.requests}
 Visitors: ${json.total.visitors}
 Stars: ${json.total.stars}
 Features: ${json.total.features}
-Blocked: ${json.total.blocked_ip}
+Blocked: ${json.total.ip_blocked}
 Ping: ${json.stats.ping_ms}
 `.trim());
          }
