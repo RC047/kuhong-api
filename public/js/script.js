@@ -64,50 +64,22 @@ function getReport() {
          }
 }
 
-function actionLogin() {
-
-var name = prompt(`
-LOGIN REQUIRED :
-
-Silahkan masukan namamu untuk mengetahui data akun Anda :)
-`.trim());
-console.log(`LOGIN :\n${name} just logged in to your website`);
-document.getElementById("name").innerHTML = name;
-
-  var ranNumber = Math.floor(Math.random() * 10000000);
-  var mail = name + '@gmail.com';
-  var user_id = ranNumber;
-  var account_type = 'Free';
-  var apikey = 'Not Premium';
-  if (name == 'administrator') {
-      account_type = 'Premium';
-      apikey = 'KuhongRestAPIs';
-  }
-  if (name == '' || name == 'Guest' || name == 'guest') {
-      name = 'Guest';
-      mail = name + ranNumber + '@gmail.com';
-      user_id = 'Login First';
-      account_type = 'Login First';
-      apikey = 'Login First';
-  }
-}
-
 function getUserData() {
 
   var xhr = new XMLHttpRequest();
-  var url = 'http://api.ipify.org/?format=json';
+  var url = 'https://kuhong-api.herokuapp.com/api/login?name=' name;
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
 
 alert(`
 MY ACCOUNT :
 
-Name: ${mail.split('@')[0]}
-Mail: ${mail.toLowerCase()}
-User ID: ${user_id}
+Name: ${json.name}
+Mail: ${json.mail}
+User ID: ${json.user_id}
 IP Addres: ${json.ip}
-Account Type: ${account_type}
-Apikey: ${apikey}
+Account Type: ${json.account_type}
+Apikey: ${json.apikey}
 `.trim());
          }
 
