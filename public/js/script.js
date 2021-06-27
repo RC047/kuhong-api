@@ -148,6 +148,10 @@ function getStatistics() {
   var url = 'https://kuhong-api.herokuapp.com/api/status';
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
+         var app = 'Cloudfare';
+         if (json.stats.os == 'LINUX') {
+         app = 'Linux';
+         } else app = 'Unknown App';
          Battery.getStatus(function(status, error) {
          var battery = Math.floor(status.level * 100) + '%';
          if (error) battery = 'Not detected';
@@ -156,7 +160,7 @@ alert(`
 STATISTICS :
 
 Status: ${json.stats.status}
-App: ${json.stats.os}
+App: ${app}
 Battery: ${battery}
 Time: ${time}
 Uptime: ${json.stats.uptime}
