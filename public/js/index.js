@@ -24,7 +24,7 @@ Silahkan masukan namamu untuk identitas diwebsite ini :)
 if (name) {
     name = name;
 } else name = 'Guest';
-if (name == undefined) name = 'Guest';
+if (name == null) name = 'Guest';
 if (name !== '') {
 console.log(`LOGIN :\n${name} just logged in to your website`);
 
