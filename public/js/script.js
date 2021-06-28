@@ -127,6 +127,7 @@ function getUserData() {
   var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
+         var getData = JSON.parse(ip);
 
 alert(`
 MY ACCOUNT :
@@ -134,6 +135,7 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.userID}
+IP Address: ${getData.ip}
 Account Type: ${json.accountType}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
