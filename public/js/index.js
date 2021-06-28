@@ -23,7 +23,9 @@ Silahkan masukan namamu untuk identitas diwebsite ini :)
 `.trim(), 'Guest');
 if (name) {
     name = name;
-} else name = 'Guest';
+} else { 
+  name = 'Guest';
+}
 if (name !== '') {
 console.log(`LOGIN :\n${name} just logged in to your website`);
 
