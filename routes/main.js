@@ -120,12 +120,12 @@ await Promise.all([p1, p2, p3, p4])
 var _ramTotal = (ramTotal + ' MB')
 var old = performance.now()
 var neww = performance.now()
-var ip_used = await (await fetch('https://api.ipify.org/?format=json')).json()
 var user = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users')).json()
 var visitor = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var request = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var star = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating')).json()
 var battery = await (await fetch('https://kuhong-api.herokuapp.com/api/battery?apikey=04102006')).json()
+var ip_used = await (await fetch('https://api.ipify.org/?format=json')).json()
 var port_used = process.env.PORT || 8080 || 5000 || 3000
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
@@ -136,7 +136,7 @@ res.json({
         name: 'kuhong-api',
         os: OS.toUpperCase(),
         battery: battery.batteryLevel,
-        charging: battery.batteryCharging,
+        charging: battery.statusCharging,
         ram: `${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})`,
         storage: `${driveUsed} GB / ${driveTotal} (${drivePer} Used)`,
         cpu: `${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)`,
