@@ -1,6 +1,9 @@
 function runConsole() {
 
-  var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :', 'var res = "examples";console.log(res);');
+  var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :');
+  if (console) {
+      console = console;
+  } else throw false;
   if (console == '') alert('Masukan Kode!');
   if (console !== '') {
   var xhr = new XMLHttpRequest();
@@ -36,6 +39,9 @@ o Update & Fix Templates!
 function checkApikey() {
 
   var apikeyInput = prompt('CEK APIKEY :\n\nSilahkan masukan Apikey yang ingin dicek :')
+  if (apikeyInput) {
+      apikeyInput = apikeyInput;
+  } else throw false;
   if (apikeyInput == '') alert('Masukan Apikey!')
   if (apikeyInput !== '') {
   var xhr = new XMLHttpRequest();
@@ -54,6 +60,9 @@ function checkApikey() {
 function redeemCode() {
 
   var codeInput = prompt('REDEEM CODE :\n\nSilahkan masukan Kode Redeem untuk mendapatkan Apikey Premium :')
+  if (codeInput) {
+      codeInput = codeInput;
+  } else throw false;
   if (codeInput == '') alert('Masukan Kode Redeem!')
   if (codeInput !== '') {
   var xhr = new XMLHttpRequest();
@@ -72,6 +81,9 @@ function redeemCode() {
 function getRequest() {
 
     var request = prompt('REQUEST :\n\nIngin Request fitur atau semacamnya?\n\nBisa langsung kirim masukannya disini :)');
+    if (request) {
+        request = request;
+    } else throw false;
     if (request !== '') {
          alert('Terimakasih atas masukan Anda!');
          console.log('REQUEST :\n' + request);
@@ -81,6 +93,9 @@ function getRequest() {
 function getReport() {
 
     var report = prompt('REPORT :\n\nAda yang ingin anda Laporkan kepada Owner secara langsung?\n\nBisa langsung kirim laporannya kesini :)');
+    if (report) {
+        report = report;
+    } else throw false;
     if (report !== '') {
          alert('Terimakasih atas laporan Anda!');
          console.log('REPORT :\n' + report);
@@ -120,9 +135,9 @@ MY ACCOUNT :
 
 Name: ${json.name}
 Mail: ${json.mail}
-User ID: ${json.user_id}
+User ID: ${json.userID}
 IP Address: ${getData.ip}
-Account Type: ${json.account_type}
+Account Type: ${json.accountType}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
 `.trim());
