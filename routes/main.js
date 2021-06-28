@@ -70,6 +70,16 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.sendFile(__path + '/views/tutorial.html')
 })
 
+router.get('/api/battery-reader', async (req, res) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    var id = req.query.id;
+    if (!(id || id == 'gBu1g67VaZ16HhJnn223j8')) return res.sendFile('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Error</title></head><body><pre>Cannot GET /api/battery-reader</pre></body></html>')
+
+  res.sendFile(__path + '/views/battery.html')
+})
+
 router.get('/api/status', async (req, res, next) => {  
 
 var date = new Date()
@@ -125,7 +135,7 @@ var user = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp
 var visitor = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var request = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var star = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating')).json()
-var battery = await (await fetch('https://kuhong-api.herokuapp.com/api/battery-reader?apikey=04102006')).json()
+var battery = await (await fetch('https://kuhong-api.herokuapp.com/api/battery?apikey=04102006')).json()
 var port_used = process.env.PORT || 8080 || 5000 || 3000
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
