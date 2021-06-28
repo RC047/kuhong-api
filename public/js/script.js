@@ -165,7 +165,7 @@ function getStatistics() {
          Battery.getStatus(function(status, error) {
          var battery = Math.floor(status.level * 100) + '%';
          if (status.charging == true || status.charging == 'true') battery = Math.floor(status.level * 100) + '% (Charging)';
-         if (status.level == 'NaN%') battery = 'Not Detected';
+         if (battery == 'NaN%') battery = 'Not Detected';
          if (error) battery = 'Not Detected';
 
 alert(`
