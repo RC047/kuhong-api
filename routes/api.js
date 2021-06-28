@@ -4913,7 +4913,18 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: 'Masukan parameter soal'
         })
 
-        await brainly(soal, 5).then(result => {
+       function searchBrainly(query, count = 5) {
+        var response = brainly(query, count).catch(error => {
+        return {
+            'success': false,
+            'message': error,
+        }
+    })
+
+    return response;
+}
+
+        await searchBrainly(soal).then(result => {
 
            res.json({
             	status: true,
@@ -4942,7 +4953,18 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: 'Masukan parameter soal'
         })
 
-        await brainly(soal, 5).then(result => {
+        function searchBrainly(query, count = 5) {
+        var response = brainly(query, count).catch(error => {
+        return {
+            'success': false,
+            'message': error,
+        }
+    })
+
+    return response;
+}
+
+        await searchBrainly(soal).then(result => {
 
            res.json({
             	status: true,
