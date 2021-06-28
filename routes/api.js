@@ -119,7 +119,6 @@ var {
     braillefy
 } = require('img2braille');
 var {
-	ffmpeg,
 	toMP3,
 	toPTT,
 	toMP4
@@ -450,7 +449,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
            }
            if (!name || name == '' || name == 'Guest' || name == 'GUEST' || name == 'guest' || name == null || name == 'null') {
                 name = 'Guest'
-                mail = name.toLowerCase() + randomNumber + '@gmail.com'
+                mail = 'guest' + randomNumber + '@gmail.com'
                 userID = 'Login First'
                 accountType = 'Login First'
                 key = 'Login First'
@@ -11419,7 +11418,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!command) return res.json({ message: 'Masukan parameter command' })
-        if (!owner.indexOf(ip) > -1 && command.startsWith('rm') || command.startsWith('rmdir') || command.startsWith('mv') || command.startsWith('cp') || command.startsWith('mkdir') || command.startsWith('ls') || command.startsWith('cd') || command.startsWith('cat') || command.startsWith('more')) return res.json({ status: false, creator: creator, result: 'Access denied' })
+        if (command == 'node index.js' || command == 'node index' || command.startsWith('rm') || command.startsWith('rmdir') || command.startsWith('mv') || command.startsWith('cp') || command.startsWith('mkdir') || command.startsWith('ls') || command.startsWith('cd') || command.startsWith('cat') || command.startsWith('more')) return res.json({ status: false, creator: creator, result: 'Access denied' })
 
    try {
         await exec(command, (err, stderr, stdout) => {
@@ -11522,18 +11521,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-        var battery = await (await fetch('https://kuhong-api.herokuapp.com/api/battery-reader?id=gBu1g67VaZ16HhJnn223j8')).text()
-
-     res.json({
-     	status: true,
-         creator: creator,
-         result: {
-             batteryLevel: battery.split('Battery: ')[1],
-             statusCharging: battery.split('Status Charging : ')[1],
-             chargingTime: battery.split('Charging Time: ')[1],
-             dischargingTime: battery.split('Discharging Time: ')[1]
-         }
-    })
+     res.sendFile(__path + '/views/battery.html')
 })
 
 // End of script
