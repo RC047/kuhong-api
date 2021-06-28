@@ -143,7 +143,7 @@ res.json({
         name: 'kuhong-api',
         os: OS.toUpperCase(),
         battery: battery.batteryLevel,
-        charging battery.batteryCharging,
+        charging: battery.batteryCharging,
         ram: `${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})`,
         storage: `${driveUsed} GB / ${driveTotal} (${drivePer} Used)`,
         cpu: `${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)`,
