@@ -10,6 +10,10 @@ function runConsole() {
   var url = 'https://kuhong-api.herokuapp.com/api/run?console=' + console;
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
+         if (json.result == undefined || json.result == '') {
+             alert('No data can be sent')
+             throw false;
+         }
 
          alert(json.result);
          }
