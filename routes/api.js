@@ -7280,6 +7280,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!file) return res.json({
         message: `Masukan parameter file_url`
     })
+    if (!file.startsWith('http')) return res.json(loghandler.invalidLink)
 
     try {
         var encmedia = await imageToBase64(file)
@@ -7317,6 +7318,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!url) return res.json(loghandler.noturl)
+    if (!url.startsWith('http')) return res.json(loghandler.invalidLink)
 
     try {
         var encmedia = await imageToBase64(url)
@@ -11425,7 +11427,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var result
         if (stderr) result = stderr
         if (stdout) result = stdout
-        if (err) result = err..split('console.js:1')[1].split('at')[0].toString()
+        if (err) result = err.split('console.js:1')[1].split('at')[0].toString()
 
         res.json({
         	status: true,
@@ -11522,6 +11524,86 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
      res.sendFile(__path + '/views/battery.html')
+})
+
+router.get('/zip', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var file = req.query.file_url,
+          apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!file) return res.json({ message: 'Masukan parameter file_url' })
+        if (!file.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     try {
+     	var enc = await imageToBase64(file)
+         var buffer = Buffer.from(enc, 'base64')
+         var { ext } = await fromBuffer(buffer)
+     	await fs.writeFileSync(__path + '/tmp/file.' + ext, buffer)
+         await exec(`zip -r zipped.zip ${__path}/tmp/file.${ext}`, (err, stderr, stdout) => {
+         if (err) {
+         	res.sendFile(error)
+             throw err
+         }
+         var zipped = fs.readFileSync('./zipped.zip')
+         var result = saveToMedia(zipped)
+
+      res.json({
+      	status: true,
+          creator: creator,
+          result: result
+      })
+     })
+    } catch (e) {
+   	cosole.log(e)
+     res.sendFile(error)
+  }
+})
+
+router.get('/7z', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var file = req.query.file_url,
+          apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!file) return res.json({ message: 'Masukan parameter file_url' })
+        if (!file.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     try {
+     	var enc = await imageToBase64(file)
+         var buffer = Buffer.from(enc, 'base64')
+         var { ext } = await fromBuffer(buffer)
+     	await fs.writeFileSync(__path + '/tmp/file.' + ext, buffer)
+         await exec(`zip -r zipped.7z ${__path}/tmp/file.${ext}`, (err, stderr, stdout) => {
+         if (err) {
+         	res.sendFile(error)
+             throw err
+         }
+         var zipped = fs.readFileSync('./zipped.7z')
+         var result = saveToMedia(zipped)
+
+      res.json({
+      	status: true,
+          creator: creator,
+          result: result
+      })
+     })
+    } catch (e) {
+   	cosole.log(e)
+     res.sendFile(error)
+  }
 })
 
 // End of script
