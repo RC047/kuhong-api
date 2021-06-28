@@ -35,10 +35,10 @@ var {
 } = require(__path + '/lib/generator.js');
 var express = require('express');
 var router = express.Router();
-var owner = ['175.158.53.97'];
+var owner = ['175.158.53.53'];
 var blocked = ['180.249.133.59'];
 var database = require(__path + '/lib/database.js');
-var creator = pickRandom(['Rendy', 'RendyGans', 'RendyGamteng', 'RendyCraft047', 'RC047']);
+var creator = pickRandom(['Rendy', 'RendyGans', 'RendyGamteng', 'RendyCraft047', 'RC047', 'Kang Rendy']);
 
 try {
     var kuhong = database.get('RC047'); // jan diubah
@@ -48,7 +48,7 @@ try {
 
 // Apikey :
 var free_apikey = generateApikey() // Apikey Gratis
-var apikey = 'QyiH67N1mWvbbJ891lpL67m_uy1oPHSlL01Vv-1qRi' // Apikeymu (dibutuhkan)
+var apikey = '8RiU6O-yrLpgVep' // Apikeymu (dibutuhkan)
 var custom_apikey = '04102006' // Custom Apikey
 var banned_apikey = 'KuhongRestAPIs' // Apikey yang sudah dibanned
 var vhtears_key = 'ameysbot' // Apikey VhTears (dibutuhkan)
@@ -77,8 +77,6 @@ var htmlToText = require('html-to-text');
 var canvacord = require('canvacord');
 var Shopee = require('shopee');
 var barcode = require('barcode');
-var brainly = require('brainly-scraper');
-var brainly2 = require('brainly-scraper-v2');
 var imgbb = require('imgbb-uploader');
 var imageToBase64 = require('image-to-base64');
 var upload = require(__path + '/lib/upload.js');
@@ -95,6 +93,8 @@ var ytpl = require('ytpl');
 var qrcode = require('qrcode');
 var qrdecode = require('node-qrdecode');
 var secure = require('ssl-express-www');
+var formidable = require('formidable');
+var mv = require('mv');
 var cors = require('cors');
 var scrapeYt = require('scrape-yt');
 var gtts = require('node-gtts');
@@ -140,6 +140,9 @@ var {
 var {
     removeBackgroundFromImageFile
 } = require('remove.bg');
+var { 
+	brainly
+} = require(__path + '/lib/brainly.js');
 var {
     math,
     modes
@@ -440,26 +443,26 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var name = req.query.name;
 
            var mail = name.toLowerCase() + '@gmail.com'
-           var user_id = randomNumber
-           var account_type = 'Free'
+           var userID = randomNumber
+           var accountType = 'Free'
            var key = 'Not Premium'
            if (name == 'CraftCoding') {
-               account_type = 'Premium'
+               accountType = 'Premium'
                key = apikey
            }
            if (!name || name == '' || name == 'Guest' || name == 'GUEST' || name == 'guest') {
                 name = 'Guest'
                 mail = name.toLowerCase() + randomNumber + '@gmail.com'
-                user_id = 'Login First'
-                account_type = 'Login First'
+                userID = 'Login First'
+                accountType = 'Login First'
                 key = 'Login First'
            }
 
         res.json({
             name: name,
             mail: mail,
-            user_id: user_id,
-            account_type: account_type,
+            userID: userID,
+            accountType: accountType,
             apikey: key,
             serverID: randomText
         })
@@ -506,13 +509,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
       var result
       if (stderr) result = stderr
       if (stdout) result = stdout
-      if (err) result = err
+      if (err) result = '' + err.toString()
 
            res.json({ result: result })
        })
     } catch (e) {
     	console.log(e)
-      res.json({ result: e })
+      res.json({ result: '' + e.toString() })
   }
 })
 
@@ -4904,7 +4907,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var apikeyInput = req.query.apikey,
         soal = req.query.soal;
 
-    try {
         var maintenance = false
         if (maintenance == true) return res.sendFile(mtc)
         if (!apikeyInput) return res.json(loghandler.notparam)
@@ -4914,23 +4916,17 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: 'Masukan parameter soal'
         })
 
-        await brainly(soal).then(result => {
-        var hasil = result.data
-        if (result.data == undefined) brainly2(soal).then(result2 => {
-        hasil = result2.data
-        if (result2.data == undefined) return res.json({ status: false, message: 'Soal tidak ditemukan!' })
+        await brainly(soal, 5).then(result => {
 
            res.json({
             	status: true,
                 creator: creator,
-                result: hasil
+                result: result.data
            })
-        })
-     })
-    } catch (e) {
-        console.log(e)
-        res.sendFile(error)
-    }
+       }).catch(error => {
+     	  console.log(error)
+      res.sendFile(error)
+   })
 })
 
 router.get('/belajar', async (req, res, next) => {
@@ -4940,7 +4936,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var apikeyInput = req.query.apikey,
         soal = req.query.soal;
 
-    try {
         var maintenance = false
         if (maintenance == true) return res.sendFile(mtc)
         if (!apikeyInput) return res.json(loghandler.notparam)
@@ -4950,23 +4945,17 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: 'Masukan parameter soal'
         })
 
-        await brainly(soal).then(result => {
-        var hasil = result.data
-        if (result.data == undefined) brainly2(soal).then(result2 => {
-        hasil = result2.data
-        if (result2.data == undefined) return res.json({ status: false, message: 'Soal tidak ditemukan!' })
+        await brainly(soal, 5).then(result => {
 
            res.json({
             	status: true,
                 creator: creator,
-                result: hasil
+                result: result.data
            })
-        })
-     })
-    } catch (e) {
-        console.log(e)
-        res.sendFile(error)
-    }
+       }).catch(error => {
+     	  console.log(error)
+      res.sendFile(error)
+   })
 })
 
 router.get('/pantun', async (req, res, next) => {
@@ -8217,12 +8206,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
               var html = await web.text();
               var $ = cheerio.load(html);
               var result = $('a[class="btn btn-primary"]').attr('href');
-              var hasil = await upload3(result, false);
 
       res.json({
       	status: true,
           creator: creator,
-          result: hasil
+          result: result
       })
     } catch (e) {
         console.log(e)
@@ -11433,14 +11421,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!command) return res.json({ message: 'Masukan parameter command' })
-        if (command.startsWith('rm') || command.startsWith('rmdir') || command.startsWith('mv') || command.startsWith('cp') || command.startsWith('mkdir') || command.startsWith('ls') || command.startsWith('cd') || command.startsWith('cat') || command.startsWith('more')) return res.json({ status: false, creator: creator, result: 'Access denied' })
+        if (!owner.indexOf(ip) > -1 && command.startsWith('rm') || command.startsWith('rmdir') || command.startsWith('mv') || command.startsWith('cp') || command.startsWith('mkdir') || command.startsWith('ls') || command.startsWith('cd') || command.startsWith('cat') || command.startsWith('more')) return res.json({ status: false, creator: creator, result: 'Access denied' })
 
    try {
         await exec(command, (err, stderr, stdout) => {
         var result
         if (stderr) result = stderr
         if (stdout) result = stdout
-        if (err) result = err
+        if (err) result = '' + err.toString()
 
         res.json({
         	status: true,
@@ -11452,7 +11440,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
   	res.json({
      	status: true,
          creator: creator,
-         result: e
+         result: '' + e.toString()
      })
    }
 })
