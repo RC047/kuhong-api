@@ -1,10 +1,12 @@
+try {
+
 function runConsole() {
 
   var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :');
+  if (console == '') alert('Masukan Kode!');
   if (console) {
       console = console;
   } else throw false;
-  if (console == '') alert('Masukan Kode!');
   if (console !== '') {
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/run?console=' + console;
@@ -39,10 +41,10 @@ o Some Update & Improve Templates!
 function checkApikey() {
 
   var apikeyInput = prompt('CEK APIKEY :\n\nSilahkan masukan Apikey yang ingin dicek :')
+  if (apikeyInput == '') alert('Masukan Apikey!');
   if (apikeyInput) {
       apikeyInput = apikeyInput;
   } else throw false;
-  if (apikeyInput == '') alert('Masukan Apikey!')
   if (apikeyInput !== '') {
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/cekapikey?apikey=' + apikeyInput;
@@ -60,10 +62,10 @@ function checkApikey() {
 function redeemCode() {
 
   var codeInput = prompt('REDEEM CODE :\n\nSilahkan masukan Kode Redeem untuk mendapatkan Apikey Premium :')
+  if (codeInput == '') alert('Masukan Kode Redeem!');
   if (codeInput) {
       codeInput = codeInput;
   } else throw false;
-  if (codeInput == '') alert('Masukan Kode Redeem!')
   if (codeInput !== '') {
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/redeem?code=' + codeInput;
@@ -81,6 +83,7 @@ function redeemCode() {
 function getRequest() {
 
     var request = prompt('REQUEST :\n\nIngin Request fitur atau semacamnya?\n\nBisa langsung kirim masukannya disini :)');
+    if (request == '') alert('Request tidak boleh kosong!');
     if (request) {
         request = request;
     } else throw false;
@@ -93,6 +96,7 @@ function getRequest() {
 function getReport() {
 
     var report = prompt('REPORT :\n\nAda yang ingin anda Laporkan kepada Owner secara langsung?\n\nBisa langsung kirim laporannya kesini :)');
+    if (report == '') alert('Laporan tidak boleh kosong!');
     if (report) {
         report = report;
     } else throw false;
@@ -120,15 +124,13 @@ function getRating() {
 
 function getUserData() {
 
-  var fixedName = name;
-  if (name == undefined) fixedName = 'Guest';
   var request = new XMLHttpRequest();
   var ip = 'http://api.ipify.org/?format=json';
         request.onloadend = function() {
         var get = JSON.parse(this.responseText);
 
   var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + fixedName;
+  var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
 
@@ -191,4 +193,8 @@ Ping: ${json.stats.ping_ms}
 
   xhr.open('GET', url, true);
   xhr.send();
+}
+
+} catch (e) {
+  alert(e)
 }
