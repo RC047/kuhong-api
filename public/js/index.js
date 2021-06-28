@@ -25,6 +25,9 @@ if (name) {
     name = name;
 } else name = 'Guest';
 console.log(`LOGIN :\n${name} just logged in to your website`);
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users', true);
+xhr.send();
 
 window.setTimeout('setTimes();', 1000);
 function setTimes() {
