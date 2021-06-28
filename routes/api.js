@@ -506,13 +506,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
       var result
       if (stderr) result = stderr
       if (stdout) result = stdout
-      if (err) result = err.split('console.js:1')[1].split('at')[0].toString()
+      if (err) result = err.toString().split('console.js:1')[1].split('at')[0]
 
            res.json({ result: result })
        })
     } catch (e) {
     	console.log(e)
-      res.json({ result: e.split('console.js:1')[1].split('at')[0].toString() })
+      res.json({ result: e.toString().split('console.js:1')[1].split('at')[0] })
   }
 })
 
@@ -11449,7 +11449,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var result
         if (stderr) result = stderr
         if (stdout) result = stdout
-        if (err) result = err.split('console.js:1')[1].split('at')[0].toString()
+        if (err) result = err.toString().split('console.js:1')[1].split('at')[0]
 
         res.json({
         	status: true,
@@ -11461,7 +11461,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
   	res.json({
      	status: true,
          creator: creator,
-         result: e.split('console.js:1')[1].split('at')[0].toString()
+         result: e.toString().split('console.js:1')[1].split('at')[0]
      })
    }
 })
