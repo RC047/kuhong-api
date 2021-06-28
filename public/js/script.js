@@ -1,5 +1,3 @@
-try {
-
 function runConsole() {
 
   var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :');
@@ -124,11 +122,6 @@ function getRating() {
 
 function getUserData() {
 
-  var request = new XMLHttpRequest();
-  var ip = 'http://api.ipify.org/?format=json';
-        request.onloadend = function() {
-        var get = JSON.parse(this.responseText);
-
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
          xhr.onloadend = function() {
@@ -140,7 +133,6 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.userID}
-IP Address: ${get.ip}
 Account Type: ${json.accountType}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
@@ -149,13 +141,10 @@ Server ID: ${json.serverID}
 
   xhr.open('GET', url, true);
   xhr.send();
-         }
-
-request.open('GET', ip, true);
-request.send();
 }
 
 function getStatistics() {
+
   var date = new Date();
   var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   var xhr = new XMLHttpRequest();
@@ -193,8 +182,4 @@ Ping: ${json.stats.ping_ms}
 
   xhr.open('GET', url, true);
   xhr.send();
-}
-
-} catch (e) {
-  alert(e)
 }
