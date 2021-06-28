@@ -21,6 +21,9 @@ LOGIN REQUIRED :
 
 Silahkan masukan namamu untuk identitas diwebsite ini :)
 `.trim(), 'Guest');
+if (name) {
+    name = name;
+} else name = 'Guest';
 console.log(`LOGIN :\n${name} just logged in to your website`);
 
 window.setTimeout('setTimes();', 1000);
@@ -37,9 +40,9 @@ function setTimes() {
           document.getElementById('notif').innerHTML = ucapan + '\n' + name + '!';
 }
 
-var ads = new Date();
+var donate = new Date();
 var timeOut = Math.floor(Math.random() * 24);
-if (ads.getHours() == timeOut) alert('IKLAN :\n\nJangan lupa donasi ke Owner biar update tiap hari!\n\nhttps://saweria.co/RC047');
+if (donate.getHours() == timeOut) alert('Jangan lupa donasi biar update tiap hari!\n\nhttps://saweria.co/RC047');
 
 var Battery = (function(self) {
 
