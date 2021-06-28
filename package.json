@@ -38,6 +38,7 @@
     "file-type": "^16.1.0",
     "google-it": "^1.6.2",
     "g-i-s": "^2.1.6",
+    "glob": "^7.1.6",
     "html-to-text": "^8.0.0",
     "img2braille": "1.0.1",
     "instagram-url-direct": "1.0.9",
