@@ -70,16 +70,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.sendFile(__path + '/views/tutorial.html')
 })
 
-router.get('/api/battery-reader', async (req, res) => {
-var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
-    var id = req.query.id;
-    if (!(id || id == 'gBu1g67VaZ16HhJnn223j8')) return res.sendFile('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Error</title></head><body><pre>Cannot GET /api/battery-reader</pre></body></html>')
-
-  res.sendFile(__path + '/views/battery.html')
-})
-
 router.get('/api/status', async (req, res, next) => {  
 
 var date = new Date()
@@ -153,7 +143,7 @@ res.json({
         connection:{
             nets_In: netsIn,
             nets_Out: netsOut,
-            port_used: port.toString(),
+            port_used: port_used.toString(),
             ip_used: ip_used.ip.toString()
         },
         time: time,
