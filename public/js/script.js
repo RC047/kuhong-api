@@ -32,6 +32,7 @@ alert(`
 CHANGELOG :
 
 o Add Battery Reader!
+o Add Zip & 7z Compressor!
 o Some Update & Improve Templates!
 `.trim());
 }
