@@ -11510,5 +11510,31 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     })
 })
 
+router.get('/battery', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+
+        var battery = await (await fetch('https://kuhong-api.herokuapp.com/api/battery-reader?id=gBu1g67VaZ16HhJnn223j8')).text()
+
+     res.json({
+     	status: true,
+         creator: creator,
+         result: {
+             batteryLevel: battery.split('Battery: ')[1],
+             statusCharging: battery.split('Status Charging : ')[1],
+             chargingTime: battery.split('Charging Time: ')[1],
+             dischargingTime: battery.split('Discharging Time: ')[1]
+         }
+    })
+})
+
 // End of script
 module.exports = router
