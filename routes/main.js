@@ -70,6 +70,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.sendFile(__path + '/views/tutorial.html')
 })
 
+router.get('/api/battery-reader', async (req, res) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    res.sendFile(__path + '/views/battery-reader.html')
+})
+
 router.get('/api/status', async (req, res, next) => {  
 
 var date = new Date()
