@@ -176,6 +176,7 @@ App: ${app}
 Battery: ${battery}
 Time: ${time}
 Uptime: ${json.stats.uptime}
+Users: ${json.total.users}
 Requests: ${json.total.requests}
 Visitors: ${json.total.visitors}
 Stars: ${json.total.stars}
