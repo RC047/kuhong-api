@@ -158,7 +158,7 @@ function getStatistics() {
   var url = 'https://kuhong-api.herokuapp.com/api/status';
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
-         var app = 'Cloudfare';
+         var app;
          if (json.stats.os == 'LINUX') {
          app = 'Linux';
          } else app = 'Unknown App';
