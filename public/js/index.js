@@ -23,9 +23,8 @@ Silahkan masukan namamu untuk identitas diwebsite ini :)
 `.trim(), 'Guest');
 if (name) {
     name = name;
-} else { 
-  name = 'Guest';
-}
+} else name = 'Guest';
+if (name == undefined) name = 'Guest';
 if (name !== '') {
 console.log(`LOGIN :\n${name} just logged in to your website`);
 
@@ -51,6 +50,7 @@ function setTimes() {
 var donate = new Date();
 var timeOut = Math.floor(Math.random() * 24);
 if (donate.getHours() == timeOut) alert('Jangan lupa donasi biar update tiap hari!\n\nhttps://saweria.co/RC047');
+
 
 var Battery = (function(self) {
 
