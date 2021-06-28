@@ -70,13 +70,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.sendFile(__path + '/views/tutorial.html')
 })
 
-router.get('/api/battery-reader', async (req, res) => {
-var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
-    res.sendFile(__path + '/views/battery-reader.html')
-})
-
 router.get('/api/status', async (req, res, next) => {  
 
 var date = new Date()
@@ -125,14 +118,14 @@ var p4 = netstat.inOut().then(info => {
 await Promise.all([p1, p2, p3, p4])
 
 var _ramTotal = (ramTotal + ' MB')
-var old = peformance.now()
+var old = performance.now()
 var neww = performance.now()
 var ip_used = await (await fetch('https://api.ipify.org/?format=json')).json()
 var user = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users')).json()
 var visitor = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var request = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var star = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating')).json()
-var battery = await (await fetch('https://kuhong-api.herokuapp.com/api/battery-reader')).json()
+var battery = await (await fetch('https://kuhong-api.herokuapp.com/api/battery-reader?apikey=04102006')).json()
 var port_used = process.env.PORT || 8080 || 5000 || 3000
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
