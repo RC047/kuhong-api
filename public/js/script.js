@@ -31,8 +31,8 @@ function getChangelog() {
 alert(`
 CHANGELOG :
 
-o Add Text Counter!
-o Update & Fix Templates!
+o Add Battery Reader!
+o Some Update & Improve Templates!
 `.trim());
 }
 
