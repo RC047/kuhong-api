@@ -120,13 +120,15 @@ function getRating() {
 
 function getUserData() {
 
+  var fixedName = name;
+  if (name == undefined) fixedName = 'Guest';
   var request = new XMLHttpRequest();
   var ip = 'http://api.ipify.org/?format=json';
         request.onloadend = function() {
-        var getData = JSON.parse(this.responseText);
+        var get = JSON.parse(this.responseText);
 
   var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
+  var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + fixedName;
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
 
@@ -136,7 +138,7 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.userID}
-IP Address: ${getData.ip}
+IP Address: ${get.ip}
 Account Type: ${json.accountType}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
