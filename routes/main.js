@@ -121,6 +121,7 @@ var _ramTotal = (ramTotal + ' MB')
 var old = peformance.now()
 var neww = performance.now()
 var ip_used = await (await fetch('https://api.ipify.org/?format=json')).json()
+var user = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users')).json()
 var visitor = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var request = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var star = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating')).json()
@@ -148,6 +149,7 @@ res.json({
         ping_sec: Math.round(neww - old) + ' sec'
     },
         total:{
+            users: user.value.toString(),
             requests: request.value.toString(),
             visitors: visitor.value.toString(),
             stars: star.value.toString(),
@@ -167,13 +169,15 @@ res.json({
 
 module.exports = router
 
-function muptime(seconds){
-  function pad(s){
-    return (s < 10 ? '0' : '') + s;
-  }
-  var hours = Math.floor(seconds / (60*60));
-  var minutes = Math.floor(seconds % (60*60) / 60);
+function muptime(seconds) {
+
+  var hours = Math.floor(seconds / (60 * 60));
+  var minutes = Math.floor(seconds % (60 * 60) / 60);
   var seconds = Math.floor(seconds % 60);
 
-  return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds)
+  return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
+}
+
+function pad(s) {
+  return (s < 10 ? '0' : '') + s;
 }
