@@ -1,1 +1,6 @@
-// Ini tempat untuk menjalankan Console
+/** Console Runner
+
+* Menjalankan Console JavaScript
+* Url: https://kuhong-api.herokuapp.com/api/run?console=console.log('examples');
+* Method: GET
+*/
