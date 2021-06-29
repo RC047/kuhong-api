@@ -4941,16 +4941,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-        await fetch('https://raw.githubusercontent.com/RC047/media/main/pantun')
-            .then(result => result.text())
-            .then(body => {
-                var json = body.split('\n')
-                var pantun = json[Math.floor(Math.random() * json.length)]
+       var data = fs.readFileSync(__path + '/lib/scraper/pantun.txt')
+       var pantun = data.split('\n')
+       var result = pantun[Math.floor(Math.random() * pantun.length)]
 
                 res.json({
                     status: true,
                     creator: creator,
-                    result: pantun
+                    result: result
                 })
             })
 
