@@ -37,6 +37,7 @@ CHANGELOG :
 
 o Add Battery Reader!
 o Add Zip & 7z Compressor!
+o Add ClipClaps!
 o Some Update & Improve Templates!
 `.trim());
 }
@@ -131,7 +132,10 @@ function getUserData() {
   var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
-         var getData = JSON.parse(ip);
+  var xhr2 = new XMLHttpRequest();
+  var url2 = 'http://api.ipify.org/?format=json';
+         xhr2.onloadend = function() {
+         var json2 = JSON.parse(this.responseText);
 
 alert(`
 MY ACCOUNT :
@@ -139,11 +143,15 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.userID}
-IP Address: ${getData.ip}
+IP Address: ${json2.ip}
 Account Type: ${json.accountType}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
 `.trim());
+         }
+
+  xhr2.open('GET', url2, true);
+  xhr2.send();
          }
 
   xhr.open('GET', url, true);
