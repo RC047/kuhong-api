@@ -505,7 +505,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
       var result
       if (stderr) result = stderr
       if (stdout) result = stdout
-      if (err) result = err.toString().split('console.js:1')[1].split('at')[0]
+      if (err) result = err.toString().split('console.js:1')[1].split('at')[0].split('(Use `node --trace-uncaught ...` to show where the exception was thrown)')[0]
 
            res.json({ result: result })
        })
