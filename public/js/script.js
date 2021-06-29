@@ -168,7 +168,7 @@ battery.getStatus(function(status, error) {
          if (json.stats.os == 'LINUX') {
          app = 'Linux';
          } else app = json.stats.os.toLowerCase();
-         var batteryLevel = Math.floor(status.level * 100) + '%':
+         var batteryLevel = Math.floor(status.level * 100) + '%';
          if (status.charging == true || status.charging == 'true') battery = Math.floor(status.level * 100) + '% (Charging)';
          if (batteryLevel == 'NaN%') battery = 'Not Detected';
          if (error) battery = 'Not Detected';
