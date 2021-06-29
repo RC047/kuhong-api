@@ -20,7 +20,8 @@ var listAds = [
 'Proses perangkat Anda terasa lambat?\nAyoo buruan download Nox Cleaner sekarang! url:https://play.google.com/store/apps/details?id=com.noxgroup.app.cleaner',
 'Ayoo jangan lewatkan Shopee Flazh Sale! url:https://shopee.co.id/flash_sale',
 'Belanja online? Tokopedia selalu ada selalu bisa! url:https://play.google.com/store/apps/details?id=com.tokopedia.tkpd',
-'FT SILLENT KILLER\nCEPET DAFTAR NGAB KEBURU FULL\n\n🥇15k🥈10k 🥉10k\nFEE 5K || 3 MATCH\n\nSkuy lah ngab -6slot Gc lah🙃 url:https://wa.me/6287780169340?text=Min+Daftar+Ft+5k'
+'FT SILLENT KILLER\nCEPET DAFTAR NGAB KEBURU FULL\n\n1. 15k\n2. 10k\n3. 10k\nFEE 5K || 3 MATCH\n\nSkuy lah ngab 6slot Gc lah url:https://wa.me/6287780169340?text=Min+Daftar+Ft+5k',
+'BIRU_CRAFT SHOP\n\n\nMenjual:\no Banner youtube: 5k doang\no Logo Youtube, DLL: 5k kok\no Thumnails Youtube: 5k dapat 2/3!!!\n\nJasa Edit video youtube/editor:\nSewa:\no Harian\no Mingguan\no Bulanan\no Menetap\n\nHarga: Sesuai Menit Video\nPEMBAYARAN VIA:\no Pulsa Axis\n\no Testi: ada\no Contoh: ada\no Contoh video: ada\n\n\nMINAT?\nLangsung saja Chat! url:http://wa.me/+6283125579825'
 ]
 
 var ads = pickRandom(listAds);
