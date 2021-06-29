@@ -431,7 +431,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 })
 
 router.get('/login', async (req, res, next) => {
-var users = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users')).json()
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var name = req.query.name;
