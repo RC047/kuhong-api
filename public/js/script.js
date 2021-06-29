@@ -123,16 +123,13 @@ function getRating() {
     }
 }
 
-function getUserData() {
+async function getUserData() {
 
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
-  var xhr2 = new XMLHttpRequest();
-  var url2 = 'http://api.ipify.org/?format=json';
+  var json2 = await (await fetch('http://api.ipify.org/?format=json')).json()
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
-         xhr2.onloadend = function() {
-         var json2 = JSON.parse(this.responseText);
 
 alert(`
 MY ACCOUNT :
@@ -145,10 +142,6 @@ Account Type: ${json.accountType}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
 `.trim());
-         }
-
-  xhr2.open('GET', url2, true);
-  xhr2.send();
          }
 
   xhr.open('GET', url, true);
