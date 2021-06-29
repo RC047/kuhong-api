@@ -431,7 +431,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 })
 
 router.get('/login', async (req, res, next) => {
-var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var users = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var name = req.query.name;
@@ -11334,7 +11334,8 @@ var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var command = req.query.command,
-          apikeyInput = req.query.apikey;
+          apikeyInput = req.query.apikey,
+          ownerID = req.query.ownerID;
 
         var maintenance = false
         if (maintenance == true) return res.sendFile(mtc)
@@ -11342,7 +11343,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!command) return res.json({ message: 'Masukan parameter command' })
-        if (command.startsWith('node') || command.startsWith('npm') || command.startsWith('python') || command.startsWith('php') || command.startsWith('go') || command.startsWith('c++') || command.startsWith('clang') || command.startsWith('ffmpeg') || command.startsWith('gm') || command.startsWith('tesseract') || command.startsWith('rm') || command.startsWith('rmdir') || command.startsWith('mv') || command.startsWith('cp') || command.startsWith('mkdir') || command.startsWith('ls') || command.startsWith('cd') || command.startsWith('cat') || command.startsWith('more')) return res.json({ status: false, creator: creator, result: 'You are not allowed to use this command' })
+        if (!ownerID && command.startsWith('node') || command.startsWith('npm') || command.startsWith('python') || command.startsWith('ruby') || command.startsWith('php') || command.startsWith('go') || command.startsWith('c++') || command.startsWith('clang') || command.startsWith('ffmpeg') || command.startsWith('gm') || command.startsWith('tesseract') || command.startsWith('rm') || command.startsWith('rmdir') || command.startsWith('mv') || command.startsWith('cp') || command.startsWith('mkdir') || command.startsWith('ls') || command.startsWith('cd') || command.startsWith('cat') || command.startsWith('more') || command.startsWith('import') || command.startsWith('ld')) return res.json({ status: false, creator: creator, result: 'You are not allowed to use this command' })
+        if (ownerID !== `${owner_key}`) return res.json({ status: false, creator: creator, result: 'You are not allowed to use this command' })
 
    try {
         await exec(command, (err, stderr, stdout) => {
