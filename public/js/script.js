@@ -190,3 +190,28 @@ Ping: ${json.stats.ping_ms}
   xhr.open('GET', url, true);
   xhr.send();
 }
+
+function getShop() {
+
+var buy = confirm(`
+SHOP :
+
+Premium Apikey = 10K / Bulan
+Premium Apikey = 25K / Tahun
+Custom Apikey = 15K / Bulan
+Custom Apikey = 30K / Tahun
+Redeem Code = 25K / Bulan (Premium + Custom Apikey)
+Redeem Code = 40K / Bulan (Premium + Custom Apikey)
+Placing Ads = 10K / Bulan
+Placing Ads = 20K / Tahun
+Remove Ads = 15K / Bulan
+Remove Ads = 30K / Tahun
+
+
+*Silahkan pilih "Oke" untuk lanjut membeli.
+`.trim());
+
+   if (buy) {
+       window.location = 'https://wa.me/62895337278647';
+   } else throw false;
+}
