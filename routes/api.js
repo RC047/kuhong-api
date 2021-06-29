@@ -11342,7 +11342,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
         if (!command) return res.json({ message: 'Masukan parameter command' })
-        if (command == 'node index.js' || command == 'node index' || command.startsWith('rm') || command.startsWith('rmdir') || command.startsWith('mv') || command.startsWith('cp') || command.startsWith('mkdir') || command.startsWith('ls') || command.startsWith('cd') || command.startsWith('cat') || command.startsWith('more')) return res.json({ status: false, creator: creator, result: 'Access denied' })
+        if (command.startsWith('node') || command.startsWith('npm') || command.startsWith('python') || command.startsWith('php') || command.startsWith('go') || command.startsWith('c++') || command.startsWith('clang') || command.startsWith('ffmpeg') || command.startsWith('gm') || command.startsWith('tesseract') || command.startsWith('rm') || command.startsWith('rmdir') || command.startsWith('mv') || command.startsWith('cp') || command.startsWith('mkdir') || command.startsWith('ls') || command.startsWith('cd') || command.startsWith('cat') || command.startsWith('more')) return res.json({ status: false, creator: creator, result: 'You are not allowed to use this command' })
 
    try {
         await exec(command, (err, stderr, stdout) => {
