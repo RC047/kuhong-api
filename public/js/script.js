@@ -117,8 +117,7 @@ function getRating() {
         alert('Terimakasih atas 1 Bintang Anda!');
 
     var xhr = new XMLHttpRequest();
-    var url = 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating';
-    xhr.open('GET', url, true);
+    xhr.open('GET', 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating', true);
     xhr.send();
 }
 
