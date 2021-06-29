@@ -155,17 +155,9 @@ Server ID: ${json.serverID}
   xhr.send();
 }
 
-function getBatteryLevel(status) {
-  return Math.floor(status.level * 100) + '%';
-}
-
-function getBatteryStatusCharging(status) {
-  return status.charging;
-}
-
 function getStatistics() {
 
-Battery.getStatus(function(status, error) {
+battery.getStatus(function(status, error) {
   var date = new Date();
   var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   var xhr = new XMLHttpRequest();
@@ -176,10 +168,9 @@ Battery.getStatus(function(status, error) {
          if (json.stats.os == 'LINUX') {
          app = 'Linux';
          } else app = json.stats.os.toLowerCase();
-         var battery = getBatteryLevel(status);
-         var statusCharging = getBatteryStatusCharging(status);
-         if (statusCharging == true || statusCharging == 'true') battery = getBatteryLevel(status) + ' (Charging)';
-         if (battery == 'NaN%') battery = 'Not Detected';
+         var batteryLevel = Math.floor(status.level * 100) + '%':
+         if (status.charging == true || status.charging == 'true') battery = Math.floor(status.level * 100) + '% (Charging)';
+         if (batteryLevel == 'NaN%') battery = 'Not Detected';
          if (error) battery = 'Not Detected';
 
 alert(`
@@ -187,7 +178,7 @@ STATISTICS :
 
 Status: ${json.stats.status}
 App: ${app}
-Battery: ${battery}
+Battery: ${batteryLevel}
 Time: ${time}
 Uptime: ${json.stats.uptime}
 Users: ${json.total.users}
@@ -203,9 +194,6 @@ Ping: ${json.stats.ping_ms}
   xhr.open('GET', url, true);
   xhr.send();
   });
-
-Battery.onUpdate(getBatteryLevel);
-Battery.onUpdate(getBatteryStatusCharging);
 }
 
 function getShop() {
