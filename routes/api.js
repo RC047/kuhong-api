@@ -4950,7 +4950,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                     creator: creator,
                     result: result
                 })
-            })
 
     } catch (e) {
         console.log(e)
