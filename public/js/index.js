@@ -46,7 +46,8 @@ function setTimes() {
           document.getElementById('notif').innerHTML = notif;
 }
 
-var Battery = (function(self) {
+var battery = (function(self) {
+
   var _events = 'chargingchange chargingtimechange dischargingtimechange levelchange'
     , _battery = navigator.getBattery || navigator.battery || navigator.mozBattery
     , _status = null
@@ -108,4 +109,4 @@ var Battery = (function(self) {
   }
 
   return self;
-})(Battery || {});
+})(battery || {});
