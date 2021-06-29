@@ -1,14 +1,6 @@
 // Ads provided by Me, not by Google :v
 
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-function pickRandom(list) {
-  return list[Math.floor(Math.random() * list.length)]
-}
-
-if (name == 'CraftCoding') throw false;
+if (name == 'CraftCoding') throw false; // User Premium tidak akan menerima iklan
 
 var listAds = [
 'Dijual SC Bot WhatsApp 400+ fitur dengan harga 50K! url:https://wa.me/62895337278647?text=Min+saya+minat+mau+beli+sc+bot+wa',
@@ -26,9 +18,17 @@ var listAds = [
 
 var ads = pickRandom(listAds);
 var time = new Date();
-var timeUp = Math.floor(Math.random() * 60);
-if (time.getMinutes() == timeUp) {
+var timeUp = Math.floor(Math.random() * 24);
+if (time.getHours() == timeUp) {
     delay(3000);
     var ok = alert('IKLAN :\n\n' + ads.split(' url:')[0]);
     if (ok) window.location = ads.split('url:')[1];
+}
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function pickRandom(list) {
+  return list[Math.floor(Math.random() * list.length)]
 }
