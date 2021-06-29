@@ -155,6 +155,7 @@ Server ID: ${json.serverID}
 
 function getStatistics() {
 
+Battery.getStatus(function(status, error) {
   var date = new Date();
   var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   var xhr = new XMLHttpRequest();
@@ -165,7 +166,6 @@ function getStatistics() {
          if (json.stats.os == 'LINUX') {
          app = 'Linux';
          } else app = json.stats.os.toLowerCase();
-         Battery.getStatus(function(status, error) {
          var battery = Math.floor(status.level * 100) + '%';
          if (status.charging == true || status.charging == 'true') battery = Math.floor(status.level * 100) + '% (Charging)';
          if (battery == 'NaN%') battery = 'Not Detected';
@@ -187,11 +187,11 @@ Features: ${json.total.features}
 Blocked: ${json.total.ip_blocked}
 Ping: ${json.stats.ping_ms}
 `.trim());
-            });
          }
 
   xhr.open('GET', url, true);
   xhr.send();
+  });
 }
 
 function getShop() {
