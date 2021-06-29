@@ -76,6 +76,11 @@ function redeemCode() {
   var url = 'https://kuhong-api.herokuapp.com/api/redeem?code=' + codeInput;
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
+         if (json.result.split('!')[0] == 'Kode Redeem Valid') {
+         alert(json.result);
+         window.location = 'https://kuhong-api.herokuapp.com/api/redeem?code=' + codeInput;
+         throw false;
+         }
 
          alert(json.result);
          }
