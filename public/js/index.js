@@ -47,11 +47,6 @@ function setTimes() {
           document.getElementById('notif').innerHTML = ucapan + '\n' + name + '!';
 }
 
-var donate = new Date();
-var timeOut = Math.floor(Math.random() * 24);
-if (donate.getHours() == timeOut) alert('Jangan lupa donasi biar update tiap hari!\n\nhttps://saweria.co/RC047');
-
-
 var Battery = (function(self) {
 
   var _events = 'chargingchange chargingtimechange dischargingtimechange levelchange'
