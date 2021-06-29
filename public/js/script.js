@@ -165,7 +165,7 @@ function getStatistics() {
          var app;
          if (json.stats.os == 'LINUX') {
          app = 'Linux';
-         } else app = 'Unknown App';
+         } else app = json.stats.os.toLowerCase();
          Battery.getStatus(function(status, error) {
          var battery = Math.floor(status.level * 100) + '%';
          if (status.charging == true || status.charging == 'true') battery = Math.floor(status.level * 100) + '% (Charging)';
