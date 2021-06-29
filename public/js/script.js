@@ -153,6 +153,14 @@ Server ID: ${json.serverID}
   xhr.send();
 }
 
+function getBatteryLevel(status) {
+  return Math.floor(status.level * 100) + '%';
+}
+
+function getBatteryStatusCharging(status) {
+  return status.charging;
+}
+
 function getStatistics() {
 
 Battery.getStatus(function(status, error) {
@@ -166,8 +174,9 @@ Battery.getStatus(function(status, error) {
          if (json.stats.os == 'LINUX') {
          app = 'Linux';
          } else app = json.stats.os.toLowerCase();
-         var battery = Math.floor(status.level * 100) + '%';
-         if (status.charging == true || status.charging == 'true') battery = Math.floor(status.level * 100) + '% (Charging)';
+         var battery = getBatteryLevel(status);
+         var statusCharging = getBatteryStatusCharging(status);
+         if (statusCharging == true || statusCharging == 'true') battery = getBatteryLevel(status) + ' (Charging)';
          if (battery == 'NaN%') battery = 'Not Detected';
          if (error) battery = 'Not Detected';
 
@@ -193,7 +202,8 @@ Ping: ${json.stats.ping_ms}
   xhr.send();
   });
 
-Battery.onUpdate(getStatistics());
+Battery.onUpdate(getBatteryLevel);
+Battery.onUpdate(getBatteryStatusCharging);
 }
 
 function getShop() {
