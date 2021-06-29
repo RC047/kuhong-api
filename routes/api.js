@@ -437,7 +437,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var name = req.query.name;
 
            var mail = name.toLowerCase() + '@gmail.com'
-           var userID = randomNumber
+           var userID = Math.floor(Math.random() * 100000)
            var accountType = 'Free'
            var key = 'Not Premium'
            if (name == 'CraftCoding') {
@@ -472,7 +472,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         message: 'Masukan parameter code'
     })
 
-    var result = `Kode Redeem Valid!\n\nPremium Apikey:\n${apikey}`
+    var result = `Kode Redeem Valid!\n\nPremium Apikey:\n${apikey}\nCustom Apikey:\n${custom_apikey}`
     if (code !== `${redeem_code}`) result = 'Kode Redeem Tidak Valid!'
 
     res.json({ result: result })
@@ -499,13 +499,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
     try {
     if (!console) return res.json({ message: 'Masukan parameter console' })
-    if (console == '/' || console == '//') return res.json({ error: 'Invalid code' })
+    if (console == '/' || console == '//') return res.json({ error: 'Invalid input code' })
       await fs.writeFileSync(__path + '/console.js', console)
       await exec(`node ${__path}/console.js`, (err, stderr, stdout) => {
       var result
       if (stderr) result = stderr
       if (stdout) result = stdout
-      if (err) result = err.toString().split('console.js:1')[1].split('at')[0].split('(Use `node --trace-uncaught ...` to show where the exception was thrown)')[0]
+      if (err) result = err.toString().split('console.js:1')[1].split('at')[0].split(':1)')[0].split('(Use `node --trace-uncaught ...` to show where the exception was thrown)')[0]
 
            res.json({ result: result })
        })
@@ -11561,10 +11561,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
      try {
      	var enc = await imageToBase64(file)
          var buffer = Buffer.from(enc, 'base64')
-         var { ext } = await fromBuffer(buffer)
-         if (!(ext == 'zip' || ext == '7z')) return res.json({ status: false, message: 'File harus berupa zip/7z!' })
-     	await fs.writeFileSync(__path + '/tmp/zipped_tmp.' + ext, buffer)
-         await exec(`unzip -d ${__path}/unzipped ${__path}/tmp/zipped_tmp.${ext}`, (err, stderr, stdout) => {
+     	await fs.writeFileSync(__path + '/tmp/zipped_tmp.zip', buffer)
+         await exec(`unzip -d ${__path}/unzipped ${__path}/tmp/zipped_tmp.zip`, (err, stderr, stdout) => {
          if (err) return res.sendFile(error)
          var unzipped = fs.readFileSync(__path + '/unzipped/' + fs.readdirSync(__path + '/unzipped'))
          var result = saveToMedia(unzipped)
