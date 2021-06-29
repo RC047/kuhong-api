@@ -192,6 +192,8 @@ Ping: ${json.stats.ping_ms}
   xhr.open('GET', url, true);
   xhr.send();
   });
+
+Battery.onUpdate(getStatistics());
 }
 
 function getShop() {
