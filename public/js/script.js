@@ -118,22 +118,18 @@ function getRating() {
 
     var xhr = new XMLHttpRequest();
     var url = 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating';
-         xhr.onloadend = function() {
-         var json = JSON.parse(this.responseText);
-  }
-  xhr.open('GET', url, true);
-  xhr.send();
-     }
+    xhr.open('GET', url, true);
+    xhr.send();
 }
 
 function getUserData() {
 
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
-         xhr.onloadend = function() {
-         var json = JSON.parse(this.responseText);
   var xhr2 = new XMLHttpRequest();
   var url2 = 'http://api.ipify.org/?format=json';
+         xhr.onloadend = function() {
+         var json = JSON.parse(this.responseText);
          xhr2.onloadend = function() {
          var json2 = JSON.parse(this.responseText);
 
@@ -202,19 +198,18 @@ Ping: ${json.stats.ping_ms}
 function getShop() {
 
 var buy = confirm(`
-SHOP :
+SHOPS :
 
 Premium Apikey = 10K / Bulan
 Premium Apikey = 25K / Tahun
 Custom Apikey = 15K / Bulan
 Custom Apikey = 30K / Tahun
-Redeem Code = 25K / Bulan (Premium + Custom Apikey)
-Redeem Code = 40K / Tahun (Premium + Custom Apikey)
+Redeem Code = 25K / Bulan
+Redeem Code = 50K / Tahun
 Placing Ads = 10K / Bulan
 Placing Ads = 20K / Tahun
 Remove Ads = 15K / Bulan
 Remove Ads = 30K / Tahun
-
 
 *Silahkan pilih "Oke" untuk lanjut membeli.
 `.trim());
