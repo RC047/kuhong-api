@@ -21,8 +21,8 @@ var time = new Date();
 var timeUp = Math.floor(Math.random() * 24);
 if (time.getHours() == timeUp) {
     delay(3000);
-    var ok = alert('IKLAN :\n\n' + ads.split(' url:')[0]);
-    if (ok) window.location = ads.split('url:')[1];
+    alert('IKLAN :\n\n' + ads.split(' url:')[0]);
+    window.location = ads.split('url:')[1];
 }
 
 function delay(ms) {
