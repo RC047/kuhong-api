@@ -8139,54 +8139,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     }
 })
 
-router.get('/gtaposter', async (req, res, next) => {
-var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var img = req.query.img,
-        apikeyInput = req.query.apikey;
-
-    try {
-        var maintenance = false
-        if (maintenance == true) return res.sendFile(mtc)
-        if (!apikeyInput) return res.json(loghandler.notparam)
-        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
-        if (!img) return res.json(loghandler.notimg)
-        if (!img.startsWith('http')) return res.json(loghandler.invalidLink)
-
-        await fs.writeFileSync(__path + '/tmp/gta_tmp.png', await getBuffer(img))
-        var buffer = await fs.readFileSync(__path + '/tmp/gta_tmp.png')
-        var form = new FormData();
-        form.append('thumb_1', buffer);
-        form.append('selectImage_1', buffer);
-        form.append('image_1', '');
-        form.append('login', 'OK');
-        var web = await fetch('https://photooxy.com/game-effects/make-grand-theft-auto-v-official-poster-132.html', {
-             method: 'POST',
-             headers: {
-             Accept: '/',
-             'Accept-Language': 'en-US,en;q=0.9',
-             'User-Agent': 'GoogleBot',
-             ...form.getHeaders(),
-             },
-             body: form.getBuffer(),
-        });
-              var html = await web.text();
-              var $ = cheerio.load(html);
-              var result = $('a[class="btn btn-primary"]').attr('href');
-
-      res.json({
-      	status: true,
-          creator: creator,
-          result: result
-      })
-    } catch (e) {
-        console.log(e)
-        res.sendFile(error)
-    }
-})
-
 router.get('/deltrash', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
@@ -11515,14 +11467,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
      	var enc = await imageToBase64(file)
          var buffer = Buffer.from(enc, 'base64')
          var { ext } = await fromBuffer(buffer)
-     	await fs.writeFileSync(__path + '/tmp/file.' + ext, buffer)
-         await exec(`zip -r zipped.zip ${__path}/tmp/file.${ext}`, (err, stderr, stdout) => {
+     	 await fs.writeFileSync(__path + '/tmp/zip_tmp.' + ext, buffer)
+         await exec(`zip -r ${__path}/tmp/zipped.zip ${__path}/tmp/zip_tmp.${ext}`, (err, stderr, stdout) => {
          if (err) return res.sendFile(error)
-         var zipped = fs.readFileSync('./zipped.zip')
+         var zipped = fs.readFileSync(__path + '/tmp/zipped.zip')
          var result = saveToMedia(zipped)
 
       res.json({
-      	status: true,
+      	  status: true,
           creator: creator,
           result: result
       })
@@ -11552,14 +11504,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
      	var enc = await imageToBase64(file)
          var buffer = Buffer.from(enc, 'base64')
          var { ext } = await fromBuffer(buffer)
-     	await fs.writeFileSync(__path + '/tmp/file.' + ext, buffer)
-         await exec(`zip -r zipped.7z ${__path}/tmp/file.${ext}`, (err, stderr, stdout) => {
+     	 await fs.writeFileSync(__path + '/tmp/7z_tmp.' + ext, buffer)
+         await exec(`zip -r ${__path}/tmp/zipped.7z ${__path}/tmp/7z_tmp.${ext}`, (err, stderr, stdout) => {
          if (err) return res.sendFile(error)
-         var zipped = fs.readFileSync('./zipped.7z')
+         var zipped = fs.readFileSync(__path + '/tmp/zipped.7z')
          var result = saveToMedia(zipped)
 
       res.json({
-      	status: true,
+       	  status: true,
           creator: creator,
           result: result
       })
@@ -11589,6 +11541,44 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
   res.sendFile(__path + '/tmp/clipclaps.mp4')
         }).catch(() => res.sendFile(error))
+})
+
+router.get('/unzip', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var file = req.query.file_zip,
+        apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.sendFile(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+        if (!file) return res.json({ message: 'Masukan parameter file_url' })
+        if (!file.startsWith('http')) return res.json(loghandler.invalidLink)
+
+     try {
+     	var enc = await imageToBase64(file)
+         var buffer = Buffer.from(enc, 'base64')
+         var { ext } = await fromBuffer(buffer)
+         if (!(ext == 'zip' || ext == '7z')) return res.json({ status: false, message: 'File harus berupa zip/7z!' })
+     	 await fs.writeFileSync(__path + '/tmp/zipped_tmp.' + ext, buffer)
+         await exec(`unzip -d ${__path}/unzipped ${__path}/tmp/zipped_tmp.${ext}`, (err, stderr, stdout) => {
+         if (err) return res.sendFile(error)
+         var unzipped = fs.readFileSync(__path + '/unzipped/' + fs.readdirSync(__path + '/unzipped'))
+         var result = saveToMedia(unzipped)
+
+      res.json({
+      	  status: true,
+          creator: creator,
+          result: result
+      })
+     })
+    } catch (e) {
+   	cosole.log(e)
+     res.sendFile(error)
+  }
 })
 
 // End of script
