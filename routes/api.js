@@ -501,6 +501,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var console = req.query.console;
 
     try {
+    if (!console) return res.json({ message: 'Masukan parameter console' })
+    if (console == '/' || console == '//') return res.json({ error: 'Invalid code' })
       await fs.writeFileSync(__path + '/console.js', console)
       await exec(`node ${__path}/console.js`, (err, stderr, stdout) => {
       var result
@@ -11567,12 +11569,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
      	var enc = await imageToBase64(file)
          var buffer = Buffer.from(enc, 'base64')
          var { ext } = await fromBuffer(buffer)
-     	await fs.writeFileSync(__path + '/tmp/file.' + ext, buffer)
+     	 await fs.writeFileSync(__path + '/tmp/file.' + ext, buffer)
          await exec(`zip -r zipped.zip ${__path}/tmp/file.${ext}`, (err, stderr, stdout) => {
-         if (err) {
-         	res.sendFile(error)
-             throw err
-         }
+         if (err) return res.sendFile(error)
          var zipped = fs.readFileSync('./zipped.zip')
          var result = saveToMedia(zipped)
 
@@ -11607,12 +11606,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
      	var enc = await imageToBase64(file)
          var buffer = Buffer.from(enc, 'base64')
          var { ext } = await fromBuffer(buffer)
-     	await fs.writeFileSync(__path + '/tmp/file.' + ext, buffer)
+     	 await fs.writeFileSync(__path + '/tmp/file.' + ext, buffer)
          await exec(`zip -r zipped.7z ${__path}/tmp/file.${ext}`, (err, stderr, stdout) => {
-         if (err) {
-         	res.sendFile(error)
-             throw err
-         }
+         if (err) return res.sendFile(error)
          var zipped = fs.readFileSync('./zipped.7z')
          var result = saveToMedia(zipped)
 
