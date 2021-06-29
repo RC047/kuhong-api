@@ -37,6 +37,7 @@ CHANGELOG :
 
 o Add Battery Reader!
 o Add Zip & 7z Compressor!
+o Add Zip & 7z Decompressor!
 o Add ClipClaps!
 o Some Update & Improve Templates!
 `.trim());
