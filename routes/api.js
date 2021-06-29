@@ -11467,20 +11467,20 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
      	var enc = await imageToBase64(file)
          var buffer = Buffer.from(enc, 'base64')
          var { ext } = await fromBuffer(buffer)
-     	 await fs.writeFileSync(__path + '/tmp/zip_tmp.' + ext, buffer)
+     	await fs.writeFileSync(__path + '/tmp/zip_tmp.' + ext, buffer)
          await exec(`zip -r ${__path}/tmp/zipped.zip ${__path}/tmp/zip_tmp.${ext}`, (err, stderr, stdout) => {
          if (err) return res.sendFile(error)
          var zipped = fs.readFileSync(__path + '/tmp/zipped.zip')
          var result = saveToMedia(zipped)
 
       res.json({
-      	  status: true,
+      	status: true,
           creator: creator,
           result: result
       })
      })
     } catch (e) {
-   	cosole.log(e)
+   	console.log(e)
      res.sendFile(error)
   }
 })
@@ -11504,20 +11504,20 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
      	var enc = await imageToBase64(file)
          var buffer = Buffer.from(enc, 'base64')
          var { ext } = await fromBuffer(buffer)
-     	 await fs.writeFileSync(__path + '/tmp/7z_tmp.' + ext, buffer)
+     	await fs.writeFileSync(__path + '/tmp/7z_tmp.' + ext, buffer)
          await exec(`zip -r ${__path}/tmp/zipped.7z ${__path}/tmp/7z_tmp.${ext}`, (err, stderr, stdout) => {
          if (err) return res.sendFile(error)
          var zipped = fs.readFileSync(__path + '/tmp/zipped.7z')
          var result = saveToMedia(zipped)
 
       res.json({
-       	  status: true,
+      	status: true,
           creator: creator,
           result: result
       })
      })
     } catch (e) {
-   	cosole.log(e)
+   	console.log(e)
      res.sendFile(error)
   }
 })
@@ -11548,7 +11548,7 @@ var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
     var file = req.query.file_zip,
-        apikeyInput = req.query.apikey;
+          apikeyInput = req.query.apikey;
 
         var maintenance = false
         if (maintenance == true) return res.sendFile(mtc)
@@ -11563,20 +11563,20 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
          var buffer = Buffer.from(enc, 'base64')
          var { ext } = await fromBuffer(buffer)
          if (!(ext == 'zip' || ext == '7z')) return res.json({ status: false, message: 'File harus berupa zip/7z!' })
-     	 await fs.writeFileSync(__path + '/tmp/zipped_tmp.' + ext, buffer)
+     	await fs.writeFileSync(__path + '/tmp/zipped_tmp.' + ext, buffer)
          await exec(`unzip -d ${__path}/unzipped ${__path}/tmp/zipped_tmp.${ext}`, (err, stderr, stdout) => {
          if (err) return res.sendFile(error)
          var unzipped = fs.readFileSync(__path + '/unzipped/' + fs.readdirSync(__path + '/unzipped'))
          var result = saveToMedia(unzipped)
 
       res.json({
-      	  status: true,
+      	status: true,
           creator: creator,
           result: result
       })
      })
     } catch (e) {
-   	cosole.log(e)
+   	console.log(e)
      res.sendFile(error)
   }
 })
