@@ -32,8 +32,7 @@ xhr.send();
 window.setTimeout('setTimes();', 1000);
 function setTimes() {
 
-    var xhr = new XMLHttpRequest();
-    var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
+    if (name == null) name = 'Guest';
     var date = new Date();
     var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     var ucapan;
@@ -41,15 +40,8 @@ function setTimes() {
     if (date.getHours() == 10 || date.getHours() == 11 || date.getHours() == 12 || date.getHours() == 13 || date.getHours() == 14) ucapan = 'Selamat Siang';
     if (date.getHours() == 15 || date.getHours() == 16 || date.getHours() == 17) ucapan = 'Selamat Sore';
     if (date.getHours() == 18 || date.getHours() == 19 || date.getHours() == 20 || date.getHours() == 21 || date.getHours() == 22 || date.getHours() == 23) ucapan = 'Selamat Malam';
-    xhr.onloadend = function() {
-    var json = JSON.parse(this.responeText);
-    var notif = ucapan + '\n' + json.name + '!';
+    var notif = ucapan + '\n' + name + '!';
           setTimeout('setTimes();', 1000);
           document.getElementById('time').innerHTML = time;
           document.getElementById('notif').innerHTML = notif;
-
-    }
-
-xhr.open('GET', url, true);
-xhr.send();
 }
