@@ -120,6 +120,7 @@ function getRating() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating', true);
     xhr.send();
+    }
 }
 
 function getUserData() {
