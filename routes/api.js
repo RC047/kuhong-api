@@ -137,9 +137,6 @@ var {
 var {
     removeBackgroundFromImageFile
 } = require('remove.bg');
-var { 
-	brainly
-} = require(__path + '/lib/brainly.js');
 var {
     math,
     modes
@@ -4915,68 +4912,20 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             message: 'Masukan parameter soal'
         })
 
-       function searchBrainly(query, count = 5) {
-        var response = brainly(query, count).catch(error => {
-        return {
-            'success': false,
-            'message': error,
-        }
-    })
-
-    return response;
-}
-
-        await searchBrainly(soal).then(result => {
+    try {
+        var json = await (await fetch(`https://recoders-area.caliph.repl.co/api/brainly?q=${soal}`)).json()
+        if (json.data == undefined) return res.json({ status: false, message: 'Soal tidak ditemukan!' })
 
            res.json({
             	status: true,
                 creator: creator,
-                result: result.data
+                result: json.data
            })
-       }).catch(error => {
-     	  console.log(error)
+
+    } catch (e) {
+   console.log(error)
       res.sendFile(error)
-   })
-})
-
-router.get('/belajar', async (req, res, next) => {
-var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var apikeyInput = req.query.apikey,
-        soal = req.query.soal;
-
-        var maintenance = false
-        if (maintenance == true) return res.sendFile(mtc)
-        if (!apikeyInput) return res.json(loghandler.notparam)
-        if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
-        if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
-        if (!soal) return res.json({
-            message: 'Masukan parameter soal'
-        })
-
-        function searchBrainly(query, count = 5) {
-        var response = brainly(query, count).catch(error => {
-        return {
-            'success': false,
-            'message': error,
-        }
-    })
-
-    return response;
-}
-
-        await searchBrainly(soal).then(result => {
-
-           res.json({
-            	status: true,
-                creator: creator,
-                result: result.data
-           })
-       }).catch(error => {
-     	  console.log(error)
-      res.sendFile(error)
-   })
+   }
 })
 
 router.get('/pantun', async (req, res, next) => {
@@ -4992,7 +4941,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
         if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
 
-        await fetch('https://raw.githubusercontent.com/RC047/intro-maker/main/pantun')
+        await fetch('https://raw.githubusercontent.com/RC047/media/main/pantun')
             .then(result => result.text())
             .then(body => {
                 var json = body.split('\n')
@@ -10327,7 +10276,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
     if (!text) return res.json(loghandler.nottext)
 
-        await imageToBase64('https://raw.githubusercontent.com/RC047/intro-maker/main/' + text.toLowerCase() + '.webm')
+        await imageToBase64('https://raw.githubusercontent.com/RC047/media/main/intromaker/' + text.toLowerCase() + '.webm')
         .then(media => {
         var buffer = Buffer.from(media, 'base64')
               fs.writeFileSync(__path + '/tmp/intro.mp4', buffer)
@@ -11569,7 +11518,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
      	var enc = await imageToBase64(file)
          var buffer = Buffer.from(enc, 'base64')
          var { ext } = await fromBuffer(buffer)
-     	 await fs.writeFileSync(__path + '/tmp/file.' + ext, buffer)
+     	await fs.writeFileSync(__path + '/tmp/file.' + ext, buffer)
          await exec(`zip -r zipped.zip ${__path}/tmp/file.${ext}`, (err, stderr, stdout) => {
          if (err) return res.sendFile(error)
          var zipped = fs.readFileSync('./zipped.zip')
@@ -11606,7 +11555,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
      	var enc = await imageToBase64(file)
          var buffer = Buffer.from(enc, 'base64')
          var { ext } = await fromBuffer(buffer)
-     	 await fs.writeFileSync(__path + '/tmp/file.' + ext, buffer)
+     	await fs.writeFileSync(__path + '/tmp/file.' + ext, buffer)
          await exec(`zip -r zipped.7z ${__path}/tmp/file.${ext}`, (err, stderr, stdout) => {
          if (err) return res.sendFile(error)
          var zipped = fs.readFileSync('./zipped.7z')
@@ -11622,6 +11571,27 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
    	cosole.log(e)
      res.sendFile(error)
   }
+})
+
+router.get('/clipclaps', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey;
+
+    var maintenance = false
+    if (maintenance == true) return res.sendFile(mtc)
+    if (!apikeyInput) return res.json(loghandler.notparam)
+    if (!(apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${banned_apikey}`)) return res.sendFile(invalidKey)
+    if (apikeyInput == `${banned_apikey}`) return res.json(loghandler.banned)
+
+        await imageToBase64('https://raw.githubusercontent.com/RC047/media/main/clipclaps/' + Math.floor(Math.random() * 47) + '.mp4')
+        .then(media => {
+        var buffer = Buffer.from(media, 'base64')
+              fs.writeFileSync(__path + '/tmp/clipclaps.mp4', buffer)
+
+  res.sendFile(__path + '/tmp/clipclaps.mp4')
+        }).catch(() => res.sendFile(error))
 })
 
 // End of script
