@@ -21,10 +21,6 @@ LOGIN REQUIRED :
 
 Silahkan masukan namamu untuk identitas diwebsite ini :)
 `.trim());
-if (name == null) name = 'Guest';
-if (name) {
-    name = name;
-} else name = 'Guest';
 if (name !== '') {
 console.log(`LOGIN :\n${name} just logged in to your website`);
 
@@ -44,6 +40,7 @@ function setTimes() {
     if (date.getHours() == 15 || date.getHours() == 16 || date.getHours() == 17) ucapan = 'Selamat Sore';
     if (date.getHours() == 18 || date.getHours() == 19 || date.getHours() == 20 || date.getHours() == 21 || date.getHours() == 22 || date.getHours() == 23) ucapan = 'Selamat Malam';
     var notif = ucapan + '\n' + name + '!';
+    if (notif == ucapan + '\nnull!') notif = ucapan + '\nGuest!';
           setTimeout('setTimes();', 1000);
           document.getElementById('time').innerHTML = time;
           document.getElementById('notif').innerHTML = notif;
@@ -271,7 +268,7 @@ battery.getStatus(function(status, error) {
   var date = new Date();
   var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/status';
+  var url = 'https://kuhong-api.herokuapp.com/status';
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
          var app;
