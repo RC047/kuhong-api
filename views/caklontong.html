@@ -1,0 +1,35 @@
+<script type="text/javascript">
+var play = true;
+
+while (play) {
+var xhr = new XMLHttpRequest();
+var url = 'https://kuhong-api.herokuapp.com/api/getapikey';
+      xhr.onloadend = function() {
+      var data = JSON.parse(this.responseText);
+var xhr2 = new XMLHttpRequest();
+var url2 = 'https://kuhong-api.herokuapp.com/api/kuis/caklontong?apikey=' + data.free_apikey;
+      xhr2.onloadend = function() {
+      var json = JSON.parse(this.responseText);
+      var jawaban = prompt('CAKLONTONG :\n\n' + json.soal);
+      if (jawaban) {
+      	jawaban = jawaban
+      } else {
+        alert('Kuis telah dibatalkan');
+        alert('Thanks for playing ^_^');
+        window.location = 'https://kuhong-api.herokuapp.com/docs';
+      }
+      if (jawaban !== json.jawaban) alert('Jawaban Salah!\n\n' + json.desk);
+      if (jawaban == json.jawaban) alert('Jawaban Benar!\n\nDesk:\n' + json.desk);
+      play = confirm('Main lagi?');
+
+      }
+xhr2.open('GET', url2, true);
+xhr2.send();
+      }
+xhr.open('GET', url, true);
+xhr.send();
+}
+
+alert('Thanks for playing ^_^');
+window.location = 'https://kuhong-api.herokuapp.com/docs';
+</script>
