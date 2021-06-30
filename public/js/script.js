@@ -21,6 +21,7 @@ LOGIN REQUIRED :
 
 Silahkan masukan namamu untuk identitas diwebsite ini :)
 `.trim());
+if (name == '') name = 'Guest';
 if (name !== '') {
 console.log(`LOGIN :\n${name} just logged in to your website`);
 
@@ -124,7 +125,7 @@ function runConsole() {
   var url = 'https://kuhong-api.herokuapp.com/api/run?console=' + console;
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
-         if (json.result == undefined || json.result == '') {
+         if (json.result == undefined || json.result == '' || json.result == 'undefined\n') {
              alert('No data can be sent')
              throw false;
          }
@@ -243,8 +244,11 @@ function getUserData() {
 
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
-          xhr.onloadend = function() {
+          xhr.onload = function() {
           var json = JSON.parse(this.responseText);
+  var xhr2 = new XMLHttpRequest();
+  var url2 = 'http://api.ipify.org'
+          xhr2.onload = function() {
 
 alert(`
 MY ACCOUNT :
@@ -252,10 +256,15 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.userID}
+IP Address: ${this.response}
 Account Type: ${json.accountType}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
 `.trim());
+         }
+
+  xhr2.open('GET', url2, true);
+  xhr2.send();
          }
 
   xhr.open('GET', url, true);
