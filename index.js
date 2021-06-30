@@ -18,7 +18,8 @@ app.use(express.static('public'));
 app.use('/', mainrouter);
 app.use('/api', apirouter);
 app.use((req, res, next) => {
-   res.sendFile(__path + '/views/undefined.html');
+   res.status(404);
+   res.sendFile(__path + '/views/404.html');
 });
 
 app.listen(PORT, () => {
