@@ -42,11 +42,25 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.sendFile(__path + '/views/caklontong.html')
 })
 
+router.get('/api/game/family100', async  (req, res) => {
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    res.sendFile(__path + '/views/family100.html')
+})
+
 router.get('/api/game/tebakangka', async (req, res) => {
 var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     res.sendFile(__path + '/views/tebakangka.html')
+})
+
+router.get('/api/game/suit', async  (req, res) => {
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    res.sendFile(__path + '/views/suit.html')
 })
 
 router.get('/api/game/suitjawa', async (req, res) => {
@@ -160,7 +174,7 @@ res.json({
             requests: request.value.toString(),
             visitors: visitor.value.toString(),
             stars: star.value.toString(),
-            features: '339',
+            features: '343',
             ip_blocked: Object.keys(blocked).length.toString()
     },
         owner:{
@@ -178,9 +192,9 @@ module.exports = router
 
 function muptime(seconds) {
 
-  var hours = Math.floor(seconds / (60 * 60));
-  var minutes = Math.floor(seconds % (60 * 60) / 60);
-  var seconds = Math.floor(seconds % 60);
+var hours = Math.floor(seconds / (60 * 60));
+var minutes = Math.floor(seconds % (60 * 60) / 60);
+var seconds = Math.floor(seconds % 60);
 
   return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
 }
