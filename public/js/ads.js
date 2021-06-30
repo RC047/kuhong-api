@@ -1,6 +1,6 @@
-// Ads provided by Me, not by Google :v
+// Just an ordinary custom-made ad viewer script
 
-if (name == 'CraftCoding') throw false; // User Premium tidak akan menerima iklan
+if (name == 'CraftCoding') throw false; // Buy remove ads will not receive ads
 
 var listAds = [
 'Dijual SC Bot WhatsApp 400+ fitur dengan harga 50K! url:https://wa.me/62895337278647?text=Min+saya+minat+mau+beli+sc+bot+wa',
@@ -21,7 +21,7 @@ var time = new Date();
 var timeUp = Math.floor(Math.random() * 23);
 if (time.getHours() == timeUp) {
     delay(3000);
-    alert('IKLAN :\n\n' + ads.split(' url:')[0]);
+    alert('ADS :\n\n' + ads.split(' url:')[0]);
     window.location = ads.split('url:')[1];
 }
 
