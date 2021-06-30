@@ -207,8 +207,8 @@ Placing Ads = 10K / Bulan
 Placing Ads = 20K / Tahun
 Remove Ads = 15K / Bulan
 Remove Ads = 30K / Tahun
-All Premium Packs = 75K / Bulan
-All Premium Packs = 150K / Tahun
+All Packs = 75K / Bulan
+All Packs = 150K / Tahun
 
 *Silahkan pilih "Oke" untuk menghubungi Owner dan lanjut membeli.
 `.trim());
