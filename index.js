@@ -17,9 +17,9 @@ app.use(express.static('public'));
 
 app.use('/', mainrouter);
 app.use('/api', apirouter);
-app.use((req, res,next) => {
-   res.sendFile(__path + '/views/undefined.html')
-})
+app.use((req, res, next) => {
+   res.sendFile(__path + '/views/undefined.html');
+});
 
 app.listen(PORT, () => {
     console.log(color('Server running on port ' + PORT, 'green'));
