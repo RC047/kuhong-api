@@ -246,9 +246,8 @@ function getUserData() {
   var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
           xhr.onload = function() {
           var json = JSON.parse(this.responseText);
-  var xhr2 = new XMLHttpRequest();
-  var url2 = 'http://api.ipify.org'
-          xhr2.onload = function() {
+          axios.get('http://api.ipify.org/?format=json')
+               .then(res => {
 
 alert(`
 MY ACCOUNT :
@@ -256,15 +255,12 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.userID}
-IP Address: ${this.response}
+IP Address: ${res.data.ip}
 Account Type: ${json.accountType}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
 `.trim());
-         }
-
-  xhr2.open('GET', url2, true);
-  xhr2.send();
+              })
          }
 
   xhr.open('GET', url, true);
