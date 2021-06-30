@@ -2,6 +2,6 @@
 
  * Menjalankan Console JavaScript
  * Url: https://kuhong-api.herokuapp.com/api/run?console=console.log('examples');
- * Parameter: console (text|string)
+ * Parameter: {text|string}
  * Method: GET
  */
