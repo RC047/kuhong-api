@@ -35,6 +35,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.sendFile(__path + '/views/pingpong.html')
 })
 
+router.get('/api/game/caklontong', async  (req, res) => {
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    res.sendFile(__path + '/views/caklontong.html')
+})
+
 router.get('/api/game/tebakangka', async (req, res) => {
 var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
