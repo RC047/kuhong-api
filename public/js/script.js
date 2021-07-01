@@ -68,7 +68,7 @@ ${url.split('api/')[1].toUpperCase()} :
 Url: ${url}
 Parameter:
 ${params}
-Method: ${method.toUpperCase()}
+Method: ${method}
 
 
 *Silahkan pilih "Oke" untuk mencoba.
