@@ -61,10 +61,12 @@ function getInfo(url, param, method) {
 var ok = confirm(`
 ${json.apiName} :
 
+Status: ${json.status}
 Url: ${json.pathUrl}
 Parameter: ${json.param}
 Method: ${json.method}
-Response: ${json.responseType}
+Response Type: ${json.responseType}
+Example: ${json.example}
 
 
 *Silahkan pilih "Oke" untuk mencoba.
