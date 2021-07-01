@@ -63,7 +63,7 @@ function runConsole() {
   var url = 'https://kuhong-api.herokuapp.com/api/run?console=' + console;
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
-         if (json.result == undefined || json.result == '' || json.result == 'undefined\n') {
+         if (json.result == undefined || json.result == '' || json.result.startsWith('undefined')) {
              alert('No data can be sent')
              throw false;
          }
@@ -191,6 +191,7 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.userID}
+IP: ${json.ipAddress}
 Account Type: ${json.accountType}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
