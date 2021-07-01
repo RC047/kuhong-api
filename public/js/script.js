@@ -55,7 +55,7 @@ function getInfo(url, param, method) {
 
 if (param == false) {
     param = 'apikey=APIKEY';
-} else param = param;
+} else param = param + '&apikey=APIKEY';
 var xhr = new XMLHttpRequest();
     xhr.onloadend = function() {
     var json = JSON.parse(this.responseText);
