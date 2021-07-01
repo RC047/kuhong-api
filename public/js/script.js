@@ -129,7 +129,7 @@ function redeemCode() {
          if (json.result == 'Kode Redeem Tidak Valid!') alert(json.result)
          if (json.result == 'Kode Redeem Valid!') {
              prompt(json.result + '\n\nSilahkan salin Apikey ini.', json.premium_key)
-             prompt(`Custom Apikey secara default adalah\n(${json.custom_key})\n\nAnda dapat mengubahnya dengan cara minta kepada Owner.`, json.custom_key)
+             prompt(`Custom Apikey secara default adalah\n(${json.custom_key})\n\nAnda dapat mengubahnya nanti dengan cara minta kepada Owner.`, json.custom_key)
          }
 
   xhr.open('GET', url, true);
@@ -177,6 +177,14 @@ function getRating() {
 
 function getUserData() {
 
+  window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+  var rtc = new RTCPeerConnection({iceServers:[]}), noop = function(){};      
+  rtc.createDataChannel('');
+  rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
+  rtc.onicecandidate = function(ice) {
+  if (!ice || !ice.candidate || !ice.candidate.candidate) return;
+  var localIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+  rtc.onicecandidate = noop;
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
           xhr.onload = function() {
@@ -188,7 +196,8 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.userID}
-IP Address: ${json.ipAddress}
+Local IP: ${localIP}
+Public IP: ${json.ipAddress}
 Account Type: ${json.accountType}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
@@ -197,6 +206,7 @@ Server ID: ${json.serverID}
 
   xhr.open('GET', url, true);
   xhr.send();
+  }
 }
 
 function getStatistics() {
