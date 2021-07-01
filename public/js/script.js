@@ -65,7 +65,8 @@ var xhr = new XMLHttpRequest();
 var ok = confirm(`
 ${url.split('api/')[1].toUpperCase()} :
 
-Url: ${url}
+Url:
+${url}
 Parameter:
 ${params}
 Method: ${method}
