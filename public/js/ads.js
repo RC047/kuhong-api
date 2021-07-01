@@ -1,7 +1,5 @@
 // Just an ordinary custom-made ad viewer script
 
-if (name == 'CraftCoding') throw false; // Buy remove ads will not receive ads
-
 var listAds = [
 'Dijual SC Bot WhatsApp 400+ fitur dengan harga 50K! url:https://wa.me/62895337278647?text=Min+saya+minat+mau+beli+sc+bot+wa',
 'Jangan lupa donasi biar update tiap hari! url:https://saweria.co/RC047',
