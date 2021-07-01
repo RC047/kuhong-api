@@ -115,6 +115,19 @@ o Some Update & Improve Templates!
 `.trim());
 }
 
+function getApikey() {
+
+  var xhr = new XMLHttpRequest();
+  var url = 'https://kuhong-api.herokuapp.com/api/getapikey';
+         xhr.onloadend = function() {
+         var json = JSON.parse(this.responseText);
+         prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n' + json.info, json.free_apikey);
+         }
+
+xhr.open('GET', url, true);
+xhr.send();
+}
+
 function checkApikey() {
 
   var apikeyInput = prompt('CHECK APIKEY :\n\nSilahkan masukan Apikey yang ingin dicek :')
@@ -150,7 +163,7 @@ function redeemCode() {
          var json = JSON.parse(this.responseText);
          if (json.result == 'Kode Redeem Tidak Valid!') alert(json.result)
          if (json.result == 'Kode Redeem Valid!') {
-             prompt(json.result + '\n\nSilahkan salin Apikey ini.', json.premium_key)
+             prompt(json.result + '\n\nSilahkan salin Apikeymu.', json.premium_key)
              prompt(`Custom Apikey secara default adalah\n(${json.custom_key})\n\nAnda dapat mengubahnya nanti dengan cara minta kepada Owner.`, json.custom_key)
          }
          }
