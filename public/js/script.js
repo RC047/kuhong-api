@@ -131,6 +131,7 @@ function redeemCode() {
              prompt(json.result + '\n\nSilahkan salin Apikey ini.', json.premium_key)
              prompt(`Custom Apikey secara default adalah\n(${json.custom_key})\n\nAnda dapat mengubahnya nanti dengan cara minta kepada Owner.`, json.custom_key)
          }
+         }
 
   xhr.open('GET', url, true);
   xhr.send();
@@ -187,7 +188,7 @@ function getUserData() {
   rtc.onicecandidate = noop;
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
-          xhr.onload = function() {
+          xhr.onloadend = function() {
           var json = JSON.parse(this.responseText);
 
 alert(`
