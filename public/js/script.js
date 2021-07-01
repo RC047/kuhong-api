@@ -51,6 +51,28 @@ function setTimes() {
 }
 
 // Other Functions (more functions?)
+function getInfo(feature, url, param, method, response) {
+
+var xhr = new XMLHttpRequest();
+    xhr.onloadend = function() {
+    var json = JSON.parse(this.responseText);
+    var apikey = json.apikey;
+
+alert(`
+${feature.toUpperCase()} :
+
+Url: ${url}
+Parameter: ${param}&apikey=YOUR_APIKEY
+Method: ${method.toUpperCase()}
+Response: ${response}
+`.trim())
+window.location = `${url + param}&apikey=${apikey}`
+
+    }
+xhr.open('GET', 'https://kuhong-api.herokuapp.com/api/login?name=' + name, true);
+xhr.send();
+}
+
 function runConsole() {
 
   var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :');
