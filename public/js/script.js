@@ -126,13 +126,11 @@ function redeemCode() {
   var url = 'https://kuhong-api.herokuapp.com/api/redeem?code=' + codeInput;
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
-         if (json.result.split('!')[0] == 'Kode Redeem Valid') {
-         alert(json.result);
+         if (json.result == 'Kode Redeem Tidak Valid!') alert(json.result)
+         if (json.result == 'Kode Redeem Valid!') {
+         alert(json.result + '\n\nAnda akan diarahkan kesitus untuk mendapatkan apikey.');
          window.location = 'https://kuhong-api.herokuapp.com/api/redeem?code=' + codeInput;
-         throw false;
          }
-
-         alert(json.result);
          }
 
   xhr.open('GET', url, true);
