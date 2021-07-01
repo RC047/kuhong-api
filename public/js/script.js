@@ -65,7 +65,7 @@ Status: ${json.status}
 Url: ${json.pathUrl}
 Parameter: ${json.param}
 Method: ${json.method}
-Response Type: ${json.responseType}
+Response: ${json.responseType}
 Example: ${json.example}
 
 
