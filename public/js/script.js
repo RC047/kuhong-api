@@ -53,29 +53,33 @@ function setTimes() {
 // Other Functions (more functions?)
 function getInfo(url, param, method) {
 
-var params;
 if (param == false) {
-    params = 'apikey=APIKEY';
-} else params = param + '&apikey=APIKEY';
+    param = 'apikey=APIKEY';
+} else param = param;
 var xhr = new XMLHttpRequest();
     xhr.onloadend = function() {
     var json = JSON.parse(this.responseText);
     var apikey = json.apikey;
+    var entries = new URLSearchParams(param).entries()
+    var params = '';
+    for (var entry of entries) {
+       params += entry[0] + ', ';
+    }
+    if (params == 'apikey, ') params = '';
 
 var ok = confirm(`
 ${url.split('api/')[1].toUpperCase()} :
 
 Url:
 ${url}
-Parameter:
-${params}
+Parameter: ${params + 'apikey'}
 Method: ${method}
 
 
 *Silahkan pilih "Oke" untuk mencoba.
 `.trim())
 if (ok) {
-    window.location = `${url}?${params.split('APIKEY')[0] + apikey}`;
+    window.location = `${url}?${param.split('APIKEY')[0] + apikey}`;
 } else throw false;
 
     }
@@ -131,7 +135,7 @@ function getApikey() {
   var url = 'https://kuhong-api.herokuapp.com/api/getapikey';
          xhr.onloadend = function() {
          var json = JSON.parse(this.responseText);
-         prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n' + json.info, json.free_apikey);
+         prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + json.info, json.free_apikey);
          }
 
 xhr.open('GET', url, true);
