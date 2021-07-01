@@ -269,7 +269,6 @@ Server ID: ${json.serverID}
 
 function getStatistics() {
 
-battery.getStatus(function(status, error) {
   var date = new Date();
   var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   var xhr = new XMLHttpRequest();
@@ -280,17 +279,12 @@ battery.getStatus(function(status, error) {
          if (json.stats.os == 'LINUX') {
          app = 'Linux';
          } else app = json.stats.os.toLowerCase();
-         var batteryLevel = Math.floor(status.level * 100) + '%';
-         if (status.charging == true || status.charging == 'true') batteryLevel = Math.floor(status.level * 100) + '% (Charging)';
-         if (batteryLevel == 'NaN%') batteryLevel = 'Not Detected';
-         if (error) batteryLevel = 'Not Detected';
 
 alert(`
 STATISTICS :
 
 Status: ${json.stats.status}
 App: ${app}
-Battery: ${batteryLevel}
 Time: ${time}
 Uptime: ${json.stats.uptime}
 Users: ${json.total.users}
