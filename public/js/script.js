@@ -128,9 +128,8 @@ function redeemCode() {
          var json = JSON.parse(this.responseText);
          if (json.result == 'Kode Redeem Tidak Valid!') alert(json.result)
          if (json.result == 'Kode Redeem Valid!') {
-         alert(json.result + '\n\nAnda akan diarahkan kesitus untuk mendapatkan apikey.');
-         window.location = 'https://kuhong-api.herokuapp.com/api/redeem?code=' + codeInput;
-         }
+             prompt(json.result + '\n\nSilahkan salin Apikey ini.', json.premium_key)
+             prompt(`Custom Apikey secara default adalah\n(${json.custom_key})\n\nAnda dapat mengubahnya dengan cara minta kepada Owner.`, json.custom_key)
          }
 
   xhr.open('GET', url, true);
@@ -189,7 +188,7 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.userID}
-IP: ${json.ipAddress}
+IP Address: ${json.ipAddress}
 Account Type: ${json.accountType}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
