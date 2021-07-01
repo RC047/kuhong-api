@@ -53,37 +53,28 @@ function setTimes() {
 // Other Functions (more functions?)
 function getInfo(url, param, method) {
 
-if (param == false) {
-    param = 'apikey=APIKEY';
-} else param = param + '&apikey=APIKEY';
-var xhr = new XMLHttpRequest();
-    xhr.onloadend = function() {
-    var json = JSON.parse(this.responseText);
-    var apikey = json.apikey;
-    var entries = new URLSearchParams(param).entries()
-    var params = '';
-    for (var entry of entries) {
-       params += entry[0] + ', ';
-    }
-    if (params == 'apikey, ') params = '';
+  var xhr = new XMLHttpRequest();
+  var url = `https://kuhong-api.herokuapp.com/api/getinfo?name=${name}&url=${url}&param=${param}&method=${method}`;
+         xhr.onloadend = function() {
+         var json = JSON.parse(this.responseText);
 
 var ok = confirm(`
-${url.split('api/')[1].toUpperCase()} :
+${json.apiName} :
 
-Url:
-${url}
-Parameter: ${params + 'apikey'}
-Method: ${method}
+Url: ${json.pathUrl}
+Parameter: ${json.param}
+Method: ${json.method}
+Response: ${json.responseType}
 
 
 *Silahkan pilih "Oke" untuk mencoba.
 `.trim())
 if (ok) {
-    window.location = `${url}?${param.split('APIKEY')[0] + apikey}`;
+    window.location = json.fullUrl;
 } else throw false;
 
     }
-xhr.open('GET', 'https://kuhong-api.herokuapp.com/api/login?name=' + name, true);
+xhr.open('GET', url, true);
 xhr.send();
 }
 
