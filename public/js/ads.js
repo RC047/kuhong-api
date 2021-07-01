@@ -18,8 +18,8 @@ var listAds = [
 
 var ads = pickRandom(listAds);
 var time = new Date();
-var timeUp = Math.floor(Math.random() * 23);
-if (time.getHours() == timeUp) {
+var timeUp = Math.floor(Math.random() * 60);
+if (time.getHours() == timeUp || time.getMinutes() == timeUp || time.getSeconds() == timeUp) {
     delay(3000);
     alert('ADS :\n\n' + ads.split(' url:')[0]);
     window.location = ads.split('url:')[1];
