@@ -66,7 +66,6 @@ Url: ${json.pathUrl}
 Parameter: ${json.param}
 Method: ${json.method}
 Response: ${json.responseType}
-Example: ${json.example}
 
 
 *Silahkan pilih "Oke" untuk mencoba.
