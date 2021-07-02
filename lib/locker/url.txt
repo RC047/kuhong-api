@@ -1,1 +1,0 @@
-https://kuhong-api.herokuapp.com/api
