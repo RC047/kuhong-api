@@ -239,7 +239,7 @@ Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.userID}
 Local IP: ${localIP}
-Public IP: ${json.ipAddress}
+Public IP: ${json.publicIP}
 Account Type: ${json.accountType}
 Apikey: ${json.apikey}
 Server ID: ${json.serverID}
