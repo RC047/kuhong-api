@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:image" name="og:image" content="https://i.ibb.co/frhZmyZ/pp.jpg">
     <meta property="og:description" content="Just A Simple API">
-    <title>kuhong - Rest API</title>
+    <title>Kuhong - Rest API</title>
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="https://i.ibb.co/frhZmyZ/pp.jpg">
     <link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co/frhZmyZ/pp.jpg">
@@ -39,7 +39,7 @@
       </div>
       <center class="profile">
         <img src="https://i.ibb.co/frhZmyZ/pp.jpg" alt="">
-        <p>kuhong - Rest API</p>
+        <p>Kuhong - Rest API</p>
       </center>
       <div class="menu">
     <div class="item"><a onclick="getUserData();"><i class="fas fa-user"></i>My Account</a></div>
@@ -412,21 +412,23 @@
 		<div class="item">
           <a class="sub-btn"><i class="fa fa-lock"></i>Encrypt Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/escape', 'data=var+res=`Ngetes+doang+;v`;console.log(res)', 'GET');" class="sub-item">Escape Encoder</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/unescape', 'data=%3c%68%74%6d%6c%3e%3c%62%6f%64%79%3e%3c%70%3e%4e%67%65%74%65%73%20%44%6f%61%6e%67%20%3b%76%3c%2f%70%3e%3c%2f%62%6f%64%79%3e%3c%2f%68%74%6d%6c%3e', 'GET');" class="sub-item">Escape Decoder</a>
+            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/escape', 'text=%3Cpre%3ENgetes%20doang%3C/pre%3E', 'GET');" class="sub-item">Escape Encoder</a>
+            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/unescape', 'text=%3c%68%74%6d%6c%3e%3c%62%6f%64%79%3e%3c%70%3e%4e%67%65%74%65%73%20%44%6f%61%6e%67%20%3b%76%3c%2f%70%3e%3c%2f%62%6f%64%79%3e%3c%2f%68%74%6d%6c%3e', 'GET');" class="sub-item">Escape Decoder</a>
             <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tobase64', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Media To Base64</a>
             <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tomedia', 'img=TEKS_BASE64IMG', 'GET');" class="sub-item">Base64 To Media</a>
 	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/binary', 'encode=RendyGans', 'GET');" class="sub-item">Binary Encoder</a>
             <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/binary', 'decode=011100100110010101101110011001000111100101100111011000010110111001110011', 'GET');" class="sub-item">Binary Decoder</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/base', 'type=base64&encode=RendyKece', 'GET');" class="sub-item">Base64 Encoder</a>
+            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/base', 'type=base64&encode=RendyGans', 'GET');" class="sub-item">Base64 Encoder</a>
             <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/base', 'type=base64&decode=SW5pQWRhbGFoQXBpa2V5UkMwNDc=', 'GET');" class="sub-item">Base64 Decoder</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/base', 'type=base32&encode=RendyKece', 'GET');" class="sub-item">Base32 Encoder</a>
+	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/base', 'type=base32&encode=RendyGans', 'GET');" class="sub-item">Base32 Encoder</a>
 	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/base', 'type=base32&decode=SW5pQWRhbGFoQXBpa2V5UkMwNDc', 'GET');" class="sub-item">Base32 Decoder</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sha1', 'text=RendyKece', 'GET');" class="sub-item">SHA1 Encoder</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sha256', 'text=RendyKece', 'GET');" class="sub-item">SHA256 Encoder</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sha512', 'text=RendyKece', 'GET');" class="sub-item">SHA512 Encoder</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/md5', 'text=RendyKece', 'GET');" class="sub-item">MD5 Encoder</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/randombyte', 'jumlah=50', 'GET');" class="sub-item">Random Bytes</a>
+	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/hex/encode', 'text=RendyGans', 'GET');" class="sub-item">Hex Encoder</a>
+	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/hex/decode', 'text=68616c6f', 'GET');" class="sub-item">Hex Decoder</a>
+		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sha1', 'text=RendyGans', 'GET');" class="sub-item">SHA1 Encoder</a>
+		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sha256', 'text=RendyGans', 'GET');" class="sub-item">SHA256 Encoder</a>
+		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sha512', 'text=RendyGans', 'GET');" class="sub-item">SHA512 Encoder</a>
+	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/md5', 'text=RendyGans', 'GET');" class="sub-item">MD5 Encoder</a>
+			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/randombyte', 'jumlah=100', 'GET');" class="sub-item">Random Bytes</a>
 	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/createcode', 'text=KodeAnjayy02', 'GET');" class="sub-item">Code Generator</a>
           </div>
         </div>
@@ -434,6 +436,7 @@
           <a class="sub-btn"><i class="fas fa-wrench"></i>Tools Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
             <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ssweb', 'url=https://www.youtube.com/c/RC047', 'GET');" class="sub-item">Screenshot Web</a>
+            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/lock', 'url=https://saweria.co/donate/RC047&pass=12345', 'GET');" class="sub-item">URL Locker</a>
             <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/imgbb', 'url=https://1.bp.blogspot.com/-TNGZGhSt_zI/X93Q4iKhQxI/AAAAAAAAVF4/L4rB8enc1HoFy5aXkvomfmxcR30kygKrACNcBGAsYHQ/s578/91913235_2830089170435663_4447843912417017856_n.jpg', 'GET');" class="sub-item">Imgbb Uploader</a>
 	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/telegraph', 'file_url=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">TelegraPH Uploader</a>
 	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/fileio', 'file_url=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">FileIO Uploader</a>
@@ -445,9 +448,6 @@
 		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/reverse', 'text=Kok%20hurufnya%20bisa%20kebalik%20kek%20gini%20yaa', 'GET');" class="sub-item">Text Reverser</a>
             <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/repeat', 'text=halo&jumlah=1000', 'GET');" class="sub-item">Text Repeater</a>
 	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/readmore', 'text=Anjasss', 'GET');" class="sub-item">Text Readmore</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/zip', 'file_url=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Zip Compressor</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/7z', 'file_url=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">7z Compressor</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/unzip', 'file_zip=https://download856.mediafire.com/u7kex71ux7bg/kb97t36aiaa72mo/Bahan2+Buat+Bikin+Quotes+By+RC047.zip', 'GET');" class="sub-item">Zip/7z Decompressor</a>
 	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tinyurl', 'url=https://kuhong-api.herokuapp.com', 'GET');" class="sub-item">Tiny Url</a>
 	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/bitly', 'url=https://kuhong-api.herokuapp.com', 'GET');" class="sub-item">Bitly Url</a>
 		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sid', 'url=https://kuhong-api.herokuapp.com', 'GET');" class="sub-item">S.ID Shortener</a>
@@ -455,6 +455,7 @@
             <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/calculator', 'angka=11%20*%2045', 'GET');" class="sub-item">Calculator</a>
 			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ipcheck', 'ip=125.161.59.184', 'GET');" class="sub-item">IP Checker</a>
 			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/html-viewer', 'url=https://www.google.com', 'GET');" class="sub-item">HTML Viewer</a>
+			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/html-preview', '%3Cpre%3EHalo%21%3C/pre%3E', 'GET');" class="sub-item">HTML Preview</a>
 			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/scraper/photooxy', 'url=https://photooxy.com/logo-and-text-effects/shadow-text-effect-in-the-sky-394.html&text=Anjayyy', 'GET');" class="sub-item">Photooxy Scraper</a>
 			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/scraper/textpro', 'url=https://textpro.me/3d-underwater-text-effect-generator-online-1013.html&text=Anjayyy', 'GET');" class="sub-item">TextPro Scraper</a>
 			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/scraper/ephoto360', 'url=https://en.ephoto360.com/free-online-art-paper-cut-text-effects-695.html&text=Anjayyy', 'GET');" class="sub-item">Ephoto360 Scraper</a>
