@@ -238,10 +238,10 @@ MY ACCOUNT :
 Name: ${json.name}
 Mail: ${json.mail}
 User ID: ${json.userID}
-Local IP: ${localIP}
-Public IP: ${json.publicIP}
 Account Type: ${json.accountType}
 Apikey: ${json.apikey}
+Local IP: ${localIP}
+Public IP: ${json.publicIP}
 Server ID: ${json.serverID}
 `.trim());
          }
