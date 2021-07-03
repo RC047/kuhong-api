@@ -55,6 +55,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.send(await fullEncryptHtml(tebakangka))
 })
 
+router.get('/game/tebakhuruf', async (req, res) => {
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    var tebakhuruf = await fs.readFileSync(__path + '/views/tebakhuruf.html').toString()
+    res.send(await fullEncryptHtml(tebakhuruf))
+})
+
 router.get('/game/suit', async  (req, res) => {
 var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
