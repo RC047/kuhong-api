@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Game Created By RC047" />
+    <style>
+    @import url("https://fonts.googleapis.com/css?family=Share+Tech+Mono|Montserrat:700");
+
+    * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+        box-sizing: border-box;
+        color: inherit;
+    }
+
+    body {
+        background-image: linear-gradient(120deg, #0b4aa8 0%, #000000 100%);
+        height: 100vh;
+    }
+
+    h1 {
+        font-size: 400px;
+        text-align: center;
+        position: fixed;
+        width: 100vw;
+        z-index: 1;
+        color: #ffffff26;
+        text-shadow: 0 0 50px rgba(0, 0, 0, 0.07);
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: "Montserrat", monospace;
+    }
+
+    div {
+        background: rgba(0, 0, 0, 0);
+        width: 70vw;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0 auto;
+        padding: 30px 30px 10px;
+        box-shadow: 0 0 150px -20px rgba(0, 0, 0, 0.5);
+        z-index: 3;
+    }
+
+    P {
+        font-family: "Share Tech Mono", monospace;
+        color: #f5f5f5;
+        margin: 0 0 20px;
+        font-size: 17px;
+        line-height: 1.2;
+    }
+
+    span {
+        color: #f0c674;
+    }
+
+    i {
+        color: #eded00;
+    }
+
+    div a {
+        text-decoration: none;
+    }
+
+    b {
+        color: #eded00;
+    }
+
+    a.avatar {
+        position: fixed;
+        bottom: 15px;
+        right: -200px;
+        animation: slide 0.5s 2.5s forwards;
+        display: block;
+        z-index: 4
+    }
+
+    a.avatar img {
+        border-radius: 100%;
+        width: 200px;
+        border: 7px solid white;
+    }
+
+    @keyframes slide {
+        from {
+            right: -100px;
+            transform: rotate(360deg);
+            opacity: 0;
+        }
+        to {
+            right: 15px;
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+    }
+    </style>
+</head>
+<body>
+    <h1>THANKS</h1>
+    <div><p>> <span>Pesan</span>: "<i>Terima Kasih Telah Bermain</i>"</p>
+    <p>> <span>This game created By:</span>: [ RC047 ]</p>
+    <p>> <span>Happy Using~</span></p>
+    </div>
+<script>
+var kuis = true;
+var soal = [
+'Pemain bola apa yang beratnya 3 kg?',
+'Penyanyi luar negeri yang suka sepeda’an ?',
+'Penyanyi yang rambutnya gak lurus?',
+'Penyanyi luar negeri yang asli Indonesia?',
+'Penyanyi luar negeri yang susah nelen?',
+'Penyanyi yang sering gak sadar diri?',
+'Gubernur apa yang suka nyanyi?',
+'Wakil presiden yang sering nonton streaming?',
+'Mengapa motor berhenti di depan lampu merah?',
+'Tebak binatang apa yang jago renang?',
+'Kenapa di rel kereta api ditaruh batu?',
+'Cuaca sedang mendung. Ada 5 orang tapi hanya ada 1 payung. Bagaimana caranya agar mereka semua tidak kehujanan?',
+'Ayam apa yang bikin sebel?',
+'Kenapa di komputer ada tulisan ENTER?',
+'Kunci apa yang bisa bikin orang joget?',
+'Benda kecil apa yang bisa ngeluarin orang?',
+'Belajar bahasa Mandarin, lantai basah artinya apa?',
+'Apa jenis kutu yang amat mengerikan?',
+'Apa warnanya angin?',
+'Benda apa keluar ketika diputar?',
+'Malam apa yang sangat mengerikan dan menakutkan?',
+'Ada orang sedang mencari sesuatu, datang bersih pulang babak belur. Apa yang sebenanya dia cari?',
+'Terjemahkan ke dalam bahasa jepang tidak ada uang?',
+'Benda apa yang huruf depannya K belakangnya L. Sedang bila ditarik keras, kalau dilepas lemas?',
+'Mengapa mobil dan motor berhenti ketika lampu sedang berwarna merah?',
+'Banyak dijauhi orang padahal kulitnya berwarna putih?',
+'Apa alasan ninja memakai kain untuk penutup kepala?',
+'Apa alasan pohon kelapa di depan rumah wajib ditebang?',
+'Jika tidur maka dia bangun. Bila bangun, dia tidur?',
+'Penyakit apa yang suka banget diperlihara manusia?',
+'Monyet apa yang paling nyebelin?',
+'Apa bedanya kamu dengan lukisan?',
+'Apa bedanya kalo jam 12:00 sama kamu?',
+'Bis apa yang paling membahagiakan?',
+'Setan apa yang paling romantis?',
+'Cecak apa yang bisa bikin aku mati?',
+'Kopi apa yang paling pahit?',
+'Rel apa yang paling sakit?',
+'Tiang apa yang enak?',
+'Tau gak kenapa menara pisa miring ?',
+'Susu apa yang indah?',
+'Apa Kepanjangan dari Jumat?',
+'Awan apa yang bikin seneng?',
+'Buah apa yang paling kaya?',
+'Apa itu Cemilan?',
+'Telur sama Ayam duluan mana?',
+'Telur sama Ayam duluan mana?',
+'Telur sama Ayam duluan mana?',
+'Nembaknya ke lantai tapi yang kena hidung, apakah itu?',
+'Tentara apa yang paling kecil?',
+'Apa persamaannya uang dan rahasia?',
+'Apa bedanya matahari dengan bulan?',
+'Apa bahasa Jepangnya Saya dicopet?',
+'Lemari yang bisa masuk kantong?',
+'Bebek apa yang jalannya muter ke kiri terus?',
+'Ada ayam lima, dikali dua. Berapa semuanya?',
+'Kalau saja ada sekolah yang berisi semua jenis hewan, siapa yang sering terlambat?',
+'Kaki seribu kalau belok kiri kakinya berapa?',
+'Ditutup jadi tongkat, dibuka jadi tenda. Apakah itu?',
+'Orang apa yang berenang tapi rambutnya tak pernah basah?',
+'Bila gajah jadi ayam, lalu singa jadi ayam, dan kambing jadi ayam, maka ayam jadi apa?',
+'Apa perbedaan aksi dengan demo?',
+'Apa huruf kelima dalam abjad?',
+'Pesawat jatuh, kapal tenggelam, munculnya di mana?',
+'Apa bedanya sepatu sama jengkol?',
+'Mana yang lebih berat, kapas 100 kg atau besi 100 kg?',
+'Ditengah sawah ada apa?',
+];
+
+while (kuis) {
+   var jawaban = prompt('KUIS :\b' + pickRandom(soal));
+   if (jawaban == null) {
+   alert('Anda telah menekan tombol "Batal"\n\nKuis telah dibatalkan!');
+   } else if (jawaban == '') {
+   alert('Masukan Jawaban!');
+   } else if (jawaban.toLowerCase().startsWith('Bambang tabung gas'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Selena gowes'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Ayu yang keriting'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Justin beber'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Ed sered'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Pingsan mambo'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Biduan kemil'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Muhammad youtube kalla'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Karena motornya direm'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Bebek'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Soalnya kalau ditaruh duit nanti pada diambil'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Tinggal jalan aja'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Ayam yang habis'.split(' ')[0]) || jawaban.toLowerCase().startsWith('karena kalo tulisannya entar programnya ngga jalan-jalan'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Kunci hotae'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Bel rumah'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Lhi Chin'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Kutukan'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Merah karna orang masuk angin'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Lipstik bibir'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Maklampir'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Orang yang lagi cari masalah'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Sakukurata takupusing'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Ketapel'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Karena direm'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Orang yang kena panu sekujur tubuh'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Bayangkan kalau pakai daun pisang dikepala Dikira nasi bungkus terbang dah'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Mau dicabut tapi susah'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Telapak kaki'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Pusing persia'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Monyetel Televisi tapi gak bisa'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Jika lukisan makin lama tambah antik. Kalau kamu makin lama tambah cantik'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Kalau jam 12:00 kesiangan kalu kamu kesayangan'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Bisa nikah sama kamu'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Setangkai bunga mawar kupersembahkan untukmu'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Cecak napas kalau lihat senyumanmu'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Kopilih dia daripada aku'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Relain aku pergi bersama yang lain'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Tiang-tiang mikirin kamu sambil minum es campur'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Karena ketarik sama senyummu'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Susungguhnya aku sayang kamu'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Jumat itu jujur'.split(' ')[0]) || jawaban.toLowerCase().startsWith('a wanna be with you'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Sri Kaya'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Cecudah Celapan'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Telur lebih dahulu daripada ayam'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Huruf W'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Kentut'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Tentara sekutu'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Sama-sama susah dipegang'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Matahari ada diskon bulan nggak ada'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Sakukudiraba Takurasa'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Lema ribu'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Bebek dikunci stang'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Soalnya yang di kali 2 yang di darat 3'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Soalnya kakinya banyak jadinya kalau pakai sepatu kelamaan'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Tetep 1000'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Payung'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Orang gundul'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Ayam jadi banyak dong'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Kalau aksi rodanya empat kalau demo rodanya tiga'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Huruf E'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Di koran'.split(' ')[0]) || jawaban.toLowerCase().startsWith('Kalau sepatu disemir kalau jengkol disemur'.split(' ')[0]) || jawaban.toLowerCase().startsWith('sama sama 100 kg'.split(' ')[0])) {
+   alert('Dikit Lagi!');
+   } else if (jawaban.toLowerCase().endsWith('Bambang tabung gas'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Selena gowes'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Ayu yang keriting'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Justin beber'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Ed sered'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Pingsan mambo'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Biduan kemil'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Muhammad youtube kalla'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Karena motornya direm'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Bebek'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Soalnya kalau ditaruh duit nanti pada diambil'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Tinggal jalan aja'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Ayam yang habis'.split(' ')[1]) || jawaban.toLowerCase().endsWith('karena kalo tulisannya entar programnya ngga jalan-jalan'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Kunci hotae'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Bel rumah'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Lhi Chin'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Kutukan'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Merah karna orang masuk angin'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Lipstik bibir'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Maklampir'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Orang yang lagi cari masalah'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Sakukurata takupusing'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Ketapel'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Karena direm'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Orang yang kena panu sekujur tubuh'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Bayangkan kalau pakai daun pisang dikepala Dikira nasi bungkus terbang dah'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Mau dicabut tapi susah'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Telapak kaki'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Pusing persia'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Monyetel Televisi tapi gak bisa'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Jika lukisan makin lama tambah antik. Kalau kamu makin lama tambah cantik'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Kalau jam 12:00 kesiangan kalu kamu kesayangan'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Bisa nikah sama kamu'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Setangkai bunga mawar kupersembahkan untukmu'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Cecak napas kalau lihat senyumanmu'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Kopilih dia daripada aku'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Relain aku pergi bersama yang lain'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Tiang-tiang mikirin kamu sambil minum es campur'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Karena ketarik sama senyummu'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Susungguhnya aku sayang kamu'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Jumat itu jujur'.split(' ')[1]) || jawaban.toLowerCase().endsWith('a wanna be with you'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Sri Kaya'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Cecudah Celapan'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Telur lebih dahulu daripada ayam'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Huruf W'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Kentut'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Tentara sekutu'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Sama-sama susah dipegang'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Matahari ada diskon bulan nggak ada'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Sakukudiraba Takurasa'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Lema ribu'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Bebek dikunci stang'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Soalnya yang di kali 2 yang di darat 3'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Soalnya kakinya banyak jadinya kalau pakai sepatu kelamaan'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Tetep 1000'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Payung'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Orang gundul'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Ayam jadi banyak dong'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Kalau aksi rodanya empat kalau demo rodanya tiga'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Huruf E'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Di koran'.split(' ')[1]) || jawaban.toLowerCase().endsWith('Kalau sepatu disemir kalau jengkol disemur'.split(' ')[1]) || jawaban.toLowerCase().endsWith('sama sama 100 kg'.split(' ')[1])) {
+   alert('Dikit Lagi!');
+   } else if (jawaban.toLowerCase() == 'Bambang tabung gas'.toLowerCase() || jawaban.toLowerCase() == 'Selena gowes'.toLowerCase() || jawaban.toLowerCase() == 'Ayu yang keriting'.toLowerCase() || jawaban.toLowerCase() == 'Justin beber'.toLowerCase() || jawaban.toLowerCase() == 'Ed sered'.toLowerCase() || jawaban.toLowerCase() == 'Pingsan mambo'.toLowerCase() || jawaban.toLowerCase() == 'Biduan kemil'.toLowerCase() || jawaban.toLowerCase() == 'Muhammad youtube kalla'.toLowerCase() || jawaban.toLowerCase() == 'Karena motornya direm'.toLowerCase() || jawaban.toLowerCase() == 'Bebek'.toLowerCase() || jawaban.toLowerCase() == 'Soalnya kalau ditaruh duit nanti pada diambil'.toLowerCase() || jawaban.toLowerCase() == 'Tinggal jalan aja'.toLowerCase() || jawaban.toLowerCase() == 'Ayam yang habis'.toLowerCase() || jawaban.toLowerCase() == 'karena kalo tulisannya entar programnya ngga jalan-jalan'.toLowerCase() || jawaban.toLowerCase() == 'Kunci hotae'.toLowerCase() || jawaban.toLowerCase() == 'Bel rumah'.toLowerCase() || jawaban.toLowerCase() == 'Lhi Chin'.toLowerCase() || jawaban.toLowerCase() == 'Kutukan'.toLowerCase() || jawaban.toLowerCase() == 'Merah karna orang masuk angin'.toLowerCase() || jawaban.toLowerCase() == 'Lipstik bibir'.toLowerCase() || jawaban.toLowerCase() == 'Maklampir'.toLowerCase() || jawaban.toLowerCase() == 'Orang yang lagi cari masalah'.toLowerCase() || jawaban.toLowerCase() == 'Sakukurata takupusing'.toLowerCase() || jawaban.toLowerCase() == 'Ketapel'.toLowerCase() || jawaban.toLowerCase() == 'Karena direm'.toLowerCase() || jawaban.toLowerCase() == 'Orang yang kena panu sekujur tubuh'.toLowerCase() || jawaban.toLowerCase() == 'Bayangkan kalau pakai daun pisang dikepala Dikira nasi bungkus terbang dah'.toLowerCase() || jawaban.toLowerCase() == 'Mau dicabut tapi susah'.toLowerCase() || jawaban.toLowerCase() == 'Telapak kaki'.toLowerCase() || jawaban.toLowerCase() == 'Pusing persia'.toLowerCase() || jawaban.toLowerCase() == 'Monyetel Televisi tapi gak bisa'.toLowerCase() || jawaban.toLowerCase() == 'Jika lukisan makin lama tambah antik. Kalau kamu makin lama tambah cantik'.toLowerCase() || jawaban.toLowerCase() == 'Kalau jam 12:00 kesiangan kalu kamu kesayangan'.toLowerCase() || jawaban.toLowerCase() == 'Bisa nikah sama kamu'.toLowerCase() || jawaban.toLowerCase() == 'Setangkai bunga mawar kupersembahkan untukmu'.toLowerCase() || jawaban.toLowerCase() == 'Cecak napas kalau lihat senyumanmu'.toLowerCase() || jawaban.toLowerCase() == 'Kopilih dia daripada aku'.toLowerCase() || jawaban.toLowerCase() == 'Relain aku pergi bersama yang lain'.toLowerCase() || jawaban.toLowerCase() == 'Tiang-tiang mikirin kamu sambil minum es campur'.toLowerCase() || jawaban.toLowerCase() == 'Karena ketarik sama senyummu'.toLowerCase() || jawaban.toLowerCase() == 'Susungguhnya aku sayang kamu'.toLowerCase() || jawaban.toLowerCase() == 'Jumat itu jujur'.toLowerCase() || jawaban.toLowerCase() == 'a wanna be with you'.toLowerCase() || jawaban.toLowerCase() == 'Sri Kaya'.toLowerCase() || jawaban.toLowerCase() == 'Cecudah Celapan'.toLowerCase() || jawaban.toLowerCase() == 'Telur lebih dahulu daripada ayam'.toLowerCase() || jawaban.toLowerCase() == 'Huruf W'.toLowerCase() || jawaban.toLowerCase() == 'Kentut'.toLowerCase() || jawaban.toLowerCase() == 'Tentara sekutu'.toLowerCase() || jawaban.toLowerCase() == 'Sama-sama susah dipegang'.toLowerCase() || jawaban.toLowerCase() == 'Matahari ada diskon bulan nggak ada'.toLowerCase() || jawaban.toLowerCase() == 'Sakukudiraba Takurasa'.toLowerCase() || jawaban.toLowerCase() == 'Lema ribu'.toLowerCase() || jawaban.toLowerCase() == 'Bebek dikunci stang'.toLowerCase() || jawaban.toLowerCase() == 'Soalnya yang di kali 2 yang di darat 3'.toLowerCase() || jawaban.toLowerCase() == 'Soalnya kakinya banyak jadinya kalau pakai sepatu kelamaan'.toLowerCase() || jawaban.toLowerCase() == 'Tetep 1000'.toLowerCase() || jawaban.toLowerCase() == 'Payung'.toLowerCase() || jawaban.toLowerCase() == 'Orang gundul'.toLowerCase() || jawaban.toLowerCase() == 'Ayam jadi banyak dong'.toLowerCase() || jawaban.toLowerCase() == 'Kalau aksi rodanya empat kalau demo rodanya tiga'.toLowerCase() || jawaban.toLowerCase() == 'Huruf E'.toLowerCase() || jawaban.toLowerCase() == 'Di koran'.toLowerCase() || jawaban.toLowerCase() == 'Kalau sepatu disemir kalau jengkol disemur'.toLowerCase() || jawaban.toLowerCase() == 'sama sama 100 kg'.toLowerCase()) {
+   alert('Jawaban Benar!\n\nJawabannya adalah (' + jawaban + ')');
+   } else alert('Jawaban Salah!');
+
+kuis = confirm('Main lagi?');
+if (!kuis) alert('Oke,, Terimakasih telah bermain~');
+}
+
+function pickRandom(list) {
+   return list[Math.floor(Math.random() * list.length)];
+}
+</script>
+</body>
+<script>
+    var str = document.getElementsByTagName('div')[0].innerHTML.toString();
+    var i = 0;
+    document.getElementsByTagName('div')[0].innerHTML = "";
+
+    setTimeout(function() {
+        var se = setInterval(function() {
+            i++;
+            document.getElementsByTagName('div')[0].innerHTML = str.slice(0, i) + "|";
+            if (i == str.length) {
+                clearInterval(se);
+                document.getElementsByTagName('div')[0].innerHTML = str;
+            }
+        }, 10);
+    },0);
+    </script>
+</html>
