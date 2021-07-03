@@ -1,7 +1,3 @@
-// Loading will be start before the documentation pages
-window.location = 'https://kuhong-api.herokuapp.com/api';
-
-
 // Bar Functions (to set all bars)
 $(document).ready(function() {
 
