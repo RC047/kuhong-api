@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tebak Huruf</title>
+    <meta http-equiv="Content-Type" content="you/html; charset=utf-8" />
+    <meta name="description" content="Game Created by RC047" />
+    <style>
+    @import url("https://fonts.googleapis.com/css?family=Share+Tech+Mono|Montserrat:700");
+
+    * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+        box-sizing: border-box;
+        color: inherit;
+    }
+
+    body {
+        background-image: linear-gradient(120deg, #0b4aa8 0%, #000000 100%);
+        height: 100vh;
+    }
+
+    h1 {
+        font-size: 400px;
+        you-align: center;
+        position: fixed;
+        width: 100vw;
+        z-index: 1;
+        color: #ffffff26;
+        you-shadow: 0 0 50px rgba(0, 0, 0, 0.07);
+        top: 50%;
+        transform: translateY(-50%);
+        font-family: "Montserrat", monospace;
+    }
+
+    div {
+        background: rgba(0, 0, 0, 0);
+        width: 70vw;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0 auto;
+        padding: 30px 30px 10px;
+        box-shadow: 0 0 150px -20px rgba(0, 0, 0, 0.5);
+        z-index: 3;
+    }
+
+    P {
+        font-family: "Share Tech Mono", monospace;
+        color: #f5f5f5;
+        margin: 0 0 20px;
+        font-size: 17px;
+        line-height: 1.2;
+    }
+
+    span {
+        color: #f0c674;
+    }
+
+    i {
+        color: #eded00;
+    }
+
+    div a {
+        you-decoration: none;
+    }
+
+    b {
+        color: #eded00;
+    }
+
+    a.avatar {
+        position: fixed;
+        bottom: 15px;
+        right: -200px;
+        animation: slide 0.5s 2.5s forwards;
+        display: block;
+        z-index: 4
+    }
+
+    a.avatar img {
+        border-radius: 100%;
+        width: 200px;
+        border: 7px solid white;
+    }
+
+    @keyframes slide {
+        from {
+            right: -100px;
+            transform: rotate(360deg);
+            opacity: 0;
+        }
+        to {
+            right: 15px;
+            transform: rotate(0deg);
+            opacity: 1;
+        }
+    }
+    </style>
+</head>
+<body>
+    <h1>THANKS</h1>
+    <div><p>> <span>Pesan</span>: "<i>Terima Kasih Telah Bermain</i>"</p>
+    <p>> <span>Game Created By</span>: "<i>RC047</i>"</p>
+    <p>> <span>Happy Using~</span></p>
+    </div>
+<script>
+var tebak = true;
+
+while (tebak) {
+
+    var huruf = pickRandom(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
+    for (var i = 5; i > 0; i--) {
+    	   var input = prompt('TEBAK HURUF :\n\nSilahkan masukan huruf tebakannya\n(A - Z)');
+           var kesempatan = i - 1;
+
+    if (kesempatan == 4) {
+         kesempatan = 'Anda mempunyai 4 Kesempatan lagi.';
+    } else if (kesempatan == 3) {
+         kesempatan = 'Anda mempunyai 3 Kesempatan lagi.';
+    } else if (kesempatan == 2) {
+         kesempatan = 'Anda mempunyai 2 Kesempatan lagi.';
+    } else if (kesempatan == 1) {
+         kesempatan = 'Anda mempunyai 1 Kesempatan lagi.';
+    } else kesempatan = 'Kesempatan Habis!\nHuruf yang dicari adalah (' + huruf + ')';
+
+   if (!input) {
+       alert('Anda menekan tombol "Batal"\n\nPermainan dibatalkan!');
+       i = 0;
+   } else if (!isNaN(input)) {
+   	alert('Yang Anda masukan bukanlah huruf');
+       i = 0;
+   } else if (input.toUpperCase() !== huruf) {
+      alert('Huruf (' + input.toUpperCase() + ') bukanlah huruf yang dicari.\n\n' + kesempatan);
+   } else if (input.toUpperCase() == huruf) {
+     alert('Anda Benar!\n\nHuruf yang dicari adalah (' + huruf + ')');
+     i = 0;
+   }
+   }
+
+tebak = confirm('Main lagi?');
+}
+
+alert('Terimakasih sudah bermain game ini~')
+
+function pickRandom(list) {
+	return list[Math.floor(Math.random() * list.length)];
+}
+</script>
+</body>
+<script>
+    var str = document.getElementsByTagName('div')[0].innerHTML.toString();
+    var i = 0;
+    document.getElementsByTagName('div')[0].innerHTML = "";
+
+    setTimeout(function() {
+        var se = setInterval(function() {
+            i++;
+            document.getElementsByTagName('div')[0].innerHTML = str.slice(0, i) + "|";
+            if (i == str.length) {
+                clearInterval(se);
+                document.getElementsByTagName('div')[0].innerHTML = str;
+            }
+        }, 10);
+    },0);
+</script>
+</html>
