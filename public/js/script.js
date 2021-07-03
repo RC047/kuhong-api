@@ -23,7 +23,7 @@ LOGIN REQUIRED :
 
 Silahkan masukan namamu untuk identitas diwebsite ini :)
 `.trim());
-if (name == '') name = 'Guest';
+if (!name || name == '') name = 'Guest';
 if (name !== '') {
 console.log(`LOGIN :\n${name} just logged in to your website`);
 
@@ -43,8 +43,8 @@ function setTimes() {
     if (date.getHours() == 10 || date.getHours() == 11 || date.getHours() == 12 || date.getHours() == 13 || date.getHours() == 14) ucapan = 'Selamat Siang';
     if (date.getHours() == 15 || date.getHours() == 16 || date.getHours() == 17) ucapan = 'Selamat Sore';
     if (date.getHours() == 18 || date.getHours() == 19 || date.getHours() == 20 || date.getHours() == 21 || date.getHours() == 22 || date.getHours() == 23) ucapan = 'Selamat Malam';
-    var notif = ucapan + '\n' + name + '!';
-    if (notif == ucapan + '\nnull!') notif = ucapan + '\nGuest!';
+    var notif = ucapan + ' ' + name + '!';
+    if (notif == ucapan + ' null!') notif = ucapan + ' Guest!';
           setTimeout('setTimes();', 1000);
           document.getElementById('time').innerHTML = time;
           document.getElementById('notif').innerHTML = notif;
@@ -188,7 +188,12 @@ function getRequest() {
     } else throw false;
     if (request !== '') {
          alert('Terimakasih atas masukan Anda!');
-         console.log('REQUEST :\n' + request);
+         var message = 'REQUEST API :\n' + request;
+         var xhr = new XMLHttpRequest();
+         var url = 'https://api.callmebot.com/whatsapp.php?phone=+62895337278647&text=' + message + '&apikey=171698';
+
+    xhr.open('GET', url, true);
+    xhr.send();
     }
 }
 
@@ -201,7 +206,12 @@ function getReport() {
     } else throw false;
     if (report !== '') {
          alert('Terimakasih atas laporan Anda!');
-         console.log('REPORT :\n' + report);
+         var message = 'REPORT API :\n' + request;
+         var xhr = new XMLHttpRequest();
+         var url = 'https://api.callmebot.com/whatsapp.php?phone=+62895337278647&text=' + message + '&apikey=171698';
+
+    xhr.open('GET', url, true);
+    xhr.send();
     }
 }
 
