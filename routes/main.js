@@ -38,7 +38,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var pingpong = await fs.readFileSync(__path + '/views/pingpong.html').toString()
-    res.send(await encryptHtml(kuis, 'advanced'))
+    res.send(await encryptHtml(pingpong, 'advanced'))
 })
 
 router.get('/game/kuis', async  (req, res) => {
