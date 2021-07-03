@@ -14,7 +14,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="https://i.ibb.co/frhZmyZ/pp.jpg">
     <meta property="og:image" name="og:image" content="https://i.ibb.co/frhZmyZ/pp.jpg">
     <meta name="theme-color" content="#ffffff">
-    <audio autoplay="autoplay" hidden="hidden" src="https://kuhong-api.herokuapp.com/api/getmusic"></audio>
+    <audio autoplay="autoplay" hidden="hidden" src="api/getmusic"></audio>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
@@ -53,428 +53,428 @@
         <div class="item">
           <a class="sub-btn"><i class="fas fa-download"></i>Sosmed Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/soundcloud', 'url=https://soundcloud.com/aviwkila/aviwkila-doa-untuk-kamu', 'GET');" class="sub-item">SoundCloud Downloader</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ytmp4', 'url=https://youtu.be/ScQsoRotYxA', 'GET');" class="sub-item">YouTube Video Downloader</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ytmp3', 'url=https://youtu.be/ScQsoRotYxA', 'GET');" class="sub-item">YouTube Audio Downloader</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/instagram', 'url=https://www.instagram.com/p/CIk47s2FMl4', 'GET');" class="sub-item">Instagram Downloader</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/igstory', 'username=frostdiamondd', 'GET');" class="sub-item">Instagram Story Downloader</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/fb', 'url=https://id-id.facebook.com/SamsungGulf/videos/video-bokeh/561108457758458', 'GET');" class="sub-item">Facebook Downloader</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tiktok', 'url=https://vt.tiktok.com/ZSJ4CFx1A/', 'GET');" class="sub-item">Tiktok Downloader</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tiktokstalk', 'username=Notnot8.', 'GET');" class="sub-item">Tiktok Stalk</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/igstalk', 'username=frostdiamondd', 'GET');" class="sub-item">Instagram Stalk</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/gdrive', 'url=https://drive.google.com/file/d/1SugE8vjfOyyW3VTRqsxlW_GJh6EKQ19X/view', 'usp=drivesdk', 'GET');" class="sub-item">Google Drive Downloader</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/mediafire', 'url=http://www.mediafire.com/file/js0gr2nozcmk9yg/example.txt/file', 'GET');" class="sub-item">MediaFire Downloader</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/linesticker', 'url=https://store.line.me/stickershop/product/4877/id', 'GET');" class="sub-item">LineSticker Downloader</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/githubstalk', 'username=RC047', 'GET');" class="sub-item">Github Stalk</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/infonpm', 'query=request&hostname=request', 'GET');" class="sub-item">Info NPM</a>
+            <a onclick="getInfo('api/soundcloud', 'url=https://soundcloud.com/aviwkila/aviwkila-doa-untuk-kamu', 'GET');" class="sub-item">SoundCloud Downloader</a>
+            <a onclick="getInfo('api/ytmp4', 'url=https://youtu.be/ScQsoRotYxA', 'GET');" class="sub-item">YouTube Video Downloader</a>
+            <a onclick="getInfo('api/ytmp3', 'url=https://youtu.be/ScQsoRotYxA', 'GET');" class="sub-item">YouTube Audio Downloader</a>
+            <a onclick="getInfo('api/instagram', 'url=https://www.instagram.com/p/CIk47s2FMl4', 'GET');" class="sub-item">Instagram Downloader</a>
+	        <a onclick="getInfo('api/igstory', 'username=frostdiamondd', 'GET');" class="sub-item">Instagram Story Downloader</a>
+	        <a onclick="getInfo('api/fb', 'url=https://id-id.facebook.com/SamsungGulf/videos/video-bokeh/561108457758458', 'GET');" class="sub-item">Facebook Downloader</a>
+            <a onclick="getInfo('api/tiktok', 'url=https://vt.tiktok.com/ZSJ4CFx1A/', 'GET');" class="sub-item">Tiktok Downloader</a>
+            <a onclick="getInfo('api/tiktokstalk', 'username=Notnot8.', 'GET');" class="sub-item">Tiktok Stalk</a>
+            <a onclick="getInfo('api/igstalk', 'username=frostdiamondd', 'GET');" class="sub-item">Instagram Stalk</a>
+	        <a onclick="getInfo('api/gdrive', 'url=https://drive.google.com/file/d/1SugE8vjfOyyW3VTRqsxlW_GJh6EKQ19X/view', 'usp=drivesdk', 'GET');" class="sub-item">Google Drive Downloader</a>
+            <a onclick="getInfo('api/mediafire', 'url=http://www.mediafire.com/file/js0gr2nozcmk9yg/example.txt/file', 'GET');" class="sub-item">MediaFire Downloader</a>
+			<a onclick="getInfo('api/linesticker', 'url=https://store.line.me/stickershop/product/4877/id', 'GET');" class="sub-item">LineSticker Downloader</a>
+	        <a onclick="getInfo('api/githubstalk', 'username=RC047', 'GET');" class="sub-item">Github Stalk</a>
+	        <a onclick="getInfo('api/infonpm', 'query=request&hostname=request', 'GET');" class="sub-item">Info NPM</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fas fa-star-and-crescent"></i>Islamic Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/random/asmaulhusna', false, 'GET');" class="sub-item">Asmaul Husna</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/hadits', 'kitab=bukhari&nomor=52', 'GET');" class="sub-item">Hadits Shahih</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/quran', 'surah=1&ayat=2', 'GET');" class="sub-item">Al Qur'an</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/randomquran', false, 'GET');" class="sub-item">Al Qur'an Acak</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/muslim/tahlil', false, 'GET');" class="sub-item">Doa Tahlil</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/muslim/wirid', false, 'GET');" class="sub-item">Doa Wirid</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/muslim/asmaulhusna', false, 'GET');" class="sub-item">Asmaul Husna</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/muslim/doaharian', false, 'GET');" class="sub-item">Doa Harian</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/muslim/ayatkursi', false, 'GET');" class="sub-item">Ayat Kursi</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/kisahnabi', 'nabi=muhammad', 'GET');" class="sub-item">Kisah Nabi</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/muslim/niatshalat', false, 'GET');" class="sub-item">Niat Shalat</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/muslim/bacaanshalat', false, 'GET');" class="sub-item">Bacaan Shalat</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/jadwalshalat', 'kota=jakarta', 'GET');" class="sub-item">Jadwal Shalat</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/randomquote/muslim', false, 'GET');" class="sub-item">Quotes Islami</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/murothal', false, 'GET');" class="sub-item">Murothal</a>
+            <a onclick="getInfo('api/random/asmaulhusna', false, 'GET');" class="sub-item">Asmaul Husna</a>
+            <a onclick="getInfo('api/hadits', 'kitab=bukhari&nomor=52', 'GET');" class="sub-item">Hadits Shahih</a>
+            <a onclick="getInfo('api/quran', 'surah=1&ayat=2', 'GET');" class="sub-item">Al Qur'an</a>
+	        <a onclick="getInfo('api/randomquran', false, 'GET');" class="sub-item">Al Qur'an Acak</a>
+            <a onclick="getInfo('api/muslim/tahlil', false, 'GET');" class="sub-item">Doa Tahlil</a>
+            <a onclick="getInfo('api/muslim/wirid', false, 'GET');" class="sub-item">Doa Wirid</a>
+            <a onclick="getInfo('api/muslim/asmaulhusna', false, 'GET');" class="sub-item">Asmaul Husna</a>
+            <a onclick="getInfo('api/muslim/doaharian', false, 'GET');" class="sub-item">Doa Harian</a>
+            <a onclick="getInfo('api/muslim/ayatkursi', false, 'GET');" class="sub-item">Ayat Kursi</a>
+            <a onclick="getInfo('api/kisahnabi', 'nabi=muhammad', 'GET');" class="sub-item">Kisah Nabi</a>
+            <a onclick="getInfo('api/muslim/niatshalat', false, 'GET');" class="sub-item">Niat Shalat</a>
+            <a onclick="getInfo('api/muslim/bacaanshalat', false, 'GET');" class="sub-item">Bacaan Shalat</a>
+            <a onclick="getInfo('api/jadwalshalat', 'kota=jakarta', 'GET');" class="sub-item">Jadwal Shalat</a>
+	        <a onclick="getInfo('api/randomquote/muslim', false, 'GET');" class="sub-item">Quotes Islami</a>
+	        <a onclick="getInfo('api/murothal', false, 'GET');" class="sub-item">Murothal</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fa fa-laugh-beam"></i>Fun Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/twister', false, 'GET');" class="sub-item">Twister Longue</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/simsimi', 'kata=halo', 'GET');" class="sub-item">Simsimi</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/kerang', 'pertanyaan=apakah%20rendy%20ganteng', false, 'GET');" class="sub-item">Kerang Ajaib</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/persen', 'type=gay&nama=Tuman', 'GET');" class="sub-item">Seberapa Persen</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/alay', 'text=aku%20belum%20mandi%20seminggu', 'GET');" class="sub-item">Alay</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/halah', 'text=aku%20kan%20ganteng%20banget', 'GET');" class="sub-item">Halah</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/hilih', 'text=aku%20kan%20ganteng%20banget', 'GET');" class="sub-item">Hilih</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/huluh', 'text=aku%20kan%20ganteng%20banget', 'GET');" class="sub-item">Huluh</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/heleh', 'text=aku%20kan%20ganteng%20banget', 'GET');" class="sub-item">Heleh</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/holoh', 'text=aku%20kan%20ganteng%20banget', 'GET');" class="sub-item">Holoh</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/purba', 'text=kok%20bahasanya%20kayak%20gini%20yaa', 'GET');" class="sub-item">Purba</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/say', 'text=Rendy%20kok%20Ganteng%20yahh', 'GET');" class="sub-item">Say</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/iqtest', false, 'GET');" class="sub-item">IQ Tester</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/dadu', false, 'GET');" class="sub-item">Dadu</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/math', 'mode=hard', 'GET');" class="sub-item">Math</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/math2', false, 'GET');" class="sub-item">Math 2</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/citacita', false, 'GET');" class="sub-item">Siapa Cita2nya</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/suit', 'pilihan=gunting', 'GET');" class="sub-item">Suit</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/suitjawa', 'pilihan=semut', 'GET');" class="sub-item">Suit Jawa</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/kuis/caklontong', false, 'GET');" class="sub-item">Cak Lontong</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/kuis/family100', false, 'GET');" class="sub-item">Family100</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/kuis/tebakgambar', false, 'GET');" class="sub-item">Tebak Gambar</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tebakanime', false, 'GET');" class="sub-item">Tebak Anime</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/slot', false, 'GET');" class="sub-item">Slot Machine</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/gabut', false, 'GET');" class="sub-item">Gabut</a>
+		    <a onclick="getInfo('api/twister', false, 'GET');" class="sub-item">Twister Longue</a>
+            <a onclick="getInfo('api/simsimi', 'kata=halo', 'GET');" class="sub-item">Simsimi</a>
+			<a onclick="getInfo('api/kerang', 'pertanyaan=apakah%20rendy%20ganteng', false, 'GET');" class="sub-item">Kerang Ajaib</a>
+			<a onclick="getInfo('api/persen', 'type=gay&nama=Tuman', 'GET');" class="sub-item">Seberapa Persen</a>
+	        <a onclick="getInfo('api/alay', 'text=aku%20belum%20mandi%20seminggu', 'GET');" class="sub-item">Alay</a>
+            <a onclick="getInfo('api/halah', 'text=aku%20kan%20ganteng%20banget', 'GET');" class="sub-item">Halah</a>
+            <a onclick="getInfo('api/hilih', 'text=aku%20kan%20ganteng%20banget', 'GET');" class="sub-item">Hilih</a>
+	        <a onclick="getInfo('api/huluh', 'text=aku%20kan%20ganteng%20banget', 'GET');" class="sub-item">Huluh</a>
+            <a onclick="getInfo('api/heleh', 'text=aku%20kan%20ganteng%20banget', 'GET');" class="sub-item">Heleh</a>
+            <a onclick="getInfo('api/holoh', 'text=aku%20kan%20ganteng%20banget', 'GET');" class="sub-item">Holoh</a>
+			<a onclick="getInfo('api/purba', 'text=kok%20bahasanya%20kayak%20gini%20yaa', 'GET');" class="sub-item">Purba</a>
+	        <a onclick="getInfo('api/say', 'text=Rendy%20kok%20Ganteng%20yahh', 'GET');" class="sub-item">Say</a>
+			<a onclick="getInfo('api/iqtest', false, 'GET');" class="sub-item">IQ Tester</a>
+	        <a onclick="getInfo('api/dadu', false, 'GET');" class="sub-item">Dadu</a>
+	        <a onclick="getInfo('api/math', 'mode=hard', 'GET');" class="sub-item">Math</a>
+	        <a onclick="getInfo('api/math2', false, 'GET');" class="sub-item">Math 2</a>
+	        <a onclick="getInfo('api/citacita', false, 'GET');" class="sub-item">Siapa Cita2nya</a>
+			<a onclick="getInfo('api/suit', 'pilihan=gunting', 'GET');" class="sub-item">Suit</a>
+			<a onclick="getInfo('api/suitjawa', 'pilihan=semut', 'GET');" class="sub-item">Suit Jawa</a>
+            <a onclick="getInfo('api/kuis/caklontong', false, 'GET');" class="sub-item">Cak Lontong</a>
+	        <a onclick="getInfo('api/kuis/family100', false, 'GET');" class="sub-item">Family100</a>
+            <a onclick="getInfo('api/kuis/tebakgambar', false, 'GET');" class="sub-item">Tebak Gambar</a>
+	        <a onclick="getInfo('api/tebakanime', false, 'GET');" class="sub-item">Tebak Anime</a>
+            <a onclick="getInfo('api/slot', false, 'GET');" class="sub-item">Slot Machine</a>
+            <a onclick="getInfo('api/gabut', false, 'GET');" class="sub-item">Gabut</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fa fa-mail-bulk"></i>Spammer Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/spamcall', 'nomor=85812345678', 'GET');" class="sub-item">Spam Call</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/spamsms', 'nomor=085812345678&jumlah=5', 'GET');" class="sub-item">Spam Sms</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/spamgmail', 'email=tukanikan874@gmail.com&subjek=Tagihan%20Listrik&pesan=CEPET%20BAYAR%20LISTRIK%20BEGO', 'GET');" class="sub-item">Spam Gmail</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/spammer/pizzahut', 'nomor=6285812345678', 'GET');" class="sub-item">Spam PizzaHut</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/spammer/olx', 'nomor=6285812345678', 'GET');" class="sub-item">Spam OLX</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/spammer/danacinta', 'nomor=6285812345678', 'GET');" class="sub-item">Spam DanaCinta</a>
+		    <a onclick="getInfo('api/spamcall', 'nomor=85812345678', 'GET');" class="sub-item">Spam Call</a>
+	        <a onclick="getInfo('api/spamsms', 'nomor=085812345678&jumlah=5', 'GET');" class="sub-item">Spam Sms</a>
+	        <a onclick="getInfo('api/spamgmail', 'email=tukanikan874@gmail.com&subjek=Tagihan%20Listrik&pesan=CEPET%20BAYAR%20LISTRIK%20BEGO', 'GET');" class="sub-item">Spam Gmail</a>
+			<a onclick="getInfo('api/spammer/pizzahut', 'nomor=6285812345678', 'GET');" class="sub-item">Spam PizzaHut</a>
+			<a onclick="getInfo('api/spammer/olx', 'nomor=6285812345678', 'GET');" class="sub-item">Spam OLX</a>
+			<a onclick="getInfo('api/spammer/danacinta', 'nomor=6285812345678', 'GET');" class="sub-item">Spam DanaCinta</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fas fa-search"></i>Search Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/jedagjedug', 'theme=ff', 'GET');" class="sub-item">Jedag Jedug</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/groupwa', 'query=game', 'GET');" class="sub-item">Group WhatsApp</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/google', 'query=bakso', 'GET');" class="sub-item">Google Search</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ytsearch', 'q=rc047', 'GET');" class="sub-item">YouTube Search</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/github', 'query=bot-wa', 'GET');" class="sub-item">Github Search</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/gimage', 'q=kucing', 'GET');" class="sub-item">Google Image</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/pinterest', 'q=kucing', 'GET');" class="sub-item">Pinterest Image</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/resep', 'q=nasi%20goreng', 'GET');" class="sub-item">Resep Masakan</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/brainly', 'soal=pengertian%20bahasa', 'GET');" class="sub-item">Brainly Search</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sticker', 'q=patrick', 'GET');" class="sub-item">Sticker WhatsApp</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/search-giphy', 'query=kucing', 'GET');" class="sub-item">Giphy</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/maps', 'query=jakarta', 'GET');" class="sub-item">Maps</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/wikipedia', 'search=jembatan', 'GET');" class="sub-item">Wikipedia</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/drakorasia', 'search=tale', 'GET');" class="sub-item">Drakor Asia</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/fakedata', 'country=en', 'GET');" class="sub-item">Fake Data</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/kbbi', 'kata=pohon', 'GET');" class="sub-item">KBBI</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/happymod', 'query=pou', 'GET');" class="sub-item">Happy Mod</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ninja', 'nama=Rendy', 'GET');" class="sub-item">Nama Ninja</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/anime/kusonime', 'search=planetarian', 'GET');" class="sub-item">Kusonime</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/manga', 'search=kimetsu%20no%20yaiba', 'GET');" class="sub-item">Manga</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/jadwalbioskop', false, 'GET');" class="sub-item">Jadwal Bioskop</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/jadwaltv', 'channel=antv', 'GET');" class="sub-item">Jadwal TV</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/kodepos', 'kota=jakarta', 'GET');" class="sub-item">Kode Pos</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/filmapik/search', 'film=avenger', 'GET');" class="sub-item">FilmApik</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/filmapik/kategori', 'film=action', 'GET');" class="sub-item">Kategori FilmApik</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/filmapik/terbaru', false, 'GET');" class="sub-item">FilmApik Terbaru</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/filmapik/play', 'id=142455', 'GET');" class="sub-item">Play FilmApik</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/lk21/search', 'film=avenger', 'GET');" class="sub-item">LK21</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/lk21/terbaru', false, 'GET');" class="sub-item">LK21 Terbaru</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/lk21/comingsoon', false, 'GET');" class="sub-item">LK21 News</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/lk21/tvseries', false, 'GET');" class="sub-item">LK21 Series</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/lk21/year', 'tahun=2021', 'GET');" class="sub-item">LK21 Tahunan</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/lk21/country', 'negara=indonesia', 'GET');" class="sub-item">LK21 Negara</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/lk21/genr', 'tipe=action', 'GET');" class="sub-item">LK21 Genre</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/getvn', 'query=siul', 'GET');" class="sub-item">Get Voice Notes</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/wattpad2', 'query=horror', 'GET');" class="sub-item">WattPad Search</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/wattpad', 'id=253841958', 'GET');" class="sub-item">WattPad ID Search</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/shopee', 'query=tas', 'GET');" class="sub-item">Shopee Product</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/wait', 'url=https://nawalakarsa.id/wp-content/uploads/2020/10/wondereggpriorityanime.jpg', 'GET');" class="sub-item">What This Anime</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/minecraft', 'type=bedrock&server=play.nethergames.org', 'GET');" class="sub-item">Minecraft Server</a>
+		    <a onclick="getInfo('api/jedagjedug', 'theme=ff', 'GET');" class="sub-item">Jedag Jedug</a>
+		    <a onclick="getInfo('api/groupwa', 'query=game', 'GET');" class="sub-item">Group WhatsApp</a>
+		    <a onclick="getInfo('api/google', 'query=bakso', 'GET');" class="sub-item">Google Search</a>
+		    <a onclick="getInfo('api/ytsearch', 'q=rc047', 'GET');" class="sub-item">YouTube Search</a>
+		    <a onclick="getInfo('api/github', 'query=bot-wa', 'GET');" class="sub-item">Github Search</a>
+		    <a onclick="getInfo('api/gimage', 'q=kucing', 'GET');" class="sub-item">Google Image</a>
+            <a onclick="getInfo('api/pinterest', 'q=kucing', 'GET');" class="sub-item">Pinterest Image</a>
+	        <a onclick="getInfo('api/resep', 'q=nasi%20goreng', 'GET');" class="sub-item">Resep Masakan</a>
+	        <a onclick="getInfo('api/brainly', 'soal=pengertian%20bahasa', 'GET');" class="sub-item">Brainly Search</a>
+	        <a onclick="getInfo('api/sticker', 'q=patrick', 'GET');" class="sub-item">Sticker WhatsApp</a>
+		    <a onclick="getInfo('api/search-giphy', 'query=kucing', 'GET');" class="sub-item">Giphy</a>
+		    <a onclick="getInfo('api/maps', 'query=jakarta', 'GET');" class="sub-item">Maps</a>
+	        <a onclick="getInfo('api/wikipedia', 'search=jembatan', 'GET');" class="sub-item">Wikipedia</a>
+            <a onclick="getInfo('api/drakorasia', 'search=tale', 'GET');" class="sub-item">Drakor Asia</a>
+            <a onclick="getInfo('api/fakedata', 'country=en', 'GET');" class="sub-item">Fake Data</a>
+            <a onclick="getInfo('api/kbbi', 'kata=pohon', 'GET');" class="sub-item">KBBI</a>
+            <a onclick="getInfo('api/happymod', 'query=pou', 'GET');" class="sub-item">Happy Mod</a>
+			<a onclick="getInfo('api/ninja', 'nama=Rendy', 'GET');" class="sub-item">Nama Ninja</a>
+	        <a onclick="getInfo('api/anime/kusonime', 'search=planetarian', 'GET');" class="sub-item">Kusonime</a>
+            <a onclick="getInfo('api/manga', 'search=kimetsu%20no%20yaiba', 'GET');" class="sub-item">Manga</a>
+	        <a onclick="getInfo('api/jadwalbioskop', false, 'GET');" class="sub-item">Jadwal Bioskop</a>
+			<a onclick="getInfo('api/jadwaltv', 'channel=antv', 'GET');" class="sub-item">Jadwal TV</a>
+			<a onclick="getInfo('api/kodepos', 'kota=jakarta', 'GET');" class="sub-item">Kode Pos</a>
+            <a onclick="getInfo('api/filmapik/search', 'film=avenger', 'GET');" class="sub-item">FilmApik</a>
+            <a onclick="getInfo('api/filmapik/kategori', 'film=action', 'GET');" class="sub-item">Kategori FilmApik</a>
+            <a onclick="getInfo('api/filmapik/terbaru', false, 'GET');" class="sub-item">FilmApik Terbaru</a>
+            <a onclick="getInfo('api/filmapik/play', 'id=142455', 'GET');" class="sub-item">Play FilmApik</a>
+	        <a onclick="getInfo('api/lk21/search', 'film=avenger', 'GET');" class="sub-item">LK21</a>
+            <a onclick="getInfo('api/lk21/terbaru', false, 'GET');" class="sub-item">LK21 Terbaru</a>
+            <a onclick="getInfo('api/lk21/comingsoon', false, 'GET');" class="sub-item">LK21 News</a>
+            <a onclick="getInfo('api/lk21/tvseries', false, 'GET');" class="sub-item">LK21 Series</a>
+            <a onclick="getInfo('api/lk21/year', 'tahun=2021', 'GET');" class="sub-item">LK21 Tahunan</a>
+            <a onclick="getInfo('api/lk21/country', 'negara=indonesia', 'GET');" class="sub-item">LK21 Negara</a>
+            <a onclick="getInfo('api/lk21/genr', 'tipe=action', 'GET');" class="sub-item">LK21 Genre</a>
+			<a onclick="getInfo('api/getvn', 'query=siul', 'GET');" class="sub-item">Get Voice Notes</a>
+			<a onclick="getInfo('api/wattpad2', 'query=horror', 'GET');" class="sub-item">WattPad Search</a>
+			<a onclick="getInfo('api/wattpad', 'id=253841958', 'GET');" class="sub-item">WattPad ID Search</a>
+	        <a onclick="getInfo('api/shopee', 'query=tas', 'GET');" class="sub-item">Shopee Product</a>
+	        <a onclick="getInfo('api/wait', 'url=https://nawalakarsa.id/wp-content/uploads/2020/10/wondereggpriorityanime.jpg', 'GET');" class="sub-item">What This Anime</a>
+	        <a onclick="getInfo('api/minecraft', 'type=bedrock&server=play.nethergames.org', 'GET');" class="sub-item">Minecraft Server</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fas fa-random"></i>Random Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/asupan', false, 'GET');" class="sub-item">Asupan</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/clipclaps', false, 'GET');" class="sub-item">ClipClaps</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/cerpen', false, 'GET');" class="sub-item">Cerpen</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/faktaunik', false, 'GET');" class="sub-item">Fakta Unik</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/anime/random', false, 'GET');" class="sub-item">Anime</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/anime/neko', false, 'GET');" class="sub-item">Neko</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/anime/waifu', false, 'GET');" class="sub-item">Waifu</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/anime/husbu', false, 'GET');" class="sub-item">Husbu</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/manga/random', false, 'GET');" class="sub-item">Manga</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/anime/kusonime', false, 'GET');" class="sub-item">Kusonime</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/kpop/random', false, 'GET');" class="sub-item">Kpop</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/kpop/bts', false, 'GET');" class="sub-item">BTS</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/kpop/exo', false, 'GET');" class="sub-item">EXO</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/kpop/blackpink', false, 'GET');" class="sub-item">Black Pink</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/quotes', false, 'GET');" class="sub-item">Quotes</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/katabijak', false, 'GET');" class="sub-item">Kata Bijak</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/fml', false, 'GET');" class="sub-item">FML</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/pantun', false, 'GET');" class="sub-item">Pantun</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/bucin', false, 'GET');" class="sub-item">Bucin</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/bacot', false, 'GET');" class="sub-item">Bacot</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/katailham', false, 'GET');" class="sub-item">Kata Ilham</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sindiran', false, 'GET');" class="sub-item">Sindiran</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/truth', false, 'GET');" class="sub-item">Truth</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/dare', false, 'GET');" class="sub-item">Dare</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/nickff', false, 'GET');" class="sub-item">Nick FF</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/quotes/kanye', false, 'GET');" class="sub-item">Quotes Kanye</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/estetik', false, 'GET');" class="sub-item">Aesthetic</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/memeindo', false, 'GET');" class="sub-item">MemeIndo</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/darkjokes', false, 'GET');" class="sub-item">Dark Jokes</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/random/wallpaper', false, 'GET');" class="sub-item">Wallpaper</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/wallpaper/teknologi', false, 'GET');" class="sub-item">Wallpaper Teknologi</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/wallpaper/programming', false, 'GET');" class="sub-item">Wallpaper Programming</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/wallpaper/cyberspace', false, 'GET');" class="sub-item">Wallpaper CyberSpace</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/wallpaper/muslim', false, 'GET');" class="sub-item">Wallpaper Muslim</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/wallpaper/pegunungan', false, 'GET');" class="sub-item">Wallpaper MountainView</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/randomsticker', false, 'GET');" class="sub-item">Sticker WhatsApp</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/shitpost', false, 'GET');" class="sub-item">Shit Post</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/nsfw/neko', false, 'GET');" class="sub-item">Nsfw Neko</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/nsfw/waifu', false, 'GET');" class="sub-item">Nsfw Waifu</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/nsfw/hentai', false, 'GET');" class="sub-item">Nsfw Hentai</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/porno', false, 'GET');" class="sub-item">Porno</a>
+	        <a onclick="getInfo('api/asupan', false, 'GET');" class="sub-item">Asupan</a>
+	        <a onclick="getInfo('api/clipclaps', false, 'GET');" class="sub-item">ClipClaps</a>
+	        <a onclick="getInfo('api/cerpen', false, 'GET');" class="sub-item">Cerpen</a>
+	        <a onclick="getInfo('api/faktaunik', false, 'GET');" class="sub-item">Fakta Unik</a>
+	        <a onclick="getInfo('api/anime/random', false, 'GET');" class="sub-item">Anime</a>
+	        <a onclick="getInfo('api/anime/neko', false, 'GET');" class="sub-item">Neko</a>
+	        <a onclick="getInfo('api/anime/waifu', false, 'GET');" class="sub-item">Waifu</a>
+	        <a onclick="getInfo('api/anime/husbu', false, 'GET');" class="sub-item">Husbu</a>
+            <a onclick="getInfo('api/manga/random', false, 'GET');" class="sub-item">Manga</a>
+            <a onclick="getInfo('api/anime/kusonime', false, 'GET');" class="sub-item">Kusonime</a>
+            <a onclick="getInfo('api/kpop/random', false, 'GET');" class="sub-item">Kpop</a>
+            <a onclick="getInfo('api/kpop/bts', false, 'GET');" class="sub-item">BTS</a>
+            <a onclick="getInfo('api/kpop/exo', false, 'GET');" class="sub-item">EXO</a>
+            <a onclick="getInfo('api/kpop/blackpink', false, 'GET');" class="sub-item">Black Pink</a>
+            <a onclick="getInfo('api/quotes', false, 'GET');" class="sub-item">Quotes</a>
+            <a onclick="getInfo('api/katabijak', false, 'GET');" class="sub-item">Kata Bijak</a>
+            <a onclick="getInfo('api/fml', false, 'GET');" class="sub-item">FML</a>
+	        <a onclick="getInfo('api/pantun', false, 'GET');" class="sub-item">Pantun</a>
+            <a onclick="getInfo('api/bucin', false, 'GET');" class="sub-item">Bucin</a>
+			<a onclick="getInfo('api/bacot', false, 'GET');" class="sub-item">Bacot</a>
+			<a onclick="getInfo('api/katailham', false, 'GET');" class="sub-item">Kata Ilham</a>
+			<a onclick="getInfo('api/sindiran', false, 'GET');" class="sub-item">Sindiran</a>
+			<a onclick="getInfo('api/truth', false, 'GET');" class="sub-item">Truth</a>
+	        <a onclick="getInfo('api/dare', false, 'GET');" class="sub-item">Dare</a>
+	        <a onclick="getInfo('api/nickff', false, 'GET');" class="sub-item">Nick FF</a>
+            <a onclick="getInfo('api/quotes/kanye', false, 'GET');" class="sub-item">Quotes Kanye</a>
+            <a onclick="getInfo('api/estetik', false, 'GET');" class="sub-item">Aesthetic</a>
+	        <a onclick="getInfo('api/memeindo', false, 'GET');" class="sub-item">MemeIndo</a>
+	        <a onclick="getInfo('api/darkjokes', false, 'GET');" class="sub-item">Dark Jokes</a>
+            <a onclick="getInfo('api/random/wallpaper', false, 'GET');" class="sub-item">Wallpaper</a>
+            <a onclick="getInfo('api/wallpaper/teknologi', false, 'GET');" class="sub-item">Wallpaper Teknologi</a>
+            <a onclick="getInfo('api/wallpaper/programming', false, 'GET');" class="sub-item">Wallpaper Programming</a>
+            <a onclick="getInfo('api/wallpaper/cyberspace', false, 'GET');" class="sub-item">Wallpaper CyberSpace</a>
+            <a onclick="getInfo('api/wallpaper/muslim', false, 'GET');" class="sub-item">Wallpaper Muslim</a>
+            <a onclick="getInfo('api/wallpaper/pegunungan', false, 'GET');" class="sub-item">Wallpaper MountainView</a>
+			<a onclick="getInfo('api/randomsticker', false, 'GET');" class="sub-item">Sticker WhatsApp</a>
+			<a onclick="getInfo('api/shitpost', false, 'GET');" class="sub-item">Shit Post</a>
+			<a onclick="getInfo('api/nsfw/neko', false, 'GET');" class="sub-item">Nsfw Neko</a>
+			<a onclick="getInfo('api/nsfw/waifu', false, 'GET');" class="sub-item">Nsfw Waifu</a>
+			<a onclick="getInfo('api/nsfw/hentai', false, 'GET');" class="sub-item">Nsfw Hentai</a>
+	        <a onclick="getInfo('api/porno', false, 'GET');" class="sub-item">Porno</a>
           </div>
         </div>
 	        <div class="item">
           <a class="sub-btn"><i class="fas fa-pen"></i>Editor Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/running', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Running</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/8bit', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">8 Bit</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/burning', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Burning</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/blur', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Blur</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/wasted', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Wasted</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/wanted', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Wanted</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/deltrash', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Delete Trash</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/rotate', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Rotate Image</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/rainbow', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Rainbow</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/glass', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Glass</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/brightness', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&level=5', 'GET');" class="sub-item">Brightness</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/darkness', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&level=5', 'GET');" class="sub-item">Darkness</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/threshold', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&level=50', 'GET');" class="sub-item">Threshold</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/fuse', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&img2=https://i.ibb.co/pRKYZh8/My-Logo.png', 'GET');" class="sub-item">Fuse</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/rip', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Rip</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/jail', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Jail</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/continue', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">To Be Continued</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/hitler', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Hitler</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/invert', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Invert</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sepia', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Sepia</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/grey', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Grey Scale</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/imgcolor', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&color=red', 'GET');" class="sub-item">Color Image</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/laptop', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Laptop</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/hd', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Enhance HD</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/memegen', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&t1=kuhong%20API&t2=Rest%20Api%20Terbaik', 'GET');" class="sub-item">Meme Generator</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/resize', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&width=100&height=350', 'GET');" class="sub-item">Resize Image</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/triggered', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Triggered</a>
+            <a onclick="getInfo('api/running', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Running</a>
+	        <a onclick="getInfo('api/8bit', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">8 Bit</a>
+	        <a onclick="getInfo('api/burning', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Burning</a>
+		    <a onclick="getInfo('api/blur', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Blur</a>
+            <a onclick="getInfo('api/wasted', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Wasted</a>
+	        <a onclick="getInfo('api/wanted', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Wanted</a>
+	        <a onclick="getInfo('api/deltrash', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Delete Trash</a>
+	        <a onclick="getInfo('api/rotate', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Rotate Image</a>
+	        <a onclick="getInfo('api/rainbow', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Rainbow</a>
+	        <a onclick="getInfo('api/glass', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Glass</a>
+	        <a onclick="getInfo('api/brightness', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&level=5', 'GET');" class="sub-item">Brightness</a>
+	        <a onclick="getInfo('api/darkness', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&level=5', 'GET');" class="sub-item">Darkness</a>
+	        <a onclick="getInfo('api/threshold', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&level=50', 'GET');" class="sub-item">Threshold</a>
+	        <a onclick="getInfo('api/fuse', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&img2=https://i.ibb.co/pRKYZh8/My-Logo.png', 'GET');" class="sub-item">Fuse</a>
+            <a onclick="getInfo('api/rip', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Rip</a>
+	        <a onclick="getInfo('api/jail', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Jail</a>
+	        <a onclick="getInfo('api/continue', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">To Be Continued</a>
+	        <a onclick="getInfo('api/hitler', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Hitler</a>
+		    <a onclick="getInfo('api/invert', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Invert</a>
+		    <a onclick="getInfo('api/sepia', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Sepia</a>
+			<a onclick="getInfo('api/grey', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Grey Scale</a>
+			<a onclick="getInfo('api/imgcolor', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&color=red', 'GET');" class="sub-item">Color Image</a>
+			<a onclick="getInfo('api/laptop', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Laptop</a>
+	        <a onclick="getInfo('api/hd', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Enhance HD</a>
+	        <a onclick="getInfo('api/memegen', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&t1=kuhong%20API&t2=Rest%20Api%20Terbaik', 'GET');" class="sub-item">Meme Generator</a>
+	        <a onclick="getInfo('api/resize', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&width=100&height=350', 'GET');" class="sub-item">Resize Image</a>
+	        <a onclick="getInfo('api/triggered', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Triggered</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fas fa-text-width"></i>TextPro Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/advancedglow', 'text=Amjayy', 'GET');" class="sub-item">Advanced Glow</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/1917', 'text=kuhong', 'GET');" class="sub-item">1917</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/arcade', 'text=Hmmm', 'GET');" class="sub-item">Arcade</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/futureneon', 'text=Keren%20Njayy', 'GET');" class="sub-item">Future Neon</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/matrix', 'text=Heker%20Nihh', 'GET');" class="sub-item">Matrix</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/phlogo', 't1=Tobat&t2=Hub', 'GET');" class="sub-item">PornHub</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/blackpink', 'text=RendyGans', 'GET');" class="sub-item">Black Pink</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/cloud', 'text=Suramjayy', 'GET');" class="sub-item">Cloud</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/blood', 'text=Suramjayy', 'GET');" class="sub-item">Blood</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/lava', 'text=Suramjayy', 'GET');" class="sub-item">Lava</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/skeleton', 'text=Mantap', 'GET');" class="sub-item">Skeleton</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/text3d', 'text=Uwauu', 'GET');" class="sub-item">Text 3D</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textpantai', 'text=Uwau', 'GET');" class="sub-item">Text Pantai</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/firework', 'text=Happy%20New%20Year', 'GET');" class="sub-item">FireWork</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/breakwall', 'text=Amjayy', 'GET');" class="sub-item">Break Wall</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/wolflogo', 'text=Sultan%20Mahh&text2=Bebas', 'GET');" class="sub-item">Wolf Logo</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/jokerlogo', 'text=Suramjayy', 'GET');" class="sub-item">Joker Logo</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/lionlogo', 'text=Anjay&text2=Suranjayy', 'GET');" class="sub-item">Lion Logo</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ninjalogo', 'text=Anjay&text2=Suranjayy', 'GET');" class="sub-item">Ninja Logo</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/marvel', 't1=RC&t2=Studio', 'GET');" class="sub-item">Marvel Logo</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/avengers', 't1=Mantap&t2=Bang', 'GET');" class="sub-item">Avengers Logo</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/thunder', 'text=Anjerr', 'GET');" class="sub-item">Thunder</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/neonlight', 'text=Amjayy', 'GET');" class="sub-item">Neon Light</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/dropwater', 'text=Sad%20Boy', 'GET');" class="sub-item">Drop Water</a>
+            <a onclick="getInfo('api/advancedglow', 'text=Amjayy', 'GET');" class="sub-item">Advanced Glow</a>
+	        <a onclick="getInfo('api/1917', 'text=kuhong', 'GET');" class="sub-item">1917</a>
+			<a onclick="getInfo('api/arcade', 'text=Hmmm', 'GET');" class="sub-item">Arcade</a>
+	        <a onclick="getInfo('api/futureneon', 'text=Keren%20Njayy', 'GET');" class="sub-item">Future Neon</a>
+	        <a onclick="getInfo('api/matrix', 'text=Heker%20Nihh', 'GET');" class="sub-item">Matrix</a>
+	        <a onclick="getInfo('api/phlogo', 't1=Tobat&t2=Hub', 'GET');" class="sub-item">PornHub</a>
+	        <a onclick="getInfo('api/blackpink', 'text=RendyGans', 'GET');" class="sub-item">Black Pink</a>
+	        <a onclick="getInfo('api/cloud', 'text=Suramjayy', 'GET');" class="sub-item">Cloud</a>
+	        <a onclick="getInfo('api/blood', 'text=Suramjayy', 'GET');" class="sub-item">Blood</a>
+	        <a onclick="getInfo('api/lava', 'text=Suramjayy', 'GET');" class="sub-item">Lava</a>
+	        <a onclick="getInfo('api/skeleton', 'text=Mantap', 'GET');" class="sub-item">Skeleton</a>
+            <a onclick="getInfo('api/text3d', 'text=Uwauu', 'GET');" class="sub-item">Text 3D</a>
+            <a onclick="getInfo('api/textpantai', 'text=Uwau', 'GET');" class="sub-item">Text Pantai</a>
+            <a onclick="getInfo('api/firework', 'text=Happy%20New%20Year', 'GET');" class="sub-item">FireWork</a>
+	        <a onclick="getInfo('api/breakwall', 'text=Amjayy', 'GET');" class="sub-item">Break Wall</a>
+	        <a onclick="getInfo('api/wolflogo', 'text=Sultan%20Mahh&text2=Bebas', 'GET');" class="sub-item">Wolf Logo</a>
+	        <a onclick="getInfo('api/jokerlogo', 'text=Suramjayy', 'GET');" class="sub-item">Joker Logo</a>
+	        <a onclick="getInfo('api/lionlogo', 'text=Anjay&text2=Suranjayy', 'GET');" class="sub-item">Lion Logo</a>
+	        <a onclick="getInfo('api/ninjalogo', 'text=Anjay&text2=Suranjayy', 'GET');" class="sub-item">Ninja Logo</a>
+            <a onclick="getInfo('api/marvel', 't1=RC&t2=Studio', 'GET');" class="sub-item">Marvel Logo</a>
+	        <a onclick="getInfo('api/avengers', 't1=Mantap&t2=Bang', 'GET');" class="sub-item">Avengers Logo</a>
+            <a onclick="getInfo('api/thunder', 'text=Anjerr', 'GET');" class="sub-item">Thunder</a>
+	        <a onclick="getInfo('api/neonlight', 'text=Amjayy', 'GET');" class="sub-item">Neon Light</a>
+            <a onclick="getInfo('api/dropwater', 'text=Sad%20Boy', 'GET');" class="sub-item">Drop Water</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fas fa-i-cursor"></i>Ephoto360 Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/gaminglogo', 'text=Udin%20Gaming', 'GET');" class="sub-item">Gaming Logo</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/catlogo', 'text=Si%20Udin', 'GET');" class="sub-item">Cat Logo</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/freefire', 'text=AyoMabarCokk', 'GET');" class="sub-item">Free Fire</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/foxlogo', 'text=Rendy%20Gans', 'GET');" class="sub-item">Fox Logo</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/glitchlogo', 'text=Rendy%20Gans', 'GET');" class="sub-item">Glitch Logo</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/flamelogo', 'text=Rendy%20Gans', 'GET');" class="sub-item">Flame Logo</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/bearlogo', 'text=Rendy%20Gans', 'GET');" class="sub-item">Bear Logo</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/maker/special/transformer', 'text=Odadingg', 'GET');" class="sub-item">Transformer</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/retro', 't1=The&t2=kuhong&t3=Rest%20Api', 'GET');" class="sub-item">Retro</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textsalju', 't1=Sahabat&t2=Selamanya', 'GET');" class="sub-item">Nulis Salju</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/splaybutton', 'text=RC047', 'GET');" class="sub-item">Silver PlayButton</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/gplaybutton', 'text=RC047', 'GET');" class="sub-item">Gold PlayButton</a>
+		    <a onclick="getInfo('api/gaminglogo', 'text=Udin%20Gaming', 'GET');" class="sub-item">Gaming Logo</a>
+			<a onclick="getInfo('api/catlogo', 'text=Si%20Udin', 'GET');" class="sub-item">Cat Logo</a>
+			<a onclick="getInfo('api/freefire', 'text=AyoMabarCokk', 'GET');" class="sub-item">Free Fire</a>
+			<a onclick="getInfo('api/foxlogo', 'text=Rendy%20Gans', 'GET');" class="sub-item">Fox Logo</a>
+			<a onclick="getInfo('api/glitchlogo', 'text=Rendy%20Gans', 'GET');" class="sub-item">Glitch Logo</a>
+			<a onclick="getInfo('api/flamelogo', 'text=Rendy%20Gans', 'GET');" class="sub-item">Flame Logo</a>
+			<a onclick="getInfo('api/bearlogo', 'text=Rendy%20Gans', 'GET');" class="sub-item">Bear Logo</a>
+            <a onclick="getInfo('api/maker/special/transformer', 'text=Odadingg', 'GET');" class="sub-item">Transformer</a>
+	        <a onclick="getInfo('api/retro', 't1=The&t2=kuhong&t3=Rest%20Api', 'GET');" class="sub-item">Retro</a>
+            <a onclick="getInfo('api/textsalju', 't1=Sahabat&t2=Selamanya', 'GET');" class="sub-item">Nulis Salju</a>
+            <a onclick="getInfo('api/splaybutton', 'text=RC047', 'GET');" class="sub-item">Silver PlayButton</a>
+            <a onclick="getInfo('api/gplaybutton', 'text=RC047', 'GET');" class="sub-item">Gold PlayButton</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fas fa-camera-retro"></i>Photooxy Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/flaming', 'text=Keren%20anjay', 'GET');" class="sub-item">Flaming</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker', 'text=halo&text2=hai&theme=glitch', 'GET');" class="sub-item">Glitch</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker', 'text=halo&text2=hai&text3=gwganteng&theme=google-suggestion', 'GET');" class="sub-item">Google Suggestion</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/smoke', 'text=Keren%20anjay', 'GET');" class="sub-item">Smoke</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/darkneon', 'text=Anjayy', 'GET');" class="sub-item">Dark Neon</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/naruto', 'text=Amjayy', 'GET');" class="sub-item">Naruto</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/crossfire', 'text=Keren%20anjay', 'GET');" class="sub-item">Cross Fire</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker/game', 'text=halo&text2=hai&theme=pubg', 'GET');" class="sub-item">Pubg</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker/game', 'text=halo&text2=hai&theme=battlefield', 'GET');" class="sub-item">BattleField 4</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker/senja', 'text=RendyGans&theme=coffee-cup', 'GET');" class="sub-item">Coffee Cup</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker/senja', 'text=RendyGans&theme=coffee-cup2', 'GET');" class="sub-item">Coffee Cup 2</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker/metallic', 'text=RendyGans&theme=neon', 'GET');" class="sub-item">Neon</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker/metallic', 'text=RendyGans&theme=glow', 'GET');" class="sub-item">Glow</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker/alam', 'text=RendyGans&theme=summer', 'GET');" class="sub-item">Summer</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker/alam', 'text=RendyGans&theme=flower', 'GET');" class="sub-item">Flower</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker/random', 'text=RendyGans&theme=text-burn', 'GET');" class="sub-item">Text Burn</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker/random', 'text=RendyGans&theme=art-quote', 'GET');" class="sub-item">Art Quote</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker/roses', 'text=RendyGans&theme=wooden-boarch', 'GET');" class="sub-item">Wooden Boarch</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/textmaker/roses', 'text=RendyGans&theme=golden', 'GET');" class="sub-item">Golden Roses</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/underwater', 'text=Keren%20anjay', 'GET');" class="sub-item">Underwater Ocean</a>
+	        <a onclick="getInfo('api/flaming', 'text=Keren%20anjay', 'GET');" class="sub-item">Flaming</a>
+            <a onclick="getInfo('api/textmaker', 'text=halo&text2=hai&theme=glitch', 'GET');" class="sub-item">Glitch</a>
+            <a onclick="getInfo('api/textmaker', 'text=halo&text2=hai&text3=gwganteng&theme=google-suggestion', 'GET');" class="sub-item">Google Suggestion</a>
+            <a onclick="getInfo('api/smoke', 'text=Keren%20anjay', 'GET');" class="sub-item">Smoke</a>
+	        <a onclick="getInfo('api/darkneon', 'text=Anjayy', 'GET');" class="sub-item">Dark Neon</a>
+	        <a onclick="getInfo('api/naruto', 'text=Amjayy', 'GET');" class="sub-item">Naruto</a>
+            <a onclick="getInfo('api/crossfire', 'text=Keren%20anjay', 'GET');" class="sub-item">Cross Fire</a>
+            <a onclick="getInfo('api/textmaker/game', 'text=halo&text2=hai&theme=pubg', 'GET');" class="sub-item">Pubg</a>
+            <a onclick="getInfo('api/textmaker/game', 'text=halo&text2=hai&theme=battlefield', 'GET');" class="sub-item">BattleField 4</a>
+            <a onclick="getInfo('api/textmaker/senja', 'text=RendyGans&theme=coffee-cup', 'GET');" class="sub-item">Coffee Cup</a>
+            <a onclick="getInfo('api/textmaker/senja', 'text=RendyGans&theme=coffee-cup2', 'GET');" class="sub-item">Coffee Cup 2</a>
+            <a onclick="getInfo('api/textmaker/metallic', 'text=RendyGans&theme=neon', 'GET');" class="sub-item">Neon</a>
+            <a onclick="getInfo('api/textmaker/metallic', 'text=RendyGans&theme=glow', 'GET');" class="sub-item">Glow</a>
+            <a onclick="getInfo('api/textmaker/alam', 'text=RendyGans&theme=summer', 'GET');" class="sub-item">Summer</a>
+            <a onclick="getInfo('api/textmaker/alam', 'text=RendyGans&theme=flower', 'GET');" class="sub-item">Flower</a>
+            <a onclick="getInfo('api/textmaker/random', 'text=RendyGans&theme=text-burn', 'GET');" class="sub-item">Text Burn</a>
+            <a onclick="getInfo('api/textmaker/random', 'text=RendyGans&theme=art-quote', 'GET');" class="sub-item">Art Quote</a>
+            <a onclick="getInfo('api/textmaker/roses', 'text=RendyGans&theme=wooden-boarch', 'GET');" class="sub-item">Wooden Boarch</a>
+            <a onclick="getInfo('api/textmaker/roses', 'text=RendyGans&theme=golden', 'GET');" class="sub-item">Golden Roses</a>
+			<a onclick="getInfo('api/underwater', 'text=Keren%20anjay', 'GET');" class="sub-item">Underwater Ocean</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fa fa-fw fa-images"></i>Maker Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/intromaker', 'text=Rendy', 'GET');" class="sub-item">Intro Maker (Beta)</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/welcome', 'nama_mem=kuhong&avatar=https://i.ibb.co/frhZmyZ/pp.jpg&bg=https://c4.wallpaperflare.com/wallpaper/760/955/638/artwork-landscape-sky-mountains-wallpaper-preview.jpg&nama_gc=kuhongTeams&jumlah_mem=4', 'GET');" class="sub-item">Welcome Member</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/bye', 'nama_mem=kuhong&avatar=https://i.ibb.co/frhZmyZ/pp.jpg&bg=https://c4.wallpaperflare.com/wallpaper/760/955/638/artwork-landscape-sky-mountains-wallpaper-preview.jpg&nama_gc=kuhongTeams&jumlah_mem=4', 'GET');" class="sub-item">Bye Member</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/rank', 'avatar=https://i.ibb.co/frhZmyZ/pp.jpg&nama=kuhong&exp=96&max_exp=500', 'GET');" class="sub-item">Rank Maker</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/spotifycard', 'avatar=https://i.ibb.co/frhZmyZ/pp.jpg&nama=kuhong&album=Favorit&title=Ku%20ingin%20ke%20Hongkong&start=3000&end=10000', 'GET');" class="sub-item">SpotifyCard Maker</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/attp', 'text=Keren%20Anjay', 'GET');" class="sub-item">ATTP</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/attp2', 'text=Keren%20Anjay', 'GET');" class="sub-item">ATTP 2</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ttp', 'text=Keren%20Anjay', 'GET');" class="sub-item">TTP</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ttp2', 'text=Keren%20Anjay', 'GET');" class="sub-item">TTP 2</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ttp3', 'text=Keren%20Anjay', 'GET');" class="sub-item">TTP 3</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ttp4', 'text=Keren%20Anjay&color=green', 'GET');" class="sub-item">TTP 4</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/quotemaker', 'quote=Ikan%20hiu%20makan%20tomat&author=Mang%20Oleh', 'GET');" class="sub-item">Quote Maker</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/nulis', 'text=RendyGanteng', 'GET');" class="sub-item">Nulis Buku</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/nulis2', 'text=RendyGanteng', 'GET');" class="sub-item">Nulis Buku 2</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/nulis3', 'text=RendyGanteng&arah=kanan', 'GET');" class="sub-item">Nulis Buku 3</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/nulis4', 'text=RendyGanteng', 'GET');" class="sub-item">Nulis Buku 4</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tahta', 'text=Mantan', 'GET');" class="sub-item">Harta Tahta</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/customtahta', 'text=Mantan', 'GET');" class="sub-item">Custom Tahta</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/barcode', 'text=Keren%20Njerr', 'GET');" class="sub-item">BarCode Maker</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/qrcode', 'text=Keren%20Njerr', 'GET');" class="sub-item">QR Code Maker</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/slap', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&img2=https://i.ibb.co/pRKYZh8/My-Logo.png', 'GET');" class="sub-item">Slap Maker</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/spank', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&img2=https://i.ibb.co/pRKYZh8/My-Logo.png', 'GET');" class="sub-item">Spank Maker</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/kiss', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&img2=https://i.ibb.co/pRKYZh8/My-Logo.png', 'GET');" class="sub-item">Kiss Maker</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/carbon', 'code=if%20(orang%20==%20'keren')%20return%20console.log('Suramnjayy')', 'GET');" class="sub-item">Carbon Code</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/maker', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/maker2', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 2</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/maker3', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 3</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/maker4', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 4</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/maker3d', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 3D</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/maker3d/no2', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 3D 2</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/maker3d/no3', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 3D 3</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/maker3d/no4', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 3D 4</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/maker3d/no5', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 3D 5</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ffserti', 'text=Rendy', 'GET');" class="sub-item">FreeFire Sertifikat</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/phcomment', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&username=RC047&comment=kuhong%20Rest%20Api%20Nihh%20Boss!', 'GET');" class="sub-item">PornHub Comment</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ytcomment', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&username=RC047&comment=kuhong%20Rest%20Api%20Nihh%20Boss!', 'GET');" class="sub-item">Youtube Comment</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/spongebob', 'text=Mantann', 'GET');" class="sub-item">SpongeBob Burn</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/shauntheship', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Shaun The Ship</a>
+		    <a onclick="getInfo('api/intromaker', 'text=Rendy', 'GET');" class="sub-item">Intro Maker (Beta)</a>
+		    <a onclick="getInfo('api/welcome', 'nama_mem=kuhong&avatar=https://i.ibb.co/frhZmyZ/pp.jpg&bg=https://c4.wallpaperflare.com/wallpaper/760/955/638/artwork-landscape-sky-mountains-wallpaper-preview.jpg&nama_gc=kuhongTeams&jumlah_mem=4', 'GET');" class="sub-item">Welcome Member</a>
+			<a onclick="getInfo('api/bye', 'nama_mem=kuhong&avatar=https://i.ibb.co/frhZmyZ/pp.jpg&bg=https://c4.wallpaperflare.com/wallpaper/760/955/638/artwork-landscape-sky-mountains-wallpaper-preview.jpg&nama_gc=kuhongTeams&jumlah_mem=4', 'GET');" class="sub-item">Bye Member</a>
+			<a onclick="getInfo('api/rank', 'avatar=https://i.ibb.co/frhZmyZ/pp.jpg&nama=kuhong&exp=96&max_exp=500', 'GET');" class="sub-item">Rank Maker</a>
+			<a onclick="getInfo('api/spotifycard', 'avatar=https://i.ibb.co/frhZmyZ/pp.jpg&nama=kuhong&album=Favorit&title=Ku%20ingin%20ke%20Hongkong&start=3000&end=10000', 'GET');" class="sub-item">SpotifyCard Maker</a>
+	        <a onclick="getInfo('api/attp', 'text=Keren%20Anjay', 'GET');" class="sub-item">ATTP</a>
+			<a onclick="getInfo('api/attp2', 'text=Keren%20Anjay', 'GET');" class="sub-item">ATTP 2</a>
+            <a onclick="getInfo('api/ttp', 'text=Keren%20Anjay', 'GET');" class="sub-item">TTP</a>
+	        <a onclick="getInfo('api/ttp2', 'text=Keren%20Anjay', 'GET');" class="sub-item">TTP 2</a>
+            <a onclick="getInfo('api/ttp3', 'text=Keren%20Anjay', 'GET');" class="sub-item">TTP 3</a>
+			<a onclick="getInfo('api/ttp4', 'text=Keren%20Anjay&color=green', 'GET');" class="sub-item">TTP 4</a>
+	        <a onclick="getInfo('api/quotemaker', 'quote=Ikan%20hiu%20makan%20tomat&author=Mang%20Oleh', 'GET');" class="sub-item">Quote Maker</a>
+	        <a onclick="getInfo('api/nulis', 'text=RendyGanteng', 'GET');" class="sub-item">Nulis Buku</a>
+            <a onclick="getInfo('api/nulis2', 'text=RendyGanteng', 'GET');" class="sub-item">Nulis Buku 2</a>
+			<a onclick="getInfo('api/nulis3', 'text=RendyGanteng&arah=kanan', 'GET');" class="sub-item">Nulis Buku 3</a>
+			<a onclick="getInfo('api/nulis4', 'text=RendyGanteng', 'GET');" class="sub-item">Nulis Buku 4</a>
+	        <a onclick="getInfo('api/tahta', 'text=Mantan', 'GET');" class="sub-item">Harta Tahta</a>
+            <a onclick="getInfo('api/customtahta', 'text=Mantan', 'GET');" class="sub-item">Custom Tahta</a>
+	        <a onclick="getInfo('api/barcode', 'text=Keren%20Njerr', 'GET');" class="sub-item">BarCode Maker</a>
+	        <a onclick="getInfo('api/qrcode', 'text=Keren%20Njerr', 'GET');" class="sub-item">QR Code Maker</a>
+	        <a onclick="getInfo('api/slap', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&img2=https://i.ibb.co/pRKYZh8/My-Logo.png', 'GET');" class="sub-item">Slap Maker</a>
+	        <a onclick="getInfo('api/spank', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&img2=https://i.ibb.co/pRKYZh8/My-Logo.png', 'GET');" class="sub-item">Spank Maker</a>
+			<a onclick="getInfo('api/kiss', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&img2=https://i.ibb.co/pRKYZh8/My-Logo.png', 'GET');" class="sub-item">Kiss Maker</a>
+		    <a onclick="getInfo('api/carbon', 'code=if%20(orang%20==%20'keren')%20return%20console.log('Suramnjayy')', 'GET');" class="sub-item">Carbon Code</a>
+            <a onclick="getInfo('api/maker', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan</a>
+            <a onclick="getInfo('api/maker2', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 2</a>
+            <a onclick="getInfo('api/maker3', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 3</a>
+            <a onclick="getInfo('api/maker4', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 4</a>
+            <a onclick="getInfo('api/maker3d', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 3D</a>
+            <a onclick="getInfo('api/maker3d/no2', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 3D 2</a>
+            <a onclick="getInfo('api/maker3d/no3', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 3D 3</a>
+            <a onclick="getInfo('api/maker3d/no4', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 3D 4</a>
+            <a onclick="getInfo('api/maker3d/no5', 'text=Kemrennn', 'GET');" class="sub-item">Pemandangan 3D 5</a>
+	        <a onclick="getInfo('api/ffserti', 'text=Rendy', 'GET');" class="sub-item">FreeFire Sertifikat</a>
+	        <a onclick="getInfo('api/phcomment', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&username=RC047&comment=kuhong%20Rest%20Api%20Nihh%20Boss!', 'GET');" class="sub-item">PornHub Comment</a>
+	        <a onclick="getInfo('api/ytcomment', 'img=https://i.ibb.co/frhZmyZ/pp.jpg&username=RC047&comment=kuhong%20Rest%20Api%20Nihh%20Boss!', 'GET');" class="sub-item">Youtube Comment</a>
+	        <a onclick="getInfo('api/spongebob', 'text=Mantann', 'GET');" class="sub-item">SpongeBob Burn</a>
+			<a onclick="getInfo('api/shauntheship', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Shaun The Ship</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fas fa-newspaper"></i>News Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/news', false, 'GET');" class="sub-item">Jenis Berita</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/news/cnn', 'type=Berita', 'GET');" class="sub-item">Cnn News</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/news/cnbc', 'type=Berita', 'GET');" class="sub-item">CnBc News</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/news/republika', 'type=Berita', 'GET');" class="sub-item">Republika News</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/news/tempo', 'type=Berita', 'GET');" class="sub-item">Tempo News</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/news/antara', 'type=Berita', 'GET');" class="sub-item">Antara News</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/news/kumparan', 'type=Berita', 'GET');" class="sub-item">Kumparan News</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/infogempa', false, 'GET');" class="sub-item', 'GET');" class="sub-item">Info Gempa Terkini</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/infocuaca', 'provinsi=jakarta', 'GET');" class="sub-item">Info Cuaca Indonesia</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/infocuaca/dunia', false, 'GET');" class="sub-item">Info Cuaca Dunia</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/infocuaca/bandara', false, 'GET');" class="sub-item">Info Cuaca Bandara</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/infotsunami', false, 'GET');" class="sub-item">Info Tsunami</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/covidindo', false, 'GET');" class="sub-item">Covid Indo</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/covidworld', false, 'GET');" class="sub-item">Covid World</a>
+            <a onclick="getInfo('api/news', false, 'GET');" class="sub-item">Jenis Berita</a>
+            <a onclick="getInfo('api/news/cnn', 'type=Berita', 'GET');" class="sub-item">Cnn News</a>
+            <a onclick="getInfo('api/news/cnbc', 'type=Berita', 'GET');" class="sub-item">CnBc News</a>
+            <a onclick="getInfo('api/news/republika', 'type=Berita', 'GET');" class="sub-item">Republika News</a>
+            <a onclick="getInfo('api/news/tempo', 'type=Berita', 'GET');" class="sub-item">Tempo News</a>
+            <a onclick="getInfo('api/news/antara', 'type=Berita', 'GET');" class="sub-item">Antara News</a>
+            <a onclick="getInfo('api/news/kumparan', 'type=Berita', 'GET');" class="sub-item">Kumparan News</a>
+			<a onclick="getInfo('api/infogempa', false, 'GET');" class="sub-item', 'GET');" class="sub-item">Info Gempa Terkini</a>
+            <a onclick="getInfo('api/infocuaca', 'provinsi=jakarta', 'GET');" class="sub-item">Info Cuaca Indonesia</a>
+            <a onclick="getInfo('api/infocuaca/dunia', false, 'GET');" class="sub-item">Info Cuaca Dunia</a>
+            <a onclick="getInfo('api/infocuaca/bandara', false, 'GET');" class="sub-item">Info Cuaca Bandara</a>
+            <a onclick="getInfo('api/infotsunami', false, 'GET');" class="sub-item">Info Tsunami</a>
+            <a onclick="getInfo('api/covidindo', false, 'GET');" class="sub-item">Covid Indo</a>
+            <a onclick="getInfo('api/covidworld', false, 'GET');" class="sub-item">Covid World</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fab fa-product-hunt"></i>Primbon Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/artinama', 'nama=Rendy', 'GET');" class="sub-item">Arti Nama</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/artimimpi', 'mimpi=digigit%20ular', 'GET');" class="sub-item">Arti Mimpi</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/nomorhoki', 'nomor=085812345678', 'GET');" class="sub-item">Nomor Hoki</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/cekjodoh', 'nama=Rendy&pasangan=Indah', 'GET');" class="sub-item">Ramalan Jodoh</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tggljadian', 'tggl=30&bln=06&thn=2019', 'GET');" class="sub-item">Tanggal Jadian</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/masadepan', 'nama=Rendy', 'GET');" class="sub-item">Ramalan Masa Depan</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tebakumur', 'nama=Rendy', 'GET');" class="sub-item">Tebak Umur</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/zodiak', 'nama=Rendy&tggl=04&bln=10&thn=2005', 'GET');" class="sub-item">Zodiak</a>
+            <a onclick="getInfo('api/artinama', 'nama=Rendy', 'GET');" class="sub-item">Arti Nama</a>
+	        <a onclick="getInfo('api/artimimpi', 'mimpi=digigit%20ular', 'GET');" class="sub-item">Arti Mimpi</a>
+	        <a onclick="getInfo('api/nomorhoki', 'nomor=085812345678', 'GET');" class="sub-item">Nomor Hoki</a>
+            <a onclick="getInfo('api/cekjodoh', 'nama=Rendy&pasangan=Indah', 'GET');" class="sub-item">Ramalan Jodoh</a>
+	        <a onclick="getInfo('api/tggljadian', 'tggl=30&bln=06&thn=2019', 'GET');" class="sub-item">Tanggal Jadian</a>
+			<a onclick="getInfo('api/masadepan', 'nama=Rendy', 'GET');" class="sub-item">Ramalan Masa Depan</a>
+			<a onclick="getInfo('api/tebakumur', 'nama=Rendy', 'GET');" class="sub-item">Tebak Umur</a>
+	        <a onclick="getInfo('api/zodiak', 'nama=Rendy&tggl=04&bln=10&thn=2005', 'GET');" class="sub-item">Zodiak</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fas fa-music"></i>Music Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ytplay', 'q=faded', 'GET');" class="sub-item">Youtube Play</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/spotify', 'q=faded', 'GET');" class="sub-item">Spotify</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/joox', 'q=faded', 'GET');" class="sub-item">Joox</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/joox/lirik', 'q=faded', 'GET');" class="sub-item">Joox Lirik</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/lirik', 'lagu=sayang', 'GET');" class="sub-item">Lirik Lagu</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/chord', 'lagu=sayang', 'GET');" class="sub-item">Chord Lagu</a>
+		    <a onclick="getInfo('api/ytplay', 'q=faded', 'GET');" class="sub-item">Youtube Play</a>
+	        <a onclick="getInfo('api/spotify', 'q=faded', 'GET');" class="sub-item">Spotify</a>
+	        <a onclick="getInfo('api/joox', 'q=faded', 'GET');" class="sub-item">Joox</a>
+	        <a onclick="getInfo('api/joox/lirik', 'q=faded', 'GET');" class="sub-item">Joox Lirik</a>
+	        <a onclick="getInfo('api/lirik', 'lagu=sayang', 'GET');" class="sub-item">Lirik Lagu</a>
+            <a onclick="getInfo('api/chord', 'lagu=sayang', 'GET');" class="sub-item">Chord Lagu</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fa fa-lock"></i>Encrypt Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/escape', 'text=%3Cpre%3ENgetes%20doang%3C/pre%3E', 'GET');" class="sub-item">Escape Encoder</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/unescape', 'text=%3c%68%74%6d%6c%3e%3c%62%6f%64%79%3e%3c%70%3e%4e%67%65%74%65%73%20%44%6f%61%6e%67%20%3b%76%3c%2f%70%3e%3c%2f%62%6f%64%79%3e%3c%2f%68%74%6d%6c%3e', 'GET');" class="sub-item">Escape Decoder</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tobase64', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Media To Base64</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tomedia', 'img=TEKS_BASE64IMG', 'GET');" class="sub-item">Base64 To Media</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/binary', 'encode=RendyGans', 'GET');" class="sub-item">Binary Encoder</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/binary', 'decode=011100100110010101101110011001000111100101100111011000010110111001110011', 'GET');" class="sub-item">Binary Decoder</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/base', 'type=base64&encode=RendyGans', 'GET');" class="sub-item">Base64 Encoder</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/base', 'type=base64&decode=SW5pQWRhbGFoQXBpa2V5UkMwNDc=', 'GET');" class="sub-item">Base64 Decoder</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/base', 'type=base32&encode=RendyGans', 'GET');" class="sub-item">Base32 Encoder</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/base', 'type=base32&decode=SW5pQWRhbGFoQXBpa2V5UkMwNDc', 'GET');" class="sub-item">Base32 Decoder</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/hex/encode', 'text=RendyGans', 'GET');" class="sub-item">Hex Encoder</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/hex/decode', 'text=68616c6f', 'GET');" class="sub-item">Hex Decoder</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sha1', 'text=RendyGans', 'GET');" class="sub-item">SHA1 Encoder</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sha256', 'text=RendyGans', 'GET');" class="sub-item">SHA256 Encoder</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sha512', 'text=RendyGans', 'GET');" class="sub-item">SHA512 Encoder</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/md5', 'text=RendyGans', 'GET');" class="sub-item">MD5 Encoder</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/randombyte', 'jumlah=100', 'GET');" class="sub-item">Random Bytes</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/createcode', 'text=KodeAnjayy02', 'GET');" class="sub-item">Code Generator</a>
+            <a onclick="getInfo('api/escape', 'text=%3Cpre%3ENgetes%20doang%3C/pre%3E', 'GET');" class="sub-item">Escape Encoder</a>
+            <a onclick="getInfo('api/unescape', 'text=%3c%68%74%6d%6c%3e%3c%62%6f%64%79%3e%3c%70%3e%4e%67%65%74%65%73%20%44%6f%61%6e%67%20%3b%76%3c%2f%70%3e%3c%2f%62%6f%64%79%3e%3c%2f%68%74%6d%6c%3e', 'GET');" class="sub-item">Escape Decoder</a>
+            <a onclick="getInfo('api/tobase64', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Media To Base64</a>
+            <a onclick="getInfo('api/tomedia', 'img=TEKS_BASE64IMG', 'GET');" class="sub-item">Base64 To Media</a>
+	        <a onclick="getInfo('api/binary', 'encode=RendyGans', 'GET');" class="sub-item">Binary Encoder</a>
+            <a onclick="getInfo('api/binary', 'decode=011100100110010101101110011001000111100101100111011000010110111001110011', 'GET');" class="sub-item">Binary Decoder</a>
+            <a onclick="getInfo('api/base', 'type=base64&encode=RendyGans', 'GET');" class="sub-item">Base64 Encoder</a>
+            <a onclick="getInfo('api/base', 'type=base64&decode=SW5pQWRhbGFoQXBpa2V5UkMwNDc=', 'GET');" class="sub-item">Base64 Decoder</a>
+	        <a onclick="getInfo('api/base', 'type=base32&encode=RendyGans', 'GET');" class="sub-item">Base32 Encoder</a>
+	        <a onclick="getInfo('api/base', 'type=base32&decode=SW5pQWRhbGFoQXBpa2V5UkMwNDc', 'GET');" class="sub-item">Base32 Decoder</a>
+	        <a onclick="getInfo('api/hex/encode', 'text=RendyGans', 'GET');" class="sub-item">Hex Encoder</a>
+	        <a onclick="getInfo('api/hex/decode', 'text=68616c6f', 'GET');" class="sub-item">Hex Decoder</a>
+		    <a onclick="getInfo('api/sha1', 'text=RendyGans', 'GET');" class="sub-item">SHA1 Encoder</a>
+		    <a onclick="getInfo('api/sha256', 'text=RendyGans', 'GET');" class="sub-item">SHA256 Encoder</a>
+		    <a onclick="getInfo('api/sha512', 'text=RendyGans', 'GET');" class="sub-item">SHA512 Encoder</a>
+	        <a onclick="getInfo('api/md5', 'text=RendyGans', 'GET');" class="sub-item">MD5 Encoder</a>
+			<a onclick="getInfo('api/randombyte', 'jumlah=100', 'GET');" class="sub-item">Random Bytes</a>
+	        <a onclick="getInfo('api/createcode', 'text=KodeAnjayy02', 'GET');" class="sub-item">Code Generator</a>
           </div>
         </div>
 		<div class="item">
           <a class="sub-btn"><i class="fas fa-wrench"></i>Tools Menu<i class="fas fa-angle-right dropdown"></i></a>
           <div class="sub-menu">
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ssweb', 'url=https://www.youtube.com/c/RC047', 'GET');" class="sub-item">Screenshot Web</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/lock', 'url=https://saweria.co/donate/RC047&pass=12345', 'GET');" class="sub-item">URL Locker</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/imgbb', 'url=https://1.bp.blogspot.com/-TNGZGhSt_zI/X93Q4iKhQxI/AAAAAAAAVF4/L4rB8enc1HoFy5aXkvomfmxcR30kygKrACNcBGAsYHQ/s578/91913235_2830089170435663_4447843912417017856_n.jpg', 'GET');" class="sub-item">Imgbb Uploader</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/telegraph', 'file_url=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">TelegraPH Uploader</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/fileio', 'file_url=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">FileIO Uploader</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/fetch', 'url=https://www.youtube.com&method=get', 'GET');" class="sub-item">Website Fetcher</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/battery', false, 'GET');" class="sub-item">Battery Reader</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/execute', 'command=echo%20example%20result', 'GET');" class="sub-item">Executer</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/style', 'text=Rendy', 'GET');" class="sub-item">Style Text</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/count', 'text=Lalalalalalalalalalalalalaa', 'GET');" class="sub-item">Text Counter</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/reverse', 'text=Kok%20hurufnya%20bisa%20kebalik%20kek%20gini%20yaa', 'GET');" class="sub-item">Text Reverser</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/repeat', 'text=halo&jumlah=1000', 'GET');" class="sub-item">Text Repeater</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/readmore', 'text=Anjasss', 'GET');" class="sub-item">Text Readmore</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tinyurl', 'url=https://kuhong-api.herokuapp.com', 'GET');" class="sub-item">Tiny Url</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/bitly', 'url=https://kuhong-api.herokuapp.com', 'GET');" class="sub-item">Bitly Url</a>
-		    <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/sid', 'url=https://kuhong-api.herokuapp.com', 'GET');" class="sub-item">S.ID Shortener</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/translate', 'lang=id&text=dick', 'GET');" class="sub-item">Translator</a>
-            <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/calculator', 'angka=11%20*%2045', 'GET');" class="sub-item">Calculator</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ipcheck', 'ip=125.161.59.184', 'GET');" class="sub-item">IP Checker</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/html-viewer', 'url=https://www.google.com', 'GET');" class="sub-item">HTML Viewer</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/html-preview', '%3Cpre%3EHalo%21%3C/pre%3E', 'GET');" class="sub-item">HTML Preview</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/scraper/photooxy', 'url=https://photooxy.com/logo-and-text-effects/shadow-text-effect-in-the-sky-394.html&text=Anjayyy', 'GET');" class="sub-item">Photooxy Scraper</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/scraper/textpro', 'url=https://textpro.me/3d-underwater-text-effect-generator-online-1013.html&text=Anjayyy', 'GET');" class="sub-item">TextPro Scraper</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/scraper/ephoto360', 'url=https://en.ephoto360.com/free-online-art-paper-cut-text-effects-695.html&text=Anjayyy', 'GET');" class="sub-item">Ephoto360 Scraper</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/stickerwm', 'url=https://i.ibb.co/frhZmyZ/pp.jpg&packname=Sticker%20WM&author=RC047', 'GET');" class="sub-item">Sticker Watermark</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tobraille', 'img=https://i.ibb.co/rZHMCTS/testing.jpg', 'GET');" class="sub-item">Image To Braille</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/towebp', 'url=https://sdl-stickershop.line.naver.jp/products/0/0/1/3234393/android/animation/35532558.png', 'GET');" class="sub-item">PNG To Webp</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/towebp', 'url=https://sdl-stickershop.line.naver.jp/products/0/0/1/3234393/android/animation/35532558.png', 'GET');" class="sub-item">GIF To Webp</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/toimg', 'webp=https://s3.getstickerpack.com/storage/uploads/sticker-pack/patrick-star-2/sticker_18.png', '6a6b46b00c73fdd9a005030f315f2bdf', 'GET');" class="sub-item">Webp To PNG/JPG</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tomp4', 'url=https://mathiasbynens.be/demo/animated-webp-supported.webp', 'GET');" class="sub-item">Webp To MP4</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/url2image', 'url=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Url To Image</a>
-			<a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tomp3', 'url=http://sansekai.my.id/ptl_repost/120533450_988960268238482_4908300175960396265_n.mp4', 'GET');" class="sub-item">MP4 To MP3</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/tts', 'text=Rest%20Api%20Keren&lang=id', 'GET');" class="sub-item">Text To Speech</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/soundchanger', 'type=slow&audio=http://www.jplayer.org/audio/mp3/Miaow-snip-Stirring-of-a-fool.mp3', 'GET');" class="sub-item">Sound Changer</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/emojitopng', 'emoji=Ø3dÞ03', 'GET');" class="sub-item">Emoji To Png</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/readqr', 'url=https://api.qrserver.com/v1/create-qr-code/', 'data=Rest%20Api%20yang%20kerenn!&size=512x512&margin=0', 'GET');" class="sub-item">QR Reader</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/ocr', 'img=https://i.ibb.co/rZHMCTS/testing.jpg', 'GET');" class="sub-item">OCR</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/removebg', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Remove BG</a>
-	        <a onclick="getInfo('https://kuhong-api.herokuapp.com/api/savemedia', 'file_url=https://i.ibb.co/rZHMCTS/testing.jpg', 'GET');" class="sub-item">Media Saver</a>
+            <a onclick="getInfo('api/ssweb', 'url=https://www.youtube.com/c/RC047', 'GET');" class="sub-item">Screenshot Web</a>
+            <a onclick="getInfo('api/lock', 'url=https://saweria.co/donate/RC047&pass=12345', 'GET');" class="sub-item">URL Locker</a>
+            <a onclick="getInfo('api/imgbb', 'url=https://1.bp.blogspot.com/-TNGZGhSt_zI/X93Q4iKhQxI/AAAAAAAAVF4/L4rB8enc1HoFy5aXkvomfmxcR30kygKrACNcBGAsYHQ/s578/91913235_2830089170435663_4447843912417017856_n.jpg', 'GET');" class="sub-item">Imgbb Uploader</a>
+	        <a onclick="getInfo('api/telegraph', 'file_url=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">TelegraPH Uploader</a>
+	        <a onclick="getInfo('api/fileio', 'file_url=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">FileIO Uploader</a>
+	        <a onclick="getInfo('api/fetch', 'url=https://www.youtube.com&method=get', 'GET');" class="sub-item">Website Fetcher</a>
+	        <a onclick="getInfo('api/battery', false, 'GET');" class="sub-item">Battery Reader</a>
+	        <a onclick="getInfo('api/execute', 'command=echo%20example%20result', 'GET');" class="sub-item">Executer</a>
+		    <a onclick="getInfo('api/style', 'text=Rendy', 'GET');" class="sub-item">Style Text</a>
+		    <a onclick="getInfo('api/count', 'text=Lalalalalalalalalalalalalaa', 'GET');" class="sub-item">Text Counter</a>
+		    <a onclick="getInfo('api/reverse', 'text=Kok%20hurufnya%20bisa%20kebalik%20kek%20gini%20yaa', 'GET');" class="sub-item">Text Reverser</a>
+            <a onclick="getInfo('api/repeat', 'text=halo&jumlah=1000', 'GET');" class="sub-item">Text Repeater</a>
+	        <a onclick="getInfo('api/readmore', 'text=Anjasss', 'GET');" class="sub-item">Text Readmore</a>
+	        <a onclick="getInfo('api/tinyurl', 'url=https://kuhong-api.herokuapp.com', 'GET');" class="sub-item">Tiny Url</a>
+	        <a onclick="getInfo('api/bitly', 'url=https://kuhong-api.herokuapp.com', 'GET');" class="sub-item">Bitly Url</a>
+		    <a onclick="getInfo('api/sid', 'url=https://kuhong-api.herokuapp.com', 'GET');" class="sub-item">S.ID Shortener</a>
+            <a onclick="getInfo('api/translate', 'lang=id&text=dick', 'GET');" class="sub-item">Translator</a>
+            <a onclick="getInfo('api/calculator', 'angka=11%20*%2045', 'GET');" class="sub-item">Calculator</a>
+			<a onclick="getInfo('api/ipcheck', 'ip=125.161.59.184', 'GET');" class="sub-item">IP Checker</a>
+			<a onclick="getInfo('api/html-viewer', 'url=https://www.google.com', 'GET');" class="sub-item">HTML Viewer</a>
+			<a onclick="getInfo('api/html-preview', '%3Cpre%3EHalo%21%3C/pre%3E', 'GET');" class="sub-item">HTML Preview</a>
+			<a onclick="getInfo('api/scraper/photooxy', 'url=https://photooxy.com/logo-and-text-effects/shadow-text-effect-in-the-sky-394.html&text=Anjayyy', 'GET');" class="sub-item">Photooxy Scraper</a>
+			<a onclick="getInfo('api/scraper/textpro', 'url=https://textpro.me/3d-underwater-text-effect-generator-online-1013.html&text=Anjayyy', 'GET');" class="sub-item">TextPro Scraper</a>
+			<a onclick="getInfo('api/scraper/ephoto360', 'url=https://en.ephoto360.com/free-online-art-paper-cut-text-effects-695.html&text=Anjayyy', 'GET');" class="sub-item">Ephoto360 Scraper</a>
+			<a onclick="getInfo('api/stickerwm', 'url=https://i.ibb.co/frhZmyZ/pp.jpg&packname=Sticker%20WM&author=RC047', 'GET');" class="sub-item">Sticker Watermark</a>
+			<a onclick="getInfo('api/tobraille', 'img=https://i.ibb.co/rZHMCTS/testing.jpg', 'GET');" class="sub-item">Image To Braille</a>
+	        <a onclick="getInfo('api/towebp', 'url=https://sdl-stickershop.line.naver.jp/products/0/0/1/3234393/android/animation/35532558.png', 'GET');" class="sub-item">PNG To Webp</a>
+	        <a onclick="getInfo('api/towebp', 'url=https://sdl-stickershop.line.naver.jp/products/0/0/1/3234393/android/animation/35532558.png', 'GET');" class="sub-item">GIF To Webp</a>
+	        <a onclick="getInfo('api/toimg', 'webp=https://s3.getstickerpack.com/storage/uploads/sticker-pack/patrick-star-2/sticker_18.png', '6a6b46b00c73fdd9a005030f315f2bdf', 'GET');" class="sub-item">Webp To PNG/JPG</a>
+	        <a onclick="getInfo('api/tomp4', 'url=https://mathiasbynens.be/demo/animated-webp-supported.webp', 'GET');" class="sub-item">Webp To MP4</a>
+			<a onclick="getInfo('api/url2image', 'url=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Url To Image</a>
+			<a onclick="getInfo('api/tomp3', 'url=http://sansekai.my.id/ptl_repost/120533450_988960268238482_4908300175960396265_n.mp4', 'GET');" class="sub-item">MP4 To MP3</a>
+	        <a onclick="getInfo('api/tts', 'text=Rest%20Api%20Keren&lang=id', 'GET');" class="sub-item">Text To Speech</a>
+	        <a onclick="getInfo('api/soundchanger', 'type=slow&audio=http://www.jplayer.org/audio/mp3/Miaow-snip-Stirring-of-a-fool.mp3', 'GET');" class="sub-item">Sound Changer</a>
+	        <a onclick="getInfo('api/emojitopng', 'emoji=Ø3dÞ03', 'GET');" class="sub-item">Emoji To Png</a>
+	        <a onclick="getInfo('api/readqr', 'url=https://api.qrserver.com/v1/create-qr-code/', 'data=Rest%20Api%20yang%20kerenn!&size=512x512&margin=0', 'GET');" class="sub-item">QR Reader</a>
+	        <a onclick="getInfo('api/ocr', 'img=https://i.ibb.co/rZHMCTS/testing.jpg', 'GET');" class="sub-item">OCR</a>
+	        <a onclick="getInfo('api/removebg', 'img=https://i.ibb.co/frhZmyZ/pp.jpg', 'GET');" class="sub-item">Remove BG</a>
+	        <a onclick="getInfo('api/savemedia', 'file_url=https://i.ibb.co/rZHMCTS/testing.jpg', 'GET');" class="sub-item">Media Saver</a>
           </div>
         </div>
 	    <br>
