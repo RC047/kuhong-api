@@ -14,7 +14,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var home = await fs.readFileSync(__path + '/views/home.html').toString()
-    res.send(await encryptHtml(home, 'extended'))
+    res.send(await encryptHtml(home, 'advanced'))
 })
 
 router.get('/api', async (req, res) => {
@@ -22,7 +22,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var api = await fs.readFileSync(__path + '/views/loading.html').toString()
-    res.send(await encryptHtml(api, 'extended'))
+    res.send(await encryptHtml(api, 'advanced'))
 })
 
 router.get('/docs', async (req, res) => {
@@ -30,14 +30,15 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var docs = await fs.readFileSync(__path + '/views/docs.html').toString()
-    res.send(await encryptHtml(docs, 'extended'))
+    res.send(await encryptHtml(docs, 'advanced'))
 })
 
 router.get('/game/pingpong', async  (req, res) => {
 var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
-    res.sendFile(__path + '/views/pingpong.html')
+    var pingpong = await fs.readFileSync(__path + '/views/pingpong.html').toString()
+    res.send(await encryptHtml(kuis, 'advanced'))
 })
 
 router.get('/game/kuis', async  (req, res) => {
@@ -45,7 +46,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var kuis = await fs.readFileSync(__path + '/views/kuis.html').toString()
-    res.send(await encryptHtml(kuis, 'extended'))
+    res.send(await encryptHtml(kuis, 'advanced'))
 })
 
 router.get('/game/tebakangka', async (req, res) => {
@@ -53,7 +54,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var tebakangka = await fs.readFileSync(__path + '/views/tebakangka.html').toString()
-    res.send(await encryptHtml(tebakangka, 'extended'))
+    res.send(await encryptHtml(tebakangka, 'advanced'))
 })
 
 router.get('/game/tebakhuruf', async (req, res) => {
@@ -61,7 +62,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var tebakhuruf = await fs.readFileSync(__path + '/views/tebakhuruf.html').toString()
-    res.send(await encryptHtml(tebakhuruf, 'extended'))
+    res.send(await encryptHtml(tebakhuruf, 'advanced'))
 })
 
 router.get('/game/suit', async  (req, res) => {
@@ -69,7 +70,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var suit = await fs.readFileSync(__path + '/views/suit.html').toString()
-    res.send(await encryptHtml(suit, 'extended'))
+    res.send(await encryptHtml(suit, 'advanced'))
 })
 
 router.get('/game/suitjawa', async (req, res) => {
@@ -77,7 +78,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var suitjawa = await fs.readFileSync(__path + '/views/suitjawa.html').toString()
-    res.send(await encryptHtml(suitjawa, 'extended'))
+    res.send(await encryptHtml(suitjawa, 'advanced'))
 })
 
 router.get('/game/tetris', async (req, res) => {
@@ -101,7 +102,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var tutorial = await fs.readFileSync(__path + '/views/tutorial.html').toString()
-    res.send(await encryptHtml(tutorial, 'extended'))
+    res.send(await encryptHtml(tutorial, 'advanced'))
 })
 
 router.get('/status', async (req, res, next) => {  
