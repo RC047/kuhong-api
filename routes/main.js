@@ -14,7 +14,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var home = await fs.readFileSync(__path + '/views/home.html').toString()
-    res.send(await encryptHtml(home))
+    res.send(await encryptHtml(home, 'super'))
 })
 
 router.get('/api', async (req, res) => {
@@ -22,7 +22,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var api = await fs.readFileSync(__path + '/views/loading.html').toString()
-    res.send(await encryptHtml(api))
+    res.send(await encryptHtml(api, 'super'))
 })
 
 router.get('/docs', async (req, res) => {
@@ -30,7 +30,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var docs = await fs.readFileSync(__path + '/views/docs.html').toString()
-    res.send(await encryptHtml(docs))
+    res.send(await encryptHtml(docs, 'super'))
 })
 
 router.get('/game/pingpong', async  (req, res) => {
@@ -45,7 +45,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var kuis = await fs.readFileSync(__path + '/views/kuis.html').toString()
-    res.send(await encryptHtml(kuis))
+    res.send(await encryptHtml(kuis, 'super'))
 })
 
 router.get('/game/tebakangka', async (req, res) => {
@@ -53,7 +53,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var tebakangka = await fs.readFileSync(__path + '/views/tebakangka.html').toString()
-    res.send(await encryptHtml(tebakangka))
+    res.send(await encryptHtml(tebakangka, 'super'))
 })
 
 router.get('/game/tebakhuruf', async (req, res) => {
@@ -61,7 +61,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var tebakhuruf = await fs.readFileSync(__path + '/views/tebakhuruf.html').toString()
-    res.send(await encryptHtml(tebakhuruf))
+    res.send(await encryptHtml(tebakhuruf, 'super'))
 })
 
 router.get('/game/suit', async  (req, res) => {
@@ -69,7 +69,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var suit = await fs.readFileSync(__path + '/views/suit.html').toString()
-    res.send(await encryptHtml(suit))
+    res.send(await encryptHtml(suit, 'super'))
 })
 
 router.get('/game/suitjawa', async (req, res) => {
@@ -77,7 +77,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var suitjawa = await fs.readFileSync(__path + '/views/suitjawa.html').toString()
-    res.send(await encryptHtml(suitjawa))
+    res.send(await encryptHtml(suitjawa, 'super'))
 })
 
 router.get('/game/tetris', async (req, res) => {
@@ -85,7 +85,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var tetris = await fs.readFileSync(__path + '/views/tetris.html').toString()
-    res.send(await encryptHtml(tetris))
+    res.send(await encryptHtml(tetris, 'super'))
 })
 
 router.get('/game/dino', async (req, res) => {
@@ -93,7 +93,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var dino = await fs.readFileSync(__path + '/views/dino.html').toString()
-    res.send(await encryptHtml(dino))
+    res.send(await encryptHtml(dino, 'super'))
 })
 
 router.get('/tutorial', async (req, res) => {
@@ -101,7 +101,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var tutorial = await fs.readFileSync(__path + '/views/tutorial.html').toString()
-    res.send(await encryptHtml(tutorial))
+    res.send(await encryptHtml(tutorial, 'super'))
 })
 
 router.get('/status', async (req, res, next) => {  
@@ -180,14 +180,14 @@ res.json({
         time: time,
         uptime: muptime(process.uptime()),
         ping_ms: neww - old + ' ms',
-        ping_sec: Math.round(neww - old) + ' sec'
+        ping_sec: (neww - old / 100000).toFixed(2) + ' sec'
     },
         total:{
             users: user.value.toString(),
             requests: request.value.toString(),
             visitors: visitor.value.toString(),
             stars: star.value.toString(),
-            features: '343',
+            features: '348',
             ip_blocked: Object.keys(blocked).length.toString()
     },
         owner:{
