@@ -198,7 +198,7 @@ function getReport() {
     if (!report) throw false;
     if (report !== '') {
          alert('Terimakasih atas laporan Anda!');
-         var message = 'REPORT API : ' + request;
+         var message = 'REPORT API : ' + report;
          var xhr = new XMLHttpRequest();
          var url = 'https://api.callmebot.com/whatsapp.php?phone=+62895337278647&text=' + message + '&apikey=171698';
 
