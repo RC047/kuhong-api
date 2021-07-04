@@ -23,10 +23,10 @@ LOGIN REQUIRED :
 
 Silahkan masukan namamu untuk identitas diwebsite ini :)
 `.trim());
-if (!name || name == '') name = 'Guest';
-if (name !== '') {
-console.log(`LOGIN :\n${name} just logged in to your website`);
 
+if (!name) name = 'Guest';
+if (name == '') name = 'Guest';
+if (name !== '') {
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users', true);
 xhr.send();
@@ -34,6 +34,7 @@ xhr.send();
 
 // Time Functions (to get a live online times)
 window.setTimeout('setTimes();', 1000);
+
 function setTimes() {
 
     var date = new Date();
@@ -45,9 +46,9 @@ function setTimes() {
     if (date.getHours() == 18 || date.getHours() == 19 || date.getHours() == 20 || date.getHours() == 21 || date.getHours() == 22 || date.getHours() == 23) ucapan = 'Selamat Malam';
     var notif = ucapan + ' ' + name + '!';
     if (notif == ucapan + ' null!') notif = ucapan + ' Guest!';
-          setTimeout('setTimes();', 1000);
-          document.getElementById('time').innerHTML = time;
-          document.getElementById('notif').innerHTML = notif;
+        setTimeout('setTimes();', 1000);
+        document.getElementById("time").innerHTML = time;
+        document.getElementById("notif").innerHTML = notif;
 }
 
 // Other Functions (more functions?)
@@ -55,7 +56,7 @@ function getInfo(url, param, method) {
 
   var xhr = new XMLHttpRequest();
   var url = `https://kuhong-api.herokuapp.com/api/getinfo?name=${name}&url=${url}&param=${escape(param)}&method=${method}`;
-         xhr.onloadend = function() {
+         xhr.onload = function() {
          var json = JSON.parse(this.responseText);
 
 var ok = confirm(`
@@ -83,13 +84,11 @@ function runConsole() {
 
   var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :');
   if (console == '') alert('Masukan Kode!');
-  if (console) {
-      console = console;
-  } else throw false;
+  if (!console) throw false;
   if (console !== '') {
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/run?console=' + console;
-         xhr.onloadend = function() {
+         xhr.onload = function() {
          var json = JSON.parse(this.responseText);
          if (json.result == undefined || json.result == '' || json.result.startsWith('undefined')) {
              alert('No data can be sent')
@@ -117,7 +116,8 @@ alert(`
 CHANGELOG :
 
 o Add More Games!
-o Some Update & Improve Templates!
+o Add URL Locker!
+o Add Hex Encoder & Decoder!
 `.trim());
 }
 
@@ -125,7 +125,7 @@ function getApikey() {
 
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/getapikey';
-         xhr.onloadend = function() {
+         xhr.onload = function() {
          var json = JSON.parse(this.responseText);
          prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + json.info, json.free_apikey);
          }
@@ -138,13 +138,11 @@ function checkApikey() {
 
   var apikeyInput = prompt('CHECK APIKEY :\n\nSilahkan masukan Apikey yang ingin dicek :')
   if (apikeyInput == '') alert('Masukan Apikey!');
-  if (apikeyInput) {
-      apikeyInput = apikeyInput;
-  } else throw false;
+  if (!apikeyInput) throw false;
   if (apikeyInput !== '') {
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/cekapikey?apikey=' + apikeyInput;
-         xhr.onloadend = function() {
+         xhr.onload = function() {
          var json = JSON.parse(this.responseText);
 
          alert(json.result);
@@ -159,13 +157,11 @@ function redeemCode() {
 
   var codeInput = prompt('REDEEM CODE :\n\nSilahkan masukan Kode Redeem untuk mendapatkan Apikey Premium :')
   if (codeInput == '') alert('Masukan Kode Redeem!');
-  if (codeInput) {
-      codeInput = codeInput;
-  } else throw false;
+  if (!codeInput) throw false;
   if (codeInput !== '') {
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/redeem?code=' + codeInput;
-         xhr.onloadend = function() {
+         xhr.onload = function() {
          var json = JSON.parse(this.responseText);
          if (json.result == 'Kode Redeem Tidak Valid!') alert(json.result)
          if (json.result == 'Kode Redeem Valid!') {
@@ -183,12 +179,10 @@ function getRequest() {
 
     var request = prompt('REQUEST :\n\nIngin Request fitur atau semacamnya?\n\nBisa langsung kirim masukannya disini :)');
     if (request == '') alert('Request tidak boleh kosong!');
-    if (request) {
-        request = request;
-    } else throw false;
+    if (!request) throw false;
     if (request !== '') {
          alert('Terimakasih atas masukan Anda!');
-         var message = 'REQUEST API :\n' + request;
+         var message = 'REQUEST API : ' + request;
          var xhr = new XMLHttpRequest();
          var url = 'https://api.callmebot.com/whatsapp.php?phone=+62895337278647&text=' + message + '&apikey=171698';
 
@@ -201,12 +195,10 @@ function getReport() {
 
     var report = prompt('REPORT :\n\nAda yang ingin anda Laporkan kepada Owner secara langsung?\n\nBisa langsung kirim laporannya kesini :)');
     if (report == '') alert('Laporan tidak boleh kosong!');
-    if (report) {
-        report = report;
-    } else throw false;
+    if (!report) throw false;
     if (report !== '') {
          alert('Terimakasih atas laporan Anda!');
-         var message = 'REPORT API :\n' + request;
+         var message = 'REPORT API : ' + request;
          var xhr = new XMLHttpRequest();
          var url = 'https://api.callmebot.com/whatsapp.php?phone=+62895337278647&text=' + message + '&apikey=171698';
 
@@ -224,7 +216,7 @@ function getRating() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating', true);
     xhr.send();
-    }
+    } else throw false;
 }
 
 function getUserData() {
@@ -239,7 +231,7 @@ function getUserData() {
   rtc.onicecandidate = noop;
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
-          xhr.onloadend = function() {
+          xhr.onload = function() {
           var json = JSON.parse(this.responseText);
 
 alert(`
@@ -267,7 +259,7 @@ function getStatistics() {
   var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/status';
-         xhr.onloadend = function() {
+         xhr.onload = function() {
          var json = JSON.parse(this.responseText);
          var app;
          if (json.stats.os == 'LINUX') {
