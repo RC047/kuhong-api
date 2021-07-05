@@ -1,4 +1,4 @@
-// Just an ordinary custom-made ad viewer script
+// Just an ordinary custom made ads viewer script
 
 var listAds = [
 'Dijual SC Bot WhatsApp 400+ fitur dengan harga 50K! url:https://wa.me/62895337278647?text=Min+saya+minat+mau+beli+sc+bot+wa',
@@ -17,7 +17,8 @@ var listAds = [
 var ads = pickRandom(listAds);
 var time = new Date();
 var timeUp = Math.floor(Math.random() * 60);
-if (time.getHours() == timeUp || time.getMinutes() == timeUp || time.getSeconds() == timeUp) {
+var timeUp2 = Math.floor(Math.random() * 1000);
+if (time.getHours() == timeUp || time.getMinutes() == timeUp || time.getSeconds() == timeUp || time.getMilliseconds() == timeUp2) {
     delay(3000);
     alert('ADS :\n\n' + ads.split(' url:')[0]);
     window.location = ads.split('url:')[1];
