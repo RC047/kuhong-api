@@ -1,20 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
 
-body{
+body {
   min-height: 10vh;
   background-color: #1a1630;
   background-size: cover;
   background-position: center;
 }
 
-.side-bar{
+.side-bar {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(25px);
   width: 290px;
@@ -28,54 +28,54 @@ body{
 }
 
 /* width */
-::-webkit-scrollbar {
+::-webkit-scrollbar  {
   width: 10px;
 }
 
 /* Track */
-::-webkit-scrollbar-track {
+::-webkit-scrollbar-track  {
   background: #f1f1f1;
 }
 
 /* Handle */
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb  {
   background: #888;
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover  {
   background: #1a1630;
 }
 
-.side-bar .profile img{
+.side-bar .profile img {
   margin: 20px 0;
   width: 100px;
   height: 100px;
   border-radius: 50%;
 }
 
-.side-bar .profile p{
+.side-bar .profile p {
   color: #fff;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
-.side-bar.active{
+.side-bar.active {
   left: 0;
 }
 
-.side-bar .menu{
+.side-bar .menu {
   width: 100%;
   margin-top: 40px;
 }
 
 
-.side-bar .menu .item{
+.side-bar .menu .item {
   position: relative;
   cursor: pointer;
 }
 
-.side-bar .menu .item a{
+.side-bar .menu .item a {
   color: #fff;
   font-size: 16px;
   text-decoration: none;
@@ -84,36 +84,42 @@ body{
   line-height: 30px;
 }
 
-.side-bar .menu .item a:hover{
+.side-bar .menu .item a:hover {
   background: #28243c;
   transition: 0.3s ease;
 }
 
-.side-bar .menu .item i{
+.side-bar .menu .item i {
   margin-right: 15px;
 }
 
-.side-bar .menu .item a .dropdown{
+.side-bar .menu .item a .dropdown {
   position: absolute;
   right: 0;
   margin: 10px;
   transition: 0.3s ease;
 }
 
-.side-bar .menu .item .sub-menu{
+.side-bar .menu .item .sub-menu {
   background: rgba(26, 22, 48, 0.1);
   display: none;
 }
 
-.side-bar .menu .item .sub-menu a{
+.side-bar .menu .item .sub-menu a {
    padding-left: 80px;
 }
 
-.rotate{
+.side-bar .footer p {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.rotate {
   transform: rotate(90deg);
 }
 
-.close-btn{
+.close-btn {
   position: absolute;
   color: #fff;
   font-size: 20px;
@@ -122,7 +128,7 @@ body{
   cursor: pointer;
 }
 
-.menu-btn{
+.menu-btn {
   position: absolute;
   color: #fff;
   font-size: 20px;
@@ -130,7 +136,7 @@ body{
   cursor: pointer;
 }
 
-.main{
+.main {
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -138,20 +144,20 @@ body{
   padding: 50px;
 }
 
-.main h1{
+.main h1 {
   color:  #fff;
   font-size: 50px;
   text-align: center;
   line-height: 80px;
 }
 
-a:link {
+a:link  {
   color: #fff;
   background-color: transparent;
   text-decoration: none;
 }
 
-#box {
+#box  {
   top: 10px;
   border-color: #fff;
   border-style: solid;
@@ -165,7 +171,7 @@ a:link {
   transition: 0.6s ease;
   transition-property: left;
 }
-.box {
+.box  {
   width: 150px;
   height: 80px;
   text-align: center;
@@ -175,8 +181,8 @@ a:link {
   border-radius: 5px;
 }
 
-@media (max-width: 900px){
-  .main h1{
+@media (max-width: 900px) {
+  .main h1 {
     font-size: 40px;
     line-height: 60px;
   }
