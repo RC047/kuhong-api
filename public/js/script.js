@@ -118,6 +118,7 @@ CHANGELOG :
 o Add More Games!
 o Add URL Locker!
 o Add Hex Encoder & Decoder!
+o Add Html Loader!
 `.trim());
 }
 
