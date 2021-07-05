@@ -19,13 +19,8 @@ var time = new Date();
 var timeUp = Math.floor(Math.random() * 60);
 var timeUp2 = Math.floor(Math.random() * 1000);
 if (time.getHours() == timeUp || time.getMinutes() == timeUp || time.getSeconds() == timeUp || time.getMilliseconds() == timeUp2) {
-    delay(3000);
     alert('ADS :\n\n' + ads.split(' url:')[0]);
     window.location = ads.split('url:')[1];
-}
-
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function pickRandom(list) {
