@@ -3,7 +3,7 @@ var express = require('express'),
     secure = require('ssl-express-www'),
     fs = require('fs');
 
-var port = process.env.PORT || 8080 || 5000 || 3000
+var port = process.env.PORT || 8080 || 5000 || 3000;
 var { encryptHtml } = require('./lib/functions.js');
 var { color } = require('./lib/color.js');
 
