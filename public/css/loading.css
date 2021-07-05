@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: 'Itim', cursive;
 }
 
-body{
+body {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,7 +13,7 @@ body{
     animation: colors 10s linear infinite;
 }
 
-.wavy{
+.wavy {
     position: relative;
     -webkit-box-reflect: below -12px linear-gradient(transparent, rgba(0,0,0,0.2));
 }
@@ -29,19 +29,19 @@ body{
 }
 
 @keyframes animation {
-    0%{
+    0% {
         transform: translateY(0px);
     }
-    20%{
+    20% {
         transform:translateY(-20px);
     }
-    40%, 100%{
+    40%, 100% {
         transform: translateY(0px);
     }
 }
 
 @keyframes animate {
-    0%{
+    0% {
         color:aqua;
         text-shadow: 0 0 10px aqua,
          0 0 20px aqua,
@@ -50,7 +50,7 @@ body{
          0 0 160px aqua;
 
     }
-    50%{
+    50% {
         color: aquamarine;
         text-shadow:  0 0 5px aqua,
         0 0 20px aqua,
@@ -58,20 +58,20 @@ body{
         0 0 80px aqua,
         0 0 160px aqua;
     }
-    100%{
+    100% {
         color: #333;
         text-shadow:  none;
     }
 }
 
 @keyframes colors {
-    0%{
+    0% {
        background: #ffffff;
     }
-    20%{
+    20% {
         background: #262626;
     }
-    100%{
+    100% {
        background: #000;
     }
 }
