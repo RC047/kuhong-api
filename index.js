@@ -3,7 +3,7 @@ var express = require('express'),
     secure = require('ssl-express-www'),
     fs = require('fs');
 
-const port = process.env.PORT || 8080 || 5000 || 3000
+var port = process.env.PORT || 8080 || 5000 || 3000
 var { encryptHtml } = require('./lib/functions.js');
 var { color } = require('./lib/color.js');
 
@@ -19,10 +19,10 @@ app.use(express.static('public'));
 
 app.use('/', mainrouter);
 app.use('/api', apirouter);
-app.use((req, res, next) => {
-   var notfound = fs.readFileSync(__path + '/views/404.html').toString();
+app.use(async (req, res, next) => {
+   var notfound = await fs.readFileSync(__path + '/views/404.html').toString();
    res.status(404);
-   res.send(encryptHtml(notfound));
+   res.send(await encryptHtml(notfound));
 });
 
 app.listen(port, () => {
