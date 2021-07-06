@@ -30,7 +30,7 @@ var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokua
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var docs = await fs.readFileSync(__path + '/views/docs.html').toString()
-    res.send(await encryptHtml(docs))
+    res.send(docs)
 })
 
 router.get('/page/offline', async (req, res, next) => {
