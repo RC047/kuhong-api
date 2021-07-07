@@ -262,10 +262,7 @@ function getStatistics() {
   var url = 'https://kuhong-api.herokuapp.com/status';
          xhr.onload = function() {
          var json = JSON.parse(this.responseText);
-         var app;
-         if (json.stats.os == 'LINUX') {
-         app = 'Linux';
-         } else app = json.stats.os.toLowerCase();
+         var app = json.stats.OS.slice(0, 1).toUpperCase() + json.stats.OS.slice(1);
 
 alert(`
 STATISTICS :
