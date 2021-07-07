@@ -136,7 +136,7 @@ var cpuCore = cpu.count()
 var drive = osu.drive
 var mem = osu.mem
 var netstat = osu.netstat
-var OS = osu.os.platform()
+var platform = osu.os.platform()
 var cpuModel = cpu.model()
 var cpuPer
 
@@ -189,7 +189,7 @@ res.json({
     stats:{
         status: 'Online',
         name: 'kuhong-api',
-        os: OS.toUpperCase(),
+        platform: platform,
         ram: `${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})`,
         storage: `${driveUsed} GB / ${driveTotal} (${drivePer} Used)`,
         cpu: `${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)`,
