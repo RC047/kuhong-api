@@ -223,6 +223,13 @@ res.json({
     })
 })
 
+router.get('/gabut', async (req, res, next) => {
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    res.sendFile(__path + '/views/gabut.html');
+})
+
 module.exports = router
 
 function muptime(seconds) {
