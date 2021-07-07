@@ -262,7 +262,7 @@ function getStatistics() {
   var url = 'https://kuhong-api.herokuapp.com/status';
          xhr.onload = function() {
          var json = JSON.parse(this.responseText);
-         var app = json.stats.OS.slice(0, 1).toUpperCase() + json.stats.OS.slice(1);
+         var app = json.stats.os.slice(0, 1).toUpperCase() + json.stats.os.slice(1);
 
 alert(`
 STATISTICS :
