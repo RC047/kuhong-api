@@ -115,6 +115,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.send(await encryptHtml(dino))
 })
 
+router.get('/gabut', async (req, res, next) => {
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    var gabut = await fs.readFileSync(__path + '/views/gabut.html').toString()
+    res.send(await encryptHtml(gabut))
+})
+
 router.get('/tutorial', async (req, res, next) => {
 var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
@@ -188,8 +196,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 res.json({
     stats:{
         status: 'Online',
-        name: 'kuhong-api',
-        platform: platform,
+        platform: platform.slice(0, 1).toUpperCase() + platform.slice(1),
         ram: `${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})`,
         storage: `${driveUsed} GB / ${driveTotal} (${drivePer} Used)`,
         cpu: `${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)`,
@@ -221,13 +228,6 @@ res.json({
             donasi: 'https://saweria.co/RC047'
         }
     })
-})
-
-router.get('/gabut', async (req, res, next) => {
-var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
-var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
-    res.sendFile(__path + '/views/gabut.html');
 })
 
 module.exports = router
