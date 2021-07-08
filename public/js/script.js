@@ -17,6 +17,11 @@ $(document).ready(function() {
     });
 });
 
+// Auto Loading (refresh the page at random times)
+var ara = Math.floor(Math.random() * 10);
+var iri = Math.floor(Math.random() * 10);
+if (ara == iri || iri == ara) window.location = 'https://kuhong-api.herokuapp.com/api';
+
 // Login is required (;v)
 var name = prompt(`
 LOGIN REQUIRED :
