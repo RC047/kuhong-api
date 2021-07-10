@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title>Chat Bot</title>
+    <meta name="description" content="Obrolan Dengan Bot Gratis!">
+    <style>
+#chat {
+    text-align: left;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    padding: 10px;
+    background: #fff;
+    height: absolute;
+    width: absolute;
+    border: 1px solid #a7a7a7;
+    border-radius: 5px;
+    overflow: auto;
+    border-radius: 4px;
+  }
+
+.chat {
+  width: absolute;
+  height: absolute;
+  text-align: left;
+  font-size: 15px;
+  background-color: #1a1630;
+  border-radius: 5px;
+}
+    </style>
+</head>
+<body>
+    <div id="chat">BOT CHAT<br><a id="nomsg"><br>Tidak ada pesan.</a></div>
+        <form>
+            <input type="text" id="message">
+            <button onclick="sendMessage();">Kirim</button>
+        </form>
+    </div>
+<script>
+function sendMessage() {
+var pesan = document.getElementById("message").value;
+var send = unescape('%3Cbr%3E') + 'Kamu: ' + pesan;
+document.getElementById("nomsg").innerHTML = '';
+document.getElementById("chat").innerHTML += send;
+setTimeout('getBotMessage();', 1000);
+}
+
+function getBotMessage() {
+var pesan = document.getElementById("message").value;
+var xhr = new XMLHttpRequest();
+var url = 'https://kuhong-api.herokuapp.com/js/botchat.js?kata=' + pesan;
+xhr.open('GET', url, false);
+xhr.send();
+var send = unescape('%3Cbr%3E') + 'Bot: ' + xhr.responseText;
+document.getElementById("chat").innerHTML += send;
+}
+</script>
+</body>
+</html>
