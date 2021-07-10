@@ -115,12 +115,23 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.send(await encryptHtml(dino))
 })
 
-router.get('/gabut', async (req, res, next) => {
+router.get('/js/botchat.js', async (req, res, next) => {
 var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
-    var gabut = await fs.readFileSync(__path + '/views/gabut.html').toString()
-    res.send(await encryptHtml(gabut))
+    var kata = req.query.kata;
+
+    try {
+    var json = await (await fetch(`https://api.simsimi.net/v1/?text=${kata}&lang=id`)).json()
+    var result = json.success
+    if (!kata) result = 'Not Found'
+
+      res.set('Content-Type', 'text/plain')
+      res.send(result)
+    } catch (e) {
+    console.log(e)
+   res.send('Error!')
+  }
 })
 
 router.get('/tutorial', async (req, res, next) => {
