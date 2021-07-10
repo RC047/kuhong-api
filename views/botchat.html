@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-    <title>Chat Bot</title>
+    <title>Bot Chat</title>
     <meta name="description" content="Obrolan Dengan Bot Gratis!">
     <style>
 #chat {
@@ -31,27 +31,50 @@
 </head>
 <body>
     <div id="chat">BOT CHAT<br><a id="nomsg"><br>Tidak ada pesan.</a></div>
-        <form>
-            <input type="text" id="message">
-            <button onclick="sendMessage();">Kirim</button>
-        </form>
+        <input type="text" id="message" placeholder="Ketik pesan">
+        <input type="submit" value="Kirim" onclick="sendMessage();">
+        <input type="submit" value="Ganti Nama" onclick="changeName();">
     </div>
 <script>
-function sendMessage() {
-var pesan = document.getElementById("message").value;
-var send = unescape('%3Cbr%3E') + 'Kamu: ' + pesan;
-document.getElementById("nomsg").innerHTML = '';
-document.getElementById("chat").innerHTML += send;
-setTimeout('getBotMessage();', 1000);
+var newLine = unescape('%3Cbr%3E');
+var nama = 'Kamu';
+
+function changeName() {
+nama = prompt('Silahkan ganti namamu :');
+if (nama == null || nama == '') nama = 'Kamu';
 }
 
-function getBotMessage() {
+function getDate() {
+var date = new Date();
+   return '[' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '] ';
+}
+
+function sendMessage() {
 var pesan = document.getElementById("message").value;
+if (pesan == '') throw false;
+var send = newLine + getDate() + nama + ': ' + pesan;
+document.getElementById("nomsg").innerHTML = '';
+document.getElementById("chat").innerHTML += send;
+setTimeout(() => getBotMessage(pesan), 1000);
+document.getElementById("message").value = '';
+}
+
+function getApikey() {
 var xhr = new XMLHttpRequest();
-var url = 'https://kuhong-api.herokuapp.com/js/botchat.js?kata=' + pesan;
+var url = 'https://kuhong-api.herokuapp.com/api/getapikey';
 xhr.open('GET', url, false);
 xhr.send();
-var send = unescape('%3Cbr%3E') + 'Bot: ' + xhr.responseText;
+var json = JSON.parse(xhr.responseText);
+    return json.free_apikey;
+}
+
+function getBotMessage(pesan) {
+var xhr = new XMLHttpRequest();
+var url = 'https://kuhong-api.herokuapp.com/api/simsimi?kata=' + pesan + '&apikey=' + getApikey();
+xhr.open('GET', url, false);
+xhr.send();
+var json = JSON.parse(xhr.responseText);
+var send = newLine + getDate() + 'Bot: ' + json.result;
 document.getElementById("chat").innerHTML += send;
 }
 </script>
