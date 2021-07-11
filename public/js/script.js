@@ -184,7 +184,7 @@ function getRequest() {
     if (!request) throw false;
     if (request !== '') {
          alert('Terimakasih atas masukan Anda!');
-         var message = 'REQUEST API : ' + request;
+         var message = 'REQUEST API :\n' + request;
          var xhr = new XMLHttpRequest();
          var url = 'https://api.callmebot.com/whatsapp.php?phone=+62895337278647&text=' + message + '&apikey=171698';
 
@@ -200,7 +200,7 @@ function getReport() {
     if (!report) throw false;
     if (report !== '') {
          alert('Terimakasih atas laporan Anda!');
-         var message = 'REPORT API : ' + report;
+         var message = 'REPORT API :\n' + report;
          var xhr = new XMLHttpRequest();
          var url = 'https://api.callmebot.com/whatsapp.php?phone=+62895337278647&text=' + message + '&apikey=171698';
 
