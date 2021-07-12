@@ -35,7 +35,8 @@
         <p id="chat"><a id="no-message"></a></p><br>
         <input type="text" style="width:252px; height:30px" id="message" placeholder="Ketik pesan">
         <input type="submit" style="height:30px" value="Kirim" onclick="sendMessage();">
-        <input type="submit" value="Ganti Nama" onclick="changeName();"><br><br>
+        <input type="submit" value="Ganti Nama" onclick="changeName();">
+        <input type="submit" value="Bersihkan Chat" onclick="clearChat();"><br><br>
         <div>Mode Chat :
         <input type="radio" name="selection" value="private" onclick="setPublic(false);" CHECKED>Private
         <input type="radio" name="selection" value="public" onclick="setPublic(true);">Public<br>
