@@ -1,11 +1,13 @@
 // Behind the Scene :v
 
+var prefix = '!';
+var baseCmd = '!menu';
 var previousMessage = '';
 var historyMessage = '';
 var newLine = unescape('%3Cbr%3E');
 var publicChat = false;
 var nama = 'Guest' + Math.floor(Math.random() * 10000);
-document.getElementById("no-message").innerHTML = newLine + getDate() + tilt('Tidak ada pesan.');
+document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold('!menu') + ' untuk menggunakan Bot dengan perintah';
 
 
 function color(text, color) {
@@ -80,21 +82,23 @@ var json = JSON.parse(xhr.responseText);
 }
 
 function getBotMessage(pesan) {
-var botName = 'Kuhong Bot (Verified): ';
+var botName = 'KuhongBot (Verified): ';
 var taggedName = isTag(botName, true);
 if (publicChat == true) {
 	botName = getRandomName();
     taggedName = isTag(botName);
     }
 if (botName.endsWith('(Verified): ')) taggedName = isTag(botName, true);
-var xhr = new XMLHttpRequest();
-var url = 'https://kuhong-api.herokuapp.com/api/simsimi?kata=' + pesan + '&apikey=' + getApikey();
-xhr.open('GET', url, false);
-xhr.send();
-var json = JSON.parse(xhr.responseText);
-var message = json.result.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E')).replace(/SIMI/g, 'AKU').replace(/simi/g, 'aku').replace(/simsimi/g, 'aku').replace(/SIMSIMI/g, 'AKU');
-var send = newLine + getDate() + taggedName + message;
-document.getElementById("chat").innerHTML += send;
+if (!pesan.startsWith(prefix))  {
+    var xhr = new XMLHttpRequest();
+    var url = 'https://kuhong-api.herokuapp.com/api/simsimi?kata=' + pesan + '&apikey=' + getApikey();
+    xhr.open('GET', url, false);
+    xhr.send();
+    var json = JSON.parse(xhr.responseText);
+    var message = json.result.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E')).replace(/SIMI/g, 'AKU').replace(/simi/g, 'aku').replace(/simsimi/g, 'aku').replace(/SIMSIMI/g, 'AKU');
+    var send = newLine + getDate() + taggedName + message;
+    document.getElementById("chat").innerHTML += send;
+    } else getBotMessageWithCommand(pesan.split(prefix)[1]);
 }
 
 function setPublic(turn) {
@@ -150,6 +154,15 @@ function getHistoryMessages() {
 var result = historyMessage;
 if (result == '') result = 'Tidak ada history';
    alert('HISTORY :\n\n' + result);
+}
+
+function fetchURL(isJson, url) {
+var xhr = new XMLHttpRequest();
+xhr.open('GET', url, false);
+xhr.send();
+var result = xhr.responseText;
+if (isJson == true) result = JSON.parse(xhr.responseText);
+    return result;
 }
 
 function pickRandom(list) {
