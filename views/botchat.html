@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <title>Bot Chat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimal-ui">
     <meta name="description" content="Tempatnya chatting bersama Bot dengan orang gabut">
@@ -36,7 +36,8 @@
         <input type="text" style="width:252px; height:30px" id="message" placeholder="Ketik pesan">
         <input type="submit" style="height:30px" value="Kirim" onclick="sendMessage();">
         <input type="submit" value="Ganti Nama" onclick="changeName();">
-        <input type="submit" value="Bersihkan Chat" onclick="clearChat();"><br><br>
+        <input type="submit" value="Clear Chat" onclick="clearChat();">
+        <input type="submit" value="History" onclick="getHistoryMessages();"><br><br>
         <div>Mode Chat :
         <input type="radio" name="selection" value="private" onclick="setPublic(false);" CHECKED>Private
         <input type="radio" name="selection" value="public" onclick="setPublic(true);">Public<br>
