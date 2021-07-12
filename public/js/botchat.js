@@ -1,7 +1,5 @@
 // Behind the Scene :v
 
-var prefix = '!';
-var baseCmd = '!menu';
 var previousMessage = '';
 var historyMessage = '';
 var newLine = unescape('%3Cbr%3E');
