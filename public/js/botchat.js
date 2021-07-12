@@ -88,17 +88,17 @@ document.getElementById("chat").innerHTML += send;
 }
 
 function setPublic(turn) {
-var delaySend = Math.floor(Math.random() * 19999);
+var delaySend = Math.floor(Math.random() * 60000);
 if (turn == false) {
 	alert('Mode chat berhasil diubah menjadi Private!');
 	document.getElementById("no-message").innerHTML = '';
-	document.getElementById("chat").innerHTML += newLine + newLine + bold('Mode chat telah diubah menjadi ' + tilt('"Private"'));
+	document.getElementById("chat").innerHTML += newLine + newLine + bold('Mode chat telah diubah menjadi "' + tilt('Private') + '"');
 	publicChat = false;
    }
 if (turn == true) {
 	alert('Mode chat berhasil diubah menjadi Public!');
 	document.getElementById("no-message").innerHTML = '';
-	document.getElementById("chat").innerHTML += newLine + newLine + bold('Mode chat telah diubah menjadi ' + tilt('"Public"'));
+	document.getElementById("chat").innerHTML += newLine + newLine + bold('Mode chat telah diubah menjadi "' + tilt('Public') + '"');
 	publicChat = true;
     setTimeout('autoSendMessage();', delaySend);
     }
@@ -106,7 +106,7 @@ if (turn == true) {
 
 function autoSendMessage() {
 if (publicChat == false) throw false;
-var delaySend = Math.floor(Math.random() * 19999);
+var delaySend = Math.floor(Math.random() * 60000);
 var ranName = getRandomName();
 var ranMsg = getRandomMessage(nama);
 var taggedName = isTag(ranName);
