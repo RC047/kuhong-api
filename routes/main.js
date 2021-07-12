@@ -17,7 +17,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var home = await fs.readFileSync(__path + '/views/home.html').toString()
     var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
     if (devMode == 'true') home = home + devTools
-    res.send(home)
+    res.send(await encryptHtml(home))
 })
 
 router.get('/api', async (req, res, next) => {
@@ -124,25 +124,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
     if (devMode == 'true') bot = bot + devTools
     res.send(await encryptHtml(bot))
-})
-
-router.get('/js/botchat.js', async (req, res, next) => {
-var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
-var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
-    var kata = req.query.kata;
-
-    try {
-    var json = await (await fetch(`https://api.simsimi.net/v1/?text=${kata}&lang=id`)).json()
-    var result = json.success
-    if (!kata) result = 'Not Found'
-
-      res.set('Content-Type', 'text/plain')
-      res.send(result)
-    } catch (e) {
-    console.log(e)
-   res.send('Error!')
-  }
 })
 
 router.get('/tutorial', async (req, res, next) => {
