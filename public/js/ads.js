@@ -3,6 +3,7 @@
 var ranGames = pickRandom(['dino', 'tetris', 'suit', 'suitjawa', 'tebakhuruf', 'tebakangka', 'pingpong', 'kuis']);
 var listAds = [
 'Bosan? Main game aja di Kuhong API! url:https://kuhong-api.herokuapp.com/game/' + ranGames,
+'Gak ada temen? Chat aja yuk sama Bot diwebsite resmi kami! url:https://kuhong-api.herokuapp.com/botchat',
 'Dijual SC Bot WhatsApp 400+ fitur dengan harga 50K! url:https://wa.me/62895337278647?text=Min+saya+minat+mau+beli+sc+bot+wa',
 'Jangan lupa donasi biar update tiap hari! url:https://saweria.co/RC047',
 'Jangan lupa subscribe channel Owner! url:https://youtube.com/c/RC047',
