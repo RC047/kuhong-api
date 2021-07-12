@@ -6,6 +6,11 @@ var publicChat = false;
 var nama = 'Guest' + Math.floor(Math.random() * 10000);
 document.getElementById("no-message").innerHTML = newLine + getDate() + tilt('Tidak ada pesan.');
 
+
+function color(text, color) {
+   return unescape('%3Ca%20style=%22color:' + color.toLowerCase() + '%22%3E') + text + unescape('%3C/a%3E');
+}
+
 function tilt(text) {
    return unescape('%3Cvar%3E') + text + unescape('%3C/var%3E');
 }
@@ -30,7 +35,8 @@ if (nama == null || nama == '') {
     nama = 'Guest' + Math.floor(Math.random() * 10000);
     throw false;
     } else if (nama.startsWith('Kuhong') || nama.startsWith('kuhong') || nama.startsWith('RC047')) {
-    alert('Nama yang anda masukan sudah diambil!');
+    alert('Nama yang anda masukan sudah dimiliki!');
+    nama = 'Guest' + Math.floor(Math.random() * 10000);
     throw false;
     } else if (nama.endsWith(')') || nama.endsWith('Verified')) {
     alert('Nama anda tidak diizinkan!');
@@ -54,8 +60,7 @@ function sendMessage() {
 var pesan = document.getElementById("message").value;
 if (pesan == '') throw false;
 if (pesan.length > 500) return alert('Pesan terlalu panjang!');
-var styledName = unescape('%3Ca%20style=%22color:red%22%3E') + nama + ': ' + unescape('%3C/a%3E');
-var send = newLine + getDate() + styledName + pesan.replace(/_/g, unescape('%3Cvar%3E')).replace('*', unescape('%3Cstrong%3E')).replace('*', unescape('%3Cstrong%3E'));
+var send = newLine + getDate() + color(nama + ': ', 'red') + pesan.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E'));
 document.getElementById("no-message").innerHTML = '';
 document.getElementById("chat").innerHTML += send;
 setTimeout(() => getBotMessage(pesan), 1000);
@@ -73,22 +78,25 @@ var json = JSON.parse(xhr.responseText);
 }
 
 function getBotMessage(pesan) {
-var botName = 'Kuhong Bot ' + unescape('%3Ca%20style=%22color:green%22%3E') + '(Verified): ' + unescape('%3C/a%3E');
-var taggedName = botName;
-if (publicChat == true) taggedName = isTag(getRandomName());
-if (taggedName.endsWith('(Verified): ')) taggedName = taggedName.split('(')[0] + unescape('%3Ca%20style=%22color:green%22%3E') + '(Verified): ' + unescape('%3C/a%3E');
+var botName = 'Kuhong Bot (Verified): ';
+var taggedName = isTag(botName, true);
+if (publicChat == true) {
+	botName = getRandomName();
+    taggedName = isTag(botName);
+    }
+if (botName.endsWith('(Verified): ')) taggedName = isTag(botName, true);
 var xhr = new XMLHttpRequest();
 var url = 'https://kuhong-api.herokuapp.com/api/simsimi?kata=' + pesan + '&apikey=' + getApikey();
 xhr.open('GET', url, false);
 xhr.send();
 var json = JSON.parse(xhr.responseText);
-var message = json.result.replace(/SIMI/g, '').replace(/simi/g, '').replace(/simsimi/g, '').replace(/bot/g, 'orang');
+var message = json.result.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E')).replace(/SIMI/g, 'AKU').replace(/simi/g, 'aku').replace(/simsimi/g, 'aku').replace(/SIMSIMI/g, 'AKU');
 var send = newLine + getDate() + taggedName + message;
 document.getElementById("chat").innerHTML += send;
 }
 
 function setPublic(turn) {
-var delaySend = Math.floor(Math.random() * 60000);
+var delaySend = Math.floor(Math.random() * 30000);
 if (turn == false) {
 	alert('Mode chat berhasil diubah menjadi Private!');
 	document.getElementById("no-message").innerHTML = '';
@@ -106,23 +114,33 @@ if (turn == true) {
 
 function autoSendMessage() {
 if (publicChat == false) throw false;
-var delaySend = Math.floor(Math.random() * 60000);
+var delaySend = Math.floor(Math.random() * 30000);
 var ranName = getRandomName();
 var ranMsg = getRandomMessage(nama);
 var taggedName = isTag(ranName);
-if (ranName.endsWith('(Verified): ')) taggedName = ranName.split('(')[0] + unescape('%3Ca%20style=%22color:green%22%3E') + '(Verified): ' + unescape('%3C/a%3E');
+if (ranName.endsWith('(Verified): ')) taggedName = isTag(ranName, true);
 var sendPublic = newLine + getDate() + taggedName + ranMsg;
 document.getElementById("no-message").innerHTML = '';
 document.getElementById("chat").innerHTML += sendPublic;
 setTimeout('autoSendMessage();', delaySend);
 }
 
-function isTag(listName) {
-   return unescape('%3Ca%20onclick=%22tagPeople(`') + listName + unescape('`)%22%3E') + listName + unescape('%3C/a%3E');
+function clearChat() {
+var clear = confirm('Anda yakin ingin membersihkan chat?');
+if (clear) {
+    document.getElementById("chat").innerHTML = unescape('%3Ca%20id=%22no-message%22%3E%3C/a%3E');
+    document.getElementById("no-message").innerHTML = newLine + getDate() + tilt('Tidak ada pesan.');
+    } else throw false;
 }
 
-function tagPeople(name) {
-   document.getElementById("message").value += '*@' + name.split(':')[0] + '*';
+function isTag(who, verified = false) {
+var result = unescape('%3Ca%20onclick=%22tagPeople("') + who + unescape('")%22%3E') + who + unescape('%3C/a%3E');
+if (verified == true) result = who.split('(')[0] + unescape('%3Ca%20style=%22color:green%22%20onclick=%22tagPeople(`') + who.split(' (')[0] + unescape('`)%22%3E') + '(Verified)' + unescape('%3C/a%3E') + ': ';
+   return result;
+}
+
+function tagPeople(target) {
+   document.getElementById("message").value += '*@' + target.split(':')[0] + '*';
 }
 
 function pickRandom(list) {
