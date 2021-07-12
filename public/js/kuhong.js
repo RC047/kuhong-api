@@ -1,5 +1,9 @@
 // This script is only work in Html or Html5!
 
+var bot = 'Kuhong';
+var prefix = '!';
+var baseCmd = '!menu';
+
 async function getBotMessageWithCommand(cmd) {
 
 var botName = isTag('KuhongBot (Verified): ', true);
