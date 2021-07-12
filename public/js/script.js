@@ -56,7 +56,7 @@ function setTimes() {
 function getInfo(url, param, method) {
 
   var xhr = new XMLHttpRequest();
-  var url = `https://kuhong-api.herokuapp.com/api/getinfo?name=${name}&url=${url}&param=${escape(param)}&method=${method}`;
+  var url = `https://kuhong-api.herokuapp.com/api/getinfo?name=${name}&url=${url}&param=${encodeURIComponent(param)}&method=${method}`;
          xhr.onload = function() {
          var json = JSON.parse(this.responseText);
 
