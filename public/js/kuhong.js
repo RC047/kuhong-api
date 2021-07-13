@@ -8,20 +8,15 @@
 var prefix = '!';
 var baseCmd = prefix + 'menu';
 
-function send(message) {
-var botName = isTag('KuhongBot (Verified): ', true);
-var send = newLine + getDate() + botName + message;
-document.getElementById("chat").innerHTML += send;
-}
-
 async function getBotMessageWithCommand(cmd) {
 
 try {
-if (cmd.startsWith('menu')) {
+if (cmd.startsWith('menu') || cmd.startsWith('help')) {
 
 	var menu = `
 ${newLine}MENU BOT :${newLine}${newLine}
 ${prefix}get [url]${newLine}
+${prefix}binary [text]${newLine}
 ${prefix}base64 [text]${newLine}
 ${prefix}unbase64 [text]${newLine}
 ${prefix}tinyurl [url]${newLine}
@@ -51,11 +46,17 @@ ${prefix}quotes${newLine}
 ${prefix}sindiran${newLine}
 ${prefix}fml${newLine}
 ${prefix}faktaunik${newLine}
+${prefix}ip [local/public]${newLine}
 ${prefix}time${newLine}
 ${prefix}ping${newLine}
 ${prefix}clear${newLine}
-`.trim()
+${prefix}owner${newLine}
+`.trim();
      send(menu);
+
+} else if (cmd.startsWith('owner')) {
+
+window.location = 'https://wa.me/62895337278647';
 
 } else if (cmd.startsWith('clear')) {
 
@@ -90,7 +91,32 @@ var url = cmd.split('get ')[1];
 if (!url) return send('Silahkan masukan url');
 if (!url.startsWith('http')) return send('URL TIDAK VALID');
 var result = fetchURL(false, url);
+if (result == '' || result == undefined) result = 'Error!';
     send(result);
+
+} else if (cmd.startsWith('ip')) {
+
+var type = cmd.split('ip ')[1];
+if (!type) return send('Silahkan masukan type');
+if (!(type == 'local' || type == 'public')) return send('Pilih public/local');
+var ip = 'IP Not Found';
+if (type == 'local') {
+	window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+    var rtc = new RTCPeerConnection({iceServers:[]});
+    noop = function() {};
+    rtc.createDataChannel('');
+    rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
+    rtc.onicecandidate = function(ice) {
+    if (!ice || !ice.candidate || !ice.candidate.candidate) return;
+    ip = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+    send(ip);
+    rtc.onicecandidate = noop;
+	}
+	}
+if (type == 'public') {
+     ip = fetchURL(false, 'http://api.ipify.org');
+     send(ip);
+     }
 
 } else if (cmd.startsWith('tinyurl')) {
 
@@ -115,18 +141,25 @@ if (!angka) return send('Silahkan masukan angka');
 var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/calculator?angka=' + angka + '&apikey=' + getApikey());
     send(json.result);
 
+} else if (cmd.startsWith('binary')) {
+
+var text = cmd.split('binary ')[1];
+if (!text) return send('Silahkan masukan text');
+var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/binary?encode=' + text + '&apikey=' + getApikey());
+    send(json.result);
+
 } else if (cmd.startsWith('base64')) {
 
 var text = cmd.split('base64 ')[1];
 if (!text) return send('Silahkan masukan text');
-var result = btoa(text).toString();
+var result = btoa(text);
     send(result);
 
 } else if (cmd.startsWith('unbase64')) {
 
 var text = cmd.split('unbase64 ')[1];
 if (!text) return send('Silahkan masukan text');
-var result = atob(text).toString();
+var result = atob(text);
     send(result);
 
 } else if (cmd.startsWith('translate')) {
@@ -276,9 +309,15 @@ var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/faktaunik?apikey
     } else return send('Perintah tidak ditemukan! Silahkan ketik ' + bold(baseCmd) + ' untuk melihat list menu.');
 
 } catch (e) {
-    throw e;
-  send('Error!');
+       console.log(e);
+  send('Sesuatu telah Error!');
   }
+}
+
+function send(message) {
+var botName = isTag('KuhongBot (Verified): ', true);
+var send = newLine + getDate() + botName + message;
+document.getElementById("chat").innerHTML += send;
 }
 
 // module.exports = { getBotMessageWithCommand }
