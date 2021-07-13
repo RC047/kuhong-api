@@ -5,18 +5,18 @@
  * Note: This script is free for everyone,, dont forget to give credit and the script is only work in Html or Html5!
  */
 
-var botName = isTag('KuhongBot (Verified): ', true);
 var prefix = '!';
 var baseCmd = prefix + 'menu';
 
 function send(message) {
+var botName = isTag('KuhongBot (Verified): ', true);
 var send = newLine + getDate() + botName + message;
 document.getElementById("chat").innerHTML += send;
 }
 
 async function getBotMessageWithCommand(cmd) {
 
-
+try {
 if (cmd.startsWith('menu')) {
 
 	var menu = `
@@ -274,6 +274,11 @@ var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/faktaunik?apikey
     send(json.result);
 
     } else return send('Perintah tidak ditemukan! Silahkan ketik ' + bold(baseCmd) + ' untuk melihat list menu.');
+
+} catch (e) {
+    throw e;
+  send('Error!');
+  }
 }
 
 // module.exports = { getBotMessageWithCommand }
