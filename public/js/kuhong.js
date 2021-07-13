@@ -9,13 +9,12 @@ var botName = isTag('KuhongBot (Verified): ', true);
 var prefix = '!';
 var baseCmd = prefix + 'menu';
 
+async function getBotMessageWithCommand(cmd) {
+
 function send(message) {
 var send = newLine + getDate() + botName + message;
 document.getElementById("chat").innerHTML += send;
 }
-
-async function getBotMessageWithCommand(cmd) {
-
 
 if (cmd.startsWith('menu')) {
 
@@ -261,7 +260,7 @@ var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/katailham?apikey
 } else if (cmd.startsWith('fml')) {
 
 var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/fml?apikey=' + getApikey());
-    send(json.result);
+    send(json.result.id);
 
 } else if (cmd.startsWith('sindiran')) {
 
