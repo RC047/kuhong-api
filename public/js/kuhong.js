@@ -5,11 +5,11 @@
  * Note: This script is free for everyone,, dont forget to give credit and the script is only work in Html or Html5!
  */
 
-async function getBotMessageWithCommand(cmd) {
-
 var botName = isTag('KuhongBot (Verified): ', true);
 var prefix = '!';
 var baseCmd = prefix + 'menu';
+
+async function getBotMessageWithCommand(cmd) {
 
 function send(message) {
 var send = newLine + getDate() + botName + message;
