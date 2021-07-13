@@ -158,7 +158,8 @@ function fetchURL(isJson, url) {
 var xhr = new XMLHttpRequest();
 xhr.open('GET', url, false);
 xhr.send();
-var result = xhr.responseText;
+var result = null;
+if (isJson == false) result = xhr.responseText;
 if (isJson == true) result = JSON.parse(xhr.responseText);
     return result;
 }
