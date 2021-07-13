@@ -18,10 +18,9 @@ var listAds = [
 ];
 
 var ads = pickRandom(listAds);
-var time = new Date();
-var timeUp = Math.floor(Math.random() * 60);
-var timeUp2 = Math.floor(Math.random() * 1000);
-if (time.getHours() == timeUp || time.getMinutes() == timeUp || time.getSeconds() == timeUp || time.getMilliseconds() == timeUp2) {
+var a = Math.floor(Math.random() * 10);
+var b = Math.floor(Math.random() * 10);
+if (a == b || b == a) {
     alert('ADS :\n\n' + ads.split(' url:')[0]);
     window.location = ads.split('url:')[1];
 }
