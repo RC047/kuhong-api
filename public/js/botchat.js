@@ -5,7 +5,7 @@ var historyMessage = '';
 var newLine = unescape('%3Cbr%3E');
 var publicChat = false;
 var nama = 'Guest' + Math.floor(Math.random() * 10000);
-document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold('!menu') + ' untuk menggunakan Bot dengan perintah';
+document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold('!menu') + ' untuk memulai Bot';
 
 
 function color(text, color) {
@@ -158,9 +158,10 @@ function fetchURL(isJson, url) {
 var xhr = new XMLHttpRequest();
 xhr.open('GET', url, false);
 xhr.send();
-var result = null;
+var result;
 if (isJson == false) result = xhr.responseText;
 if (isJson == true) result = JSON.parse(xhr.responseText);
+if (result == undefined || result == null) result = 'Error!';
     return result;
 }
 
