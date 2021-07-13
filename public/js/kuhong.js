@@ -9,12 +9,13 @@ var botName = isTag('KuhongBot (Verified): ', true);
 var prefix = '!';
 var baseCmd = prefix + 'menu';
 
-async function getBotMessageWithCommand(cmd) {
-
 function send(message) {
 var send = newLine + getDate() + botName + message;
 document.getElementById("chat").innerHTML += send;
 }
+
+async function getBotMessageWithCommand(cmd) {
+
 
 if (cmd.startsWith('menu')) {
 
@@ -130,9 +131,9 @@ var result = atob(text).toString();
 
 } else if (cmd.startsWith('translate')) {
 
-var txt = cmd.split('translate ')[1];
-var [lang, text] = txt.split('|');
-if (!lang) return send('Silahkan masukan kodebahasa (lang)');
+var args = cmd.split('translate ')[1];
+if (!args) return send('Silahkan masukan kodebahasa (lang)');
+var [lang, text] = args.split('|');
 if (!text) return send('Silahkan masukan text');
 var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/translate?lang=' + lang + '&text=' + text + '&apikey=' + getApikey());
 var result = json.result
@@ -211,8 +212,8 @@ var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/holoh?text=' + t
 } else if (cmd.startsWith('persen')) {
 
 var args = cmd.split('persen ')[1];
+if (!args) return send('Silahkan masukan type');
 var [type, nama] = args.split('|');
-if (!type) return send('Silahkan masukan type');
 if (!nama) return send('Silahkan masukan nama');
 var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/persen?type=' + type + '&nama=' + nama + '&apikey=' + getApikey());
     send(json.result);
