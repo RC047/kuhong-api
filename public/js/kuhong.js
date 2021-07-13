@@ -9,14 +9,14 @@ var botName = isTag('KuhongBot (Verified): ', true);
 var prefix = '!';
 var baseCmd = prefix + 'menu';
 
-async function getBotMessageWithCommand(cmd) {
-
 function send(message) {
 var send = newLine + getDate() + botName + message;
 document.getElementById("chat").innerHTML += send;
 }
 
-try {
+async function getBotMessageWithCommand(cmd) {
+
+
 if (cmd.startsWith('menu')) {
 
 	var menu = `
@@ -53,14 +53,20 @@ ${prefix}fml${newLine}
 ${prefix}faktaunik${newLine}
 ${prefix}time${newLine}
 ${prefix}ping${newLine}
+${prefix}clear${newLine}
 `.trim()
      send(menu);
+
+} else if (cmd.startsWith('clear')) {
+
+document.getElementById("chat").innerHTML = unescape('%3Ca%20id=%22no-message%22%3E%3C/a%3E');
+document.getElementById("no-message").innerHTML = newLine + getDate() + tilt('Tidak ada pesan.');
 
 } else if (cmd.startsWith('battery')) {
 
 Battery.getStatus(function(status, error) {
    var result = Math.floor(status.level * 100) + '%';
-   if (result == 'NaN%') result = status.level;
+   if (result == 'NaN%') result = 'Not Detected';
    if (error) result = 'Unsupported Battery';
        send(result);
    });
@@ -72,7 +78,10 @@ var result = getDate().split('[')[1].split(']')[0];
 
 } else if (cmd.startsWith('ping')) {
 
-var ping = 'Pong! 0.' + new Date().getMilliseconds() + 'ms';
+var date = new Date();
+var old = date.getMilliseconds();
+var neww = date.getMilliseconds();
+var ping = `${neww - old}.${date.getMilliseconds() + 'ms'}`;
      send(ping);
 
 } else if (cmd.startsWith('get')) {
@@ -88,7 +97,7 @@ var result = fetchURL(false, url);
 var url = cmd.split('tinyurl ')[1];
 if (!url) return send('Silahkan masukan url');
 if (!url.startsWith('http')) return send('URL TIDAK VALID');
-var json = fetchURL(false, 'https://kuhong-api.herokuapp.com/api/tinyurl?url=' + url + '&apikey=' + getApikey());
+var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/tinyurl?url=' + url + '&apikey=' + getApikey());
     send(json.result);
 
 } else if (cmd.startsWith('bitly')) {
@@ -96,14 +105,14 @@ var json = fetchURL(false, 'https://kuhong-api.herokuapp.com/api/tinyurl?url=' +
 var url = cmd.split('bitly ')[1];
 if (!url) return send('Silahkan masukan url');
 if (!url.startsWith('http')) return send('URL TIDAK VALID');
-var json = fetchURL(false, 'https://kuhong-api.herokuapp.com/api/bitly?url=' + url + '&apikey=' + getApikey());
+var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/bitly?url=' + url + '&apikey=' + getApikey());
     send(json.result);
 
 } else if (cmd.startsWith('calculator')) {
 
 var angka = cmd.split('calculator ')[1];
 if (!angka) return send('Silahkan masukan angka');
-var json = fetchURL(false, 'https://kuhong-api.herokuapp.com/api/calculator?angka=' + angka + '&apikey=' + getApikey());
+var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/calculator?angka=' + angka + '&apikey=' + getApikey());
     send(json.result);
 
 } else if (cmd.startsWith('base64')) {
@@ -126,7 +135,7 @@ var txt = cmd.split('translate ')[1];
 var [lang, text] = txt.split('|');
 if (!lang) return send('Silahkan masukan kodebahasa (lang)');
 if (!text) return send('Silahkan masukan text');
-var json = fetchURL(false, 'https://kuhong-api.herokuapp.com/api/translate?lang=' + lang + '&text=' + text + '&apikey=' + getApikey());
+var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/translate?lang=' + lang + '&text=' + text + '&apikey=' + getApikey());
 var result = json.result
 if (json.result == undefined) result = 'Kodebahasa tidak tersedia.';
     send(result);
@@ -265,10 +274,6 @@ var json = fetchURL(true, 'https://kuhong-api.herokuapp.com/api/faktaunik?apikey
     send(json.result);
 
     } else return send('Perintah tidak ditemukan! Silahkan ketik ' + bold(baseCmd) + ' untuk melihat list menu.');
-} catch (e) {
-	console.log(e);
-  send('Error!');
-  }
 }
 
 // module.exports = { getBotMessageWithCommand }
