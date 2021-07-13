@@ -21,7 +21,9 @@ if (cmd.startsWith('menu')) {
 
 	var menu = `
 ${newLine}MENU BOT :${newLine}${newLine}
-${prefix}fetch [url]${newLine}
+${prefix}get [url]${newLine}
+${prefix}base64 [text]${newLine}
+${prefix}unbase64 [text]${newLine}
 ${prefix}tinyurl [url]${newLine}
 ${prefix}bitly [url]${newLine}
 ${prefix}calculator [angka]${newLine}
@@ -73,9 +75,9 @@ var result = getDate().split('[')[1].split(']')[0];
 var ping = 'Pong! 0.' + new Date().getMilliseconds() + 'ms';
      send(ping);
 
-} else if (cmd.startsWith('fetch')) {
+} else if (cmd.startsWith('get')) {
 
-var url = cmd.split('fetch ')[1];
+var url = cmd.split('get ')[1];
 if (!url) return send('Silahkan masukan url');
 if (!url.startsWith('http')) return send('URL TIDAK VALID');
 var result = fetchURL(false, url);
@@ -103,6 +105,20 @@ var angka = cmd.split('calculator ')[1];
 if (!angka) return send('Silahkan masukan angka');
 var json = fetchURL(false, 'https://kuhong-api.herokuapp.com/api/calculator?angka=' + angka + '&apikey=' + getApikey());
     send(json.result);
+
+} else if (cmd.startsWith('base64')) {
+
+var text = cmd.split('base64 ')[1];
+if (!text) return send('Silahkan masukan text');
+var result = btoa(text).toString();
+    send(result);
+
+} else if (cmd.startsWith('unbase64')) {
+
+var text = cmd.split('unbase64 ')[1];
+if (!text) return send('Silahkan masukan text');
+var result = atob(text).toString();
+    send(result);
 
 } else if (cmd.startsWith('translate')) {
 
