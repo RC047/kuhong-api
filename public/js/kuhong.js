@@ -18,6 +18,7 @@ ${newLine}MENU BOT :${newLine}${newLine}
 ${prefix}get [url]${newLine}
 ${prefix}post [url]${newLine}
 ${prefix}binary [text]${newLine}
+${prefix}unbinary [text]${newLine}
 ${prefix}base64 [text]${newLine}
 ${prefix}unbase64 [text]${newLine}
 ${prefix}tinyurl [url]${newLine}
@@ -66,12 +67,11 @@ document.getElementById("no-message").innerHTML = newLine + getDate() + tilt('Ti
 
 } else if (cmd.startsWith('battery')) {
 
-Battery.getStatus(function(status, error) {
+navigator.getBattery().then(status => {
    var res = Math.floor(status.level * 100) + '%';
    if (res == 'NaN%') res = 'Not Detected';
-   if (error) res = 'Unsupported Battery';
        send(res);
-   });
+   }).catch(() => send('Unsupported Battery'));
 
 } else if (cmd.startsWith('time')) {
 
@@ -110,7 +110,7 @@ var type = cmd.split('ip ')[1];
 if (!type) return send('Silahkan masukan type');
 if (!(type == 'local' || type == 'public')) return send('Pilih public/local');
 if (type == 'local') {
-	window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+    window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
     var rtc = new RTCPeerConnection({iceServers:[]});
     noop = function() {};
     rtc.createDataChannel('');
@@ -120,11 +120,11 @@ if (type == 'local') {
     var res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
     send(res);
     rtc.onicecandidate = noop;
-	     }
 	}
+     }
 if (type == 'public') {
-     var res = fetchURL('GET', 'https://api.ipify.org/?format=json');
-     send(res.body.ip);
+     var res = fetchURL('GET', 'https://api.ipify.org');
+     send(res.body);
      }
 
 } else if (cmd.startsWith('tinyurl')) {
@@ -156,6 +156,13 @@ var text = cmd.split('binary ')[1];
 if (!text) return send('Silahkan masukan text');
 var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/binary?encode=' + text + '&apikey=' + getApikey());
     send(res.body.result);
+
+} else if (cmd.startsWith('unbinary')) {
+
+var text = cmd.split('unbinary ')[1];
+if (!text) return send('Silahkan masukan text');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/binary?decode=' + text + '&apikey=' + getApikey());
+    send(res.body.result);	
 
 } else if (cmd.startsWith('base64')) {
 
@@ -319,7 +326,7 @@ var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/faktaunik?apikey
 
 } catch (e) {
        console.log(e);
-  send('Sesuatu telah Error!');
+  send('Terjadi Kesalahan!');
   }
 }
 
@@ -333,6 +340,8 @@ function fetchURL(method, url) {
 var xhr = new XMLHttpRequest();
 xhr.open(method.toUpperCase(), url, false);
 xhr.send();
+var body = xhr.responseText;
+if (xhr.getAllResponseHeaders().split('content-type: ')[1] == 'application/json') body = JSON.parse(xhr.responseText);
 var res = {
 	status: xhr.status,
 	statusText: xhr.statusText,
@@ -340,8 +349,8 @@ var res = {
 		contentLength: xhr.getAllResponseHeaders().split('content-length: ')[1].split('content-type: ')[0],
 		contentType: xhr.getAllResponseHeaders().split('content-type: ')[1]
 	},
-	body: JSON.parse(xhr.responseText)
-	}
+	body: body
+  }
   return res;
 }
 
