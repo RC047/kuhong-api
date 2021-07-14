@@ -16,6 +16,7 @@ if (cmd.startsWith('menu') || cmd.startsWith('help')) {
 	var menu = `
 ${newLine}MENU BOT :${newLine}${newLine}
 ${prefix}get [url]${newLine}
+${prefix}post [url]${newLine}
 ${prefix}binary [text]${newLine}
 ${prefix}base64 [text]${newLine}
 ${prefix}unbase64 [text]${newLine}
@@ -91,7 +92,16 @@ var url = cmd.split('get ')[1];
 if (!url) return send('Silahkan masukan url');
 if (!url.startsWith('http')) return send('URL TIDAK VALID');
 var res = fetchURL('GET', url);
-if (res.status !== 200) res = 'Error!';
+if (res.status !== 200) return send('Request failed with status ' + res.status);
+    send(res.body);
+
+} else if (cmd.startsWith('post')) {
+
+var url = cmd.split('post ')[1];
+if (!url) return send('Silahkan masukan url');
+if (!url.startsWith('http')) return send('URL TIDAK VALID');
+var res = fetchURL('POST', url);
+if (res.status !== 200) return send('Request failed with status ' + res.status);
     send(res.body);
 
 } else if (cmd.startsWith('ip')) {
