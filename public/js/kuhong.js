@@ -113,8 +113,8 @@ if (type == 'local') {
 	     }
 	}
 if (type == 'public') {
-     var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/login?name');
-     send(res.body.publicIP);
+     var res = fetchURL('GET', 'https://api.ipify.org');
+     send(res.body);
      }
 
 } else if (cmd.startsWith('tinyurl')) {
@@ -332,7 +332,7 @@ var res = {
 	},
 	body: xhr.response || xhr.responseText
 	}
-    return JSON.parse(res);
+  return JSON.parse(res);
 }
 
 // module.exports = { getBotMessageWithCommand }
