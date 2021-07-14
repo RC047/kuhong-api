@@ -8,6 +8,7 @@ var listAds = [
 'Jangan lupa donasi biar update tiap hari! url:https://saweria.co/RC047',
 'Jangan lupa subscribe channel Owner! url:https://youtube.com/c/RC047',
 'Dapatkan iPhone 7 secara gratis hanya dengan mengisi survey! url:https://biz-create.com/asia/cp1707',
+'Apakah ponselmu selalu lambat karena terlalu panas?\nIni dikarenakan ada banyak perangkat lunak dan layanan berjalan di latar belakang, menyebabkan ponsel melambat dan dengan cepat menyedot baterai. Battery Saver ada untuk memecahkan masalah baterai dan memperpanjang usia baterai, memungkinkanmu untuk menggunakan ponsel tanpa masalah. url:https://play.google.com/store/apps/details?id=com.appsinnova.android.battery',
 'Mau dapet iPhone 11 gratis? Begini caranya! url:https://inet.detik.com/consumer/d-5251992/mau-dapat-iphone-11-gratis-begini-caranya',
 'Nama domain .COM yang tepat bisa membantu menentukan identitas digitalmu! url:https://siapnge.com/maksimalkan-bisnis?utm_source=google&utm_medium=banner&utm_campaign=gdn_phase_6_website&utm_content=website_topic&utm_term=Website_Photo_Responsive_Ad_6&gclid=Cj0KCQjw5uWGBhCTARIsAL70sLKEDZEqGjHiajqH5E7ma1BYs_c533IhSu_-wunFzz2A0T6vew1dxVwaAqooEALw_wcB',
 'Proses perangkat Anda terasa lambat?\nAyoo buruan download Nox Cleaner sekarang! url:https://play.google.com/store/apps/details?id=com.noxgroup.app.cleaner',
