@@ -346,6 +346,7 @@ var res = {
 	status: xhr.status,
 	statusText: xhr.statusText,
 	headers:{
+		userAgent: navigator.userAgent,
 		contentLength: xhr.getAllResponseHeaders().split('content-length: ')[1].split('content-type: ')[0],
 		contentType: xhr.getAllResponseHeaders().split('content-type: ')[1]
 	},
