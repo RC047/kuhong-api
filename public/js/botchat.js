@@ -75,12 +75,8 @@ document.getElementById("message").value = '';
 }
 
 function getApikey() {
-var xhr = new XMLHttpRequest();
-var url = 'https://kuhong-api.herokuapp.com/api/getapikey';
-xhr.open('GET', url, false);
-xhr.send();
-var json = JSON.parse(xhr.responseText);
-    return json.free_apikey;
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/getapikey');
+  return res.body.free_apikey;
 }
 
 function getBotMessage(pesan) {
