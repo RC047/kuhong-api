@@ -123,10 +123,10 @@ var ranName = getRandomName();
 var ranMessage = getRandomMessage(nama);
 var taggedName = isTag(ranName);
 if (ranName.endsWith('(Verified): ')) taggedName = isTag(ranName, true);
-if (ranMessage.startsWith(prefix)) getBotMessageWithCommand(ranMessage.split(prefix)[1]);
 var sendPublic = newLine + getDate() + taggedName + ranMessage;
 document.getElementById("no-message").innerHTML = '';
 document.getElementById("chat").innerHTML += sendPublic;
+if (ranMessage.startsWith(prefix)) getBotMessageWithCommand(ranMessage.split(prefix)[1]);
 setTimeout('autoSendMessage();', delaySend);
 }
 
