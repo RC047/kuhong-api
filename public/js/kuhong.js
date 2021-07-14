@@ -5,7 +5,7 @@
  * Note: This script is free for everyone,, dont forget to give credit and the script is only work in Html or Html5!
  */
 
-var prefix = '!';
+var prefix = '!'; // new RegExp(/[!/.?$#]/);
 var baseCmd = prefix + 'menu';
 
 async function getBotMessageWithCommand(cmd) {
@@ -15,6 +15,8 @@ if (cmd.startsWith('menu') || cmd.startsWith('help')) {
 
 	var menu = `
 ${newLine}MENU BOT :${newLine}${newLine}
+${prefix}sticker [url]${newLine}
+${prefix}trigger [url]${newLine}
 ${prefix}get [url]${newLine}
 ${prefix}post [url]${newLine}
 ${prefix}binary [text]${newLine}
@@ -23,6 +25,7 @@ ${prefix}base64 [text]${newLine}
 ${prefix}unbase64 [text]${newLine}
 ${prefix}tinyurl [url]${newLine}
 ${prefix}bitly [url]${newLine}
+${prefix}lock [url]${newLine}
 ${prefix}calculator [angka]${newLine}
 ${prefix}translate [lang|text]${newLine}
 ${prefix}persen [type|name]${newLine}
@@ -93,6 +96,15 @@ if (!url) return send('Silahkan masukan url');
 if (!url.startsWith('http')) return send('Tolong masukan url yang valid!');
 send('Sedang membuat...');
 window.location = 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey();
+
+} else if (cmd.startsWith('trigger')) {
+
+var url = cmd.split('trigger ')[1];
+if (!url) return send('Silahkan masukan url');
+if (!url.startsWith('http')) return send('Tolong masukan url yang valid!');
+send('Sedang membuat...');
+window.location = 'https://kuhong-api.herokuapp.com/api/triggered?img=' + url + '&apikey=' + getApikey();
+
 
 } else if (cmd.startsWith('get')) {
 
@@ -366,7 +378,7 @@ var xhr = new XMLHttpRequest();
 xhr.open(method.toUpperCase(), url, false);
 xhr.send();
 var body = xhr.responseText;
-if (xhr.getAllResponseHeaders().split('content-type: ')[1] == 'application/json') body = JSON.parse(xhr.responseText);
+if (/json/i.test(xhr.getAllResponseHeaders()) body = JSON.parse(xhr.responseText);
 var res = {
 	status: xhr.status,
 	statusText: xhr.statusText,
