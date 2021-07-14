@@ -96,7 +96,7 @@ if (!pesan.startsWith(prefix))  {
     var message = json.result.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E')).replace(/SIMI/g, 'AKU').replace(/simi/g, 'aku').replace(/simsimi/g, 'aku').replace(/SIMSIMI/g, 'AKU');
     var send = newLine + getDate() + taggedName + message;
     document.getElementById("chat").innerHTML += send;
-    } else return getBotMessageWithCommand(pesan.split(prefix)[1]);
+    } else getBotMessageWithCommand(pesan.split(prefix)[1]);
 }
 
 function setPublic(turn) {
