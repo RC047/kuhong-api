@@ -342,7 +342,7 @@ var res = {
 	},
 	body: xhr.response || xhr.responseText
 	}
-  return JSON.parse(res);
+  return JSON.parse(JSON.stringify(res));
 }
 
 // module.exports = { getBotMessageWithCommand }
