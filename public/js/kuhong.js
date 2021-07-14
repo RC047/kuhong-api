@@ -323,13 +323,13 @@ var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/faktaunik?apikey
   }
 }
 
-async function send(message) {
+function send(message) {
 var botName = isTag('KuhongBot (Verified): ', true);
 var send = newLine + getDate() + botName + message;
 document.getElementById("chat").innerHTML += send;
 }
 
-async function fetchURL(method, url) {
+function fetchURL(method, url) {
 var xhr = new XMLHttpRequest();
 xhr.open(method.toUpperCase(), url, false);
 xhr.send();
@@ -340,9 +340,9 @@ var res = {
 		contentLength: xhr.getAllResponseHeaders().split('content-length: ')[1].split('content-type: ')[0],
 		contentType: xhr.getAllResponseHeaders().split('content-type: ')[1]
 	},
-	body: xhr.response || xhr.responseText
+	body: JSON.parse(xhr.responseText)
 	}
-  return JSON.parse(JSON.stringify(res));
+  return res;
 }
 
 // module.exports = { getBotMessageWithCommand }
