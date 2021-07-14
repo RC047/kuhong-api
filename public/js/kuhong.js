@@ -123,8 +123,8 @@ if (type == 'local') {
 	     }
 	}
 if (type == 'public') {
-     var res = fetchURL('GET', 'https://api.ipify.org');
-     send(res.body);
+     var res = fetchURL('GET', 'https://api.ipify.org/?format=json');
+     send(res.body.ip);
      }
 
 } else if (cmd.startsWith('tinyurl')) {
