@@ -155,17 +155,6 @@ if (result == '') result = 'Tidak ada history';
    alert('HISTORY :\n\n' + result);
 }
 
-function fetchURL(isJson, url) {
-var xhr = new XMLHttpRequest();
-xhr.open('GET', url, false);
-xhr.send();
-var result;
-if (isJson == false) result = xhr.responseText;
-if (isJson == true) result = JSON.parse(xhr.responseText);
-if (result == undefined || result == null) result = 'Error!';
-    return result;
-}
-
 function pickRandom(list) {
    return list[Math.floor(Math.random() * list.length)];
 }
