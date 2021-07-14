@@ -86,11 +86,19 @@ var neww = date.getMilliseconds();
 var ping = `${neww - old}.${date.getMilliseconds() + 'ms'}`;
      send(ping);
 
+} else if (/stic?ker/i.test(cmd)) {
+
+var url = cmd.split('ker ')[1];
+if (!url) return send('Silahkan masukan url');
+if (!url.startsWith('http')) return send('Tolong masukan url yang valid!');
+send('Sedang membuat...');
+window.location = 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey();
+
 } else if (cmd.startsWith('get')) {
 
 var url = cmd.split('get ')[1];
 if (!url) return send('Silahkan masukan url');
-if (!url.startsWith('http')) return send('URL TIDAK VALID');
+if (!url.startsWith('http')) return send('Tolong masukan url yang valid!');
 var res = fetchURL('GET', url);
 if (res.status !== 200) return send('Request failed with status ' + res.status);
     send(res.body);
@@ -99,7 +107,7 @@ if (res.status !== 200) return send('Request failed with status ' + res.status);
 
 var url = cmd.split('post ')[1];
 if (!url) return send('Silahkan masukan url');
-if (!url.startsWith('http')) return send('URL TIDAK VALID');
+if (!url.startsWith('http')) return send('Tolong masukan url yang valid!');
 var res = fetchURL('POST', url);
 if (res.status !== 200) return send('Request failed with status ' + res.status);
     send(res.body);
@@ -127,11 +135,28 @@ if (type == 'public') {
      send(res.body);
      }
 
+} else if (cmd.startsWith('exec')) {
+
+var bash = cmd.split('exec ')[1];
+if (!bash) return send('Silahkan masukan bash');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/execute?command=' + bash + '&apikey=' + getApikey());
+    send(res.body.result);
+
+} else if (cmd.startsWith('lock')) {
+
+var txt = cmd.split('lock ')[1];
+if (!txt) return send('Silahkan masukan url');
+if (!txt.startsWith('http')) return send('Tolong masukan url yang valid!');
+var [url, pass] = txt.split('|');
+if (!pass) return send('Silahkan masukan password');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/lock?url=' + url + '&pass=' + pass + '&apikey=' + getApikey());
+    window.location = res.body.result;
+
 } else if (cmd.startsWith('tinyurl')) {
 
 var url = cmd.split('tinyurl ')[1];
 if (!url) return send('Silahkan masukan url');
-if (!url.startsWith('http')) return send('URL TIDAK VALID');
+if (!url.startsWith('http')) return send('Tolong masukan url yang valid!');
 var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/tinyurl?url=' + url + '&apikey=' + getApikey());
     send(res.body.result);
 
@@ -139,7 +164,7 @@ var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/tinyurl?url=' + 
 
 var url = cmd.split('bitly ')[1];
 if (!url) return send('Silahkan masukan url');
-if (!url.startsWith('http')) return send('URL TIDAK VALID');
+if (!url.startsWith('http')) return send('Tolong masukan url yang valid!');
 var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/bitly?url=' + url + '&apikey=' + getApikey());
     send(res.body.result);
 
