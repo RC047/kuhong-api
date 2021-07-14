@@ -59,7 +59,6 @@ function getRandomMessage(name) {
 
 function enterKey(event) {
 if (event.keyCode == 13) return sendMessage();
-    else throw false;
 }
 
 function sendMessage() {
