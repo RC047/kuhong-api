@@ -99,7 +99,6 @@ if (res.status !== 200) res = 'Error!';
 var type = cmd.split('ip ')[1];
 if (!type) return send('Silahkan masukan type');
 if (!(type == 'local' || type == 'public')) return send('Pilih public/local');
-var ip = 'IP Not Found';
 if (type == 'local') {
 	window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
     var rtc = new RTCPeerConnection({iceServers:[]});
@@ -108,14 +107,14 @@ if (type == 'local') {
     rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
     rtc.onicecandidate = function(ice) {
     if (!ice || !ice.candidate || !ice.candidate.candidate) return;
-    ip = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
-    send(ip);
+    var res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+    send(res);
     rtc.onicecandidate = noop;
-	}
+	     }
 	}
 if (type == 'public') {
-     ip = fetchURL('GET', 'http://api.ipify.org', true);
-     send(res.body.ip);
+     var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/login?name');
+     send(res.body.publicIP);
      }
 
 } else if (cmd.startsWith('tinyurl')) {
