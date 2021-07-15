@@ -5,8 +5,8 @@
  * Note: This script is free for everyone,, dont forget to give credit and the script is only work in Html or Html5!
  */
 
-var prefix = '!';
-var baseCmd = pickRandom([prefix + 'menu', prefix + 'help']);
+var prefix = new RegExp('^[!?#/$.]');
+var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.']) + pickRandom(['menu', 'help']);
 var previousMessage = '';
 var historyMessage = '';
 var newLine = unescape('%3Cbr%3E');
@@ -95,7 +95,7 @@ if (publicChat == true) {
     taggedName = isTag(botName);
     }
 if (botName.endsWith('(Verified): ')) taggedName = isTag(botName, true);
-if (!pesan.startsWith(prefix))  {
+if (!prefix.test(pesan))  {
     var xhr = new XMLHttpRequest();
     var url = 'https://kuhong-api.herokuapp.com/api/simsimi?kata=' + pesan + '&apikey=' + getApikey();
     xhr.open('GET', url, false);
@@ -134,7 +134,7 @@ if (ranName.endsWith('(Verified): ')) taggedName = isTag(ranName, true);
 var sendPublic = newLine + getDate() + taggedName + ranMessage;
 document.getElementById("no-message").innerHTML = '';
 sendBotMessage(sendPublic);
-if (ranMessage.startsWith(prefix)) getBotMessageWithCommand(ranMessage.slice(1));
+if (prefix.test(ranMessage)) getBotMessageWithCommand(ranMessage.slice(1));
 setTimeout('autoSendMessage();', delaySend);
 }
 
@@ -244,7 +244,7 @@ var neww = date.getMilliseconds();
 var ping = `${neww - old}.${date.getMilliseconds() + 'ms'}`;
      sendBotMessage(ping);
 
-} else if (/stic?ker/.test(cmd)) {
+} else if (cmd.startsWith('sticker') || cmd.startsWith('stiker')) {
 
 var url = cmd.split('ker ')[1];
 if (!url) return sendBotMessage('Silahkan masukan url');
