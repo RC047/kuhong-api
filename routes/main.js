@@ -119,8 +119,11 @@ router.get('/botchat', async (req, res, next) => {
 var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
-    var devMode = req.query.dev;
-    var bot = await fs.readFileSync(__path + '/views/botchat.html').toString()
+    var isV2 = req.query.v2,
+        devMode = req.query.dev;
+
+    var bot = await fs.readFileSync(__path + '/views/botchat.html').toString().split('< -- V2 -->')[0]
+    if (isV2 == 'true') bot = await fs.readFileSync(__path + '/views/botchat.html').toString().split('< -- V2 -->')[1]
     var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
     if (devMode == 'true') bot = bot + devTools
     res.send(await encryptHtml(bot))
