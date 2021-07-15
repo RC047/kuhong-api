@@ -16,7 +16,7 @@ confuse.obfuscate(scriptJS, { target: 'browser', preset: 'high', stringEncoding:
 .then(data => fs.writeFileSync('./public/js/script.js', data));
 confuse.obfuscate(typeJS, { target: 'browser', preset: 'high', stringEncoding: true })
 .then(data => fs.writeFileSync('./public/js/type.js', data));
-confuse.obfuscate(botchatJS.split(`botchat?v2=true';`)[1], { target: 'browser', preset: 'medium', stringEncoding: true })
+confuse.obfuscate(botchatJS.split('// Starting')[1], { target: 'browser', preset: 'medium', stringEncoding: true })
 .then(data => fs.writeFileSync('./public/js/botchat-v2.js', data));
 confuse.obfuscate(botchatJS, { target: 'browser', preset: 'high', stringEncoding: true })
 .then(data => fs.writeFileSync('./public/js/botchat.js', data));
