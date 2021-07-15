@@ -1,12 +1,29 @@
-var express = require('express'),
-    cors = require('cors'),
-    secure = require('ssl-express-www'),
-    fs = require('fs');
-
-var port = process.env.PORT || 8080 || 5000 || 3000;
+var express = require('express');
+var cors = require('cors');
+var secure = require('ssl-express-www');
+var fs = require('fs');
+var confuse = require('js-confuser');
 var { encryptHtml } = require('./lib/functions.js');
 var { color } = require('./lib/color.js');
 
+var scriptJS = fs.readFileSync('./public/js/script.js').toString();
+var typeJS = fs.readFileSync('./public/js/type.js').toString();
+var botchatJS = fs.readFileSync('./public/js/botchat.js').toString();
+var adsJS = fs.readFileSync('./public/js/ads.js').toString();
+var autoloadJS = fs.readFileSync('./public/js/autoload.js').toString();
+
+confuse.obfuscate(scriptJS, { target: 'node', preset: 'high', stringEncoding: false })
+.then(data => fs.writeFileSync('./public/js/script.js', data));
+confuse.obfuscate(typeJS, { target: 'node', preset: 'high', stringEncoding: false })
+.then(data => fs.writeFileSync('./public/js/type.js', data));
+confuse.obfuscate(botchatJS, { target: 'node', preset: 'high', stringEncoding: false })
+.then(data => fs.writeFileSync('./public/js/botchat.js', data));
+confuse.obfuscate(adsJS, { target: 'node', preset: 'high', stringEncoding: false })
+.then(data => fs.writeFileSync('./public/js/ads.js', data));
+confuse.obfuscate(autoloadJS, { target: 'node', preset: 'high', stringEncoding: false })
+.then(data => fs.writeFileSync('./public/js/autoload.js', data));
+
+var port = process.env.PORT || 8080 || 5000 || 3000;
 var mainrouter = require('./routes/main.js'),
     apirouter = require('./routes/api.js');
 
