@@ -7,7 +7,7 @@
 
 
 if (!(/Mobile|Android|Phone/i.test(navigator.userAgent) && window.location == 'https://kuhong-api.herokuapp.com/botchat?v2=true')) window.location = 'https://kuhong-api.herokuapp.com/botchat?v2=true';
-else window.location = 'https://kuhong-api.herokuapp.com/botchat';
+if (/Mobile|Android|Phone/i.test(navigator.userAgent) && window.location !== 'https://kuhong-api.herokuapp.com/botchat')) window.location = 'https://kuhong-api.herokuapp.com/botchat';
 
 var prefix = new RegExp('^[!?#/$.]');
 var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.']) + pickRandom(['menu', 'help']);
