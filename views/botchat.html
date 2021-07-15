@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="css/botchat.css">
     <script src="js/ads.js"></script>
 </head>
-<body oncontextmenu="return false;" onload="getNotifications();">
+<body oncontextmenu="return false;" onkeydown="enterKey(event);" onload="getNotifications();">
     <marquee id="notification"></marquee>
         <p id="chat"><a id="no-message"></a></p><br>
-        <input type="text" style="width:252px; height:30px" id="message" placeholder="Ketik pesan" onkeydown="enterKey(event);">
+        <input type="text" style="width:252px; height:30px" id="message" placeholder="Ketik pesan">
         <input type="submit" style="height:30px" value="Kirim" onclick="sendMessage();"><br>
         <input type="submit" value="Ganti Nama" onclick="changeName();">
         <input type="submit" value="Clear Chat" onclick="clearChat();">
@@ -23,6 +23,5 @@
         </div>
     <br><br>
 <script src="js/botchat.js"></script>
-<script src="js/kuhong.js"></script>
 </body>
 </html>
