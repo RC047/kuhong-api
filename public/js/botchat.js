@@ -10,7 +10,7 @@ if (!/Mobile|Android|Phone/i.test(navigator.userAgent)) window.location = 'https
 
 
 var prefix = new RegExp('^[!?#/$.]');
-var baseCmd = usedPrefix() + pickRandom(['menu', 'help']);
+var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.']) + pickRandom(['menu', 'help']);
 var previousMessage = '';
 var historyMessage = '';
 var newLine = unescape('%3Cbr%3E');
