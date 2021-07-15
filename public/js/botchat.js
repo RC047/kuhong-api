@@ -1,5 +1,12 @@
-// Behind the Scene :v
+/* BOTCHAT.JS
+ * Author: RC047
+ * Description: A Simple Web Bot
+ * Copyright: © 2021
+ * Note: This script is free for everyone,, dont forget to give credit and the script is only work in Html or Html5!
+ */
 
+var prefix = '!';
+var baseCmd = pickRandom([prefix + 'menu', prefix + 'help']);
 var previousMessage = '';
 var historyMessage = '';
 var newLine = unescape('%3Cbr%3E');
@@ -7,6 +14,12 @@ var publicChat = false;
 var nama = 'Guest' + Math.floor(Math.random() * 10000);
 document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold('!menu') + ' untuk memulai Bot';
 
+
+function sendBotMessage(message) {
+var botName = isTag('KuhongBot (Verified): ', true);
+var send = newLine + getDate() + botName + message;
+document.getElementById("chat").innerHTML += send;
+}
 
 function color(text, color) {
    return unescape('%3Ca%20style=%22color:' + color.toLowerCase() + '%22%3E') + text + unescape('%3C/a%3E');
@@ -67,16 +80,11 @@ if (pesan == '') throw false;
 if (pesan.length > 500) return alert('Pesan terlalu panjang!');
 var send = newLine + getDate() + color(nama + ': ', 'red') + pesan.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E'));
 document.getElementById("no-message").innerHTML = '';
-document.getElementById("chat").innerHTML += send;
+sendBotMessage(send);
 setTimeout(() => getBotMessage(pesan), 1000);
 previousMessage = pesan;
 historyMessage += pesan + '\n';
 document.getElementById("message").value = '';
-}
-
-function getApikey() {
-var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/getapikey');
-  return res.body.free_apikey;
 }
 
 function getBotMessage(pesan) {
@@ -95,8 +103,8 @@ if (!pesan.startsWith(prefix))  {
     var json = JSON.parse(xhr.responseText);
     var message = json.result.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E')).replace(/SIMI/g, 'AKU').replace(/simi/g, 'aku').replace(/simsimi/g, 'aku').replace(/SIMSIMI/g, 'AKU');
     var send = newLine + getDate() + taggedName + message;
-    document.getElementById("chat").innerHTML += send;
-    } else getBotMessageWithCommand(pesan.split(prefix)[1]);
+    sendBotMessage(send);
+    } else getBotMessageWithCommand(pesan.slice(1));
 }
 
 function setPublic(turn) {
@@ -125,8 +133,8 @@ var taggedName = isTag(ranName);
 if (ranName.endsWith('(Verified): ')) taggedName = isTag(ranName, true);
 var sendPublic = newLine + getDate() + taggedName + ranMessage;
 document.getElementById("no-message").innerHTML = '';
-document.getElementById("chat").innerHTML += sendPublic;
-if (ranMessage.startsWith(prefix)) getBotMessageWithCommand(ranMessage.split(prefix)[1]);
+sendBotMessage(sendPublic);
+if (ranMessage.startsWith(prefix)) getBotMessageWithCommand(ranMessage.slice(1));
 setTimeout('autoSendMessage();', delaySend);
 }
 
@@ -155,6 +163,392 @@ if (result == '') result = 'Tidak ada history';
    alert('HISTORY :\n\n' + result);
 }
 
+function getBotMessageWithCommand(cmd) {
+
+try {
+if (cmd.startsWith('menu') || cmd.startsWith('help')) {
+
+	var menu = `
+${newLine}MENU BOT :${newLine}${newLine}
+${prefix}sticker [url]${newLine}
+${prefix}trigger [url]${newLine}
+${prefix}get [url]${newLine}
+${prefix}post [url]${newLine}
+${prefix}binary [text]${newLine}
+${prefix}unbinary [text]${newLine}
+${prefix}base64 [text]${newLine}
+${prefix}unbase64 [text]${newLine}
+${prefix}tinyurl [url]${newLine}
+${prefix}bitly [url]${newLine}
+${prefix}lock [url]${newLine}
+${prefix}calculator [angka]${newLine}
+${prefix}translate [lang|text]${newLine}
+${prefix}persen [type|name]${newLine}
+${prefix}iq${newLine}
+${prefix}dadu${newLine}
+${prefix}say [text]${newLine}
+${prefix}alay [text]${newLine}
+${prefix}purba [text]${newLine}
+${prefix}reverse [text]${newLine}
+${prefix}battery${newLine}
+${prefix}kerang [pertanyaan]${newLine}
+${prefix}halah [text]${newLine}
+${prefix}hilih [text]${newLine}
+${prefix}huluh [text]${newLine}
+${prefix}heleh [text]${newLine}
+${prefix}holoh [text]${newLine}
+${prefix}twister${newLine}
+${prefix}pantun${newLine}
+${prefix}katabijak${newLine}
+${prefix}katailham${newLine}
+${prefix}bucin${newLine}
+${prefix}quotes${newLine}
+${prefix}sindiran${newLine}
+${prefix}fml${newLine}
+${prefix}faktaunik${newLine}
+${prefix}ip [local/public]${newLine}
+${prefix}time${newLine}
+${prefix}ping${newLine}
+${prefix}clear${newLine}
+${prefix}owner${newLine}
+`.trim();
+     sendBotMessage(menu);
+
+} else if (cmd.startsWith('owner')) {
+
+window.location = 'https://wa.me/62895337278647';
+
+} else if (cmd.startsWith('clear')) {
+
+document.getElementById("chat").innerHTML = unescape('%3Ca%20id=%22no-message%22%3E%3C/a%3E');
+document.getElementById("no-message").innerHTML = newLine + getDate() + tilt('Tidak ada pesan.');
+
+} else if (cmd.startsWith('battery')) {
+
+navigator.getBattery().then(status => {
+   var res = Math.floor(status.level * 100) + '%';
+   if (res == 'NaN%') res = 'Not Detected';
+       sendBotMessage(res);
+   }).catch(() => sendBotMessage('Unsupported Battery'));
+
+} else if (cmd.startsWith('time')) {
+
+var res = getDate().split('[')[1].split(']')[0];
+     sendBotMessage(res);
+
+} else if (cmd.startsWith('ping')) {
+
+var date = new Date();
+var old = date.getMilliseconds();
+var neww = date.getMilliseconds();
+var ping = `${neww - old}.${date.getMilliseconds() + 'ms'}`;
+     sendBotMessage(ping);
+
+} else if (/stic?ker/.test(cmd)) {
+
+var url = cmd.split('ker ')[1];
+if (!url) return sendBotMessage('Silahkan masukan url');
+if (!url.startsWith('http')) return sendBotMessage('Tolong masukan url yang valid!');
+sendBotMessage('Sedang membuat...');
+window.location = 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey();
+
+} else if (cmd.startsWith('trigger')) {
+
+var url = cmd.split('trigger ')[1];
+if (!url) return sendBotMessage('Silahkan masukan url');
+if (!url.startsWith('http')) return sendBotMessage('Tolong masukan url yang valid!');
+sendBotMessage('Sedang membuat...');
+window.location = 'https://kuhong-api.herokuapp.com/api/triggered?img=' + url + '&apikey=' + getApikey();
+
+} else if (cmd.startsWith('get')) {
+
+var url = cmd.split('get ')[1];
+if (!url) return sendBotMessage('Silahkan masukan url');
+if (!url.startsWith('http')) return sendBotMessage('Tolong masukan url yang valid!');
+var res = fetchURL('GET', url);
+if (res.status !== 200) return sendBotMessage('Failed to GET url');
+    sendBotMessage(res.body);
+
+} else if (cmd.startsWith('post')) {
+
+var url = cmd.split('post ')[1];
+if (!url) return sendBotMessage('Silahkan masukan url');
+if (!url.startsWith('http')) return sendBotMessage('Tolong masukan url yang valid!');
+var res = fetchURL('POST', url);
+if (res.status !== 200) return sendBotMessage('Failed to POST url');
+    sendBotMessage(res.body);
+
+} else if (cmd.startsWith('ip')) {
+
+var type = cmd.split('ip ')[1];
+if (!type) return sendBotMessage('Silahkan masukan type');
+if (!(type == 'local' || type == 'public')) return sendBotMessage('Pilih public/local');
+if (type == 'local') {
+    window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+    var rtc = new RTCPeerConnection({iceServers:[]});
+    noop = function() {};
+    rtc.createDataChannel('');
+    rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
+    rtc.onicecandidate = function(ice) {
+    if (!ice || !ice.candidate || !ice.candidate.candidate) return;
+    var res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+    sendBotMessage(res);
+    rtc.onicecandidate = noop;
+	     }
+     }
+if (type == 'public') {
+     var res = fetchURL('GET', 'https://api.ipify.org');
+     sendBotMessage(res.body);
+     }
+
+} else if (cmd.startsWith('exec')) {
+
+var bash = cmd.split('exec ')[1];
+if (!bash) return sendBotMessage('Silahkan masukan bash');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/execute?command=' + bash + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('lock')) {
+
+var txt = cmd.split('lock ')[1];
+if (!txt) return sendBotMessage('Silahkan masukan url');
+if (!txt.startsWith('http')) return sendBotMessage('Tolong masukan url yang valid!');
+var [url, pass] = txt.split('|');
+if (!pass) return sendBotMessage('Silahkan masukan password');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/lock?url=' + url + '&pass=' + pass + '&apikey=' + getApikey());
+    sendBotMessage(res.body.shorted_url);
+
+} else if (cmd.startsWith('tinyurl')) {
+
+var url = cmd.split('tinyurl ')[1];
+if (!url) return sendBotMessage('Silahkan masukan url');
+if (!url.startsWith('http')) return sendBotMessage('Tolong masukan url yang valid!');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/tinyurl?url=' + url + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('bitly')) {
+
+var url = cmd.split('bitly ')[1];
+if (!url) return sendBotMessage('Silahkan masukan url');
+if (!url.startsWith('http')) return sendBotMessage('Tolong masukan url yang valid!');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/bitly?url=' + url + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('calculator')) {
+
+var angka = cmd.split('calculator ')[1];
+if (!angka) return sendBotMessage('Silahkan masukan angka');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/calculator?angka=' + angka + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('binary')) {
+
+var text = cmd.split('binary ')[1];
+if (!text) return sendBotMessage('Silahkan masukan text');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/binary?encode=' + text + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('unbinary')) {
+
+var text = cmd.split('unbinary ')[1];
+if (!text) return sendBotMessage('Silahkan masukan text');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/binary?decode=' + text + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);	
+
+} else if (cmd.startsWith('base64')) {
+
+var text = cmd.split('base64 ')[1];
+if (!text) return sendBotMessage('Silahkan masukan text');
+var res = btoa(text);
+    sendBotMessage(res);
+
+} else if (cmd.startsWith('unbase64')) {
+
+var text = cmd.split('unbase64 ')[1];
+if (!text) return sendBotMessage('Silahkan masukan text');
+var res = atob(text);
+    sendBotMessage(res);
+
+} else if (cmd.startsWith('translate')) {
+
+var args = cmd.split('translate ')[1];
+if (!args) return sendBotMessage('Silahkan masukan kodebahasa (lang)');
+var [lang, text] = args.split('|');
+if (!text) return sendBotMessage('Silahkan masukan text');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/translate?lang=' + lang + '&text=' + text + '&apikey=' + getApikey());
+var res = res.body.result;
+if (res.body.result == undefined) res = 'Kodebahasa tidak tersedia.';
+    sendBotMessage(res);
+
+} else if (cmd.startsWith('say')) {
+
+var text = cmd.split('say ')[1];
+if (!text) return sendBotMessage('Silahkan masukan text');
+     sendBotMessage(text);
+
+} else if (cmd.startsWith('alay')) {
+
+var text = cmd.split('alay ')[1];
+if (!text) return sendBotMessage('Silahkan masukan text');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/alay?text=' + text + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('reverse')) {
+
+var text = cmd.split('reverse ')[1];
+if (!text) return sendBotMessage('Silahkan masukan text');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/reverse?text=' + text + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('purba')) {
+
+var text = cmd.split('purba ')[1];
+if (!text) return sendBotMessage('Silahkan masukan text');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/purba?text=' + text + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('kerang')) {
+
+var pertanyaan = cmd.split('kerang ')[1];
+if (!pertanyaan) return sendBotMessage('Silahkan masukan pertanyaan');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/kerang?pertanyaan=' + pertanyaan + '&apikey=' + getApikey());
+    sendBotMessage(res.jawaban);
+
+} else if (cmd.startsWith('halah')) {
+
+var text = cmd.split('halah ')[1];
+if (!text) return sendBotMessage('Silahkan masukan text');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/halah?text=' + text + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('hilih')) {
+
+var text = cmd.split('hilih ')[1];
+if (!text) return sendBotMessage('Silahkan masukan text');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/hilih?text=' + text + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('huluh')) {
+
+var text = cmd.split('huluh ')[1];
+if (!text) return sendBotMessage('Silahkan masukan text');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/huluh?text=' + text + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('heleh')) {
+
+var text = cmd.split('heleh ')[1];
+if (!text) return sendBotMessage('Silahkan masukan text');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/heleh?text=' + text + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('holoh')) {
+
+var text = cmd.split('holoh ')[1];
+if (!text) return sendBotMessage('Silahkan masukan text');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/holoh?text=' + text + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('persen')) {
+
+var args = cmd.split('persen ')[1];
+if (!args) return sendBotMessage('Silahkan masukan type');
+var [type, nama] = args.split('|');
+if (!nama) return sendBotMessage('Silahkan masukan nama');
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/persen?type=' + type + '&nama=' + nama + '&apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('iq')) {
+
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/iqtest?apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('dadu')) {
+
+var res = 'Anda mendapatkan angka ' + Math.floor(Math.random() * 12) + '!';
+    sendBotMessage(res);
+
+} else if (cmd.startsWith('pantun')) {
+
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/pantun?apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('twister')) {
+
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/twister?apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('katabijak')) {
+
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/katabijak?apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('quotes')) {
+
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/quotes?apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('bucin')) {
+
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/bucin?apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('katailham')) {
+
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/katailham?apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('fml')) {
+
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/fml?apikey=' + getApikey());
+    sendBotMessage(res.body.result.id);
+
+} else if (cmd.startsWith('sindiran')) {
+
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/sindiran?apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+} else if (cmd.startsWith('faktaunik')) {
+
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/faktaunik?apikey=' + getApikey());
+    sendBotMessage(res.body.result);
+
+    } else return sendBotMessage('Perintah tidak ditemukan! Silahkan ketik ' + bold(baseCmd) + ' untuk melihat list menu.');
+
+} catch (e) {
+       console.log(e);
+  sendBotMessage('Terjadi Kesalahan!');
+  }
+}
+
+function getApikey() {
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/getapikey');
+  return res.body.free_apikey;
+}
+
+function fetchURL(method, url) {
+var xhr = new XMLHttpRequest();
+xhr.open(method, url, false);
+xhr.send();
+var body = xhr.responseText;
+if (/json/.test(xhr.getAllResponseHeaders())) body = JSON.parse(xhr.responseText);
+var res = {
+	status: xhr.status,
+	statusText: xhr.statusText,
+	headers:{
+		userAgent: navigator.userAgent,
+		contentLength: xhr.getAllResponseHeaders().split('content-length: ')[1].split('content-type: ')[0],
+		contentType: xhr.getAllResponseHeaders().split('content-type: ')[1]
+	},
+	url: url,
+	method: method,
+	body: body
+  }
+  return res;
+}
+
 function pickRandom(list) {
    return list[Math.floor(Math.random() * list.length)];
 }
+
+// End of botchat.js :P
