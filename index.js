@@ -12,11 +12,11 @@ var botchatJS = fs.readFileSync('./public/js/botchat.js').toString();
 var adsJS = fs.readFileSync('./public/js/ads.js').toString();
 var autoloadJS = fs.readFileSync('./public/js/autoload.js').toString();
 
-confuse.obfuscate(scriptJS, { target: 'node', preset: 'high', stringEncoding: false })
+confuse.obfuscate(scriptJS, { target: 'node', preset: 'medium', stringEncoding: false })
 .then(data => fs.writeFileSync('./public/js/script.js', data));
 confuse.obfuscate(typeJS, { target: 'node', preset: 'high', stringEncoding: false })
 .then(data => fs.writeFileSync('./public/js/type.js', data));
-confuse.obfuscate(botchatJS, { target: 'node', preset: 'high', stringEncoding: false })
+confuse.obfuscate(botchatJS, { target: 'node', preset: 'medium', stringEncoding: false })
 .then(data => fs.writeFileSync('./public/js/botchat.js', data));
 confuse.obfuscate(adsJS, { target: 'node', preset: 'high', stringEncoding: false })
 .then(data => fs.writeFileSync('./public/js/ads.js', data));
