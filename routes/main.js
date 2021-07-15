@@ -195,7 +195,7 @@ var visitor = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.heroku
 var request = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var star = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating')).json()
 var ip_used = await (await fetch('https://api.ipify.org/?format=json')).json()
-var port_used = process.env.PORT || 8080 || 5000 || 3000
+var port_used = process.env.PORT || 8000 || 5000 || 3000
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
 
