@@ -14,7 +14,7 @@
 
 .chat {
   text-align: left;
-  width: 275px;
+  width: fixed;
   height: fixed;
   background-color: #fff;
   border-radius: 5px;
