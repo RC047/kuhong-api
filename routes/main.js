@@ -122,8 +122,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var isV2 = req.query.v2,
         devMode = req.query.dev;
 
-    var bot = await fs.readFileSync(__path + '/views/botchat.html').toString().split('< -- V2 -->')[0]
-    if (isV2 == 'true') bot = await fs.readFileSync(__path + '/views/botchat.html').toString().split('< -- V2 -->')[1]
+    var bot = await fs.readFileSync(__path + '/views/botchat.html').toString().split('<!-- V2 -->')[0]
+    if (isV2 == 'true') bot = await fs.readFileSync(__path + '/views/botchat.html').toString().split('<!-- V2 -->')[1]
     var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
     if (devMode == 'true') bot = bot + devTools
     res.send(await encryptHtml(bot))
