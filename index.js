@@ -12,17 +12,17 @@ var botchatJS = fs.readFileSync('./public/js/botchat.js').toString();
 var adsJS = fs.readFileSync('./public/js/ads.js').toString();
 var autoloadJS = fs.readFileSync('./public/js/autoload.js').toString();
 
-confuse.obfuscate(scriptJS, { target: 'node', preset: 'low', stringEncoding: false })
+confuse.obfuscate(scriptJS, { target: 'browser', preset: 'high', stringEncoding: true })
 .then(data => fs.writeFileSync('./public/js/script.js', data));
-confuse.obfuscate(typeJS, { target: 'node', preset: 'high', stringEncoding: false })
+confuse.obfuscate(typeJS, { target: 'node', preset: 'high', stringEncoding: true })
 .then(data => fs.writeFileSync('./public/js/type.js', data));
-confuse.obfuscate(botchatJS.split(`botchat?v2=true';`)[1], { target: 'node', preset: 'medium', stringEncoding: false })
+confuse.obfuscate(botchatJS.split(`botchat?v2=true';`)[1], { target: 'browser', preset: 'medium', stringEncoding: true })
 .then(data => fs.writeFileSync('./public/js/botchat-v2.js', data));
-confuse.obfuscate(botchatJS, { target: 'node', preset: 'low', stringEncoding: false })
+confuse.obfuscate(botchatJS, { target: 'browser', preset: 'high', stringEncoding: true })
 .then(data => fs.writeFileSync('./public/js/botchat.js', data));
-confuse.obfuscate(adsJS, { target: 'node', preset: 'high', stringEncoding: false })
+confuse.obfuscate(adsJS, { target: 'node', preset: 'high', stringEncoding: true })
 .then(data => fs.writeFileSync('./public/js/ads.js', data));
-confuse.obfuscate(autoloadJS, { target: 'node', preset: 'high', stringEncoding: false })
+confuse.obfuscate(autoloadJS, { target: 'node', preset: 'high', stringEncoding: true })
 .then(data => fs.writeFileSync('./public/js/autoload.js', data));
 
 var port = process.env.PORT || 8080 || 5000 || 3000;
