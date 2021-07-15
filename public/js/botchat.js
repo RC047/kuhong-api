@@ -1,3 +1,7 @@
+if (!/Mobile|Android|Phone/i.test(navigator.userAgent)) window.location = 'https://kuhong-api.herokuapp.com/botchat?v2=true';
+// (Switch Display Mode)
+if (/Mobile|Android|Phone/i.test(navigator.userAgent)) window.location = 'https://kuhong-api.herokuapp.com/botchat';
+
 /* BOTCHAT.JS
  * Author: RC047
  * Description: A Simple Web Bot
@@ -6,8 +10,6 @@
  */
 
 
-// Display PC Mode :
-if (!(/Mobile|Android|Phone/i.test(navigator.userAgent) && window.location == 'https://kuhong-api.herokuapp.com/botchat')) window.location = 'https://kuhong-api.herokuapp.com/botchat?v2=true';
 var prefix = new RegExp('^[!?#/$.]');
 var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.']) + pickRandom(['menu', 'help']);
 var previousMessage = '';
