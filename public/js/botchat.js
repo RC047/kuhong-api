@@ -1,6 +1,4 @@
-if (!/Mobile|Android|Phone/i.test(navigator.userAgent)) window.location = 'https://kuhong-api.herokuapp.com/botchat?v2=true';
-// (Switch Display Mode)
-if (/Mobile|Android|Phone/i.test(navigator.userAgent)) window.location = 'https://kuhong-api.herokuapp.com/botchat';
+if (!/Mobile|Android|Phone/i.test(navigator.userAgent)) window.location = 'https://kuhong-api.herokuapp.com/botchat?v2=true'; // (Change display if visitor not used Phone or Android)
 
 /* BOTCHAT.JS
  * Author: RC047
