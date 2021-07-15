@@ -19,3 +19,12 @@
   background-color: #fff;
   border-radius: 5px;
 }
+
+#message {
+  width:252px;
+  height:30px;
+}
+
+#send {
+  height:30px;
+}
