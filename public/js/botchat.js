@@ -6,11 +6,8 @@
  */
 
 
-// Mobile Mode :
-if (/Mobile|Android|Phone/i.test(navigator.userAgent) && window.location == 'https://kuhong-api.herokuapp.com/botchat?v2=true') window.location = 'https://kuhong-api.herokuapp.com/botchat';
-// PC Mode :
+// Display PC Mode :
 if (!(/Mobile|Android|Phone/i.test(navigator.userAgent) && window.location == 'https://kuhong-api.herokuapp.com/botchat')) window.location = 'https://kuhong-api.herokuapp.com/botchat?v2=true';
-
 var prefix = new RegExp('^[!?#/$.]');
 var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.']) + pickRandom(['menu', 'help']);
 var previousMessage = '';
