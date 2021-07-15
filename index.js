@@ -7,11 +7,10 @@ var { encryptHtml } = require('./lib/functions.js');
 var { color } = require('./lib/color.js');
 
 var typeJS = fs.readFileSync('./public/js/type.js').toString();
-var botchatJS = fs.readFileSync('./public/js/botchat.js').toString();
 var adsJS = fs.readFileSync('./public/js/ads.js').toString();
 var autoloadJS = fs.readFileSync('./public/js/autoload.js').toString();
 
-fs.writeFileSync('./public/js/botchat-v2.js', botchatJS.split('// Start script')[1]);
+
 confuse.obfuscate(typeJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true })
 .then(data => fs.writeFileSync('./public/js/type.js', data));
 confuse.obfuscate(adsJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true })
