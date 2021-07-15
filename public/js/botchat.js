@@ -10,7 +10,7 @@ if (!/Mobile|Android|Phone/i.test(navigator.userAgent)) window.location = 'https
 
 
 var prefix = new RegExp('^[!?#/$.]');
-var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.']) + pickRandom(['menu', 'help']);
+var baseCmd = usedPrefix() + pickRandom(['menu', 'help']);
 var previousMessage = '';
 var historyMessage = '';
 var newLine = unescape('%3Cbr%3E');
@@ -23,6 +23,10 @@ function sendBotMessage(message) {
 var botName = isTag('KuhongBot (Verified): ', true);
 var send = newLine + getDate() + botName + message;
 document.getElementById("chat").innerHTML += send;
+}
+
+function usedPrefix(cmd) {
+  return cmd.slice(0, 1);
 }
 
 function color(text, color) {
@@ -517,7 +521,7 @@ var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/sindiran?apikey=
 var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/faktaunik?apikey=' + getApikey());
     sendBotMessage(res.body.result);
 
-    } else return sendBotMessage('Perintah tidak ditemukan! Silahkan ketik ' + bold(baseCmd) + ' untuk melihat list menu.');
+    } else return sendBotMessage('Perintah tidak ditemukan! Silahkan ketik ' + bold(usedPrefix(cmd) + 'menu') + ' untuk melihat list menu.');
 
 } catch (e) {
        console.log(e);
