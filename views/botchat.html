@@ -26,3 +26,33 @@
 <script src="js/botchat.js"></script>
 </body>
 </html>
+
+<!-- V2 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bot Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" name="og:image" content="https://i.ibb.co/frhZmyZ/pp.jpg">
+    <meta property="og:description" content="Tempatnya chatting bersama Bot bersama orang gabut">
+    <link rel="stylesheet" href="css/botchat-v2.css">
+    <script src="js/ads.js"></script>
+</head>
+<body oncontextmenu="return false;" onload="getNotifications();">
+    <marquee id="notification"></marquee>
+        <p id="chat"><a id="no-message"></a></p><br>
+        <input type="text" id="message" placeholder="Ketik pesan" onkeydown="enterKey(event);">
+        <input type="submit" id="send" value="Kirim" onclick="sendMessage();"><br>
+        <input type="submit" value="Ganti Nama" onclick="changeName();">
+        <input type="submit" value="Clear Chat" onclick="clearChat();">
+        <input type="submit" value="History" onclick="getHistoryMessages();"><br><br>
+        <div>Mode Chat :
+        <input type="radio" name="selection" value="private" onclick="setPublic(false);" CHECKED>Private
+        <input type="radio" name="selection" value="public" onclick="setPublic(true);">Public<br>
+        <input type="hidden" name="selection-remove" value="remove"><br>
+        </div>
+    <br><br>
+<script src="js/botchat.js"></script>
+</body>
+</html>
