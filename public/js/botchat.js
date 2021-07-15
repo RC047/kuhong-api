@@ -158,7 +158,7 @@ if (verified == true) result = who.split('(')[0] + unescape('%3Ca%20style=%22col
 }
 
 function tagPeople(target) {
-   document.getElementById("message").value += '@' + target.split(':')[0] + '';
+   document.getElementById("message").value += '*@' + target.split(':')[0] + '*';
 }
 
 function getHistoryMessages() {
