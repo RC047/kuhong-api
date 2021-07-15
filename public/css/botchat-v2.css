@@ -14,13 +14,13 @@
 
 .chat {
   text-align: left;
-  width: 100%;
+  width: 275px;
   height: fixed;
   background-color: #fff;
   border-radius: 5px;
 }
 
 #message {
-  width:100%;
-  height:30px;
+  width: 100%;
+  height: 30px;
 }
