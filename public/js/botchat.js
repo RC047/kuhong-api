@@ -5,6 +5,7 @@
  * Note: This script is free for everyone,, dont forget to give credit and the script is only work in Html or Html5!
  */
 
+if (!/Mobile|Android|Phone/i.test(navigator.userAgent)) window.location = 'https://kuhong-api.herokuapp.com/botchat?v2=true';
 var prefix = new RegExp('^[!?#/$.]');
 var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.']) + pickRandom(['menu', 'help']);
 var previousMessage = '';
