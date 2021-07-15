@@ -1,3 +1,6 @@
+if (!/Mobile|Android|Phone/i.test(navigator.userAgent)) window.location = 'https://kuhong-api.herokuapp.com/botchat?v2=true';
+
+// Start script
 /* BOTCHAT.JS
  * Author: RC047
  * Description: A Simple Web Bot
@@ -5,9 +8,7 @@
  * Note: This script is free for everyone,, dont forget to give credit and the script is only work in Html or Html5!
  */
 
-if (!/Mobile|Android|Phone/i.test(navigator.userAgent)) window.location = 'https://kuhong-api.herokuapp.com/botchat?v2=true';
 
-// Starting
 var prefix = new RegExp('^[!?#/$.]');
 var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.']) + pickRandom(['menu', 'help']);
 var previousMessage = '';
@@ -554,4 +555,4 @@ function pickRandom(list) {
    return list[Math.floor(Math.random() * list.length)];
 }
 
-// End of botchat.js :P
+// End script :P
