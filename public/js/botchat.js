@@ -178,47 +178,47 @@ if (cmd.startsWith('menu') || cmd.startsWith('help')) {
 
 	var menu = `
 ${newLine}MENU BOT :${newLine}${newLine}
-${prefix}sticker [url]${newLine}
-${prefix}trigger [url]${newLine}
-${prefix}get [url]${newLine}
-${prefix}post [url]${newLine}
-${prefix}binary [text]${newLine}
-${prefix}unbinary [text]${newLine}
-${prefix}base64 [text]${newLine}
-${prefix}unbase64 [text]${newLine}
-${prefix}tinyurl [url]${newLine}
-${prefix}bitly [url]${newLine}
-${prefix}lock [url]${newLine}
-${prefix}calculator [angka]${newLine}
-${prefix}translate [lang|text]${newLine}
-${prefix}persen [type|name]${newLine}
-${prefix}iq${newLine}
-${prefix}dadu${newLine}
-${prefix}say [text]${newLine}
-${prefix}alay [text]${newLine}
-${prefix}purba [text]${newLine}
-${prefix}reverse [text]${newLine}
-${prefix}battery${newLine}
-${prefix}kerang [pertanyaan]${newLine}
-${prefix}halah [text]${newLine}
-${prefix}hilih [text]${newLine}
-${prefix}huluh [text]${newLine}
-${prefix}heleh [text]${newLine}
-${prefix}holoh [text]${newLine}
-${prefix}twister${newLine}
-${prefix}pantun${newLine}
-${prefix}katabijak${newLine}
-${prefix}katailham${newLine}
-${prefix}bucin${newLine}
-${prefix}quotes${newLine}
-${prefix}sindiran${newLine}
-${prefix}fml${newLine}
-${prefix}faktaunik${newLine}
-${prefix}ip [local/public]${newLine}
-${prefix}time${newLine}
-${prefix}ping${newLine}
-${prefix}clear${newLine}
-${prefix}owner${newLine}
+${usedPrefix(cmd)}sticker [url]${newLine}
+${usedPrefix(cmd)}trigger [url]${newLine}
+${usedPrefix(cmd)}get [url]${newLine}
+${usedPrefix(cmd)}post [url]${newLine}
+${usedPrefix(cmd)}binary [text]${newLine}
+${usedPrefix(cmd)}unbinary [text]${newLine}
+${usedPrefix(cmd)}base64 [text]${newLine}
+${usedPrefix(cmd)}unbase64 [text]${newLine}
+${usedPrefix(cmd)}tinyurl [url]${newLine}
+${usedPrefix(cmd)}bitly [url]${newLine}
+${usedPrefix(cmd)}lock [url]${newLine}
+${usedPrefix(cmd)}calculator [angka]${newLine}
+${usedPrefix(cmd)}translate [lang|text]${newLine}
+${usedPrefix(cmd)}persen [type|name]${newLine}
+${usedPrefix(cmd)}iq${newLine}
+${usedPrefix(cmd)}dadu${newLine}
+${usedPrefix(cmd)}say [text]${newLine}
+${usedPrefix(cmd)}alay [text]${newLine}
+${usedPrefix(cmd)}purba [text]${newLine}
+${usedPrefix(cmd)}reverse [text]${newLine}
+${usedPrefix(cmd)}battery${newLine}
+${usedPrefix(cmd)}kerang [pertanyaan]${newLine}
+${usedPrefix(cmd)}halah [text]${newLine}
+${usedPrefix(cmd)}hilih [text]${newLine}
+${usedPrefix(cmd)}huluh [text]${newLine}
+${usedPrefix(cmd)}heleh [text]${newLine}
+${usedPrefix(cmd)}holoh [text]${newLine}
+${usedPrefix(cmd)}twister${newLine}
+${usedPrefix(cmd)}pantun${newLine}
+${usedPrefix(cmd)}katabijak${newLine}
+${usedPrefix(cmd)}katailham${newLine}
+${usedPrefix(cmd)}bucin${newLine}
+${usedPrefix(cmd)}quotes${newLine}
+${usedPrefix(cmd)}sindiran${newLine}
+${usedPrefix(cmd)}fml${newLine}
+${usedPrefix(cmd)}faktaunik${newLine}
+${usedPrefix(cmd)}ip [local/public]${newLine}
+${usedPrefix(cmd)}time${newLine}
+${usedPrefix(cmd)}ping${newLine}
+${usedPrefix(cmd)}clear${newLine}
+${usedPrefix(cmd)}owner${newLine}
 `.trim();
      sendBotMessage(menu);
 
