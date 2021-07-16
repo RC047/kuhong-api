@@ -563,7 +563,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
     try {
     if (!console) return res.json({ message: 'Masukan parameter console' })
-    if (console.startsWith('/')) return res.json({ message: 'thats wrong' })
+    if (console.startsWith('/')) return res.json({ result: 'There was problem in your code' })
 
       await fs.writeFileSync(__path + '/console.js', console)
       await exec(`node ${__path}/console.js`, (err, stderr, stdout) => {
@@ -571,13 +571,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
       if (console.length > 1000) result = 'Max 1000 Line.'
       if (stderr) result = stderr
       if (stdout) result = stdout
-      if (err) result = err.toString().split('console.js:1')[1].split('at')[0].split(':1)')[0].split('(Use `node --trace-uncaught ...` to show where the exception was thrown)')[0]
+      if (err) result = err.toString().split('console.js:1')[1].split('at ')[0].split(':1)')[0].split(':3')[0].split('(Use `node --trace-uncaught ...` to show where the exception was thrown)')[0]
 
            res.json({ result: result })
        })
     } catch (e) {
     	console.log(e)
-      res.json({ result: e.toString().split('console.js:1')[1].split('at')[0] })
+      res.json({ result: e.toString().split('console.js:1')[1].split('at ')[0].split(':1)')[0].split(':3')[0].split('(Use `node --trace-uncaught ...` to show where the exception was thrown)')[0] })
   }
 })
 
@@ -10436,13 +10436,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (apikeyInput == `${blocked_apikey}`) return res.json(loghandler.blockedKey)
     if (!text) return res.json(loghandler.nottext)
 
-        await imageToBase64('https://raw.githubusercontent.com/RC047/media/main/intromaker/' + text.toLowerCase() + '.webm')
-        .then(media => {
+        var media = await imageToBase64('https://raw.githubusercontent.com/RC047/media/main/intromaker/' + text.toLowerCase() + '.webm').catch(() => res.sendFile(__path + '/public/media/intro.mp4'))
         var buffer = Buffer.from(media, 'base64')
-              fs.writeFileSync(__path + '/tmp/intro.mp4', buffer)
+            fs.writeFileSync(__path + '/tmp/intro.mp4', buffer)
 
   res.sendFile(__path + '/tmp/intro.mp4')
-        }).catch(() => res.sendFile(__path + '/public/media/intro.mp4'))
 })
 
 router.get('/tomp3', async (req, res, next) => {
@@ -11603,7 +11601,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var result
         if (stderr) result = stderr
         if (stdout) result = stdout
-        if (err) result = err.toString().split('console.js:1')[1].split('at')[0]
+        if (err) result = err.toString().split('console.js:1')[1].split('at ')[0]
 
         res.json({
         	status: true,
@@ -11615,7 +11613,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
   	res.json({
      	status: true,
          creator: creator,
-         result: e.toString().split('console.js:1')[1].split('at')[0]
+         result: e.toString().split('console.js:1')[1].split('at ')[0]
      })
    }
 })
