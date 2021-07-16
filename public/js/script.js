@@ -73,7 +73,7 @@ Response: ${json.responseType}
 *Silahkan pilih "Oke" untuk mencoba.
 `.trim())
 if (ok) {
-    window.location = json.fullUrl;
+    window.location = pickRandom(json.fullUrl, ads.split('url:')[1]);
 } else throw false;
 
     }
