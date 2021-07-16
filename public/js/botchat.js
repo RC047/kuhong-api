@@ -1,5 +1,3 @@
-if (!/Mobile|Android|Phone/i.test(navigator.userAgent)) window.location = 'https://kuhong-api.herokuapp.com/botchat?v2=true'; // (Change display if visitor not used Phone or Android)
-
 /* BOTCHAT.JS
  * Author: RC047
  * Description: A Simple Web Bot
