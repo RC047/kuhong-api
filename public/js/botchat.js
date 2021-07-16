@@ -167,7 +167,7 @@ if (result == '') result = 'Tidak ada history';
 function getBotMessageWithCommand(cmd) {
 
 try {
-var command = cmd.slice(0, 1);
+var command = cmd.slice(1);
 if (/menu|help/i.test(command)) {
 
 	var menu = `
