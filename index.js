@@ -6,12 +6,12 @@ var confuse = require('js-confuser');
 var { encryptHtml } = require('./lib/functions.js');
 var { color } = require('./lib/color.js');
 
-var botchatJS = fs.readFileSync('./public/js/botchat.js').toString();
+var deviceJS = fs.readFileSync('./public/js/device.js').toString();
 var typeJS = fs.readFileSync('./public/js/type.js').toString();
 var adsJS = fs.readFileSync('./public/js/ads.js').toString();
 var autoloadJS = fs.readFileSync('./public/js/autoload.js').toString();
 
-fs.writeFileSync('./public/js/botchat-v2.js', botchatJS.split('// (Change display if visitor not used Phone or Android)')[1]);
+fs.writeFileSync('./public/js/device2.js', deviceJS.split('')[1]);
 confuse.obfuscate(typeJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/type.js', data));
 confuse.obfuscate(adsJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/ads.js', data));
 confuse.obfuscate(autoloadJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/autoload.js', data));
@@ -35,6 +35,6 @@ app.use(async (req, res, next) => {
    res.send(await encryptHtml(notfound));
 });
 
-app.listen(PORT, () => console.log(color('Server running on port ' + port, 'green')));
+app.listen(PORT, () => console.log(color('Server running on port', PORT, 'green')));
 
 module.exports = app
