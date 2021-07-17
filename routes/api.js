@@ -435,7 +435,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     	var key = free_apikey
         if (name == 'CraftCoding') key = apikey
         if (param == 'false' || param == false) {
-             param = 'apikey=APIKEY';
+            param = 'apikey=APIKEY';
         } else param = param + '&apikey=APIKEY'
         var fullUrl = `https://kuhong-api.herokuapp.com/${url}?${param.split('APIKEY')[0] + key}`
         var data = await fetch(fullUrl, { method: method.toUpperCase() })
@@ -448,17 +448,17 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (params == 'apikey, ') params = ''
         var responseType = data.headers.get('content-type').split(';')[0]
         var status = 'Active'
-        if (responseType == 'text/html') {
+        if (/html/.test(responseType)) {
              status = 'Error'
              responseType = 'Error'
         }
-        if (responseType !== 'application/json') responseType = responseType + ' (Buffer)'
-        if (responseType == 'Error (Buffer)') responseType = 'Response Error (403)'
-        if (responseType == 'application/json') responseType = 'text/json (String)'
-        if (responseType == 'text/plain') responseType = 'text/html (Html)'
+        if (!/text|json/.test(responseType)) responseType = responseType + ' (Buffer)'
+        if (responseType == 'Error (Buffer)') responseType = 'Response Error'
+        if (/json/.test(responseType)) responseType = 'text/json (String)'
+        if (/text/.test(responseType)) responseType = 'text/html (Html)'
 
        res.json({
-       	status: status,
+       	   status: status,
            code: data.status,
            apiName: url.split('api/')[1].toUpperCase(),
            pathUrl: url,
