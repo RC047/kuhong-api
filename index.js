@@ -8,19 +8,19 @@ var { color } = require('./lib/color.js');
 
 var scriptJS = fs.readFileSync('./public/js/script.js').toString();
 var botchatJS = fs.readFileSync('./public/js/botchat.js').toString();
-var deviceJS = fs.readFileSync('./public/js/device.js').toString();
+var platformJS = fs.readFileSync('./public/js/platform.js').toString();
 var typeJS = fs.readFileSync('./public/js/type.js').toString();
 var adsJS = fs.readFileSync('./public/js/ads.js').toString();
 var autoloadJS = fs.readFileSync('./public/js/autoload.js').toString();
 
 confuse.obfuscate(scriptJS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/script.js', data));
 confuse.obfuscate(botchatJS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/botchat.js', data));
-confuse.obfuscate(deviceJS.split('// Mobile Only')[1], { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/window.js', data));
-confuse.obfuscate(deviceJS.split('// Mobile Only')[0], { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/mobile.js', data));
+confuse.obfuscate(platformJS.split('// Mobile Only')[1], { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/window.js', data));
+confuse.obfuscate(platformJS.split('// Mobile Only')[0], { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/mobile.js', data));
 confuse.obfuscate(typeJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/type.js', data));
 confuse.obfuscate(adsJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/ads.js', data));
 confuse.obfuscate(autoloadJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/autoload.js', data));
-fs.rmSync('./public/js/device.js');
+fs.rmSync('./public/js/platform.js');
 
 var PORT = process.env.PORT || 8000 || 5000 || 3000;
 var mainrouter = require('./routes/main.js'),
