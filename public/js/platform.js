@@ -1,5 +1,3 @@
-// Note: this script will be automatic deleted
-
 // Window Only
 if (!/Mobile|Android|Phone/.test(navigator.userAgent)) {
     var params = '?platform=';
