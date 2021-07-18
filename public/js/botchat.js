@@ -112,6 +112,7 @@ if (botName.endsWith('(Verified): ')) taggedName = isTag(botName, true);
 if (!prefix.test(pesan))  {
     var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/simsimi?kata=' + pesan + '&apikey=' + getApikey());
     var message = res.body.result.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E')).replace(/SIMI/g, 'AKU').replace(/simi/g, 'aku').replace(/simsimi/g, 'aku').replace(/SIMSIMI/g, 'AKU');
+    if (pesan.startsWith('<')) message = getRandomMessage(nama);
     var send = newLine + getDate() + taggedName + message;
     document.getElementById("chat").innerHTML += send;
     } else return getBotMessageWithCommand(pesan);
