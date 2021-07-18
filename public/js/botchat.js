@@ -346,7 +346,7 @@ if (!type) return sendBotMessage('Silahkan masukan type');
 if (!(type == 'local' || type == 'public')) return sendBotMessage('Pilih public/local');
 if (type == 'local') {
     window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-    var rtc = new RTCPeerConnection({iceServers:[]});
+    var rtc = new RTCPeerConnection({ iceServers: [] });
     noop = function() {};
     rtc.createDataChannel('');
     rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
@@ -377,7 +377,7 @@ window.location = 'https://kuhong-api.herokuapp.com/api/tts?lang=' + lang + '&te
 var bash = command.split('exec ')[1];
 if (!bash) return sendBotMessage('Silahkan masukan bash');
 var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/execute?command=' + bash + '&apikey=' + getApikey());
-    sendBotMessage(res.body.result.replace(/\n/gi, newLine));
+    sendBotMessage(res.body.result);
 
 } else if (/^lock/i.test(command)) {
 
@@ -586,7 +586,7 @@ var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/faktaunik?apikey
 
     } else return sendBotMessage('Perintah tidak ditemukan! Silahkan ketik ' + bold(usedPrefix(cmd) + baseCmd.slice(1)) + ' untuk melihat list menu.');
 } catch (e) {
-     console.error('Server Error: ', e);
+     console.error('Error\n\n', e);
   sendBotMessage('Server Chat telah Error!');
   }
 }
