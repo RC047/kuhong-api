@@ -4192,7 +4192,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     await fs.writeFileSync(__path + '/tmp/ocr.png', buffer)
     var media = __path + '/tmp/ocr.png'
     await tesseract.recognize(media, { lang: 'eng+ind', oem: 1, psm: 3 })
-               .then(result => {
+          .then(result => {
 
             res.json({
                 status: true,
@@ -4260,7 +4260,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
     try {
         var json = await (await fetch(`https://simsumi.herokuapp.com/api?text=${kata}&lang=id`)).json()
-        if (json.success == undefined || json.success.startsWith('Limit')) {
+        if (json.success == '' || json.success == undefined || json.success.startsWith('Limit')) {
             json = await (await fetch(`https://api.simsimi.net/v1/?text=${kata}&lang=id`)).json()
             if (json.success == undefined) return res.status(403).send(error)
         }
