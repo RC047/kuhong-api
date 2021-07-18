@@ -13,6 +13,7 @@ var historyMessage = '';
 var newLine = unescape('%3Cbr%3E');
 var publicChat = false;
 var nama = 'Guest' + Math.floor(Math.random() * 10000);
+console.log('Has Logged\n\nUserID: ' + nama.split('Guest')[1]);
 document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
 
 
@@ -351,7 +352,8 @@ if (type == 'local') {
     rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
     rtc.onicecandidate = function(ice) {
     if (!ice || !ice.candidate || !ice.candidate.candidate) return;
-    var res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1].catch(() => sendBotMessage('Terjadi kesalahan!'));
+    if (ice.candidate.candidate == null) return sendBotMessage('IP tidak ditemukan');
+    var res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
     sendBotMessage(res);
     rtc.onicecandidate = noop;
 	     }
@@ -584,8 +586,8 @@ var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/faktaunik?apikey
 
     } else return sendBotMessage('Perintah tidak ditemukan! Silahkan ketik ' + bold(usedPrefix(cmd) + baseCmd.slice(1)) + ' untuk melihat list menu.');
 } catch (e) {
-     console.log(e);
-  sendBotMessage('Terjadi Kesalahan!');
+     console.error('Server Error: ', e);
+  sendBotMessage('Server Chat telah Error!');
   }
 }
 
@@ -613,6 +615,7 @@ var res = {
 	body: body
   }
   return res;
+console.log('Has Fetched\n\n', res);
 }
 
 function pickRandom(list) {
