@@ -6,6 +6,23 @@
  */
 
 
+if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
+    var url = new URL(window.location).searchParams.entries();
+    var params = '?platform=window';
+    var value = '';
+    for (var i of url) value += i[0];
+    if (window.location.toString().includes('?')) params = '&platform=window';
+    if (!/platform/i.test(value)) window.location += params;
+
+} else {
+    var url = new URL(window.location).searchParams.entries();
+    var params = '?platform=mobile';
+    var value = '';
+    for (var i of url) value += i[0];
+    if (window.location.toString().includes('?')) params = '&platform=mobile';
+    if (!/platform/i.test(value)) window.location += params;
+}
+
 var prefix = new RegExp('^[!?#/$.,]');
 var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.', ',']) + pickRandom(['menu', 'help', 'start']);
 var previousMessage = '';
@@ -602,7 +619,7 @@ var xhr = new XMLHttpRequest();
 xhr.open(method, url, false);
 xhr.send();
 var body = xhr.responseText;
-if (/json/.test(xhr.getAllResponseHeaders())) body = JSON.parse(xhr.responseText);
+if (/json/i.test(xhr.getAllResponseHeaders())) body = JSON.parse(xhr.responseText);
 var res = {
 	status: xhr.status,
 	statusText: xhr.statusText,
