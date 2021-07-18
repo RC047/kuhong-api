@@ -1,13 +1,15 @@
 // Window Only
 if (!/Mobile|Android|Phone/.test(navigator.userAgent)) {
+    var link = window.location;
     var params = '?platform=';
-    if (location.includes('?')) params = '&platform=';
-    location += params + 'window';
+    if (link.includes('?')) params = '&platform=';
+    link += params + 'window';
 }
 
 // Mobile Only
-if (!/Mobile|Android|Phone/.test(navigator.userAgent)) {
+if (/Mobile|Android|Phone/.test(navigator.userAgent)) {
+    var link = window.location;
     var params = '?platform=';
-    if (location.includes('?')) params = '&platform=';
-    location += params + 'mobile';
+    if (link.includes('?')) params = '&platform=';
+    link += params + 'mobile';
 }
