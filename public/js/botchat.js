@@ -104,6 +104,11 @@ function enterKey(event) {
 if (event.keyCode == 13) return sendMessage();
 }
 
+function getApikey() {
+var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/getapikey');
+  return res.body.free_apikey;
+}
+
 function sendMessage() {
 var pesan = document.getElementById("message").value;
 if (pesan == '') throw false;
@@ -607,11 +612,6 @@ var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/faktaunik?apikey
      console.error('Error\n\n', e);
   sendBotMessage('Server Chat telah Error!');
   }
-}
-
-function getApikey() {
-var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/getapikey');
-  return res.body.free_apikey;
 }
 
 function fetchURL(method, url) {
