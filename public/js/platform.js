@@ -1,5 +1,6 @@
 // Platform detector
-if (!/Mobile|Android|Phone/i.test(navigator.userAgent)) {
+
+if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     var url = new URL(window.location).searchParams.entries();
     var params = '?platform=window';
     var value = '';
@@ -7,7 +8,7 @@ if (!/Mobile|Android|Phone/i.test(navigator.userAgent)) {
     if (window.location.toString().includes('?')) params = '&platform=window';
     if (!/platform/i.test(value)) window.location += params;
 
-} else if (!/Window|Mac|PC/i.test(navigator.userAgent)) {
+} else {
     var url = new URL(window.location).searchParams.entries();
     var params = '?platform=mobile';
     var value = '';
