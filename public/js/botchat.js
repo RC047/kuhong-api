@@ -18,6 +18,7 @@ document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('
 
 function sendBotMessage(message) {
 var botName = isTag('KuhongBot (Verified): ', true);
+if (message.startsWith('http') || message.endsWith('com')) message = link(message);
 var send = newLine + getDate() + botName + message;
 document.getElementById("chat").innerHTML += send;
 }
@@ -39,7 +40,9 @@ function bold(text) {
 }
 
 function link(text) {
-   return unescape('%3Ca%20href%3D%22') + text + unescape('%22%3E') + text + unescape('%3C/a%3E');
+   var link = text;
+   if (!link.startsWith('http')) link = 'https://' + text;
+   return unescape('%3Ca%20href%3D%22') + link + unescape('%22%3E') + text + unescape('%3C/a%3E');
 }
 
 function getNotifications() {
@@ -87,7 +90,7 @@ function sendMessage() {
 var pesan = document.getElementById("message").value;
 if (pesan == '') throw false;
 if (pesan.length > 500) return alert('Pesan terlalu panjang!');
-if (pesan.includes('http') || pesan.includes('www') || pesan.includes('com')) pesan = link(pesan);
+if (pesan.startsWith('http') || pesan.endsWith('com')) pesan = link(pesan);
 var send = newLine + getDate() + color(nama + ': ', 'red') + pesan.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E'));
 document.getElementById("no-message").innerHTML = '';
 document.getElementById("chat").innerHTML += send;
