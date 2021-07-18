@@ -27,18 +27,21 @@ var prefix = new RegExp('^[!?#/$.,]');
 var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.', ',']) + pickRandom(['menu', 'help', 'start']);
 var previousMessage = '';
 var historyMessage = '';
+var codeInput = '';
 var newLine = unescape('%3Cbr%3E');
+var isVerified = false;
 var publicChat = false;
 var nama = 'Guest' + Math.floor(Math.random() * 10000);
 console.log('Has Logged\n\nUserID: ' + nama.split('Guest')[1]);
 document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
 
 
-function sendBotMessage(message) {
-var botName = isTag('KuhongBot (Verified): ', true);
-if (message.startsWith('http') || message.endsWith('com')) message = link(message);
-var send = newLine + getDate() + botName + message;
-document.getElementById("chat").innerHTML += send;
+function secretKey(event) {
+codeInput += event.keyCode;
+if (codeInput.toString() == '8669827370736968') {
+    alert('Selamat,, Akun anda telah diverifikasi!');
+    nama = nama.split(':')[0] + color(' (Verified)', 'green');
+    }
 }
 
 function usedPrefix(cmd) {
@@ -121,6 +124,13 @@ setTimeout(() => getBotMessage(pesan), 1000);
 previousMessage = pesan;
 historyMessage += pesan + '\n';
 document.getElementById("message").value = '';
+}
+
+function sendBotMessage(message) {
+var botName = isTag('KuhongBot (Verified): ', true);
+if (message.startsWith('http') || message.endsWith('com')) message = link(message);
+var send = newLine + getDate() + botName + message;
+document.getElementById("chat").innerHTML += send;
 }
 
 function getBotMessage(pesan) {
