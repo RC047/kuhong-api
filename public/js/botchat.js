@@ -134,6 +134,7 @@ var input = document.querySelector("input[type=file]").files[0];
     document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + image;
     }
 fr.readAsDataURL(input);
+document.querySelector("input[type=file]").value = '';
 }
 
 function sendBotMessage(message) {
