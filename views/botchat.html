@@ -18,11 +18,12 @@
 <body onkeydown="secretKey(event);" onload="getNotifications();">
     <marquee id="notification"></marquee>
         <p id="chat"><a id="no-message"></a></p><br>
+        <input type="file" accept="image/" onchange="sendImageMessage();">
         <input type="text" id="message" placeholder="Ketik pesan" onkeydown="enterKey(event);">
         <input type="submit" id="send" value="Kirim" onclick="sendMessage();"><br>
         <input type="submit" value="Ganti Nama" onclick="changeName();">
         <input type="submit" value="Clear Chat" onclick="clearChat();">
-        <input type="submit" value="History" onclick="getHistoryMessages();"><br><br>
+        <input type="submit" value="History Chat" onclick="getHistoryMessages();"><br><br>
         <div>Mode Chat :
         <input type="radio" name="selection" value="private" onclick="setPublic(false);" CHECKED>Private
         <input type="radio" name="selection" value="public" onclick="setPublic(true);">Public<br>
@@ -56,10 +57,11 @@
 <body onkeydown="secretKey(event);" onload="getNotifications();">
     <marquee id="notification"></marquee>
         <p id="chat"><a id="no-message"></a></p><br>
+        <input type="file" accept="image/" onchange="sendImageMessage();"><br>
         <input type="text" id="message" placeholder="Ketik pesan" onkeydown="enterKey(event);">
         <input type="submit" value="Ganti Nama" onclick="changeName();">
         <input type="submit" value="Clear Chat" onclick="clearChat();">
-        <input type="submit" value="History" onclick="getHistoryMessages();"><br><br>
+        <input type="submit" value="History Chat" onclick="getHistoryMessages();"><br><br>
         <div>Mode Chat :
         <input type="radio" name="selection" value="private" onclick="setPublic(false);" CHECKED>Private
         <input type="radio" name="selection" value="public" onclick="setPublic(true);">Public<br>
