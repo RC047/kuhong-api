@@ -6,6 +6,18 @@
  */
 
 
+var prefix = new RegExp('^[!?#/$.,]');
+var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.', ',']) + pickRandom(['menu', 'help', 'start']);
+var previousMessage = '';
+var historyMessage = '';
+var codeInput = '';
+var isVerified = false;
+var publicChat = false;
+var newLine = unescape('%3Cbr%3E');
+var nama = 'Guest' + Math.floor(Math.random() * 10000);
+console.log('Has Logged\n\nUserID: ' + nama.split('Guest')[1]);
+document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
+
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     var params = '?platform=window';
     if (window.location.toString().includes('?')) params = '&platform=window';
@@ -19,18 +31,6 @@ if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     if (!/platform/i.test(window.location)) window.location += params;
     document.querySelector('link').href = 'https://kuhong-api.herokuapp.com/css/botchat?v=mobile.css';
 }
-
-var prefix = new RegExp('^[!?#/$.,]');
-var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.', ',']) + pickRandom(['menu', 'help', 'start']);
-var previousMessage = '';
-var historyMessage = '';
-var codeInput = '';
-var newLine = unescape('%3Cbr%3E');
-var isVerified = false;
-var publicChat = false;
-var nama = 'Guest' + Math.floor(Math.random() * 10000);
-console.log('Has Logged\n\nUserID: ' + nama.split('Guest')[1]);
-document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
 
 
 function secretKey(event) {
