@@ -19,8 +19,9 @@ confuse.obfuscate(adsJS, { target: 'browser', preset: 'high', minify: true, stri
 confuse.obfuscate(autoloadJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/autoload.js', data));
 
 var PORT = process.env.PORT || 8000 || 5000 || 3000;
-var mainrouter = require('./routes/main.js'),
-    apirouter = require('./routes/api.js');
+var indexrouter = require('./routes/index.js'),
+    mainrouter = require('./routes/main.js'),
+    apirouter = require('./routes/api.js'),
 
 var app = express();
 app.enable('trust proxy');
@@ -29,6 +30,7 @@ app.use(cors());
 app.use(secure);
 app.use(express.static('public'));
 
+app.use('/', indexrouter);
 app.use('/', mainrouter);
 app.use('/api', apirouter);
 app.use(async (req, res, next) => {
