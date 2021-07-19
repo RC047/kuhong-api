@@ -155,8 +155,8 @@ if (pesan.startsWith('<')) {
 
 function sendImageMessage(url) {
 var botName = isTag('KuhongBot (Verified): ', true);
-var image = unescape('%3Cimg%20height%3D%2250%22%20src%3D%22') + url + unescape('%22%3E%3C/img%3E');
-document.getElementById("chat").innerHTML += newLine + getDate() + botName + image;
+var image = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + url + unescape('%22%3E%3C/img%3E');
+document.getElementById("chat").innerHTML += newLine + getDate() + botName + newLine + image;
 }
 
 function setPublic(turn) {
@@ -319,7 +319,7 @@ var url = command.split('ker ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
 sendBotMessage(loghandler.wait);
-window.location = 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey();
+sendImageMessage('https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
 
 } else if (/^toimg/i.test(command)) {
 
@@ -328,7 +328,7 @@ if (!url) return sendBotMessage(loghandler.notUrl);
 if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
 sendBotMessage(loghandler.wait);
 var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/toimg?webp=' + url + '&apikey=' + getApikey());
-window.location = res.body.result;
+sendImageMessage(res.body.result);
 
 } else if (/^ytmp(3|4)/i.test(command)) {
 
@@ -345,7 +345,7 @@ var url = command.split('wasted ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
 sendBotMessage(loghandler.wait);
-window.location = 'https://kuhong-api.herokuapp.com/api/wasted?img=' + url + '&apikey=' + getApikey();
+sendImageMessage('https://kuhong-api.herokuapp.com/api/wasted?img=' + url + '&apikey=' + getApikey());
 
 } else if (/^burning/i.test(command)) {
 
@@ -353,7 +353,7 @@ var url = command.split('burning ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
 sendBotMessage(loghandler.wait);
-window.location = 'https://kuhong-api.herokuapp.com/api/burning?img=' + url + '&apikey=' + getApikey();
+sendImageMessage('https://kuhong-api.herokuapp.com/api/burning?img=' + url + '&apikey=' + getApikey());
 
 } else if (/^trigger/i.test(command)) {
 
