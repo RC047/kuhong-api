@@ -1,4 +1,5 @@
 var express = require('express');
+var app = express();
 var cors = require('cors');
 var secure = require('ssl-express-www');
 var fs = require('fs');
@@ -21,9 +22,8 @@ confuse.obfuscate(autoloadJS, { target: 'browser', preset: 'high', minify: true,
 var PORT = process.env.PORT || 8000 || 5000 || 3000;
 var indexrouter = require('./routes/index.js'),
     mainrouter = require('./routes/main.js'),
-    apirouter = require('./routes/api.js'),
+    apirouter = require('./routes/api.js');
 
-var app = express();
 app.enable('trust proxy');
 app.set('json spaces', 2);
 app.use(cors());
