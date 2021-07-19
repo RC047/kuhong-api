@@ -22,7 +22,6 @@ if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     var params = '?platform=window';
     if (window.location.toString().includes('?')) params = '&platform=window';
     if (!/platform/i.test(window.location)) window.location += params;
-    console.log(document.querySelector("link").href);
     document.getElementById("send").remove();
 
 } else {
