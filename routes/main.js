@@ -142,10 +142,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
 router.post('/base64url', async (req, res, next) => {
 var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+if (!req.body) return res.json({ error: 'No data passed' })
 if (req.body.includes(',')) req.body = req.body.split(',')[1]
 var base64 = Buffer.from(req.body, 'base64')
 
-    res.send(await require(__path + '/lib/upload.js')(base64))
+    res.json({ url: await require(__path + '/lib/upload.js')(base64) })
 })
 
 router.get('/status', async (req, res, next) => {  
