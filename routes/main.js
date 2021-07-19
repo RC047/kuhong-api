@@ -140,13 +140,18 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.send(await encryptHtml(tutorial))
 })
 
-router.post('/base64url', async (req, res, next) => {
+router.post('/getimage', async (req, res, next) => {
 var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 if (!req.body) return res.json({ error: 'No data passed' })
 if (req.body.includes(',')) req.body = req.body.split(',')[1]
 var base64 = Buffer.from(req.body, 'base64')
 
+try {
     res.json({ url: await require(__path + '/lib/upload.js')(base64) })
+} catch (e) {
+     console.log(e)
+   res.json({ error: 'The arguments is not a buffer' })
+   }
 })
 
 router.get('/status', async (req, res, next) => {  
