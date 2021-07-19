@@ -18,7 +18,7 @@
 <body onkeydown="secretKey(event);" onload="getNotifications();">
     <marquee id="notification"></marquee>
         <p id="chat"><a id="no-message"></a></p><br>
-        <input type="file" accept="image/" onchange="sendImageMessage();">
+        <input type="file" accept="image/" onchange="sendImageMessage();"><br><br>
         <input type="text" id="message" placeholder="Ketik pesan" onkeydown="enterKey(event);">
         <input type="submit" id="send" value="Kirim" onclick="sendMessage();"><br>
         <input type="submit" value="Ganti Nama" onclick="changeName();">
@@ -57,7 +57,7 @@
 <body onkeydown="secretKey(event);" onload="getNotifications();">
     <marquee id="notification"></marquee>
         <p id="chat"><a id="no-message"></a></p><br>
-        <input type="file" accept="image/" onchange="sendImageMessage();"><br>
+        <input type="file" accept="image/" onchange="sendImageMessage();"><br><br>
         <input type="text" id="message" placeholder="Ketik pesan" onkeydown="enterKey(event);">
         <input type="submit" value="Ganti Nama" onclick="changeName();">
         <input type="submit" value="Clear Chat" onclick="clearChat();">
