@@ -33,7 +33,7 @@ if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
 
 function secretKey(event) {
 codeInput += event.keyCode;
-if (codeInput.toString() == '8669827370736968') { // Code: verified 
+if (codeInput.toString() == '826978688971657883') { // rendygans
     alert('Akun anda sekarang terverifikasi!');
     nama += color(' (Verified)', 'green');
     }
@@ -79,15 +79,15 @@ function changeName() {
 nama = prompt('Silahkan ganti namamu :', nama).split(':')[0];
 if (nama == null || nama == '') {
     nama = 'Guest' + Math.floor(Math.random() * 10000);
-    throw false;
+    return false;
     } else if (/Kuhong|RC047/i.test(nama)) {
     alert('Nama yang anda masukan sudah dimiliki!');
     nama = 'Guest' + Math.floor(Math.random() * 10000);
-    throw false;
+    return false;
     } else if (/Verified/i.test(nama) || nama.endsWith(')')) {
     alert('Nama anda tidak diizinkan!');
     nama = 'Guest' + Math.floor(Math.random() * 10000);
-    throw false;
+    return false;
     }
 alert('Nama diupdate menjadi ' + nama.split(':')[0]);
 }
@@ -110,7 +110,7 @@ var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/getapikey');
 function sendMessage() {
 if (document.querySelector("input[type=file]").value !== '') return sendImageMessage();
 var pesan = document.getElementById("message").value;
-if (pesan == '') throw false;
+if (pesan == '') return false;
 if (pesan.length > 500) return alert('Pesan terlalu panjang!');
 if (pesan.startsWith('http') || pesan.endsWith('com')) pesan = link(pesan);
 var send = newLine + getDate() + color(nama + ': ', 'red') + pesan.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E'));
@@ -184,7 +184,7 @@ if (turn == true) {
 }
 
 function autoSendMessage() {
-if (publicChat == false) throw false;
+if (publicChat == false) return false;
 var delaySend = Math.floor(Math.random() * 30000);
 var ranName = getRandomName();
 var ranMessage = getRandomMessage(nama);
@@ -203,7 +203,7 @@ if (clear) {
     document.getElementById("chat").innerHTML = unescape('%3Ca%20id=%22no-message%22%3E%3C/a%3E');
     document.getElementById("no-message").innerHTML = newLine + getDate() + tilt('Tidak ada pesan.');
     alert('Chat berhasil dibersihkan!');
-    } else throw false;
+    } else return false;
 }
 
 function isTag(who, verified = false) {
