@@ -150,6 +150,12 @@ if (!prefix.test(pesan))  {
     } else return getBotMessageWithCommand(pesan);
 }
 
+function sendImageMessage(url) {
+var botName = isTag('KuhongBot (Verified): ', true);
+var image = unescape('%3Cimg%20height%3D%2250%22%20src%3D%22') + url + unescape('%22%3E%3C/img%3E');
+document.getElementById("chat").innerHTML += newLine + getDate() + botName + image;
+}
+
 function setPublic(turn) {
 var delaySend = Math.floor(Math.random() * 30000);
 if (turn == false) {
@@ -175,7 +181,7 @@ var ranMessage = getRandomMessage(nama);
 var taggedName = isTag(ranName);
 if (ranName.endsWith('(Verified): ')) taggedName = isTag(ranName, true);
 var sendPublic = newLine + getDate() + taggedName + ranMessage;
-document.getElementById("no-message").innerHTML = '';
+if (document.getElementById("no-message") !== null) document.getElementById("no-message").innerHTML = '';
 document.getElementById("chat").innerHTML = sendPublic;
 if (prefix.test(ranMessage)) getBotMessageWithCommand(ranMessage);
 setTimeout('autoSendMessage();', delaySend);
