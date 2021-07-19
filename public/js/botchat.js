@@ -10,7 +10,7 @@ if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     var params = '?platform=window';
     if (window.location.toString().includes('?')) params = '&platform=window';
     if (!/platform/i.test(window.location)) window.location += params;
-    document.querySelector('link').href = 'https://kuhong-api.herokuapp.com/css/botchat?v=window.css';
+    document.querySelector("link").href = 'https://kuhong-api.herokuapp.com/css/botchat?v=window.css';
     document.getElementById("send").remove();
 
 } else {
@@ -35,10 +35,14 @@ document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('
 
 function secretKey(event) {
 codeInput += event.keyCode;
-if (codeInput.toString() == '8669827370736968') {
-    alert('Akun anda berhasil diverifikasi!');
-    nama = nama.split(':')[0] + color(' (Verified)', 'green');
+if (codeInput.toString() == '8669827370736968') { // Code: verified 
+    alert('Akun anda sekarang terverifikasi!');
+    nama += color(' (Verified)', 'green');
     }
+}
+
+function enterKey(event) {
+if (event.keyCode == 13) return sendMessage();
 }
 
 function usedPrefix(cmd) {
@@ -98,10 +102,6 @@ var ranName = pickRandom(['RC047 (Verified): ', 'Aliando: ', 'Saya: ', 'Bukan Sa
 
 function getRandomMessage(name) {
    return pickRandom([Math.floor(Math.random() * 100), previousMessage, baseCmd, baseCmd, baseCmd.slice(0, 1) + 'time', baseCmd.slice(0, 1) + 'fml', 'Gk bisa', baseCmd.slice(0, 1) + 'tolol', 'Anjasss', baseCmd.slice(0, 1) + 'kuhong', 'Kuhong', 'Kuhong', 'Kuhong', 'Kuhong', 'Kuhong', 'Kuhong', 'Kuhong', 'Ereree', 'Pansos!', 'Gaje', 'Gj', 'Press F', 'Jan sok keras!', 'Epep kuy', 'Gem burik jan sok keras', 'Buriqq', 'Kocak', 'Kocak :V', 'Woy ' + nama, 'Hai ' + bold('@' + nama) + ' :V', 'Si ' + bold('@' + nama) + ' Nyimak', 'Hai ' + bold('@' + name) + ' :V', 'Si ' + bold('@' + name) + ' Nyimak', 'Haduuuhh', 'Yaudah', 'Belom', 'Udah', 'Gak nyambung', 'Itu', 'Itu lu kali', 'Mungkin lu yg gtu', 'Jadi gini...', 'Jadi?', 'Give diamond woee', 'Anjay', 'Apa', 'Ihhhh', 'Paan', 'Apaansii', 'Ishhh', 'Mmm', '...', 'Z', 'Dibersihin_-', 'First', 'Bodoh', 'Siapa?', 'Lu?', 'Yahaha', 'Mari kita tebak angka kawan', 'Salah!', 'Lah trus apa?', 'Anj', 'Dhlah', 'Ok', 'Bot mana bot', 'Keren sih parah', 'Nahh dia bener!', 'IRI BILANG BOS', 'Bener?', 'Pacaran yuk', '--', 'Sepi kaleee', 'Njirr', 'Bjir', 'Itu bukan?', 'itu?', 'ini bukan?', 'ini?', 'Wahh', 'Pfft', 'P', 'P nyari doi super', 'P cari doi', 'P cari apikey gratis', 'Coba tanya ' + bold('@' + name.split(':')[0]) + ' aja', 'Selamat!', 'Bener tuh', 'Benar!', 'Bener?', 'Hehee', 'Iya maaf', 'Maaf', 'Mabar?', 'Kuy mabar', 'Mabar yokk', 'Bjirr', 'Tumben rame', 'Kalah ama ' + bold('@' + name.split(':')[0]), ' :v', ':v', 'Bang', 'Bang', 'Sat', 'Sat', 'Kuy', 'Yok', 'Hemm', 'Lu siapa?', 'Coba', bold('@' + nama), bold('@' + name), 'Diem aja', 'B aja', 'Woy', 'Ngopi bang?', 'F', 'Iya', 'Iy', 'Oke', 'Ok', 'G', 'Gk', 'Gak', 'Woee', 'Ajglh', 'Dicuekin lagi', 'Punten Gopud', 'Eeehh', 'Kasar bodo', 'Cuy', 'Bacot', 'Nyimak', 'Nyimak ajalh', 'Ayo', '?', '???', '!', '.', ':v', 'v:', ':V', ';v', 'Keren', 'Mari mengaduk kawan', 'Bye one?', 'Cuk', 'Sepi', 'Sepi kali', '1+1=11', 'GG', 'Anjirr', 'Parahh', 'Gileee', 'Dicuekin', 'Awoakakak', 'Gip alok', 'Knp?', 'Males', 'Enak cuk', 'Wkwwkwkwkwk', 'Bengek', 'Tes', 'Siap', 'Lahh', 'Gmn', 'Stop', 'Jan spam', 'asw', 'Asw', 'Asuu', 'Copy dulu bru paste', 'Percuma bnyk fiturnya klo pd mati', ':)', `'-'`, ':(', ':/', ':b', 'Bgi no wa', 'Yahh', 'Pliss', 'Heyy', '!!!', 'Sfx', 'WOIIIIII', 'Tayo', 'Gak lucu', 'Bot', '!help', 'Mana', 'Gak bisa', 'Lol', 'Bruhh', 'Bruhh', 'What', 'Ohh', 'O', 'Stress', 'Lu knp?', 'Mewhwhwwhee', 'Ketawa?', 'Kgk', 'Yoii', 'Skuyy', 'Bangg', 'Tante', 'Baik', 'Apa kabar', 'Kok gk bisa sihh', 'Iya iya', '--', '-', '-', 'P', 'Ppppppppppp', 'Jangan kasar!', 'Makan bang', 'Ngeteh bang', 'LOL', 'P cari guild', 'Bantu share', 'Up', 'Up', 'Apaan', 'Bego', 'Tuman!', 'Yamete kudasai', 'Anak mesum_-', 'Dasar', 'Dihh', 'Cihh', 'Wooooooo', 'Kuy nobar', 'Hayuuu', 'Bikess ihhh', 'Ada cewek gk?', 'Disini ada cewek?', 'Kwekekekekk', 'Ayam goyeng', 'Kudasai', 'Daijobu', 'Dasarr', 'Dasar Wibu_-', 'Dasar wibu', 'BAKAAA!!!', 'Urusaii!', 'Tai', 'Bgi template bang', 'Gege', 'gg gaming', 'Kok gw bisa disini', 'Kok gw bisa nyasar kesini', 'Gw dimana', 'Waww', 'UwU', 'UwU', 'UwU', 'UwU', 'UwU', 'UwU', 'UwU', ':v', ':v', ':v', 'Jan Toxic!!!', 'Jan Toxic!!!', 'Siapa?', 'Siapa coba?', 'Tebak', ':P', ':P', 'Subscribe channelku', 'Jan lupa follow ig gw', 'Follback yaa', 'Followback?', 'Okey', 'Sayang', 'Idih', 'Gay', 'Lu yang Gay!!', 'Dahlahh', 'Nanti dibantai nangis', 'Nanti dibantai nangis', 'Skrng jam brp?', 'Palsu ajg', 'Palsu', 'Yahahahahh', 'Pffftt', 'Yowess', 'Opo iki', 'Saha?', 'XD', 'XD', 'DX', ':c', ':O', ':]', ':3', ':3', ' ', 'Titik?', '?', 'Caranya?', link('https://youtu.be/dQw4w9WgXcQ'), link('https://youtu.be/dQw4w9WgXcQ'), link('https://youtu.be/dQw4w9WgXcQ'), link('https://youtu.be/dQw4w9WgXcQ'), link('https://youtu.be/dQw4w9WgXcQ'), link('https://youtu.be/dQw4w9WgXcQ'), link('https://youtu.be/dQw4w9WgXcQ'), link('https://youtu.be/dQw4w9WgXcQ'), link('https://youtu.be/dQw4w9WgXcQ'), link('https://youtu.be/dQw4w9WgXcQ'), link('https://youtu.be/dQw4w9WgXcQ'), link('https://youtu.be/dQw4w9WgXcQ'), link('https://youtu.be/dQw4w9WgXcQ'), 'Stop', 'Diem woe', 'Huhh', 'Basi ajg', 'Bnyk bct', 'bcd!', 'Asuuuu']);
-}
-
-function enterKey(event) {
-if (event.keyCode == 13) return sendMessage();
 }
 
 function getApikey() {
