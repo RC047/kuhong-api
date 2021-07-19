@@ -1,8 +1,6 @@
 __path = process.cwd();
 
 var { encryptHtml } = require(__path + '/lib/functions.js');
-var upload = require(__path + '/lib/upload.js');
-var upload2 = require(__path + '/lib/upload2.js');
 var { performance } = require('perf_hooks');
 var osu = require('node-os-utils');
 var fetch = require('node-fetch');
@@ -140,25 +138,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
     if (devMode == 'true') tutorial = tutorial + devTools
     res.send(await encryptHtml(tutorial))
-})
-
-router.post('/upload', async (req, res, next) => {
-var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
-
-try {
-var buffer = req.body;
-if (/base64/i.test(req.body)) {
-if (/,/i.test(req.body)) req.body = req.body.split(',')[1]
-buffer = Buffer.from(req.body, 'base64')
-}
-var result = await upload(buffer)
-if (!result.startsWith('http')) result = await upload2(buffer)
-
-   res.json({ status: true, url: result })
-} catch (e) {
-  console.log(e)
-    res.json({ status: false, error: 'No files passed' })
-   }
 })
 
 router.get('/status', async (req, res, next) => {  
