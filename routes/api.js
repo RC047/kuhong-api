@@ -11972,7 +11972,6 @@ border: 0;
 
 router.post('/upload', async (req, res, next) => {
 
-try {
 var buffer = req.body;
 if (!buffer) return res.json({ status: false, creator: creator, error: 'No files passed' })
 if (/base64/i.test(req.body)) {
@@ -11983,10 +11982,6 @@ var result = await upload(buffer)
 if (!result.startsWith('http')) result = await upload2(buffer)
 
    res.json({ status: true, creator: creator, result: result })
-} catch (e) {
-  console.log(e)
-    res.status(403).send(error)
-   }
 })
 
 // End of script
