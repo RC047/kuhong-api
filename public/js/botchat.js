@@ -232,13 +232,18 @@ if (/^menu|help|start/i.test(command)) {
 
 var menu = `
 ${newLine}MENU BOT :${newLine}${newLine}
+${usedPrefix(cmd)}attp [text]${newLine}
+${usedPrefix(cmd)}ttp [text]${newLine}
 ${usedPrefix(cmd)}sticker [url]${newLine}
 ${usedPrefix(cmd)}toimg [url]${newLine}
 ${usedPrefix(cmd)}ytmp4 [url]${newLine}
 ${usedPrefix(cmd)}ytmp3 [url]${newLine}
+${usedPrefix(cmd)}8bit [url]${newLine}
+${usedPrefix(cmd)}blur [url]${newLine}
 ${usedPrefix(cmd)}wasted [url]${newLine}
 ${usedPrefix(cmd)}burning [url]${newLine}
 ${usedPrefix(cmd)}trigger [url]${newLine}
+${usedPrefix(cmd)}tahta [text]${newLine}
 ${usedPrefix(cmd)}tts [lang|text]${newLine}
 ${usedPrefix(cmd)}exec [bash]${newLine}
 ${usedPrefix(cmd)}get [url]${newLine}
@@ -313,6 +318,22 @@ var neww = date.getMilliseconds();
 var ping = `${neww - old}.${date.getMilliseconds() + 'ms'}`;
      sendBotMessage(ping);
 
+} else if (/^attp/i.test(command)) {
+
+var url = command.split('attp ')[1];
+if (!url) return sendBotMessage(loghandler.notUrl);
+if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
+sendBotMessage(loghandler.wait);
+sendImageMessage('https://kuhong-api.herokuapp.com/api/attp?text=' + url + '&apikey=' + getApikey());
+
+} else if (/^ttp/i.test(command)) {
+
+var url = command.split('ttp ')[1];
+if (!url) return sendBotMessage(loghandler.notUrl);
+if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
+sendBotMessage(loghandler.wait);
+sendImageMessage('https://kuhong-api.herokuapp.com/api/ttp2?text=' + url + '&apikey=' + getApikey());
+
 } else if (/^stic?ker/i.test(command)) {
 
 var url = command.split('ker ')[1];
@@ -339,6 +360,22 @@ sendBotMessage(loghandler.wait);
 var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/' + command.slice(0, 5) + '?url=' + url + '&apikey=' + getApikey());
 window.location = res.body.result.link;
 
+} else if (/^8bit/i.test(command)) {
+
+var url = command.split('8bit ')[1];
+if (!url) return sendBotMessage(loghandler.notUrl);
+if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
+sendBotMessage(loghandler.wait);
+sendImageMessage('https://kuhong-api.herokuapp.com/api/8bit?img=' + url + '&apikey=' + getApikey());
+
+} else if (/^blur/i.test(command)) {
+
+var url = command.split('blur ')[1];
+if (!url) return sendBotMessage(loghandler.notUrl);
+if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
+sendBotMessage(loghandler.wait);
+sendImageMessage('https://kuhong-api.herokuapp.com/api/blur?img=' + url + '&apikey=' + getApikey());
+
 } else if (/^wasted/i.test(command)) {
 
 var url = command.split('wasted ')[1];
@@ -362,6 +399,13 @@ if (!url) return sendBotMessage(loghandler.notUrl);
 if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
 sendBotMessage(loghandler.wait);
 sendImageMessage('https://kuhong-api.herokuapp.com/api/triggered?img=' + url + '&apikey=' + getApikey());
+
+} else if (/^tahta/i.test(command)) {
+
+var text = command.split('tahta ')[1];
+if (!text) return sendBotMessage(loghandler.notText);
+sendBotMessage(loghandler.wait);
+sendImageMessage('https://kuhong-api.herokuapp.com/api/tahta?text=' + text + '&apikey=' + getApikey());
 
 } else if (/^get/i.test(command)) {
 
