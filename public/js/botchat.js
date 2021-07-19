@@ -23,6 +23,7 @@ if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     if (window.location.toString().includes('?')) params = '&platform=window';
     if (!/platform/i.test(window.location)) window.location += params;
     document.querySelector("link").href = 'https://kuhong-api.herokuapp.com/css/botchat-window.css';
+    console.log(document.querySelector("link").href);
     document.getElementById("send").remove();
 
 } else {
