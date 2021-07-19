@@ -74,7 +74,7 @@ Response: ${json.responseType}
 `.trim())
 if (ok) {
     window.location = json.fullUrl;
-} else throw false;
+} else return false;
 
     }
 xhr.open('GET', url, true);
@@ -85,7 +85,7 @@ function runConsole() {
 
   var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :');
   if (console == '') alert('Masukan Kode!');
-  if (!console) throw false;
+  if (!console) return false;
   if (console !== '') {
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/run?console=' + console;
@@ -93,7 +93,7 @@ function runConsole() {
          var json = JSON.parse(this.responseText);
          if (json.result == undefined || json.result == '' || json.result.startsWith('undefined')) {
              alert('No data can be sent')
-             throw false;
+             return false;
          }
 
          alert(json.result);
@@ -137,7 +137,7 @@ function checkApikey() {
 
   var apikeyInput = prompt('CHECK APIKEY :\n\nSilahkan masukan Apikey yang ingin dicek :')
   if (apikeyInput == '') alert('Masukan Apikey!');
-  if (!apikeyInput) throw false;
+  if (!apikeyInput) return false;
   if (apikeyInput !== '') {
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/cekapikey?apikey=' + apikeyInput;
@@ -156,7 +156,7 @@ function redeemCode() {
 
   var codeInput = prompt('REDEEM CODE :\n\nSilahkan masukan Kode Redeem untuk mendapatkan Apikey Premium :')
   if (codeInput == '') alert('Masukan Kode Redeem!');
-  if (!codeInput) throw false;
+  if (!codeInput) return false;
   if (codeInput !== '') {
   var xhr = new XMLHttpRequest();
   var url = 'https://kuhong-api.herokuapp.com/api/redeem?code=' + codeInput;
@@ -178,7 +178,7 @@ function getRequest() {
 
     var request = prompt('REQUEST :\n\nIngin Request fitur atau semacamnya?\n\nBisa langsung kirim masukannya disini :)');
     if (request == '') alert('Request tidak boleh kosong!');
-    if (!request) throw false;
+    if (!request) return false;
     if (request !== '') {
          alert('Terimakasih atas masukan Anda!');
          var message = 'REQUEST API :\n' + request;
@@ -194,7 +194,7 @@ function getReport() {
 
     var report = prompt('REPORT :\n\nAda yang ingin anda Laporkan kepada Owner secara langsung?\n\nBisa langsung kirim laporannya kesini :)');
     if (report == '') alert('Laporan tidak boleh kosong!');
-    if (!report) throw false;
+    if (!report) return false;
     if (report !== '') {
          alert('Terimakasih atas laporan Anda!');
          var message = 'REPORT API :\n' + report;
@@ -215,7 +215,7 @@ function getRating() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating', true);
     xhr.send();
-    } else throw false;
+    } else return false;
 }
 
 function getUserData() {
@@ -305,7 +305,7 @@ All Packs = 150K / Tahun
 
    if (buy) {
        window.location = 'https://wa.me/62895337278647';
-   } else throw false;
+   } else return false;
 }
 
 
