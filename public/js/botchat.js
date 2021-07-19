@@ -127,7 +127,11 @@ var fr = new FileReader();
 var input = document.querySelector("input[type=file]").files[0];
     fr.onload = function() {
     var image = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/img%3E');
-    if (document.getElementById("message").value !== '') return document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + image + newLine + document.getElementById("message").value;
+    if (document.getElementById("message").value !== '') {
+         document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + image + newLine + document.getElementById("message").value;
+         document.getElementById("message").value = '';
+         return false;
+         }
     document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + image;
     }
 fr.readAsDataURL(input);
