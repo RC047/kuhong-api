@@ -22,7 +22,6 @@ if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     var params = '?platform=window';
     if (window.location.toString().includes('?')) params = '&platform=window';
     if (!/platform/i.test(window.location)) window.location += params;
-    document.querySelector("link").href = 'https://kuhong-api.herokuapp.com/css/botchat-window.css';
     console.log(document.querySelector("link").href);
     document.getElementById("send").remove();
 
@@ -30,7 +29,6 @@ if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     var params = '?platform=mobile';
     if (window.location.toString().includes('?')) params = '&platform=mobile';
     if (!/platform/i.test(window.location)) window.location += params;
-    document.querySelector('link').href = 'https://kuhong-api.herokuapp.com/css/botchat-mobile.css';
 }
 
 
