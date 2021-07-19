@@ -140,6 +140,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.send(await encryptHtml(tutorial))
 })
 
+router.post('/post-data', async (req, res, next) => {
+   res.send(req.body);
+})
+
 router.get('/status', async (req, res, next) => {  
 
 var date = new Date()
