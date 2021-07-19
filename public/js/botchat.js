@@ -141,10 +141,13 @@ if (publicChat == true) {
     taggedName = isTag(botName);
     }
 if (botName.endsWith('(Verified): ')) taggedName = isTag(botName, true);
-if (!prefix.test(pesan))  {
+if (pesan.startsWith('<')) {
+    var message = getRandomMessage(nama);
+    var send = newLine + getDate() + taggedName + message;
+    document.getElementById("chat").innerHTML += send;
+    } else if (!prefix.test(pesan))  {
     var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/simsimi?kata=' + pesan + '&apikey=' + getApikey());
     var message = res.body.result.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E')).replace(/SIMI/g, 'AKU').replace(/simi/g, 'aku').replace(/simsimi/g, 'aku').replace(/SIMSIMI/g, 'AKU');
-    if (pesan.startsWith('<')) message = getRandomMessage(nama);
     var send = newLine + getDate() + taggedName + message;
     document.getElementById("chat").innerHTML += send;
     } else return getBotMessageWithCommand(pesan);
@@ -358,7 +361,7 @@ var url = command.split('trigger ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
 sendBotMessage(loghandler.wait);
-window.location = 'https://kuhong-api.herokuapp.com/api/triggered?img=' + url + '&apikey=' + getApikey();
+sendImageMessage('https://kuhong-api.herokuapp.com/api/triggered?img=' + url + '&apikey=' + getApikey());
 
 } else if (/^get/i.test(command)) {
 
