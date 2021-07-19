@@ -144,7 +144,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
 router.post('/upload', async (req, res, next) => {
 var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
-if (!req.body) return res.json({ status: false, error: 'No files passed' })
 
 try {
 var buffer = req.body;
@@ -158,7 +157,7 @@ if (!result.startsWith('http')) result = await upload2(buffer)
    res.json({ status: true, url: result })
 } catch (e) {
   console.log(e)
-    res.json({ status: false, error: 'The response is not a Buffer' })
+    res.json({ status: false, error: 'No files passed' })
    }
 })
 
