@@ -39,7 +39,7 @@ document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('
 function secretKey(event) {
 codeInput += event.keyCode;
 if (codeInput.toString() == '8669827370736968') {
-    alert('Selamat,, Akun anda telah diverifikasi!');
+    alert('Akun anda berhasil diverifikasi!');
     nama = nama.split(':')[0] + color(' (Verified)', 'green');
     }
 }
