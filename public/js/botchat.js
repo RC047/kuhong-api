@@ -31,11 +31,12 @@ if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     if (!/platform/i.test(window.location)) window.location += params;
 }
 
-window.setTimeout(() => {
+window.setTimeout('changePlaceholder();', 1000);
+function changePlaceholder() {
 document.getElementById("message").placeholder = 'Ketik pesan';
 if (document.querySelector("input[type=file]").value !== '') document.getElementById("message").placeholder = 'Ketik caption';
-}, 1000);
-
+window.setTimeout('changePlaceholder();', 1000);
+}
 
 function secretKey(event) {
 codeInput += event.keyCode;
