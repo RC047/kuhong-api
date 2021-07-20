@@ -260,6 +260,7 @@ var loghandler = {
     notUrl: 'Silahkan masukan url',
     invalidLink: 'Url tidak valid',
     notText: 'Silahkan masukan text',
+    notQuery: 'Silahkan masukan query',
     notLang: 'Silahkan masukan kodebahasa',
     notPass: 'Silahkan masukan password'
 }
@@ -347,7 +348,7 @@ navigator.getBattery().then(status => {
 } else if (/^time/i.test(command)) {
 
 var res = getDate().split('[')[1].split(']')[0];
-     sendBotMessage(res);
+    sendBotMessage(res);
 
 } else if (/^ping/i.test(command)) {
 
@@ -355,7 +356,7 @@ var date = new Date();
 var old = date.getMilliseconds();
 var neww = date.getMilliseconds();
 var ping = `${neww - old}.${date.getMilliseconds() + 'ms'}`;
-     sendBotMessage(ping);
+    endBotMessage(ping);
 
 } else if (/^intro/i.test(command)) {
 
