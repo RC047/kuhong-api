@@ -11970,11 +11970,12 @@ border: 0;
   }
 })
 
-router.post('/upload', async (req, res, next) => {
+router.post('/upload', async (req, res, next) => { // Can received buffer, base64 buffer, and hex buffer
 var buffer = req.body.data;
 if (!buffer) return res.json({ status: false, creator: creator, message: 'Masukan parameter data' })
 
 try {
+if (/%/i.test(buffer)) buffer = Buffer.from(buffer.replace(/%/g, ''), 'hex')
 if (/base64/i.test(buffer)) buffer = Buffer.from(buffer, 'base64')
 if (/base64/i.test(buffer) && /,/i.test(buffer)) buffer = Buffer.from(buffer.split(',')[1], 'base64')
 var result = await upload(buffer)
