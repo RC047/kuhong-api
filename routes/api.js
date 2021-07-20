@@ -11979,6 +11979,7 @@ if (/%/i.test(req.body.data)) buffer = Buffer.from(req.body.data.replace(/%/g, '
 if (/base64/i.test(req.body.data)) buffer = Buffer.from(req.body.data.split(',')[1], 'base64')
 var result = await upload(buffer)
 if (!result.startsWith('http')) result = await upload2(buffer)
+if (!result.startsWith('http')) return res.json({ status: false, creator: creator, message: 'Failed to upload a files' })
 
    res.json({ status: true, creator: creator, result: result })
 } catch (e) {
