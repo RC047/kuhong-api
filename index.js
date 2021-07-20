@@ -1,5 +1,5 @@
 var express = require('express');
-var body = require('body-parser');
+var bodyParser = require('body-parser');
 var app = express();
 var cors = require('cors');
 var secure = require('ssl-express-www');
@@ -29,8 +29,8 @@ app.set('json spaces', 2);
 app.use(cors());
 app.use(secure);
 app.use(express.static('public'));
-app.use(body.json());
-app.use(body.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ parameterLimit: 100000, limit: '50mb', extended: true }));
 
 app.use('/', mainrouter);
 app.use('/api', apirouter);
