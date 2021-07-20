@@ -32,11 +32,11 @@ if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'mobile')) window.location += params;
 }
 
-window.setTimeout('changePlaceholder();', 1000);
+window.setTimeout('changePlaceholder();', 500);
 function changePlaceholder() {
 document.getElementById("message").placeholder = 'Ketik pesan';
 if (document.querySelector("input[type=file]").value !== '') document.getElementById("message").placeholder = 'Ketik caption';
-window.setTimeout('changePlaceholder();', 1000);
+window.setTimeout('changePlaceholder();', 500);
 }
 
 function secretKey(event) {
@@ -142,10 +142,11 @@ var ext = input.name.slice(input.name.length - 3).toLowerCase();
         if (/png|jpg|jpeg|gif|webp/i.test(ext)) media = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/img%3E');
         else if (/mp4|mkv|avi|webm|mov/i.test(ext)) media = unescape('%3Cvideo%20controls%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/video%3E');
         else if (/mp3|m4a|aac|wav/i.test(ext)) media = unescape('%3Caudio%20controls%20src%3D%22') + fr.result + unescape('%22%3E%3C/audio%3E');
-        else caption = '', media = unescape('%3Ca%20href%3D%22#download%22%20onclick%3D%22downloadFile%28%27') + fr.result + unescape('%27%29%3B%22%3E%3Ci%20class%3D%22fas%20fa-file%22%3E%3C/i%3E%20') + input.name + unescape('%3C/a%3E');
+        else caption = '', media = unescape('%3Ca%20href%3D%22#download=') + input.name + unescape('%22%20onclick%3D%22downloadFile%28%27') + fr.result + unescape('%27%29%3B%22%3E%3Ci%20class%3D%22fas%20fa-file%22%3E%3C/i%3E%20') + input.name + unescape('%3C/a%3E');
         document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media + caption;
         document.getElementById("message").value = '';
-        } else document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media;
+        }
+     document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media;
      }
 fr.readAsDataURL(input);
 document.querySelector("input[type=file]").value = '';
@@ -270,6 +271,7 @@ if (/^menu|help|start/i.test(command)) {
 
 var menu = `
 ${newLine}MENU BOT :${newLine}${newLine}
+${usedPrefix(cmd)}intro [text]${newLine}
 ${usedPrefix(cmd)}attp [text]${newLine}
 ${usedPrefix(cmd)}ttp [text]${newLine}
 ${usedPrefix(cmd)}sticker [url]${newLine}
@@ -355,6 +357,13 @@ var old = date.getMilliseconds();
 var neww = date.getMilliseconds();
 var ping = `${neww - old}.${date.getMilliseconds() + 'ms'}`;
      sendBotMessage(ping);
+
+} else if (/^intro/i.test(command)) {
+
+var text = command.split('intro ')[1];
+if (!text) return sendBotMessage(loghandler.notText);
+sendBotMessage(loghandler.wait);
+sendMediaBotMessage('intro.mp4', 'https://kuhong-api.herokuapp.com/api/intromaker?text=' + text + '&apikey=' + getApikey());
 
 } else if (/^attp/i.test(command)) {
 
