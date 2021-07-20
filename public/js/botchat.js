@@ -65,14 +65,14 @@ function bold(text) {
 }
 
 function link(text) {
-   var link = text;
-   if (!link.startsWith('http')) link = 'https://' + text;
+var link = text;
+if (!link.startsWith('http')) link = 'https://' + text;
    return unescape('%3Ca%20href%3D%22') + link + unescape('%22%3E') + text + unescape('%3C/a%3E');
 }
 
 function getNotifications() {
 var isOnline = pickRandom(['Bot sedang online.', Math.floor(Math.random() * 20) + ' orang sedang online.']);
-   return document.getElementById("notification").innerHTML = pickRandom([isOnline, 'Selamat bersenang2 :)', 'Mohon jangan untuk spam!', 'Jika Bot tidak membalas segera hubungi Owner okeh!', 'Ini hanya untuk bersenang-senang ok!', 'Mohon jangan saling membully', 'Dilarang untuk Toxic!']);
+   return document.querySelector("marquee").innerHTML = pickRandom([isOnline, 'Selamat bersenang2 :)', 'Mohon jangan untuk spam!', 'Jika Bot tidak membalas segera hubungi Owner okeh!', 'Ini hanya untuk bersenang-senang ok!', 'Mohon jangan saling membully', 'Dilarang untuk Toxic!', 'Jika web mengalami error segera hubungi owner!']);
 }
 
 function getDate() {
