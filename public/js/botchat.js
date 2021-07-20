@@ -22,14 +22,14 @@ document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     var params = '?platform=window';
     if (window.location.toString().includes('?')) params = '&platform=window';
-    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'window')) window.location += params;
+    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'mobile')) window.location += params;
     document.getElementById("send").remove();
     document.querySelector("marquee").style.fontSize = '25px';
 
 } else {
     var params = '?platform=mobile';
     if (window.location.toString().includes('?')) params = '&platform=mobile';
-    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'mobile')) window.location += params;
+    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'window')) window.location += params;
 }
 
 window.setTimeout('changePlaceholder();', 500);
@@ -140,7 +140,7 @@ var ext = input.name.slice(input.name.length - 3).toLowerCase();
     if (/png|jpg|jpeg|gif|webp/i.test(ext)) media = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/img%3E');
     else if (/mp4|mkv|avi|webm|mov/i.test(ext)) media = unescape('%3Cvideo%20controls%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/video%3E');
     else if (/mp3|m4a|aac|wav/i.test(ext)) media = unescape('%3Caudio%20controls%20src%3D%22') + fr.result + unescape('%22%3E%3C/audio%3E');
-    else caption = '', media = unescape('%3Ca%20href%3D%22#download=') + input.name + unescape('%22%20onclick%3D%22downloadFile%28%27') + fr.result + unescape('%27%29%3B%22%3E%3Ci%20class%3D%22fas%20fa-file%22%3E%3C/i%3E%20') + input.name + unescape('%3C/a%3E');
+    else caption = '', media = unescape('%3Ca%20href%3D%22#') + input.name + unescape('%22%20onclick%3D%22downloadFile%28%27') + fr.result + unescape('%27%29%3B%22%3E%3Ci%20class%3D%22fas%20fa-file%22%3E%3C/i%3E%20') + input.name + unescape('%3C/a%3E');
     if (document.getElementById("message").value !== '') {
      	var caption = newLine + document.getElementById("message").value;
         document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media + caption;
@@ -192,7 +192,7 @@ var media = '';
 if (/png|jpg|jpeg|gif|webp/i.test(name)) media = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + url + unescape('%22%3E%3C/img%3E');
 else if (/mp4|mkv|avi|webm|mov/i.test(name)) media = unescape('%3Cvideo%20controls%20height%3D%22100%22%20src%3D%22') + url + unescape('%22%3E%3C/video%3E');
 else if (/mp3|m4a|aac|wav/i.test(name)) media = unescape('%3Caudio%20controls%20src%3D%22') + url + unescape('%22%3E%3C/audio%3E');
-else caption = false, media = unescape('%3Ca%20href%3D%22#download%22%20onclick%3D%22downloadFile%28%27') + url + unescape('%27%29%3B%22%3E%3Ci%20class%3D%22fas%20fa-file%22%3E%3C/i%3E%20') + name + unescape('%3C/a%3E');
+else caption = false, media = unescape('%3Ca%20href%3D%22#') + name + unescape('%22%20onclick%3D%22downloadFile%28%27') + url + unescape('%27%29%3B%22%3E%3Ci%20class%3D%22fas%20fa-file%22%3E%3C/i%3E%20') + name + unescape('%3C/a%3E');
 if (caption) return document.getElementById("chat").innerHTML += newLine + getDate() + botName + newLine + media + newLine + caption;
 document.getElementById("chat").innerHTML += newLine + getDate() + botName + newLine + media;
 }
@@ -272,6 +272,7 @@ if (/^menu|help|start/i.test(command)) {
 var menu = `
 ${newLine}MENU BOT :${newLine}${newLine}
 ${usedPrefix(cmd)}intro [text]${newLine}
+${usedPrefix(cmd)}image [query]${newLine}
 ${usedPrefix(cmd)}attp [text]${newLine}
 ${usedPrefix(cmd)}ttp [text]${newLine}
 ${usedPrefix(cmd)}sticker [url]${newLine}
@@ -364,7 +365,14 @@ var ping = `${neww - old}.${date.getMilliseconds() + 'ms'}`;
 var text = command.split('intro ')[1];
 if (!text) return sendBotMessage(loghandler.notText);
     sendBotMessage(loghandler.wait);
-    sendMediaBotMessage('intro.mp4', 'https://kuhong-api.herokuapp.com/api/intromaker?text=' + text + '&apikey=' + getApikey(), 'Nih Intronyaa').catch(() => sendBotMessage('Telah terjadi error!'));
+    sendMediaBotMessage('intro.mp4', 'https://kuhong-api.herokuapp.com/api/intromaker?text=' + text + '&apikey=' + getApikey(), 'Nih Intronyaa');
+
+} else if (/^image/i.test(command)) {
+
+var query = command.split('image ')[1];
+if (!query) return sendBotMessage(loghandler.notQuery);
+    sendBotMessage(loghandler.wait);
+    sendMediaBotMessage('image.png', 'https://kuhong-api.herokuapp.com/api/gimage?q=' + query + '&apikey=' + getApikey(), 'Hasil pencarian :' + newLine + bold(query));
 
 } else if (/^attp/i.test(command)) {
 
@@ -707,7 +715,7 @@ var res = fetchURL('https://kuhong-api.herokuapp.com/api/faktaunik?apikey=' + ge
 
     } else return sendBotMessage('Perintah tidak ditemukan! Silahkan ketik ' + bold(usedPrefix(cmd) + baseCmd.slice(1)) + ' untuk melihat list menu.');
 } catch (e) {
-     console.error('Error\n\n', e);
+     console.error(e);
   sendBotMessage('Telah terjadi error!');
   }
 }
@@ -732,7 +740,6 @@ var res = {
 	body: body
   }
   return res;
-console.log('Has Fetched\n\n', res);
 }
 
 function pickRandom(list) {
