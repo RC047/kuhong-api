@@ -361,30 +361,30 @@ var ping = `${neww - old}.${date.getMilliseconds() + 'ms'}`;
 
 var text = command.split('intro ')[1];
 if (!text) return sendBotMessage(loghandler.notText);
-sendBotMessage(loghandler.wait);
-sendMediaBotMessage('intro.mp4', 'https://kuhong-api.herokuapp.com/api/intromaker?text=' + text + '&apikey=' + getApikey());
+    sendBotMessage(loghandler.wait);
+    sendMediaBotMessage('intro.mp4', 'https://kuhong-api.herokuapp.com/api/intromaker?text=' + text + '&apikey=' + getApikey(), 'Nih Intronyaa').catch(sendBotMessage('Telah terjadi error!'));
 
 } else if (/^attp/i.test(command)) {
 
 var text = command.split('attp ')[1];
 if (!text) return sendBotMessage(loghandler.notText);
-sendBotMessage(loghandler.wait);
-sendMediaBotMessage('attp.webp', 'https://kuhong-api.herokuapp.com/api/attp?text=' + text + '&apikey=' + getApikey());
+    sendBotMessage(loghandler.wait);
+    sendMediaBotMessage('attp.webp', 'https://kuhong-api.herokuapp.com/api/attp?text=' + text + '&apikey=' + getApikey());
 
 } else if (/^ttp/i.test(command)) {
 
 var text = command.split('ttp ')[1];
 if (!text) return sendBotMessage(loghandler.notText);
-sendBotMessage(loghandler.wait);
-sendMediaBotMessage('ttp.webp', 'https://kuhong-api.herokuapp.com/api/ttp2?text=' + text + '&apikey=' + getApikey());
+    sendBotMessage(loghandler.wait);
+    sendMediaBotMessage('ttp.webp', 'https://kuhong-api.herokuapp.com/api/ttp2?text=' + text + '&apikey=' + getApikey());
 
 } else if (/^stic?ker/i.test(command)) {
 
 var url = command.split('ker ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
-sendBotMessage(loghandler.wait);
-sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
+    sendBotMessage(loghandler.wait);
+    sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
 
 } else if (/^toimg/i.test(command)) {
 
@@ -393,7 +393,7 @@ if (!url) return sendBotMessage(loghandler.notUrl);
 if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
 sendBotMessage(loghandler.wait);
 var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/toimg?webp=' + url + '&apikey=' + getApikey());
-sendMediaBotMessage('toimg.png', res.body.result, 'Berhasil dikonversi ke Gambar!');
+    sendMediaBotMessage('toimg.png', res.body.result, 'Berhasil dikonversi ke Gambar!');
 
 } else if (/^ytmp(3|4)/i.test(command)) {
 
@@ -402,54 +402,54 @@ if (!url) return sendBotMessage(loghandler.notUrl);
 if (!/(?:http(?:s|):\/\/|)(?:(?:www\.|)youtube(?:\-nocookie|)\.com\/(?:shorts\/)?(?:watch\?.*(?:|\&)v=|embed\/|v\/)|youtu\.be\/)([-_0-9A-Za-z]{11})/.test(url)) return sendBotMessage(loghandler.invalidLink);
 sendBotMessage(loghandler.wait);
 var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/' + command.slice(0, 5) + '?url=' + url + '&apikey=' + getApikey());
-sendBotMessage(link(res.body.result.link));
+    sendMediaBotMessage(command.startsWith('ytmp4') ? 'mp4' : 'mp3', res.body.result.link, 'Title: ' + res.body.result.title + newLine + 'Size: ' + res.body.result.size);
 
 } else if (/^8bit/i.test(command)) {
 
 var url = command.split('8bit ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
-sendBotMessage(loghandler.wait);
-sendMediaBotMessage('8bit.png', 'https://kuhong-api.herokuapp.com/api/8bit?img=' + url + '&apikey=' + getApikey(), 'Awokakakk Buriqq');
+    sendBotMessage(loghandler.wait);
+    sendMediaBotMessage('8bit.png', 'https://kuhong-api.herokuapp.com/api/8bit?img=' + url + '&apikey=' + getApikey(), 'Awokakakk Buriqq');
 
 } else if (/^blur/i.test(command)) {
 
 var url = command.split('blur ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
-sendBotMessage(loghandler.wait);
-sendMediaBotMessage('blur.png', 'https://kuhong-api.herokuapp.com/api/blur?img=' + url + '&apikey=' + getApikey(), 'Ngebluurrr');
+    sendBotMessage(loghandler.wait);
+    sendMediaBotMessage('blur.png', 'https://kuhong-api.herokuapp.com/api/blur?img=' + url + '&apikey=' + getApikey(), 'Ngebluurrr');
 
 } else if (/^wasted/i.test(command)) {
 
 var url = command.split('wasted ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
-sendBotMessage(loghandler.wait);
-sendMediaBotMessage('wasted.png', 'https://kuhong-api.herokuapp.com/api/wasted?img=' + url + '&apikey=' + getApikey(), 'rip');
+    sendBotMessage(loghandler.wait);
+    sendMediaBotMessage('wasted.png', 'https://kuhong-api.herokuapp.com/api/wasted?img=' + url + '&apikey=' + getApikey(), 'rip');
 
 } else if (/^burning/i.test(command)) {
 
 var url = command.split('burning ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
-sendBotMessage(loghandler.wait);
-sendMediaBotMessage('burning.gif', 'https://kuhong-api.herokuapp.com/api/burning?img=' + url + '&apikey=' + getApikey(), 'Nihh');
+    sendBotMessage(loghandler.wait);
+    sendMediaBotMessage('burning.gif', 'https://kuhong-api.herokuapp.com/api/burning?img=' + url + '&apikey=' + getApikey(), 'Nihh');
 
 } else if (/^trigger/i.test(command)) {
 
 var url = command.split('trigger ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!url.startsWith('http')) return sendBotMessage(loghandler.invalidLink);
-sendBotMessage(loghandler.wait);
-sendMediaBotMessage('trigger.gif', 'https://kuhong-api.herokuapp.com/api/triggered?img=' + url + '&apikey=' + getApikey());
+    sendBotMessage(loghandler.wait);
+    sendMediaBotMessage('trigger.gif', 'https://kuhong-api.herokuapp.com/api/triggered?img=' + url + '&apikey=' + getApikey());
 
 } else if (/^tahta/i.test(command)) {
 
 var text = command.split('tahta ')[1];
 if (!text) return sendBotMessage(loghandler.notText);
-sendBotMessage(loghandler.wait);
-sendMediaBotMessage('tahta.png', 'https://kuhong-api.herokuapp.com/api/tahta?text=' + text + '&apikey=' + getApikey(), 'Harta tahta ' + text);
+    sendBotMessage(loghandler.wait);
+    sendMediaBotMessage('tahta.png', 'https://kuhong-api.herokuapp.com/api/tahta?text=' + text + '&apikey=' + getApikey(), 'Harta tahta ' + text);
 
 } else if (/^get/i.test(command)) {
 
@@ -481,17 +481,17 @@ if (type == 'local') {
     rtc.createDataChannel('');
     rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
     rtc.onicecandidate = function(ice) {
-    if (!ice || !ice.candidate || !ice.candidate.candidate) return;
     if (ice == null) return sendBotMessage('IP tidak ditemukan');
+    if (!ice || !ice.candidate || !ice.candidate.candidate) return;
     var res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
     sendBotMessage(res);
     rtc.onicecandidate = noop;
 	     }
-     }
+    }
 if (type == 'public') {
-     var res = fetchURL('GET', 'https://api.ipify.org');
-     sendBotMessage(res.body);
-     }
+    var res = fetchURL('GET', 'https://api.ipify.org');
+    sendBotMessage(res.body);
+    }
 
 } else if (/^tts/i.test(command)) {
 
@@ -499,8 +499,7 @@ var txt = command.split('tts ')[1];
 if (!txt) return sendBotMessage(loghandler.notLang);
 var [lang, text] = txt.split('|');
 if (!text) return sendBotMessage(loghandler.notText);
-window.location = 'https://kuhong-api.herokuapp.com/api/tts?lang=' + lang + '&text=' + text + '&apikey=' + getApikey();
-
+    sendBotMediaMessage('tts.mp3', 'https://kuhong-api.herokuapp.com/api/tts?lang=' + lang + '&text=' + text + '&apikey=' + getApikey(), text);
 
 } else if (/^exec/i.test(command)) {
 
@@ -717,7 +716,7 @@ var res = fetchURL('GET', 'https://kuhong-api.herokuapp.com/api/faktaunik?apikey
     } else return sendBotMessage('Perintah tidak ditemukan! Silahkan ketik ' + bold(usedPrefix(cmd) + baseCmd.slice(1)) + ' untuk melihat list menu.');
 } catch (e) {
      console.error('Error\n\n', e);
-  sendBotMessage('Server Chat telah Error!');
+  sendBotMessage('Telah terjadi error!');
   }
 }
 
