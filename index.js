@@ -29,6 +29,7 @@ app.set('json spaces', 2);
 app.use(cors());
 app.use(secure);
 app.use(express.static('public'));
+app.use(bodyParser.json());
 app.use(body.urlencoded({ extended: false }));
 
 app.use('/', mainrouter);
