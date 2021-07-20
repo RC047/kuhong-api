@@ -15,20 +15,21 @@ var isVerified = false;
 var publicChat = false;
 var newLine = unescape('%3Cbr%3E');
 var nama = 'Guest' + Math.floor(Math.random() * 10000);
+var queryParam = new URL(window.location).searchParams;
 console.log('Has Logged\n\nUserID: ' + nama.split('Guest')[1]);
 document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
 
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     var params = '?platform=window';
     if (window.location.toString().includes('?')) params = '&platform=window';
-    if (!/platform/i.test(window.location)) window.location += params;
+    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'window')) window.location += params;
     document.getElementById("send").remove();
     document.querySelector("marquee").style.fontSize = '25px';
 
 } else {
     var params = '?platform=mobile';
     if (window.location.toString().includes('?')) params = '&platform=mobile';
-    if (!/platform/i.test(window.location)) window.location += params;
+    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'window')) window.location += params;
 }
 
 window.setTimeout('changePlaceholder();', 1000);
