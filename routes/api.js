@@ -11595,7 +11595,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${owner_apikey}` || apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${blocked_apikey}`)) return res.status(406).send(invalidKey)
         if (apikeyInput == `${blocked_apikey}`) return res.json(loghandler.blockedKey)
         if (!command) return res.json({ message: 'Masukan parameter command' })
-        if (!(apikeyInput == `${owner_apikey}`) && command.startsWith('node') || command.startsWith('npm') || command.startsWith('python') || command.startsWith('ruby') || command.startsWith('php') || command.startsWith('go') || command.startsWith('c++') || command.startsWith('clang') || command.startsWith('sql') || command.startsWith('heroku') || command.startsWith('parallel') || command.startsWith('ffmpeg') || command.startsWith('gm') || command.startsWith('tesseract') || command.startsWith('rm') || command.startsWith('rmdir') || command.startsWith('mv') || command.startsWith('cp') || command.startsWith('mkdir') || command.startsWith('ls') || command.startsWith('cd') || command.startsWith('cat') || command.startsWith('more') || command.startsWith('import') || command.startsWith('ld')) return res.json({ status: false, creator: creator, result: 'You are not allowed to use this command' })
+        if (apikeyInput !== `${owner_apikey}` && command.startsWith('node') || command.startsWith('npm') || command.startsWith('python') || command.startsWith('ruby') || command.startsWith('php') || command.startsWith('go') || command.startsWith('c++') || command.startsWith('clang') || command.startsWith('sql') || command.startsWith('heroku') || command.startsWith('parallel') || command.startsWith('ffmpeg') || command.startsWith('gm') || command.startsWith('tesseract') || command.startsWith('rm') || command.startsWith('rmdir') || command.startsWith('mv') || command.startsWith('cp') || command.startsWith('mkdir') || command.startsWith('ls') || command.startsWith('cd') || command.startsWith('cat') || command.startsWith('more') || command.startsWith('import') || command.startsWith('ld')) return res.json({ status: false, creator: creator, result: 'You are not allowed to use this command' })
 
    try {
         await exec(command, (err, stderr, stdout) => {
@@ -11971,7 +11971,7 @@ border: 0;
   }
 })
 
-router.post('/upload', bodyParser.urlencoded({ extended: false }), async (req, res, next) => {
+router.post('/upload', async (req, res, next) => {
 var buffer = req.body;
 if (!buffer) return res.json({ status: false, creator: creator, error: 'No files passed' })
 
