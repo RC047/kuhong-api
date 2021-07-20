@@ -231,12 +231,12 @@ if (verified == true) result = who.split('(')[0] + unescape('%3Ca%20style=%22col
 }
 
 function tagPeople(target) {
-   document.getElementById("message").value += '@' + target.split(':')[0] + '';
+   document.getElementById("message").value += '*@' + target.split(':')[0] + '*';
 }
 
 function getHistoryMessages() {
 var result = historyMessage;
-if (result == '') result = 'Tidak ada history';
+if (result == '') return alert('Tidak ada history.');
    alert('HISTORY :\n\n' + result);
 }
 
