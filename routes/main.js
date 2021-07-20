@@ -237,8 +237,7 @@ res.json({
 })
 
 router.post('/post', async (req, res, next) => {
-res.send('Your data has been posted!')
-console.log(req);
+res.json({ status: true, body: req.body.data });
 })
 
 module.exports = router
