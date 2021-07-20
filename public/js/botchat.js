@@ -30,6 +30,11 @@ if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     if (!/platform/i.test(window.location)) window.location += params;
 }
 
+window.setTimeout(() => {
+document.getElementById("message").placeholder = 'Ketik pesan';
+if (document.querySelector("input[type=file]").value !== '') document.getElementById("message").placeholder = 'Ketik caption';
+}, 1000);
+
 
 function secretKey(event) {
 codeInput += event.keyCode;
@@ -125,15 +130,18 @@ document.getElementById("message").value = '';
 function sendMediaMessage() {
 var fr = new FileReader();
 var input = document.querySelector("input[type=file]").files[0];
+if (!input) return false;
+var ext = input.name.split('.')[1].toLowerCase();
+if (/png|
     fr.onload = function() {
-    var image = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/img%3E');
+    var media = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/img%3E');
     if (document.getElementById("message").value !== '') {
      	var caption = document.getElementById("message").value;
-         document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + image + newLine + caption;
+         document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media + newLine + caption;
          document.getElementById("message").value = '';
          return false;
          }
-    document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + image;
+    document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media;
     }
 fr.readAsDataURL(input);
 document.querySelector("input[type=file]").value = '';
@@ -220,7 +228,7 @@ if (verified == true) result = who.split('(')[0] + unescape('%3Ca%20style=%22col
 }
 
 function tagPeople(target) {
-   document.getElementById("message").value += '*@' + target.split(':')[0] + '*';
+   document.getElementById("message").value += '@' + target.split(':')[0] + '';
 }
 
 function getHistoryMessages() {
