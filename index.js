@@ -1,5 +1,4 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var app = express();
 var cors = require('cors');
 var secure = require('ssl-express-www');
@@ -35,11 +34,6 @@ app.use('/api', apirouter);
 app.use(async (req, res, next) => {
    var notfound = await fs.readFileSync(__path + '/views/404.html').toString();
    res.status(404).send(await encryptHtml(notfound));
-});
-
-app.get('/post', bodyParser.urlencoded({ extended: false }), async (req, res, next) => {
-if (!req.body.data) return res.send('Not Exists');
-res.send(req.body.data);
 });
 
 app.listen(PORT, () => console.log(color('Server running on port ' + PORT, 'green')));
