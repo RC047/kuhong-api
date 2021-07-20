@@ -84,6 +84,7 @@ var http = require('http');
 var htmlToText = require('html-to-text');
 var canvacord = require('canvacord');
 var Shopee = require('shopee');
+var bodyParser = require('body-parser');
 var barcode = require('barcode');
 var imgbb = require('imgbb-uploader');
 var imageToBase64 = require('image-to-base64');
@@ -11970,10 +11971,11 @@ border: 0;
   }
 })
 
-router.post('/upload', async (req, res, next) => {
-
+router.post('/upload', bodyParser.urlencoded({ extended: false }), async (req, res, next) => {
 var buffer = req.body;
 if (!buffer) return res.json({ status: false, creator: creator, error: 'No files passed' })
+
+try {
 if (/base64/i.test(req.body)) {
 if (/,/i.test(req.body)) req.body = req.body.split(',')[1]
 buffer = Buffer.from(req.body, 'base64')
@@ -11982,6 +11984,10 @@ var result = await upload(buffer)
 if (!result.startsWith('http')) result = await upload2(buffer)
 
    res.json({ status: true, creator: creator, result: result })
+} catch (e) {
+	console.log(e)
+   res.status(403).send(error)
+   }
 })
 
 // End of script
