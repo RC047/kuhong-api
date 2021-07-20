@@ -11977,7 +11977,7 @@ try {
 var buffer = Buffer.from(req.body.data); 
 if (/%/i.test(req.body.data)) buffer = Buffer.from(req.body.data.replace(/%/g, ''), 'hex')
 if (/base64/i.test(req.body.data)) buffer = Buffer.from(req.body.data.split(',')[1], 'base64')
-var result = await imgbb(imgbb_key, buffer).display_url;
+var result = await saveToMedia(buffer);
 if (!result.startsWith('http')) return res.json({ status: false, creator: creator, message: 'Failed to upload a files' })
 
    res.json({ status: true, creator: creator, result: result })
