@@ -58,7 +58,7 @@ var vhtears_key = 'ameysbot' // Apikey VhTears (dibutuhkan)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'MIMINGANZ' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
-var imgbb_key = '761ea2d5575581057a799d14e9c78e28' // Apikey Imgbb API (dibutuhkan)
+var imgbb_key = '761ea2d5575581057a799d14e9c78e28' // Apikey Imgbb (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
 var redeem_code = generateCode() // Kode Redeem untuk dapatkan Apikey Premium
 
@@ -11977,8 +11977,7 @@ try {
 var buffer = Buffer.from(req.body.data); 
 if (/%/i.test(req.body.data)) buffer = Buffer.from(req.body.data.replace(/%/g, ''), 'hex')
 if (/base64/i.test(req.body.data)) buffer = Buffer.from(req.body.data.split(',')[1], 'base64')
-var result = await upload(buffer)
-if (!result.startsWith('http')) result = await upload2(buffer)
+var result = await imgbb(buffer, imggb_key).display_url;
 if (!result.startsWith('http')) return res.json({ status: false, creator: creator, message: 'Failed to upload a files' })
 
    res.json({ status: true, creator: creator, result: result })
