@@ -131,10 +131,13 @@ function sendMediaMessage() {
 var fr = new FileReader();
 var input = document.querySelector("input[type=file]").files[0];
 if (!input) return false;
-var ext = input.name.split('.')[1].toLowerCase();
-if (/png|
+var ext = input.name.slice(input.name.length - 3).toLowerCase();
+var media = '';
+if (/png|jpg|jpeg|gif|webp/i.test(ext)) media = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/img%3E');
+else if (/mp4|mkv|avi|webm|mov/i.test(ext)) media = unescape('%3Cvideo%20controls%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/video%3E');
+else if (/mp3|m4a|aac|wav|ogg|opus/i.test(ext)) media = unescape('%3Caudio%20controls%20src%3D%22') + fr.result + unescape('%22%3E%3C/audio%3E');
+else media = '';
     fr.onload = function() {
-    var media = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/img%3E');
     if (document.getElementById("message").value !== '') {
      	var caption = document.getElementById("message").value;
          document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media + newLine + caption;
@@ -176,9 +179,9 @@ if (pesan.startsWith('<')) {
 
 function sendMediaBotMessage(url, caption) {
 var botName = isTag('KuhongBot (Verified): ', true);
-var image = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + url + unescape('%22%3E%3C/img%3E');
-if (caption) return document.getElementById("chat").innerHTML += newLine + getDate() + botName + newLine + image + newLine + caption;
-document.getElementById("chat").innerHTML += newLine + getDate() + botName + newLine + image;
+var media = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + url + unescape('%22%3E%3C/img%3E');
+if (caption) return document.getElementById("chat").innerHTML += newLine + getDate() + botName + newLine + media + newLine + caption;
+document.getElementById("chat").innerHTML += newLine + getDate() + botName + newLine + media;
 }
 
 function setPublic(turn) {
