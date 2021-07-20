@@ -11971,14 +11971,12 @@ border: 0;
 })
 
 router.post('/upload', async (req, res, next) => {
-var buffer = req.body;
-if (!buffer) return res.json({ status: false, creator: creator, error: 'No files passed' })
+var buffer = req.body.data;
+if (!buffer) return res.json({ status: false, creator: creator, message: 'Masukan parameter data' })
 
 try {
-if (/base64/i.test(req.body)) {
-if (/,/i.test(req.body)) req.body = req.body.split(',')[1]
-buffer = Buffer.from(req.body, 'base64')
-}
+if (/base64/i.test(buffer)) buffer = Buffer.from(buffer, 'base64')
+if (/base64/i.test(buffer) && /,/i.test(buffer)) buffer = Buffer.from(buffer.split(',')[1], 'base64')
 var result = await upload(buffer)
 if (!result.startsWith('http')) result = await upload2(buffer)
 
