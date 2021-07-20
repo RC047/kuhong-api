@@ -11971,12 +11971,12 @@ border: 0;
 })
 
 router.post('/upload', async (req, res, next) => { // Can received buffer, base64 buffer, and hex buffer
-var buffer = req.body.data;
-if (!buffer) return res.json({ status: false, creator: creator, message: 'Masukan parameter data' })
+if (!req.body.data) return res.json({ status: false, creator: creator, message: 'No files passed' })
 
 try {
-if (/%/i.test(buffer)) buffer = Buffer.from(buffer.replace(/%/g, ''), 'hex')
-if (/base64/i.test(buffer)) buffer = Buffer.from(buffer.split(',')[1], 'base64')
+var buffer = Buffer.from(req.body.data); 
+if (/%/i.test(req.body.data)) buffer = Buffer.from(buffer.replace(/%/g, ''), 'hex')
+if (/base64/i.test(req.body.data)) buffer = Buffer.from(buffer.split(',')[1], 'base64')
 var result = await upload(buffer)
 if (!result.startsWith('http')) result = await upload2(buffer)
 
