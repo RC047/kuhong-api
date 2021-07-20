@@ -23,6 +23,7 @@ if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     if (window.location.toString().includes('?')) params = '&platform=window';
     if (!/platform/i.test(window.location)) window.location += params;
     document.getElementById("send").remove();
+    document.querySelector("marquee").style.fontSize = '25px';
 
 } else {
     var params = '?platform=mobile';
