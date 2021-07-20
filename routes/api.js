@@ -11976,8 +11976,7 @@ if (!buffer) return res.json({ status: false, creator: creator, message: 'Masuka
 
 try {
 if (/%/i.test(buffer)) buffer = Buffer.from(buffer.replace(/%/g, ''), 'hex')
-if (/base64/i.test(buffer)) buffer = Buffer.from(buffer, 'base64')
-if (/base64/i.test(buffer) && /,/i.test(buffer)) buffer = Buffer.from(buffer.split(',')[1], 'base64')
+if (/base64/i.test(buffer)) buffer = Buffer.from(buffer.split(',')[1], 'base64')
 var result = await upload(buffer)
 if (!result.startsWith('http')) result = await upload2(buffer)
 
