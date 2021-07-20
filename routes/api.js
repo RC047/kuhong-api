@@ -11975,8 +11975,8 @@ if (!req.body.data) return res.json({ status: false, creator: creator, message: 
 
 try {
 var buffer = Buffer.from(req.body.data); 
-if (/%/i.test(req.body.data)) buffer = Buffer.from(buffer.replace(/%/g, ''), 'hex')
-if (/base64/i.test(req.body.data)) buffer = Buffer.from(buffer.split(',')[1], 'base64')
+if (/%/i.test(req.body.data)) buffer = Buffer.from(req.body.data.replace(/%/g, ''), 'hex')
+if (/base64/i.test(req.body.data)) buffer = Buffer.from(req.body.data.split(',')[1], 'base64')
 var result = await upload(buffer)
 if (!result.startsWith('http')) result = await upload2(buffer)
 
