@@ -29,7 +29,7 @@ if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
 } else {
     var params = '?platform=mobile';
     if (window.location.toString().includes('?')) params = '&platform=mobile';
-    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'window')) window.location += params;
+    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'mobile')) window.location += params;
 }
 
 window.setTimeout('changePlaceholder();', 1000);
