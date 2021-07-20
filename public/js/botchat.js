@@ -149,6 +149,7 @@ var ext = input.name.slice(input.name.length - 3).toLowerCase();
      }
 fr.readAsDataURL(input);
 document.querySelector("input[type=file]").value = '';
+historyMessage += input.name + '\n';
 }
 
 function downloadFile(url) {
