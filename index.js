@@ -36,6 +36,6 @@ app.use(async (req, res, next) => {
    res.status(404).send(await encryptHtml(notfound));
 });
 
-app.listen(PORT, () => console.log(color('Server running on port ' + PORT, 'green')));
+app.listen(PORT, async() => console.log(color('Server running on port ' + PORT, 'green')));
 
 module.exports = app
