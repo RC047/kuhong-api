@@ -15,7 +15,7 @@ var res = {
 		contentType: xhr.getAllResponseHeaders().split('content-type: ')[1]
 	},
 	target: url,
-	method: opts.method,
+	method: opts.method.toUpperCase(),
 	body: opts.body,
 	data: data
   }
