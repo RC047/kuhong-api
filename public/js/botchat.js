@@ -519,7 +519,7 @@ var txt = command.split('tts ')[1];
 if (!txt) return sendBotMessage(loghandler.notLang);
 var [lang, text] = txt.split('|');
 if (!text) return sendBotMessage(loghandler.notText);
-    sendBotMediaMessage('tts.mp3', 'https://kuhong-api.herokuapp.com/api/tts?lang=' + lang + '&text=' + text + '&apikey=' + getApikey(), text);
+    sendMediaBotMessage('tts.mp3', 'https://kuhong-api.herokuapp.com/api/tts?lang=' + lang + '&text=' + text + '&apikey=' + getApikey(), text);
 
 } else if (/^exec/i.test(command)) {
 
