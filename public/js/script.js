@@ -27,11 +27,7 @@ Silahkan masukan namamu untuk identitas diwebsite ini :)
 
 if (!name) name = 'Guest';
 if (name == '') name = 'Guest';
-if (name !== '') {
-var xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users', true);
-xhr.send();
-}
+if (name !== '') fetchURL('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users');
 
 // Time Functions (to get a live online times)
 window.setTimeout('setTimes();', 1000);
@@ -55,10 +51,11 @@ function setTimes() {
 // Other Functions (more functions?)
 function getInfo(url, param, method) {
 
-  var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/getinfo';
-         xhr.onload = function() {
-         var json = JSON.parse(this.responseText);
+  var json = fetchURL('https://kuhong-api.herokuapp.com/api/getinfo', {
+        	  method: 'POST',
+              body: 'name=' + name + '&url=' + url + '&param=' + escape(param) + '&method=' + method,
+              headers: 'application/x-www-form-urlencoded'
+        });
 
 var ok = confirm(`
 ${json.apiName} :
@@ -71,14 +68,9 @@ Response: ${json.responseType}
 
 
 *Silahkan pilih "Oke" untuk mencoba.
-`.trim())
-if (ok) {
-    window.location = json.fullUrl;
-} else return false;
-    }
-xhr.open('POST', url, true);
-xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-xhr.send('name=' + name + '&url=' + url + '&param=' + escape(param) + '&method=' + method);
+`.trim());
+if (ok) window.location = json.fullUrl;
+else return false;
 }
 
 function runConsole() {
@@ -87,19 +79,16 @@ function runConsole() {
   if (console == '') alert('Masukan Kode!');
   if (!console) return false;
   if (console !== '') {
-  var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/run';
-         xhr.onload = function() {
-         var json = JSON.parse(this.responseText);
-         if (json.result == undefined || json.result == '' || json.result.startsWith('undefined')) {
-             alert('No data can be sent')
-             return false;
-         }
-         alert(json.result);
-         }
-  xhr.open('POST', url, true);
-  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhr.send('console=' + console);
+  var json = fetchURL('https://kuhong-api.herokuapp.com/api/run', {
+              method: 'POST',
+              body: 'console=' + console,
+              headers: 'application/x-www-form-urlencoded'
+         });
+  if (json.result == undefined || json.result == '' || json.result.startsWith('undefined')) {
+       alert('No data can be sent');
+       return false;
+       }
+  alert(json.result);
   }
 }
 
@@ -121,15 +110,8 @@ o Some Improvements!
 }
 
 function getApikey() {
-
-  var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/getapikey';
-         xhr.onload = function() {
-         var json = JSON.parse(this.responseText);
-         prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + json.info, json.free_apikey);
-         }
-xhr.open('GET', url, true);
-xhr.send();
+  var json = fetchURL('https://kuhong-api.herokuapp.com/api/getapikey');
+  prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + json.info, json.free_apikey);
 }
 
 function checkApikey() {
@@ -138,15 +120,12 @@ function checkApikey() {
   if (apikeyInput == '') alert('Masukan Apikey!');
   if (!apikeyInput) return false;
   if (apikeyInput !== '') {
-  var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/cekapikey';
-         xhr.onload = function() {
-         var json = JSON.parse(this.responseText);
-         alert(json.result);
-         }
-  xhr.open('POST', url, true);
-  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhr.send('apikey=' + apikeyInput);
+  var json = fetchURL('https://kuhong-api.herokuapp.com/api/cekapikey', {
+        	  method: 'POST',
+              body: 'apikey=' + apikeyInput,
+              headers: 'application/x-www-form-urlencoded'
+         });
+  alert(json.result);
   }
 }
 
@@ -156,19 +135,13 @@ function redeemCode() {
   if (codeInput == '') alert('Masukan Kode Redeem!');
   if (!codeInput) return false;
   if (codeInput !== '') {
-  var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/redeem';
-         xhr.onload = function() {
-         var json = JSON.parse(this.responseText);
-         if (json.result == 'Kode Redeem Tidak Valid!') alert(json.result)
-         if (json.result == 'Kode Redeem Valid!') {
-             prompt(json.result + '\n\nSilahkan salin Apikeymu.', json.premium_key)
-             prompt(`Custom Apikey secara default adalah\n(${json.custom_key})\n\nAnda dapat mengubahnya nanti dengan cara minta kepada Owner.`, json.custom_key)
-         }
-         }
-  xhr.open('POST', url, true);
-  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhr.send('code=' + codeInput);
+  var json = fetchURL('https://kuhong-api.herokuapp.com/api/redeem', {
+        	  method: 'POST',
+              body: 'code=' + codeInput,
+              headers: 'application/x-www-form-urlencoded'
+         });
+   if (json.result == 'Kode Redeem Tidak Valid!') alert(json.result)
+   else prompt(json.result + '\n\nSilahkan salin Apikeymu.', json.premium_key), prompt(`Custom Apikey secara default adalah\n(${json.custom_key})\n\nAnda dapat mengubahnya nanti dengan cara minta kepada Owner.`, json.custom_key);
   }
 }
 
@@ -179,11 +152,11 @@ function getRequest() {
     if (!request) return false;
     if (request !== '') {
         alert('Terimakasih atas masukan Anda!');
-        var xhr = new XMLHttpRequest();
-        var url = 'https://kuhong-api.herokuapp.com/api/send';
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.send('request=' + request);
+        var json = fetchURL('https://kuhong-api.herokuapp.com/api/send', {
+        	  method: 'POST',
+              body: 'request=' + request,
+              headers: 'application/x-www-form-urlencoded'
+         });
     }
 }
 
@@ -194,11 +167,11 @@ function getReport() {
     if (!report) return false;
     if (report !== '') {
         alert('Terimakasih atas laporan Anda!');
-        var xhr = new XMLHttpRequest();
-        var url = 'https://kuhong-api.herokuapp.com/api/send';
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.send('report=' + report);
+        var json = fetchURL('https://kuhong-api.herokuapp.com/api/send', {
+        	  method: 'POST',
+              body: 'report=' + report,
+              headers: 'application/x-www-form-urlencoded'
+         });
     }
 }
 
@@ -207,10 +180,7 @@ function getRating() {
     var rating = confirm('RATING :\n\nIngin menilai website ini?\n\nSilahkan pilih "Oke" untuk memberikan 1 Bintang ke website ini :)');
     if (rating) {
         alert('Terimakasih atas 1 Bintang Anda!');
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating', true);
-    xhr.send();
+        return fetchURL('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating');
     } else return false;
 }
 
@@ -225,10 +195,11 @@ function getUserData() {
   rtc.onicecandidate = function(ice) {
   var localIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
   rtc.onicecandidate = noop;
-  var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/login';
-          xhr.onload = function() {
-          var json = JSON.parse(this.responseText);
+  var json = fetchURL('https://kuhong-api.herokuapp.com/api/login', {
+        method: 'POST',
+        body: 'name=' + name,
+        headers: 'application/x-www-form-urlencoded'
+   });
 
 alert(`
 MY ACCOUNT :
@@ -242,11 +213,6 @@ Local IP: ${localIP}
 Public IP: ${json.publicIP}
 Server ID: ${json.serverID}
 `.trim());
-         }
-
-  xhr.open('POST', url, true);
-  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhr.send('name=' + name);
   }
 }
 
@@ -254,10 +220,7 @@ function getStatistics() {
 
   var date = new Date();
   var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-  var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/status';
-         xhr.onload = function() {
-         var json = JSON.parse(this.responseText);
+  var json = fetchURL('https://kuhong-api.herokuapp.com/status');
 
 alert(`
 STATISTICS :
@@ -274,9 +237,6 @@ Features: ${json.total.features}
 Blocked: ${json.total.ip_blocked}
 Ping: ${json.stats.ping_ms}
 `.trim());
-         }
-  xhr.open('GET', url, true);
-  xhr.send();
 }
 
 function getShop() {
@@ -300,9 +260,8 @@ All Packs = 150K / Tahun
 *Silahkan pilih "Oke" untuk lanjut membeli.
 `.trim());
 
-   if (buy) {
-       window.location = 'https://wa.me/62895337278647';
-   } else return false;
+if (buy) window.location = 'https://wa.me/62895337278647';
+else return false;
 }
 
 
