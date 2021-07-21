@@ -142,14 +142,13 @@ if (!input) return false;
     else if (/(?<=\S+)\.(mp3|m4a|aac|wav|ogg)/gi.test(input.name)) media = unescape('%3Caudio%20controls%20style%3D%22width%3A250px%3Bheight%3A50px%3B%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/audio%3E');
     else caption = '', media = unescape('%3Ca%20href%3D%22#download=') + input.name + unescape('%22%20onclick%3D%22downloadAsDocument%28%27') + fr.result + unescape('%27%29%3B%22%3E%3Ci%20class%3D%22fas%20fa-file%22%3E%3C/i%3E%20') + input.name + unescape('%3C/a%3E');
     if (document.getElementById("message").value !== '') {
-     	var caption = newLine + document.getElementById("message").value;
-         document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media + caption;
-         setTimeout(() => getBotMessage(document.getElementById("message").value + ' ' + input.name), 1000);
+     	var caption = document.getElementById("message").value;
+         document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media + newLine + caption;
+         setTimeout(() => getBotMessage(caption), 1000);
          document.getElementById("message").value = '';
-         } else document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media, setTimeout(() => getBotMessage(input.name), 1000);
+         } else document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media, setTimeout(() => getBotMessage(newLine), 1000);
      }
 fr.readAsDataURL(input);
-setTimeout(() => getBotMessage(newLine), 1000);
 document.querySelector("input[type=file]").value = '';
 historyMessage += input.name + '\n';
 }
@@ -291,11 +290,12 @@ var loghandler = {
     notLang: 'Silahkan masukan kodebahasa',
     notPass: 'Silahkan masukan password',
     notMethod: 'Silahkan masukan method',
-    notCaption: 'Silahkan masukan caption pada media yang dikirim'
+    notCaption: 'Silahkan masukan caption pada media yang akan dikirim'
 }
 
 try {
 var command = cmd.slice(1);
+if (!prefix.test(cmd)) return false;
 if (/^menu|help|start/i.test(command)) {
 
 var menu = `
@@ -429,7 +429,7 @@ if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
     delay(5000);
     sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
     });
-} else return sendBotMessage(loghandler.notUrl + ' atau kirimkan media dengan caption');
+} else return sendBotMessage(loghandler.notUrl + ' atau ' + loghandler.notCaption);
 
 } else if (/^toimg/i.test(command)) {
 
@@ -544,7 +544,7 @@ var args = command.split('tts ')[1];
 if (!args) return sendBotMessage(loghandler.notLang);
 var [lang, text] = args.split('|');
 if (!text) return sendBotMessage(loghandler.notText);
-    sendMediaBotMessage('tts.mp3', 'https://kuhong-api.herokuapp.com/api/tts?lang=' + lang + '&text=' + text + '&apikey=' + getApikey(), text);
+    sendMediaBotMessage('tts.mp3', 'https://kuhong-api.herokuapp.com/api/tts?lang=' + lang + '&text=' + text + '&apikey=' + getApikey());
 
 } else if (/^exec/i.test(command)) {
 
@@ -763,31 +763,6 @@ var res = fetchURL('https://kuhong-api.herokuapp.com/api/faktaunik?apikey=' + ge
      console.error(e);
   sendBotMessage('Telah terjadi error!');
   }
-}
-
-function fetchURL(url, opts = { method: 'GET', body: null, headers: false }) {
-var xhr = new XMLHttpRequest();
-xhr.open(opts.method.toUpperCase(), url, false);
-if (opts.headers) xhr.setRequestHeader('Content-type', opts.headers);
-xhr.send(opts.body);
-var data = xhr.responseText;
-if (/json/i.test(xhr.getAllResponseHeaders())) data = JSON.parse(xhr.responseText);
-var res = {
-	status: xhr.status,
-	statusText: xhr.statusText,
-	headers:{
-		requested: opts.headers ? opts.headers : 'default (text/html)',
-		userAgent: navigator.userAgent,
-		contentLength: xhr.getAllResponseHeaders().split('content-length: ')[1].split('content-type: ')[0],
-		contentType: xhr.getAllResponseHeaders().split('content-type: ')[1]
-	},
-	target: url,
-	method: opts.method,
-	body: opts.body,
-	data: data
-  }
-  console.log(res);
-  return res;
 }
 
 function pickRandom(list) {
