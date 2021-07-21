@@ -146,7 +146,7 @@ if (!input) return false;
     if (document.getElementById("message").value !== '') {
      	var caption = newLine + document.getElementById("message").value;
         document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media + caption;
-        historyCaption = caption;
+        setTimeout(() => getBotMessage(caption), 1000);
         document.getElementById("message").value = '';
         } else document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media;
      }
@@ -213,7 +213,7 @@ var botName = isTag('KuhongBot (Verified): ', true);
 var media = '';
 if (/(?<=\S+)\.(png|jpg|jpeg|gif|webp)/gi.test(name)) media = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + url + unescape('%22%3E%3C/img%3E');
 else if (/(?<=\S+)\.(mp4|mkv|avi|webm|mov)/gi.test(name)) media = unescape('%3Cvideo%20controls%20height%3D%22100%22%20src%3D%22') + url + unescape('%22%3E%3C/video%3E');
-else if (/(?<=\S+)\.(mp3|m4a|aac|wav|ogg)/gi.test(input.name)) media = unescape('%%3Caudio%20controls%20style%3D%22width%3A100px%3Bheight%3A25px%3B%22%20src%3D%22') + url + unescape('%22%3E%3C/audio%3E');
+else if (/(?<=\S+)\.(mp3|m4a|aac|wav|ogg)/gi.test(name)) media = unescape('%%3Caudio%20controls%20style%3D%22width%3A100px%3Bheight%3A25px%3B%22%20src%3D%22') + url + unescape('%22%3E%3C/audio%3E');
 else caption = false, media = unescape('%3Ca%20href%3D%22#download=') + name + unescape('%22%20onclick%3D%22downloadAsDocument%28%27') + url + unescape('%27%29%3B%22%3E%3Ci%20class%3D%22fas%20fa-file%22%3E%3C/i%3E%20') + name + unescape('%3C/a%3E');
 if (caption) return document.getElementById("chat").innerHTML += newLine + getDate() + botName + newLine + media + newLine + caption;
 document.getElementById("chat").innerHTML += newLine + getDate() + botName + newLine + media;
@@ -435,7 +435,7 @@ if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
     delay(5000);
     sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
     });
-} else return sendBotMessage(loghandlet.notUrl + ' atau kirimkan media dengan caption');
+} else return sendBotMessage(loghandler.notUrl + ' atau kirimkan media dengan caption');
 
 } else if (/^toimg/i.test(command)) {
 
