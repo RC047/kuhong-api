@@ -47,10 +47,10 @@
     <div class="item"><a href="https://kuhong-api.herokuapp.com"><i class="fas fa-home"></i>Home</a></div>
     <br>
     <br>
-    <div class="item"><a id="my-account"><i class="fas fa-user"></i>My Account</a></div>
-    <div class="item"><a id="notification"><i class="fas fa-bell"></i>Notification</a></div>
-    <div class="item"><a id="changelog"><i class="fas fa-sync-alt"></i>Changelog</a></div>
-    <div class="item"><a id="statistics"><i class="fas fa-signal"></i>Statistics</a></div>
+    <div class="item"><a onclick="getUserData();"><i class="fas fa-user"></i>My Account</a></div>
+    <div class="item"><a onclick="getNotification();"><i class="fas fa-bell"></i>Notification</a></div>
+    <div class="item"><a onclick="getChangelog();"><i class="fas fa-sync-alt"></i>Changelog</a></div>
+    <div class="item"><a onclick="getStatistics();"><i class="fas fa-signal"></i>Statistics</a></div>
     <div class="item"><a href="http://kuhong-chat.chatango.com"><i class="fas fa-comments"></i>Live Chat</a></div>
     <br>
     <br>
@@ -497,13 +497,13 @@
         <br>
 		<br>
 		<div class="item"><a href="botchat"><i class="fas fa-robot"></i>Bot Chat</a></div>
-		<div class="item"><a id="run-console"><i class="fas fa-terminal"></i>Run Console</a></div>
-		<div class="item"><a id="get-apikey"><i class="fas fa-lock-open"></i>Get Free Apikey</a></div>
-	    <div class="item"><a id="check-apikey"><i class="fas fa-key"></i>Check Apikey</a></div>
-	    <div class="item"><a id="redeem"><i class="fas fa-gift"></i>Redeem Code</a></div>
+		<div class="item"><a onclick="runConsole();"><i class="fas fa-terminal"></i>Run Console</a></div>
+		<div class="item"><a onclick="getApikey();"><i class="fas fa-lock-open"></i>Get Free Apikey</a></div>
+	    <div class="item"><a onclick="checkApikey();"><i class="fas fa-key"></i>Check Apikey</a></div>
+	    <div class="item"><a onclick="redeemCode();"><i class="fas fa-gift"></i>Redeem Code</a></div>
 	    <div class="item"><a href="tutorial"><i class="fas fa-book"></i>Tutorial</a></div>
 	    <div class="item"><a href="status"><i class="fas fa-battery-half"></i>API Status</a></div>
-	    <div class="item"><a id="shop"><i class="fas fa-shopping-cart"></i>Shop</a></div>
+	    <div class="item"><a onclick="getShop();"><i class="fas fa-shopping-cart"></i>Shop</a></div>
 	    <div class="item"><a href="https://saweria.co/RC047"><i class="fas fa-donate"></i>Donate</a></div>
 	    <div class="item"><a href="upload"><i class="fas fa-upload"></i>Upload Files</a></div>
         <div class="item">
@@ -541,9 +541,9 @@
 		<a class="sub-item">MhankBarBar</a>
 		  </div>
         </div>
-        <div class="item"><a id="rating"><i class="fas fa-star"></i>Rating</a></div>
-        <div class="item"><a id="request"><i class="fas fa-paper-plane"></i>Request</a></div>
-        <div class="item"><a id="report"><i class="fas fa-exclamation-triangle"></i>Report</a></div>
+        <div class="item"><a onclick="getRating();"><i class="fas fa-star"></i>Rating</a></div>
+        <div class="item"><a onclick="getRequest();"><i class="fas fa-paper-plane"></i>Request</a></div>
+        <div class="item"><a onclick="getReport();"><i class="fas fa-exclamation-triangle"></i>Report</a></div>
 		<br>
 	    <br>
         <br>
@@ -562,45 +562,6 @@
     <script id="cid0020000285318202392" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 200px;height: 300px;">{"handle":"kuhong-chat","arch":"js","styles":{"b":100,"c":"000000","d":"000000","l":"FFFFFF","m":"FFFFFF","p":"10","r":100,"pos":"br","cv":1,"cvbg":"FFFFFF","cvfg":"000000","cvw":200,"cvh":30,"ticker":1,"fwtickm":1}}</script>
     <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8366721519003904" data-ad-slot="5934005616" data-ad-format="auto" data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    <script>
-window.setTimeout('setTimes();', 1000);
-function setTimes() {
-    var date = new Date();
-    var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-    var ucapan;
-    if (date.getHours() == 0 || date.getHours() == 1 || date.getHours() == 2 || date.getHours() == 3 || date.getHours() == 4 || date.getHours() == 5 || date.getHours() == 6 || date.getHours() == 7 || date.getHours() == 8 || date.getHours() == 9) ucapan = 'Selamat Pagi';
-    if (date.getHours() == 10 || date.getHours() == 11 || date.getHours() == 12 || date.getHours() == 13 || date.getHours() == 14) ucapan = 'Selamat Siang';
-    if (date.getHours() == 15 || date.getHours() == 16 || date.getHours() == 17) ucapan = 'Selamat Sore';
-    if (date.getHours() == 18 || date.getHours() == 19 || date.getHours() == 20 || date.getHours() == 21 || date.getHours() == 22 || date.getHours() == 23) ucapan = 'Selamat Malam';
-    var notif = ucapan + ' ' + name + '!';
-    if (notif == ucapan + ' null!') notif = ucapan + ' Guest!';
-        setTimeout('setTimes();', 1000);
-        document.getElementById("time").innerHTML = time;
-        document.getElementById("notif").innerHTML = notif;
-}
-
-function getInfo(url, param, method) {
-  var res = fetchURL('https://kuhong-api.herokuapp.com/api/getinfo', {
-        	  method: 'POST',
-              body: 'name=' + name + '&url=' + url + '&param=' + escape(param) + '&method=' + method,
-              headers: 'application/x-www-form-urlencoded'
-        });
-var ok = confirm(`
-${res.data.apiName} :
-
-Status: ${res.data.status}
-Url: ${res.data.pathUrl}
-Parameter: ${res.data.param}
-Method: ${res.data.method}
-Response: ${res.data.responseType}
-
-
-*Silahkan pilih "Oke" untuk mencoba.
-`.trim());
-if (ok) window.location = res.data.fullUrl;
-else return false;
-}
-    </script>
     <script src="js/script.js"></script>
 </body>
 </html>
