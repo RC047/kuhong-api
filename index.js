@@ -1,4 +1,5 @@
 var express = require('express');
+var formidable = require('express-formidable');
 var bodyParser = require('body-parser');
 var app = express();
 var cors = require('cors');
@@ -31,6 +32,7 @@ app.use(secure);
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ parameterLimit: 100000, limit: '10mb', extended: true }));
+app.use(formidable());
 
 app.use('/', mainrouter);
 app.use('/api', apirouter);
