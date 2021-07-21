@@ -32,7 +32,7 @@ app.use(secure);
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ parameterLimit: 100000, limit: '10mb', extended: true }));
-app.use(formidable());
+app.use(formidable({ encoding: 'utf-8', uploadDir: '/tmp/', multiples: true }));
 
 app.use('/', mainrouter);
 app.use('/api', apirouter);
