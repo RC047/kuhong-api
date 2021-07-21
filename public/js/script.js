@@ -217,11 +217,12 @@ function getRating() {
 function getUserData() {
 
   window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-  var rtc = new RTCPeerConnection({iceServers:[]}), noop = function(){};      
+  var rtc = new RTCPeerConnection({ iceServers: [] });
+  if (!rtc) return alert('Account Not Found!');
+  noop = function() {};
   rtc.createDataChannel('');
   rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
   rtc.onicecandidate = function(ice) {
-  if (!ice) return alert('Account Npt Found!');
   var localIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
   rtc.onicecandidate = noop;
   var xhr = new XMLHttpRequest();
