@@ -137,12 +137,11 @@ function sendMediaMessage() {
 var fr = new FileReader();
 var input = document.querySelector("input[type=file]").files[0];
 if (!input) return false;
-var ext = input.name.slice(input.name.length - 3).toLowerCase();
     fr.onload = function() {
     var media = '';
-    if (/png|jpg|jpeg|gif|webp/i.test(ext)) media = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/img%3E');
-    else if (/mp4|mkv|avi|webm|mov/i.test(ext)) media = unescape('%3Cvideo%20controls%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/video%3E');
-    else if (/mp3|m4a|aac|wav|ogg/i.test(ext)) media = unescape('%%3Caudio%20controls%20style%3D%22width%3A100px%3Bheight%3A25px%3B%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/audio%3E');
+    if (/(?<=\S+)\.(png|jpg|jpeg|gif|webp)/gi.test(input.name)) media = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/img%3E');
+    else if (/(?<=\S+)\.(mp4|mkv|avi|webm|mov)/gi.test(input.name)) media = unescape('%3Cvideo%20controls%20height%3D%22100%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/video%3E');
+    else if (/(?<=\S+)\.(mp3|m4a|aac|wav|ogg)/gi.test(input.name)) media = unescape('%%3Caudio%20controls%20style%3D%22width%3A100px%3Bheight%3A25px%3B%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/audio%3E');
     else caption = '', media = unescape('%3Ca%20href%3D%22#download=') + input.name + unescape('%22%20onclick%3D%22downloadFile%28%27') + fr.result + unescape('%27%29%3B%22%3E%3Ci%20class%3D%22fas%20fa-file%22%3E%3C/i%3E%20') + input.name + unescape('%3C/a%3E');
     if (document.getElementById("message").value !== '') {
      	var caption = newLine + document.getElementById("message").value;
@@ -193,9 +192,9 @@ function sendMediaBotMessage(name, url, caption) {
 if (!name) return false;
 var botName = isTag('KuhongBot (Verified): ', true);
 var media = '';
-if (/png|jpg|jpeg|gif|webp/i.test(name)) media = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + url + unescape('%22%3E%3C/img%3E');
-else if (/mp4|mkv|avi|webm|mov/i.test(name)) media = unescape('%3Cvideo%20controls%20height%3D%22100%22%20src%3D%22') + url + unescape('%22%3E%3C/video%3E');
-else if (/mp3|m4a|aac|wav|ogg/i.test(name)) media = unescape('%%3Caudio%20controls%20style%3D%22width%3A30px%3Bheight%3A75px%3B%22%20src%3D%22') + fr.result + unescape('%22%3E%3C/audio%3E');
+if (/(?<=\S+)\.(png|jpg|jpeg|gif|webp)/gi.test(name)) media = unescape('%3Cimg%20height%3D%22100%22%20src%3D%22') + url + unescape('%22%3E%3C/img%3E');
+else if (/(?<=\S+)\.(mp4|mkv|avi|webm|mov)/gi.test(name)) media = unescape('%3Cvideo%20controls%20height%3D%22100%22%20src%3D%22') + url + unescape('%22%3E%3C/video%3E');
+else if (/(?<=\S+)\.(mp3|m4a|aac|wav|ogg)/gi.test(name)) media = unescape('%%3Caudio%20controls%20style%3D%22width%3A30px%3Bheight%3A75px%3B%22%20src%3D%22') + url + unescape('%22%3E%3C/audio%3E');
 else caption = false, media = unescape('%3Ca%20href%3D%22#download=') + name + unescape('%22%20onclick%3D%22downloadFile%28%27') + url + unescape('%27%29%3B%22%3E%3Ci%20class%3D%22fas%20fa-file%22%3E%3C/i%3E%20') + name + unescape('%3C/a%3E');
 if (caption) return document.getElementById("chat").innerHTML += newLine + getDate() + botName + newLine + media + newLine + caption;
 document.getElementById("chat").innerHTML += newLine + getDate() + botName + newLine + media;
