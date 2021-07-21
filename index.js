@@ -16,7 +16,7 @@ var adsJS = fs.readFileSync('./public/js/ads.js').toString();
 var autoloadJS = fs.readFileSync('./public/js/autoload.js').toString();
 var fetchJS = fs.readFileSync('./public/js/fetch.js').toString();
 
-confuse.obfuscate(scriptJS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/script.js', data));
+confuse.obfuscate(scriptJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/script.js', data));
 confuse.obfuscate(botchatJS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/botchat.js', data));
 confuse.obfuscate(typeJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/type.js', data));
 confuse.obfuscate(adsJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/ads.js', data));
