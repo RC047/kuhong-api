@@ -56,7 +56,7 @@ function setTimes() {
 function getInfo(url, param, method) {
 
   var xhr = new XMLHttpRequest();
-  var url = `https://kuhong-api.herokuapp.com/api/getinfo?name=${name}&url=${url}&param=${escape(param)}&method=${method}`;
+  var url = 'https://kuhong-api.herokuapp.com/api/getinfo';
          xhr.onload = function() {
          var json = JSON.parse(this.responseText);
 
@@ -77,8 +77,8 @@ if (ok) {
 } else return false;
 
     }
-xhr.open('GET', url, true);
-xhr.send();
+xhr.open('POST', url, true);
+xhr.send('name=' + name + '&url=' + url + '&param=' + escape(param) + '&method=' + method);
 }
 
 function runConsole() {
@@ -88,7 +88,7 @@ function runConsole() {
   if (!console) return false;
   if (console !== '') {
   var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/run?console=' + console;
+  var url = 'https://kuhong-api.herokuapp.com/api/run';
          xhr.onload = function() {
          var json = JSON.parse(this.responseText);
          if (json.result == undefined || json.result == '' || json.result.startsWith('undefined')) {
@@ -99,8 +99,8 @@ function runConsole() {
          alert(json.result);
          }
 
-  xhr.open('GET', url, true);
-  xhr.send();
+  xhr.open('POST', url, true);
+  xhr.send('console=' + console);
   }
 }
 
@@ -140,15 +140,15 @@ function checkApikey() {
   if (!apikeyInput) return false;
   if (apikeyInput !== '') {
   var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/cekapikey?apikey=' + apikeyInput;
+  var url = 'https://kuhong-api.herokuapp.com/api/cekapikey';
          xhr.onload = function() {
          var json = JSON.parse(this.responseText);
 
          alert(json.result);
          }
 
-  xhr.open('GET', url, true);
-  xhr.send();
+  xhr.open('POST', url, true);
+  xhr.send('apikey=' + apikeyInput);
   }
 }
 
@@ -159,7 +159,7 @@ function redeemCode() {
   if (!codeInput) return false;
   if (codeInput !== '') {
   var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/redeem?code=' + codeInput;
+  var url = 'https://kuhong-api.herokuapp.com/api/redeem';
          xhr.onload = function() {
          var json = JSON.parse(this.responseText);
          if (json.result == 'Kode Redeem Tidak Valid!') alert(json.result)
@@ -169,8 +169,8 @@ function redeemCode() {
          }
          }
 
-  xhr.open('GET', url, true);
-  xhr.send();
+  xhr.open('POST', url, true);
+  xhr.send('code=' + codeInput);
   }
 }
 
@@ -180,13 +180,11 @@ function getRequest() {
     if (request == '') alert('Request tidak boleh kosong!');
     if (!request) return false;
     if (request !== '') {
-         alert('Terimakasih atas masukan Anda!');
-         var message = 'REQUEST API :\n' + request;
-         var xhr = new XMLHttpRequest();
-         var url = 'https://api.callmebot.com/whatsapp.php?phone=+62895337278647&text=' + message + '&apikey=171698';
-
-    xhr.open('GET', url, true);
-    xhr.send();
+        alert('Terimakasih atas masukan Anda!');
+        var xhr = new XMLHttpRequest();
+        var url = 'https://kuhong-api.herokuapp.com/api/send';
+    xhr.open('POST', url, true);
+    xhr.send('request=' + request);
     }
 }
 
@@ -196,13 +194,11 @@ function getReport() {
     if (report == '') alert('Laporan tidak boleh kosong!');
     if (!report) return false;
     if (report !== '') {
-         alert('Terimakasih atas laporan Anda!');
-         var message = 'REPORT API :\n' + report;
-         var xhr = new XMLHttpRequest();
-         var url = 'https://api.callmebot.com/whatsapp.php?phone=+62895337278647&text=' + message + '&apikey=171698';
-
-    xhr.open('GET', url, true);
-    xhr.send();
+        alert('Terimakasih atas laporan Anda!');
+        var xhr = new XMLHttpRequest();
+        var url = 'https://kuhong-api.herokuapp.com/api/send';
+    xhr.open('POST', url, true);
+    xhr.send('report=' + report);
     }
 }
 
@@ -225,11 +221,11 @@ function getUserData() {
   rtc.createDataChannel('');
   rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
   rtc.onicecandidate = function(ice) {
-  if (!ice || !ice.candidate || !ice.candidate.candidate) return;
+  if (!ice) return alert('Account Npt Found!');
   var localIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
   rtc.onicecandidate = noop;
   var xhr = new XMLHttpRequest();
-  var url = 'https://kuhong-api.herokuapp.com/api/login?name=' + name;
+  var url = 'https://kuhong-api.herokuapp.com/api/login';
           xhr.onload = function() {
           var json = JSON.parse(this.responseText);
 
@@ -247,8 +243,8 @@ Server ID: ${json.serverID}
 `.trim());
          }
 
-  xhr.open('GET', url, true);
-  xhr.send();
+  xhr.open('POST', url, true);
+  xhr.send('name=' + name);
   }
 }
 
