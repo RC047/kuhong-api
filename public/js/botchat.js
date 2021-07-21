@@ -10,6 +10,7 @@ var prefix = new RegExp('^[!?#/$.,]');
 var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.', ',']) + pickRandom(['menu', 'help', 'start']);
 var previousMessage = '';
 var historyMessage = '';
+var historyCaption = '';
 var codeInput = '';
 var isVerified = false;
 var publicChat = false;
@@ -146,6 +147,7 @@ if (!input) return false;
     if (document.getElementById("message").value !== '') {
      	var caption = newLine + document.getElementById("message").value;
         document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media + caption;
+        historyCaption = caption;
         document.getElementById("message").value = '';
         } else document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media;
      }
@@ -276,6 +278,13 @@ function isURL(url) {
   return /http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url);
 }
 
+function isMediaMessageWithCaptions() {
+var message = document.querySelector("input[type=file]").value;
+var caption = historyCaption;
+if (!(message == '' && caption == '')) return true;
+else return false;
+}
+
 function getBotMessageWithCommand(cmd) {
 
 var loghandler = {
@@ -285,7 +294,8 @@ var loghandler = {
     notText: 'Silahkan masukan text',
     notQuery: 'Silahkan masukan query',
     notLang: 'Silahkan masukan kodebahasa',
-    notPass: 'Silahkan masukan password'
+    notPass: 'Silahkan masukan password',
+    notMethod: 'Silahkan masukan method'
 }
 
 try {
@@ -298,22 +308,19 @@ ${usedPrefix(cmd)}intro [text]${newLine}
 ${usedPrefix(cmd)}image [query]${newLine}
 ${usedPrefix(cmd)}attp [text]${newLine}
 ${usedPrefix(cmd)}ttp [text]${newLine}
-${usedPrefix(cmd)}sticker [url]${newLine}
+${usedPrefix(cmd)}sticker [url/caption]${newLine}
 ${usedPrefix(cmd)}toimg [url]${newLine}
 ${usedPrefix(cmd)}ytmp4 [url]${newLine}
 ${usedPrefix(cmd)}ytmp3 [url]${newLine}
-${usedPrefix(cmd)}8bit [url]${newLine}
-${usedPrefix(cmd)}blur [url]${newLine}
-${usedPrefix(cmd)}wasted [url]${newLine}
-${usedPrefix(cmd)}burning [url]${newLine}
-${usedPrefix(cmd)}trigger [url]${newLine}
+${usedPrefix(cmd)}8bit [url/caption]${newLine}
+${usedPrefix(cmd)}blur [url/caption]${newLine}
+${usedPrefix(cmd)}wasted [url/caption]${newLine}
+${usedPrefix(cmd)}burning [url/caption]${newLine}
+${usedPrefix(cmd)}trigger [url/caption]${newLine}
 ${usedPrefix(cmd)}tahta [text]${newLine}
 ${usedPrefix(cmd)}tts [lang|text]${newLine}
 ${usedPrefix(cmd)}exec [bash]${newLine}
-${usedPrefix(cmd)}get [url]${newLine}
-${usedPrefix(cmd)}post [url]${newLine}
-${usedPrefix(cmd)}put [url]${newLine}
-${usedPrefix(cmd)}head [url]${newLine}
+${usedPrefix(cmd)}fetch [method|url]${newLine}
 ${usedPrefix(cmd)}binary [text]${newLine}
 ${usedPrefix(cmd)}unbinary [text]${newLine}
 ${usedPrefix(cmd)}base64 [text]${newLine}
@@ -418,11 +425,18 @@ if (!text) return sendBotMessage(loghandler.notText);
 } else if (/^stic?ker/i.test(command)) {
 
 var url = command.split('ker ')[1];
-if (!url) return sendBotMessage(loghandler.notUrl);
+if (url) {
 if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
     sendBotMessage(loghandler.wait);
     delay(5000);
     sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
+} else if (isMediaMessageWithCaptions()) {
+	downloadMediaMessage(url => {
+    sendBotMessage(loghandler.wait);
+    delay(5000);
+    sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
+    });
+}
 
 } else if (/^toimg/i.test(command)) {
 
@@ -497,12 +511,14 @@ if (!text) return sendBotMessage(loghandler.notText);
     delay(5000);
     sendMediaBotMessage('tahta.png', 'https://kuhong-api.herokuapp.com/api/tahta?text=' + text + '&apikey=' + getApikey(), 'Harta tahta ' + text);
 
-} else if (/^get|post|put|head/i.test(command)) {
+} else if (/^fetch/i.test(command)) {
 
-var url = command.split('get ')[1] || command.split('post ')[1] || command.split('head ')[1] || command.split('put ')[1];
+var txt = command.split('fetch ')[1];
+var [method, url] = txt.split('|');
+if (!txt) return sendBotMessage(loghandler.notMethod);
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
-var res = fetchURL(url, { method: ' ' + command.split(url)[0], body: null });
+var res = fetchURL(url, { method: method.toUpperCase(), body: method.toUpperCase() !== 'GET' ? 'Fetched' : null });
 if (res.status !== 200) return sendBotMessage('Failed to ' + ' ' + command.split(url)[0].toUpperCase() + ' url');
     sendBotMessage(res.body.toString());
 
