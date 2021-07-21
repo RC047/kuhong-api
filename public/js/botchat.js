@@ -502,7 +502,7 @@ if (type == 'local') {
     rtc.createDataChannel('');
     rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
     rtc.onicecandidate = function(ice) {
-    if (ice == null) return sendBotMessage('IP tidak ditemukan');
+    if (!ice) return sendBotMessage('IP tidak ditemukan');
     var res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
     sendBotMessage(res);
     rtc.onicecandidate = noop;
