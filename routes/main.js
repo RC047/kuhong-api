@@ -151,6 +151,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.send(await encryptHtml(upload))
 })
 
+router.post('/post', async (req, res, next) => {
+if (!req.body) return res.json({ status: false, message: 'No data posted' })
+res.json({ status: true, body: req.body });
+})
+
 router.get('/status', async (req, res, next) => {  
 
 var date = new Date()
@@ -245,11 +250,6 @@ res.json({
             donasi: 'https://saweria.co/RC047'
         }
     })
-})
-
-router.post('/post', async (req, res, next) => {
-if (!req.body.data) return res.json({ status: false, message: 'No data posted' })
-res.json({ status: true, body: req.body.data });
 })
 
 module.exports = router
