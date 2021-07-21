@@ -77,7 +77,7 @@ if (ok) {
 } else return false;
     }
 xhr.open('POST', url, true);
-xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 xhr.send('name=' + name + '&url=' + url + '&param=' + escape(param) + '&method=' + method);
 }
 
@@ -98,7 +98,7 @@ function runConsole() {
          alert(json.result);
          }
   xhr.open('POST', url, true);
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhr.send('console=' + console);
   }
 }
@@ -145,7 +145,7 @@ function checkApikey() {
          alert(json.result);
          }
   xhr.open('POST', url, true);
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhr.send('apikey=' + apikeyInput);
   }
 }
@@ -167,7 +167,7 @@ function redeemCode() {
          }
          }
   xhr.open('POST', url, true);
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhr.send('code=' + codeInput);
   }
 }
@@ -182,7 +182,7 @@ function getRequest() {
         var xhr = new XMLHttpRequest();
         var url = 'https://kuhong-api.herokuapp.com/api/send';
     xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send('request=' + request);
     }
 }
@@ -197,7 +197,7 @@ function getReport() {
         var xhr = new XMLHttpRequest();
         var url = 'https://kuhong-api.herokuapp.com/api/send';
     xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send('report=' + report);
     }
 }
@@ -244,7 +244,7 @@ Server ID: ${json.serverID}
          }
 
   xhr.open('POST', url, true);
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhr.send('name=' + name);
   }
 }
