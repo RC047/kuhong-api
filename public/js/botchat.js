@@ -144,7 +144,7 @@ if (!input) return false;
     if (document.getElementById("message").value !== '') {
      	var caption = document.getElementById("message").value;
          document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media + newLine + caption;
-         setTimeout(() => getBotMessage(caption), 1000);
+         setTimeout(() => getBotMessage(caption + ' ' + input.name), 1000);
          document.getElementById("message").value = '';
          } else document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media, setTimeout(() => getBotMessage(newLine), 1000);
      }
