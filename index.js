@@ -14,12 +14,20 @@ var botchatJS = fs.readFileSync('./public/js/botchat.js').toString();
 var typeJS = fs.readFileSync('./public/js/type.js').toString();
 var adsJS = fs.readFileSync('./public/js/ads.js').toString();
 var autoloadJS = fs.readFileSync('./public/js/autoload.js').toString();
+var botchatCSS = fs.readFileSync('./public/css/botchat-mobile.css').toString();
+var botchat2CSS = fs.readFileSync('./public/css/botchat-window.css').toString();
+var docsCSS = fs.readFileSync('./public/css/docs.css').toString();
+var loadingCSS = fs.readFileSync('./public/css/loading.css').toString();
 
 confuse.obfuscate(scriptJS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/script.js', data));
 confuse.obfuscate(botchatJS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/botchat.js', data));
 confuse.obfuscate(typeJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/type.js', data));
 confuse.obfuscate(adsJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/ads.js', data));
 confuse.obfuscate(autoloadJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/autoload.js', data));
+confuse.obfuscate(botchatCSS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/css/botchat-mobile.css', data));
+confuse.obfuscate(botchat2CSS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/css/botchat-window.css', data));
+confuse.obfuscate(docsCSS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/css/docs.css', data));
+confuse.obfuscate(loadingCSS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/css/loading.css', data));
 
 var PORT = process.env.PORT || 8000 || 5000 || 3000;
 var mainrouter = require('./routes/main.js'),
