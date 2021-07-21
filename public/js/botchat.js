@@ -17,7 +17,6 @@ var publicChat = false;
 var newLine = unescape('%3Cbr%3E');
 var nama = 'Guest' + Math.floor(Math.random() * 10000);
 var queryParam = new URL(window.location).searchParams;
-console.log('Has Logged\n\nUserID: ' + nama.split('Guest')[1]);
 document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
 
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
@@ -152,6 +151,7 @@ if (!input) return false;
         } else document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media;
      }
 fr.readAsDataURL(input);
+setTimeout(() => getBotMessage(document.querySelector("input[type=file]").value), 1000);
 document.querySelector("input[type=file]").value = '';
 historyMessage += input.name + '\n';
 }
@@ -203,7 +203,8 @@ if (pesan.startsWith('<')) {
     var message = res.body.result.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E')).replace(/SIMI/g, 'AKU').replace(/simi/g, 'aku').replace(/simsimi/g, 'aku').replace(/SIMSIMI/g, 'AKU');
     var send = newLine + getDate() + taggedName + message;
     document.getElementById("chat").innerHTML += send;
-    } else return getBotMessageWithCommand(pesan);
+    } else if (/(?<=\S+)\.(png|jpg|jpeg|gif|webp|mp4|mkv|avi|webm|mov|mp3|m4a|aac|wav|ogg)/gi.test(pesan)) return sendBotMessageWithCommand(pesan);
+    else return getBotMessageWithCommand(pesan);
 }
 
 function sendMediaBotMessage(name, url, caption) {
@@ -278,11 +279,8 @@ function isURL(url) {
   return /http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url);
 }
 
-function isMediaMessageWithCaptions() {
-var message = document.querySelector("input[type=file]").value;
-var caption = historyCaption;
-if (!(message == '' && caption == '')) return true;
-else return false;
+function isMediaMessageWithCaptions(mediaMsg) {
+  return /(?<=\S+)\.(png|jpg|jpeg|gif|webp|mp4|mkv|avi|webm|mov|mp3|m4a|aac|wav|ogg)/gi.test(mediaMsg);
 }
 
 function getBotMessageWithCommand(cmd) {
@@ -295,7 +293,8 @@ var loghandler = {
     notQuery: 'Silahkan masukan query',
     notLang: 'Silahkan masukan kodebahasa',
     notPass: 'Silahkan masukan password',
-    notMethod: 'Silahkan masukan method'
+    notMethod: 'Silahkan masukan method',
+    notCaption: 'Silahkan masukan caption pada media yang dikirim'
 }
 
 try {
@@ -436,7 +435,7 @@ if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
     delay(5000);
     sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
     });
-}
+} else return sendBotMessage(loghandlet.notUrl + ' atau kirimkan media dengan caption');
 
 } else if (/^toimg/i.test(command)) {
 
@@ -530,11 +529,11 @@ if (!(type == 'local' || type == 'public')) return sendBotMessage('Pilih public/
 if (type == 'local') {
     window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
     var rtc = new RTCPeerConnection({ iceServers: [] });
+    if (!rtc) return sendBotMessage('IP tidak ditemukan');
     noop = function() {};
     rtc.createDataChannel('');
     rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
     rtc.onicecandidate = function(ice) {
-    if (!ice) return sendBotMessage('IP tidak ditemukan');
     var res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
     sendBotMessage(res);
     rtc.onicecandidate = noop;
