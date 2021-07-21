@@ -75,9 +75,9 @@ Response: ${json.responseType}
 if (ok) {
     window.location = json.fullUrl;
 } else return false;
-
     }
 xhr.open('POST', url, true);
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 xhr.send('name=' + name + '&url=' + url + '&param=' + escape(param) + '&method=' + method);
 }
 
@@ -95,11 +95,10 @@ function runConsole() {
              alert('No data can be sent')
              return false;
          }
-
          alert(json.result);
          }
-
   xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.send('console=' + console);
   }
 }
@@ -117,6 +116,7 @@ alert(`
 CHANGELOG :
 
 o Add Web Bot Chat!
+o Some Improvements!
 `.trim());
 }
 
@@ -128,7 +128,6 @@ function getApikey() {
          var json = JSON.parse(this.responseText);
          prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + json.info, json.free_apikey);
          }
-
 xhr.open('GET', url, true);
 xhr.send();
 }
@@ -143,11 +142,10 @@ function checkApikey() {
   var url = 'https://kuhong-api.herokuapp.com/api/cekapikey';
          xhr.onload = function() {
          var json = JSON.parse(this.responseText);
-
          alert(json.result);
          }
-
   xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.send('apikey=' + apikeyInput);
   }
 }
@@ -168,8 +166,8 @@ function redeemCode() {
              prompt(`Custom Apikey secara default adalah\n(${json.custom_key})\n\nAnda dapat mengubahnya nanti dengan cara minta kepada Owner.`, json.custom_key)
          }
          }
-
   xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.send('code=' + codeInput);
   }
 }
@@ -184,6 +182,7 @@ function getRequest() {
         var xhr = new XMLHttpRequest();
         var url = 'https://kuhong-api.herokuapp.com/api/send';
     xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send('request=' + request);
     }
 }
@@ -198,6 +197,7 @@ function getReport() {
         var xhr = new XMLHttpRequest();
         var url = 'https://kuhong-api.herokuapp.com/api/send';
     xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.send('report=' + report);
     }
 }
@@ -244,6 +244,7 @@ Server ID: ${json.serverID}
          }
 
   xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.send('name=' + name);
   }
 }
@@ -273,7 +274,6 @@ Blocked: ${json.total.ip_blocked}
 Ping: ${json.stats.ping_ms}
 `.trim());
          }
-
   xhr.open('GET', url, true);
   xhr.send();
 }
