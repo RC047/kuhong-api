@@ -11970,7 +11970,7 @@ border: 0;
   }
 })
 
-router.post('/upload', async (req, res, next) => { // Can received buffer, base64 buffer, and hex buffer
+router.post('/upload', async (req, res, next) => {
 if (!req.body.data) return res.json({ status: false, creator: creator, message: 'No files passed' })
 
 try {
