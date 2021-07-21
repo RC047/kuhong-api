@@ -11974,7 +11974,7 @@ router.post('/upload', async (req, res, next) => {
 if (!req.files) return res.json({ status: false, creator: creator, message: 'No files passed' })
 
 try {
-consol.log(req)
+console.log(req)
 var buffer = req.files
 if (/base64/i.test(req.files)) buffer = Buffer.from(req.files.startsWith('data:') ? req.files.split(',')[1] : req.files, 'base64')
 if (/%/i.test(req.files)) buffer = Buffer.from(req.files.replace(/%/g, ''), 'hex')
