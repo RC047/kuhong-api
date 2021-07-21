@@ -52,31 +52,33 @@ try {
 var owner_apikey = '04102006' // Apikey Owner (opsional)
 var free_apikey = generateApikey() // Apikey Gratis
 var apikey = '8RiU6O-yrLpgVep' // Apikeymu (dibutuhkan)
-var custom_apikey = generateKey() // Custom Apikey
-var blocked_apikey = 'KuhongRestAPIs' // Apikey yang sudah diblockedKey
+var custom_apikey = generateKey() // Custom Apikey(opsional)
+var blocked_apikey = 'KuhongRestAPIs' // Apikey yang sudah diblock
 var vhtears_key = 'ameysbot' // Apikey VhTears (dibutuhkan)
 var xteam_key = '7cac32071f2eb2ff' // Apikey Xteam (dibutuhkan)
 var zeks_key = 'MIMINGANZ' // Apikey Zeks (dibutuhkan)
 var melodicxt_key = 'administrator' // Apikey Melodicxt-2 (dibutuhkan)
 var imgbb_key = '761ea2d5575581057a799d14e9c78e28' // Apikey Imgbb (dibutuhkan)
 var removebg_key = 'HCVrssExQw8DuaWpj2vE5359' // Apikey RemoveBG (dibutuhkan)
+var callmebot_key = '171698' // Apikey CallMeBot (opsional)
 var redeem_code = generateCode() // Kode Redeem untuk dapatkan Apikey Premium
 
 console.log(`
 > CHECKING DATA...
 
-Total IP Blocked : ${Object.keys(blocked).length}
-Owner Apikey : ${owner_apikey}
-Apikey : ${apikey}
-Free Apikey : ${free_apikey}
-Custom Apikey : ${custom_apikey}
-VhTears Apikey : ${vhtears_key}
-Xteam Apikey : ${xteam_key}
-Zeks Apikey : ${zeks_key}
-Melodicxt Apikey : ${melodicxt_key}
-Imgbb Apikey : ${imgbb_key}
-RemoveBG Apikey : ${removebg_key}
-Redeem Code : ${redeem_code}
+Total IP Blocked: ${Object.keys(blocked).length}
+Owner Apikey: ${owner_apikey}
+Apikey: ${apikey}
+Free Apikey: ${free_apikey}
+Custom Apikey: ${custom_apikey}
+VhTears Key: ${vhtears_key}
+Xteam Key: ${xteam_key}
+Zeks Key: ${zeks_key}
+Melodicxt Key: ${melodicxt_key}
+Imgbb Key: ${imgbb_key}
+RemoveBG Key: ${removebg_key}
+CallMeBot Key: ${callmebot_key}
+Redeem Code: ${redeem_code}
 `.trim())
 
 // Required Modules :
@@ -564,7 +566,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
     try {
     if (!console) return res.json({ message: 'Masukan parameter console' })
-    if (console.startsWith('/')) return res.json({ result: 'There was problem in your code' })
 
       await fs.writeFileSync(__path + '/console.js', console)
       await exec(`node ${__path}/console.js`, (err, stderr, stdout) => {
@@ -579,6 +580,29 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     } catch (e) {
     	console.log(e)
       res.json({ result: e.toString().split('console.js:1')[1].split('at ')[0].split(':1)')[0].split(':3')[0].split('(Use `node --trace-uncaught ...` to show where the exception was thrown)')[0] })
+  }
+})
+
+router.post('/send', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+
+    try {
+    if (!req.body) return res.json({ message: 'Masukan parameter' })
+    var message = 'Masukan parameter'
+    if (req.body.request) message = 'REQUEST:\n' + req.body.request
+    if (req.body.report) message = 'REPORT:\n' + req.body.report
+    await (await fetch(`https://api.callmebot.com/whatsapp.php?phone=+62895337278647&text=${message}&apikey=${callmebot_key}`)).text()
+
+	res.json({
+	    status: true,
+	    creator: creator,
+	    message: '[!] Pesan telah terkirim ke Owner!'
+	})
+    } catch (e) {
+    	console.log(e)
+      res.status(403).send(error)
   }
 })
 
