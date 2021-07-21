@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Upload File</title>
+</head>
+<body>
+    <form action="https://kuhong-api.herokuapp.com/api/upload" method="POST" enctype="application/x-www-form-urlencoded">
+        <fieldset>
+            <legend>Upload File</legend>
+            <p>
+                <label>File: </label>
+                <input type="file" name="data" required>
+            </p>
+            <input type="submit" value="Upload">
+        </fieldset>
+    </form>
+</body>
+</html>
