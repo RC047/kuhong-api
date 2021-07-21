@@ -766,25 +766,25 @@ var res = fetchURL('https://kuhong-api.herokuapp.com/api/faktaunik?apikey=' + ge
   }
 }
 
-function fetchURL(url, opts = { method: 'GET', body: null, reqHeaders: false }) {
+function fetchURL(url, opts = { method: 'GET', body: null, headers: false }) {
 var xhr = new XMLHttpRequest();
 xhr.open(opts.method.toUpperCase(), url, false);
-if (reqHeaders) xhr.setRequestHeader('Content-type', reqHeaders);
+if (opts.headers) xhr.setRequestHeader('Content-type', opts.headers);
 xhr.send(opts.body);
 var body = xhr.responseText;
 if (/json/i.test(xhr.getAllResponseHeaders())) body = JSON.parse(xhr.responseText);
 var res = {
 	status: xhr.status,
 	statusText: xhr.statusText,
-	requestHeaders: reqHeaders ? reqHeaders : 'default',
 	headers:{
+		requested: opts.headers ? opts.headers : 'default (text/html)',
 		userAgent: navigator.userAgent,
 		contentLength: xhr.getAllResponseHeaders().split('content-length: ')[1].split('content-type: ')[0],
 		contentType: xhr.getAllResponseHeaders().split('content-type: ')[1]
 	},
 	url: url,
 	method: opts.method,
-	posted_body: opts.method == 'POST' ? opts.body : null,
+	posted_body: opts.method.toUpperCase() == 'POST' ? opts.body : null,
 	body: body
   }
   return res;
