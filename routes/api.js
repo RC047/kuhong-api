@@ -11999,7 +11999,7 @@ if (!req.files) return res.json({ status: false, creator: creator, message: 'No 
 
 try {
 console.log(req)
-var buffer = await fs.readFileSync(__path + req.files.data.path + '/' + req.files.data.name)
+var buffer = await fs.readFileSync(req.files.data.path + '/' + req.files.data.name)
 var result = await saveToMedia(buffer)
 if (!result.startsWith('http')) return res.json({ status: false, creator: creator, message: 'Failed to upload a files' })
 
