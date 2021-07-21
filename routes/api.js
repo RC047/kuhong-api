@@ -419,14 +419,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.sendFile(__path + '/src/music/' + pickRandom(fs.readdirSync(__path + '/src/music')))
 })
 
-router.get('/getinfo', async (req, res, next) => {
+router.post('/getinfo', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var name = req.query.name,
-          url = req.query.url,
-          param = unescape(req.query.param),
-          method = req.query.method;
+    var name = req.body.name,
+          url = req.body.url,
+          param = unescape(req.body.param),
+          method = req.body.method;
 
         var maintenance = false
         if (maintenance == true) return res.status(500).send(mtc)
@@ -474,11 +474,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
   }
 })
 
-router.get('/cekapikey', async (req, res, next) => {
+router.post('/cekapikey', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var apikeyInput = req.query.apikey;
+    var apikeyInput = req.body.apikey;
 
     var name = 'Guest'
     var status = 'Active'
@@ -496,11 +496,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         res.json({ status: true, result: result })
 })
 
-router.get('/login', async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var name = req.query.name;
+    var name = req.body.name;
 
            var mail = name.toLowerCase() + '@gmail.com'
            var userID = randomNumber
@@ -529,11 +529,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         })
 })
 
-router.get('/redeem', async (req, res, next) => {
+router.post('/redeem', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var code = req.query.code;
+    var code = req.body.code;
 
     if (!code) return res.json({
         message: 'Masukan parameter code'
@@ -556,11 +556,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     })
 })
 
-router.get('/run', async (req, res, next) => {
+router.post('/run', async (req, res, next) => {
 var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
     if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
-    var console = req.query.console;
+    var console = req.body.console;
 
     try {
     if (!console) return res.json({ message: 'Masukan parameter console' })
@@ -11975,9 +11975,7 @@ if (!req.files) return res.json({ status: false, creator: creator, message: 'No 
 
 try {
 console.log(req)
-var buffer = req.files
-if (/base64/i.test(req.files)) buffer = Buffer.from(req.files.startsWith('data:') ? req.files.split(',')[1] : req.files, 'base64')
-if (/%/i.test(req.files)) buffer = Buffer.from(req.files.replace(/%/g, ''), 'hex')
+var buffer = await fs.readFileSync(__path + req.files.data.path + req.files.data.name)
 var result = await saveToMedia(buffer)
 if (!result.startsWith('http')) return res.json({ status: false, creator: creator, message: 'Failed to upload a files' })
 
