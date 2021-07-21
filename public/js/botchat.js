@@ -22,14 +22,14 @@ document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     var params = '?platform=window';
     if (window.location.toString().includes('?')) params = '&platform=window';
-    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'mobile')) window.location += params;
+    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'window')) window.location += params;
     document.getElementById("send").remove();
     document.querySelector("marquee").style.fontSize = '25px';
 
 } else {
     var params = '?platform=mobile';
     if (window.location.toString().includes('?')) params = '&platform=mobile';
-    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'window')) window.location += params;
+    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'mobile')) window.location += params;
 }
 
 window.setTimeout('changePlaceholder();', 500);
