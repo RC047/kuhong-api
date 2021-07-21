@@ -11974,10 +11974,11 @@ router.post('/upload', async (req, res, next) => {
 if (!req.files) return res.json({ status: false, creator: creator, message: 'No files passed' })
 
 try {
-var buffer = Buffer.from(req.files); 
+consol.log(req)
+var buffer = req.files
 if (/base64/i.test(req.files)) buffer = Buffer.from(req.files.startsWith('data:') ? req.files.split(',')[1] : req.files, 'base64')
 if (/%/i.test(req.files)) buffer = Buffer.from(req.files.replace(/%/g, ''), 'hex')
-var result = await saveToMedia(buffer);
+var result = await saveToMedia(buffer)
 if (!result.startsWith('http')) return res.json({ status: false, creator: creator, message: 'Failed to upload a files' })
 
    res.json({ status: true, creator: creator, result: result })
