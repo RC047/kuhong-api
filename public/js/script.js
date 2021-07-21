@@ -15,6 +15,7 @@ $(document).ready(function() {
     });
 });
 
+
 // Login is required (;v)
 var name = prompt(`
 LOGIN REQUIRED :
@@ -26,8 +27,51 @@ if (!name) name = 'Guest';
 if (name == '') name = 'Guest';
 if (name !== '') fetchURL('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users');
 
+// Time Functions (to get a live online times)
+window.setTimeout('setTimes();', 1000);
+
+function setTimes() {
+
+    var date = new Date();
+    var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    var ucapan;
+    if (date.getHours() == 0 || date.getHours() == 1 || date.getHours() == 2 || date.getHours() == 3 || date.getHours() == 4 || date.getHours() == 5 || date.getHours() == 6 || date.getHours() == 7 || date.getHours() == 8 || date.getHours() == 9) ucapan = 'Selamat Pagi';
+    if (date.getHours() == 10 || date.getHours() == 11 || date.getHours() == 12 || date.getHours() == 13 || date.getHours() == 14) ucapan = 'Selamat Siang';
+    if (date.getHours() == 15 || date.getHours() == 16 || date.getHours() == 17) ucapan = 'Selamat Sore';
+    if (date.getHours() == 18 || date.getHours() == 19 || date.getHours() == 20 || date.getHours() == 21 || date.getHours() == 22 || date.getHours() == 23) ucapan = 'Selamat Malam';
+    var notif = ucapan + ' ' + name + '!';
+    if (notif == ucapan + ' null!') notif = ucapan + ' Guest!';
+        setTimeout('setTimes();', 1000);
+        document.getElementById("time").innerHTML = time;
+        document.getElementById("notif").innerHTML = notif;
+}
+
 // Other Functions (more functions?)
-document.getElementById("run-console").onclick = function() {
+function getInfo(url, param, method) {
+
+  var res = fetchURL('https://kuhong-api.herokuapp.com/api/getinfo', {
+        	  method: 'POST',
+              body: 'name=' + name + '&url=' + url + '&param=' + escape(param) + '&method=' + method,
+              headers: 'application/x-www-form-urlencoded'
+        });
+
+var ok = confirm(`
+${res.data.apiName} :
+
+Status: ${res.data.status}
+Url: ${res.data.pathUrl}
+Parameter: ${res.data.param}
+Method: ${res.data.method}
+Response: ${res.data.responseType}
+
+
+*Silahkan pilih "Oke" untuk mencoba.
+`.trim());
+if (ok) window.location = res.data.fullUrl;
+else return false;
+}
+
+function runConsole() {
 
   var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :');
   if (console == '') alert('Masukan Kode!');
@@ -46,7 +90,7 @@ document.getElementById("run-console").onclick = function() {
   }
 }
 
-document.getElementById("notification").onclick = function() {
+function getNotification() {
 alert(`
 NOTIFICATION :
 
@@ -54,7 +98,7 @@ Kalo masih ada fitur yang dianggap kalian nembak,, dimohon untuk segera hubungi 
 `.trim());
 }
 
-document.getElementById("changelog").onclick = function() {
+function getChangelog() {
 alert(`
 CHANGELOG :
 
@@ -63,12 +107,12 @@ o Some Improvements!
 `.trim());
 }
 
-document.getElementById("get-apikey").onclick = function() {
+function getApikey() {
   var res = fetchURL('https://kuhong-api.herokuapp.com/api/getapikey');
   prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + res.data.info, res.data.free_apikey);
 }
 
-document.getElementById("check-apikey").onclick = function() {
+function checkApikey() {
 
   var apikeyInput = prompt('CHECK APIKEY :\n\nSilahkan masukan Apikey yang ingin dicek :')
   if (apikeyInput == '') alert('Masukan Apikey!');
@@ -83,7 +127,7 @@ document.getElementById("check-apikey").onclick = function() {
   }
 }
 
-document.getElementById("redeem").onclick = function() {
+function redeemCode() {
 
   var codeInput = prompt('REDEEM CODE :\n\nSilahkan masukan Kode Redeem untuk mendapatkan Apikey Premium :')
   if (codeInput == '') alert('Masukan Kode Redeem!');
@@ -99,7 +143,7 @@ document.getElementById("redeem").onclick = function() {
   }
 }
 
-document.getElementById("request").onclick = function() {
+function getRequest() {
 
     var request = prompt('REQUEST :\n\nIngin Request fitur atau semacamnya?\n\nBisa langsung kirim masukannya disini :)');
     if (request == '') alert('Request tidak boleh kosong!');
@@ -114,7 +158,7 @@ document.getElementById("request").onclick = function() {
     }
 }
 
-document.getElementById("report").onclick = function() {
+function getReport() {
 
     var report = prompt('REPORT :\n\nAda yang ingin anda Laporkan kepada Owner secara langsung?\n\nBisa langsung kirim laporannya kesini :)');
     if (report == '') alert('Laporan tidak boleh kosong!');
@@ -129,7 +173,7 @@ document.getElementById("report").onclick = function() {
     }
 }
 
-document.getElementById("rating").onclick = function() {
+function getRating() {
 
     var rating = confirm('RATING :\n\nIngin menilai website ini?\n\nSilahkan pilih "Oke" untuk memberikan 1 Bintang ke website ini :)');
     if (rating) {
@@ -138,7 +182,7 @@ document.getElementById("rating").onclick = function() {
     } else return false;
 }
 
-document.getElementById("my-account").onclick = function() {
+function getUserData() {
 
   window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
   var rtc = new RTCPeerConnection({ iceServers: [] });
@@ -170,7 +214,7 @@ Server ID: ${res.data.serverID}
   }
 }
 
-document.getElementById("statistics").onclick = function() {
+function getStatistics() {
 
   var date = new Date();
   var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
@@ -193,7 +237,7 @@ Ping: ${res.data.stats.ping_ms}
 `.trim());
 }
 
-document.getElementById("shop").onclick = function() {
+function getShop() {
 
 var buy = confirm(`
 SHOPS :
