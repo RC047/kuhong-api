@@ -11998,7 +11998,6 @@ router.post('/upload', async (req, res, next) => {
 if (!req.files) return res.json({ status: false, creator: creator, message: 'No files passed' })
 
 try {
-console.log(req)
 var buffer = await fs.readFileSync(req.files.data.path)
 var result = await saveToMedia(buffer)
 if (!result.startsWith('http')) return res.json({ status: false, creator: creator, message: 'Failed to upload a files' })
