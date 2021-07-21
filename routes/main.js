@@ -140,6 +140,17 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.send(await encryptHtml(tutorial))
 })
 
+router.get('/upload', async (req, res, next) => {
+var visits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    var devMode = req.query.dev;
+    var upload = await fs.readFileSync(__path + '/views/upload.html').toString()
+    var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
+    if (devMode == 'true') upload = upload + devTools
+    res.send(await encryptHtml(upload))
+})
+
 router.get('/status', async (req, res, next) => {  
 
 var date = new Date()
@@ -237,6 +248,7 @@ res.json({
 })
 
 router.post('/post', async (req, res, next) => {
+if (!req.body.data) return res.json({ status: false, message: 'No data posted' })
 res.json({ status: true, body: req.body.data });
 })
 
