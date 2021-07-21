@@ -40,7 +40,8 @@ window.setTimeout('changePlaceholder();', 500);
 }
 
 // Window Only
-function secretKey(event) {
+function eventKey(event) {
+if (event.keyCode == 17) return false;
 codeInput += event.keyCode;
 if (codeInput.toString() == '826978688971657883') { // rendygans
     if (nama.endsWith('(Verified)')) return alert('Akun anda sudah diverifikasi!');
