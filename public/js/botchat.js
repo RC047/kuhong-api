@@ -39,12 +39,14 @@ if (document.querySelector("input[type=file]").value !== '') document.getElement
 window.setTimeout('changePlaceholder();', 500);
 }
 
+// Window Only
 function secretKey(event) {
 codeInput += event.keyCode;
 if (codeInput.toString() == '826978688971657883') { // rendygans
+    if (nama.endsWith('(Verified)')) return alert('Akun anda sudah diverifikasi!');
     alert('Akun anda sekarang terverifikasi!');
     nama += color(' (Verified)', 'green');
-    }
+    } else codeInput = '';
 }
 
 function enterKey(event) {
@@ -120,7 +122,7 @@ if (document.querySelector("input[type=file]").value !== '') return sendMediaMes
 var pesan = document.getElementById("message").value;
 if (pesan == '') return false;
 if (pesan.length > 500) return alert('Pesan terlalu panjang!');
-if (pesan.startsWith('http') || pesan.endsWith('com')) pesan = link(pesan);
+if (isURL(pesan)) pesan = link(pesan);
 var send = newLine + getDate() + color(nama + ': ', 'red') + pesan.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E'));
 document.getElementById("no-message").innerHTML = '';
 document.getElementById("chat").innerHTML += send;
