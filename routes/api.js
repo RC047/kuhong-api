@@ -11971,12 +11971,12 @@ border: 0;
 })
 
 router.post('/upload', async (req, res, next) => {
-if (!req.body.data) return res.json({ status: false, creator: creator, message: 'No files passed' })
+if (!req.files) return res.json({ status: false, creator: creator, message: 'No files passed' })
 
 try {
-var buffer = Buffer.from(req.body.data); 
-if (/%/i.test(req.body.data)) buffer = Buffer.from(req.body.data.replace(/%/g, ''), 'hex')
-if (/base64/i.test(req.body.data)) buffer = Buffer.from(req.body.data.split(',')[1], 'base64')
+var buffer = Buffer.from(req.files); 
+if (/base64/i.test(req.files)) buffer = Buffer.from(req.files.startsWith('data:') ? req.files.split(',')[1] : req.files, 'base64')
+if (/%/i.test(req.files)) buffer = Buffer.from(req.files.replace(/%/g, ''), 'hex')
 var result = await saveToMedia(buffer);
 if (!result.startsWith('http')) return res.json({ status: false, creator: creator, message: 'Failed to upload a files' })
 
