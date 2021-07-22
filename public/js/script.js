@@ -49,11 +49,11 @@ function setTimes() {
 // Other Functions (more functions?)
 function getInfo(url, param, method) {
 
-  var res = fetchURL('https://kuhong-api.herokuapp.com/api/getinfo', {
-        	  method: 'POST',
-              body: 'name=' + name + '&url=' + url + '&param=' + escape(param) + '&method=' + method,
-              headers: 'application/x-www-form-urlencoded'
-        });
+var res = fetchURL('https://kuhong-api.herokuapp.com/api/getinfo', {
+      method: 'POST',
+      headers: 'application/x-www-form-urlencoded',
+      body: 'name=' + name + '&url=' + url + '&param=' + escape(param) + '&method=' + method
+});
 
 var ok = confirm(`
 ${res.data.apiName} :
@@ -78,14 +78,10 @@ function runConsole() {
   if (!console) return false;
   if (console !== '') {
   var res = fetchURL('https://kuhong-api.herokuapp.com/api/run', {
-              method: 'POST',
-              body: 'console=' + console,
-              headers: 'application/x-www-form-urlencoded'
-         });
-  if (res.data.result == undefined || res.data.result == '' || res.data.result.startsWith('undefined')) {
-       alert('No data can be sent');
-       return false;
-       }
+        method: 'POST',
+        headers: 'application/x-www-form-urlencoded',
+        body: 'console=' + console
+  });
   alert(res.data.result);
   }
 }
@@ -119,10 +115,10 @@ function checkApikey() {
   if (!apikeyInput) return false;
   if (apikeyInput !== '') {
   var res = fetchURL('https://kuhong-api.herokuapp.com/api/cekapikey', {
-        	  method: 'POST',
-              body: 'apikey=' + apikeyInput,
-              headers: 'application/x-www-form-urlencoded'
-         });
+        method: 'POST',
+        headers: 'application/x-www-form-urlencoded',
+        body: 'apikey=' + apikeyInput
+  });
   alert(res.data.result);
   }
 }
@@ -134,10 +130,10 @@ function redeemCode() {
   if (!codeInput) return false;
   if (codeInput !== '') {
   var res = fetchURL('https://kuhong-api.herokuapp.com/api/redeem', {
-        	  method: 'POST',
-              body: 'code=' + codeInput,
-              headers: 'application/x-www-form-urlencoded'
-         });
+        method: 'POST',
+        headers: 'application/x-www-form-urlencoded',
+        body: 'code=' + codeInput
+   });
    if (res.data.result == 'Kode Redeem Tidak Valid!') alert(res.data.result)
    else prompt(res.data.result + '\n\nSilahkan salin Apikeymu.', res.data.premium_key), prompt(`Custom Apikey secara default adalah\n(${res.data.custom_key})\n\nAnda dapat mengubahnya nanti dengan cara minta kepada Owner.`, res.data.custom_key);
   }
@@ -151,10 +147,10 @@ function getRequest() {
     if (request !== '') {
         alert('Terimakasih atas masukan Anda!');
         var res = fetchURL('https://kuhong-api.herokuapp.com/api/send', {
-        	  method: 'POST',
-              body: 'request=' + request,
-              headers: 'application/x-www-form-urlencoded'
-         });
+              method: 'POST',
+              headers: 'application/x-www-form-urlencoded',
+              body: 'request=' + request
+        });
     }
 }
 
@@ -166,10 +162,10 @@ function getReport() {
     if (report !== '') {
         alert('Terimakasih atas laporan Anda!');
         var res = fetchURL('https://kuhong-api.herokuapp.com/api/send', {
-        	  method: 'POST',
-              body: 'report=' + report,
-              headers: 'application/x-www-form-urlencoded'
-         });
+              method: 'POST',
+              headers: 'application/x-www-form-urlencoded',
+              body: 'report=' + report
+        });
     }
 }
 
@@ -185,19 +181,20 @@ function getRating() {
 function getUserData() {
 
   window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+  var localIP = false;
+  if (!window.RTCPeerConnection) localIP = 'Not Found';
   var rtc = new RTCPeerConnection({ iceServers: [] });
-  if (!rtc) return alert('Account Not Found!');
   noop = function() {};
   rtc.createDataChannel('');
   rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
   rtc.onicecandidate = function(ice) {
-  var localIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+  localIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
   rtc.onicecandidate = noop;
   var res = fetchURL('https://kuhong-api.herokuapp.com/api/login', {
         method: 'POST',
-        body: 'name=' + name,
-        headers: 'application/x-www-form-urlencoded'
-   });
+        headers: 'application/x-www-form-urlencoded',
+        body: 'name=' + name
+  });
 
 alert(`
 MY ACCOUNT :
