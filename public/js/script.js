@@ -25,7 +25,7 @@ Silahkan masukan namamu untuk identitas diwebsite ini :)
 
 if (!name) name = 'Guest';
 if (name == '') name = 'Guest';
-if (name !== '') fetchURL('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users');
+if (name !== '') fetchURI('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users');
 
 // Time Functions (to get a live online times)
 window.setTimeout('setTimes();', 1000);
@@ -49,7 +49,7 @@ function setTimes() {
 // Other Functions (more functions?)
 function getInfo(url, param, method) {
 
-var res = fetchURL('https://kuhong-api.herokuapp.com/api/getinfo', {
+var res = fetchURI('https://kuhong-api.herokuapp.com/api/getinfo', {
       method: 'POST',
       headers: 'application/x-www-form-urlencoded',
       body: 'name=' + name + '&url=' + url + '&param=' + escape(param) + '&method=' + method
@@ -77,7 +77,7 @@ function runConsole() {
   if (console == '') alert('Masukan Kode!');
   if (!console) return false;
   if (console !== '') {
-  var res = fetchURL('https://kuhong-api.herokuapp.com/api/run', {
+  var res = fetchURI('https://kuhong-api.herokuapp.com/api/run', {
         method: 'POST',
         headers: 'application/x-www-form-urlencoded',
         body: 'console=' + console
@@ -104,7 +104,7 @@ o Some Improvements!
 }
 
 function getApikey() {
-  var res = fetchURL('https://kuhong-api.herokuapp.com/api/getapikey');
+  var res = fetchURI('https://kuhong-api.herokuapp.com/api/getapikey');
   prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + res.data.info, res.data.free_apikey);
 }
 
@@ -114,7 +114,7 @@ function checkApikey() {
   if (apikeyInput == '') alert('Masukan Apikey!');
   if (!apikeyInput) return false;
   if (apikeyInput !== '') {
-  var res = fetchURL('https://kuhong-api.herokuapp.com/api/cekapikey', {
+  var res = fetchURI('https://kuhong-api.herokuapp.com/api/cekapikey', {
         method: 'POST',
         headers: 'application/x-www-form-urlencoded',
         body: 'apikey=' + apikeyInput
@@ -129,7 +129,7 @@ function redeemCode() {
   if (codeInput == '') alert('Masukan Kode Redeem!');
   if (!codeInput) return false;
   if (codeInput !== '') {
-  var res = fetchURL('https://kuhong-api.herokuapp.com/api/redeem', {
+  var res = fetchURI('https://kuhong-api.herokuapp.com/api/redeem', {
         method: 'POST',
         headers: 'application/x-www-form-urlencoded',
         body: 'code=' + codeInput
@@ -146,7 +146,7 @@ function getRequest() {
     if (!request) return false;
     if (request !== '') {
         alert('Terimakasih atas masukan Anda!');
-        var res = fetchURL('https://kuhong-api.herokuapp.com/api/send', {
+        var res = fetchURI('https://kuhong-api.herokuapp.com/api/send', {
               method: 'POST',
               headers: 'application/x-www-form-urlencoded',
               body: 'request=' + request
@@ -161,7 +161,7 @@ function getReport() {
     if (!report) return false;
     if (report !== '') {
         alert('Terimakasih atas laporan Anda!');
-        var res = fetchURL('https://kuhong-api.herokuapp.com/api/send', {
+        var res = fetchURI('https://kuhong-api.herokuapp.com/api/send', {
               method: 'POST',
               headers: 'application/x-www-form-urlencoded',
               body: 'report=' + report
@@ -174,7 +174,7 @@ function getRating() {
     var rating = confirm('RATING :\n\nIngin menilai website ini?\n\nSilahkan pilih "Oke" untuk memberikan 1 Bintang ke website ini :)');
     if (rating) {
         alert('Terimakasih atas 1 Bintang Anda!');
-        return fetchURL('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating');
+        return fetchURI('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating');
     } else return false;
 }
 
@@ -190,7 +190,7 @@ function getUserData() {
   rtc.onicecandidate = function(ice) {
   localIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
   rtc.onicecandidate = noop;
-  var res = fetchURL('https://kuhong-api.herokuapp.com/api/login', {
+  var res = fetchURI('https://kuhong-api.herokuapp.com/api/login', {
         method: 'POST',
         headers: 'application/x-www-form-urlencoded',
         body: 'name=' + name
@@ -215,7 +215,7 @@ function getStatistics() {
 
   var date = new Date();
   var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-  var res = fetchURL('https://kuhong-api.herokuapp.com/status');
+  var res = fetchURI('https://kuhong-api.herokuapp.com/status');
 
 alert(`
 STATISTICS :
