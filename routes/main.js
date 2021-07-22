@@ -2,7 +2,6 @@ __path = process.cwd();
 
 var { encryptHtml } = require(__path + '/lib/functions.js');
 var { performance } = require('perf_hooks');
-var { JSDOM } = require('jsdom');
 var osu = require('node-os-utils');
 var fetch = require('node-fetch');
 var express = require('express');
@@ -211,7 +210,6 @@ await Promise.all([p1, p2, p3, p4])
 var _ramTotal = (ramTotal + ' MB')
 var old = performance.now()
 var neww = performance.now()
-var battery = new JSDOM(await (await fetch('https://kuhong-api.herokuapp.com/api/battery?apikey=04102006')).text()).window.document.querySelector("div").textContent
 var user = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users')).json()
 var visitor = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var request = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
@@ -225,7 +223,6 @@ res.json({
     stats:{
         status: 'Online',
         platform: platform.slice(0, 1).toUpperCase() + platform.slice(1),
-        battery: battery,
         ram: `${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})`,
         storage: `${driveUsed} GB / ${driveTotal} (${drivePer} Used)`,
         cpu: `${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)`,
@@ -245,7 +242,7 @@ res.json({
             requests: request.value.toString(),
             visitors: visitor.value.toString(),
             stars: star.value.toString(),
-            features: '348',
+            features: '352',
             ip_blocked: Object.keys(blocked).length.toString()
     },
         owner:{
