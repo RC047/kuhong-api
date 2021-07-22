@@ -123,7 +123,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         devMode = req.query.dev;
 
     var bot = await fs.readFileSync(__path + '/views/botchat.html').toString()
-    if (platform == 'window') bot = await fs.readFileSync(__path + '/views/botchat.html').toString().replace(/botchat-mobile/g, 'botchat-window')
+    if (platform == 'mobile') bot = await fs.readFileSync(__path + '/views/botchat.html').toString().replace(/(blank.css)/g, 'botchat-mobile.css')
+    if (platform == 'window') bot = await fs.readFileSync(__path + '/views/botchat.html').toString().replace(/(blank.css)/g, 'botchat-window.css')
     var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
     if (devMode == 'true') bot = bot + devTools
     res.send(await encryptHtml(bot))
