@@ -12,6 +12,7 @@ var previousMessage = '';
 var historyMessage = '';
 var historyCaption = '';
 var codeInput = '';
+var userVerified = false;
 var isVerified = false;
 var publicChat = false;
 var newLine = unescape('%3Cbr%3E');
@@ -46,6 +47,7 @@ if (codeInput.toString() == '826978688971657883') { // rendygans
     if (nama.endsWith('(Verified)')) return alert('Akun anda sudah diverifikasi!');
     alert('Akun anda sekarang terverifikasi!');
     nama += color(' (Verified)', 'green');
+    userVerified = true;
     codeInput = '';
     }
 }
@@ -83,15 +85,16 @@ var date = new Date();
 }
 
 function changeName() {
-nama = prompt('Silahkan ganti namamu :', nama).split(':')[0];
+nama = prompt('Silahkan ganti namamu :', nama.split('<')[0]).split(':')[0];
 if (nama == null || nama == '') {
     nama = 'Guest' + Math.floor(Math.random() * 10000);
+    if (userVerified == true) nama = nama + color(' (Verified)', 'green');
     return false;
     } else if (/Kuhong|RC047/i.test(nama)) {
     alert('Nama yang anda masukan sudah dimiliki!');
     nama = 'Guest' + Math.floor(Math.random() * 10000);
     return false;
-    } else if (/Verified/i.test(nama) || nama.endsWith(')')) {
+    } else if (/Verified|[<>]/i.test(nama) || nama.endsWith(')')) {
     alert('Nama anda tidak diizinkan!');
     nama = 'Guest' + Math.floor(Math.random() * 10000);
     return false;
