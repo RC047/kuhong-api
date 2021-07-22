@@ -12001,7 +12001,7 @@ if (!req.files) return res.json({ status: false, creator: creator, message: 'No 
 try {
 var buffer = await fs.readFileSync(req.files.data.path)
 var result = await saveToMedia(buffer)
-if (!result.startsWith('http')) return res.json({ status: false, creator: creator, message: 'Failed to upload a files' })
+if (result == undefined) return res.json({ status: false, creator: creator, message: 'Failed to upload a files' })
 
    res.json({ status: true, creator: creator, result: result })
 } catch (e) {
