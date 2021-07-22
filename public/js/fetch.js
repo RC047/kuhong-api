@@ -1,4 +1,4 @@
-async function fetchURL(url, opts = { method: 'GET', body: null, headers: false }) {
+function fetchURL(url, opts = { method: 'GET', body: null, headers: false }) {
 var xhr = new XMLHttpRequest();
 xhr.open(opts.method.toUpperCase(), url, false);
 if (opts.headers) xhr.setRequestHeader('Content-type', opts.headers);
