@@ -98,6 +98,7 @@ var tesseract = require('node-tesseract-ocr');
 var googleIt = require('google-it');
 var gis = require('g-i-s');
 var axios = require('axios');
+var formidable = require('express-formidable');
 var FormData = require('form-data');
 var ytdl = require('ytdl-core');
 var ytpl = require('ytpl');
@@ -11994,7 +11995,7 @@ border: 0;
   }
 })
 
-router.post('/upload', async (req, res, next) => {
+router.post('/upload', formidable({ encoding: 'UTF-8', uploadDir: '/tmp/', multiples: true }), async (req, res, next) => {
 if (!req.files) return res.json({ status: false, creator: creator, message: 'No files passed' })
 
 try {
