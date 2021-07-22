@@ -17,9 +17,12 @@ var isVerified = false;
 var publicChat = false;
 var newLine = unescape('%3Cbr%3E');
 var nama = 'Guest' + Math.floor(Math.random() * 10000);
-var queryParams = new URL(window.location).searchParams;
+var http = new URL(window.location);
 document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
 
+var entries = '';
+for (var i of http.searchParams.entries()) entries += i[0] + '$';
+if (entries.split('$')[1] !== undefined) window.location = window.location.toString().split('?')[0];
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     var params = '?platform=window';
     if (window.location.toString().includes('?')) params = '&platform=window';
@@ -29,7 +32,7 @@ if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
 } else {
     var params = '?platform=mobile';
     if (window.location.toString().includes('?')) params = '&platform=mobile'; 
-    if (!(/platform/i.test(window.location) || queryParams.get('platform') == 'mobile')) window.location += params;
+    if (!/platform/i.test(window.location)) window.location += params;
 }
 
 window.setTimeout('changePlaceholder();', 1);
@@ -52,8 +55,8 @@ if (codeInput.toString() == '826978688971657883') { // rendygans
     }
 }
 
-function usedPrefix(cmd) {
-  return cmd.slice(0, 1);
+function usedPrefix(command) {
+  return command.slice(0, 1);
 }
 
 function color(text, color) {
@@ -180,6 +183,7 @@ iframe.click();
 function sendBotMessage(message) {
 var botName = isTag('KuhongBot (Verified): ', true);
 if (message.startsWith('http') || message.endsWith('com')) message = link(message);
+if (message.startsWith('<')) message = '[Object Html]';
 var send = newLine + getDate() + botName + message;
 document.getElementById("chat").innerHTML += send;
 }
@@ -415,19 +419,19 @@ if (!text) return sendBotMessage(loghandler.notText);
 
 } else if (/^stic?ker/i.test(command)) {
 
-var url = command.split('ker ')[1];
-if (!url) return sendBotMessage(loghandler.notUrl + or + loghandler.notCaption);
-if (url == 'MEDIA_MESSAGE_CAPTION') {
-    downloadMediaMessage(function(media_url) {
-    sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + media_url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
-    });
- } else if (isURL(url)) {
+var args = command.split('ker ')[1];
+if (!args) return sendBotMessage(loghandler.notUrl + or + loghandler.notCaption);
+if (args == 'MEDIA_MESSAGE_CAPTION') {
+    downloadMediaMessage((url) => {
     sendBotMessage(loghandler.wait);
     delay(5000);
     sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
- } else return sendBotMessage(loghandler.invalidLink);
+    });
+} else if (isURL(args)) {
+    sendBotMessage(loghandler.wait);
+    delay(5000);
+    sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + args + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
+} else return sendBotMessage(loghandler.invalidLink);
 
 } else if (/^toimg/i.test(command)) {
 
@@ -505,11 +509,13 @@ if (!text) return sendBotMessage(loghandler.notText);
 } else if (/^fetch/i.test(command)) {
 
 var args = command.split('fetch ')[1];
-var [method, url] = args.split('|');
 if (!args) return sendBotMessage(loghandler.notMethod);
+var [method, url] = args.split('|');
+var body = null;
+if (method.toUpperCase() == 'POST') args.split('|') = [method, url, body];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
-var res = fetchURL(url, { method: method.toUpperCase(), body: method.toUpperCase() !== 'GET' ? 'Fetched' : null });
+var res = fetchURL(url, { method: method.toUpperCase(), body: 'posted=' + body });
 if (res.status !== 200) return sendBotMessage('Failed to ' + ' ' + command.split(url)[0].toUpperCase() + ' url');
     sendBotMessage(res.data.toString());
 
@@ -520,8 +526,8 @@ if (!type) return sendBotMessage('Silahkan masukan type');
 if (!(type == 'local' || type == 'public')) return sendBotMessage('Pilih public/local');
 if (type == 'local') {
     window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+    if (!window.RTCPeerConnection) return sendBotMessage('IP tidak ditemukan');
     var rtc = new RTCPeerConnection({ iceServers: [] });
-    if (!rtc) return sendBotMessage('IP tidak ditemukan');
     noop = function() {};
     rtc.createDataChannel('');
     rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
