@@ -99,6 +99,7 @@ alert(`
 CHANGELOG :
 
 o Add Web Bot Chat!
+o Add JavaScript Minifier!
 o Some Improvements!
 `.trim());
 }
