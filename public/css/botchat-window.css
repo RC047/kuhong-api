@@ -1,6 +1,6 @@
 #chat {
   width: 99%;
-  height: fixed;
+  height: absolute;
   border-color: #000;
   border-style: solid;
   border-radius: 5px;
@@ -15,7 +15,7 @@
 .chat {
   text-align: left;
   width: 100%;
-  height: fixed;
+  height: absolute;
   background-color: #fff;
   border-radius: 5px;
 }
