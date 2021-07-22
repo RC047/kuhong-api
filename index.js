@@ -5,25 +5,20 @@ var cors = require('cors');
 var secure = require('ssl-express-www');
 var fs = require('fs');
 var { obfuscate } = require('js-confuser');
-var { encryptHtml } = require('./lib/functions.js');
+var { encryptHtml, autoMove } = require('./lib/functions.js');
 var { color } = require('./lib/color.js');
 
-var scriptJS = fs.readFileSync('./public/js/script.js').toString();
-var botchatJS = fs.readFileSync('./public/js/botchat.js').toString();
-var typeJS = fs.readFileSync('./public/js/type.js').toString();
-var adsJS = fs.readFileSync('./public/js/ads.js').toString();
-var autoloadJS = fs.readFileSync('./public/js/autoload.js').toString();
-var fetchJS = fs.readFileSync('./public/js/fetch.js').toString();
+obfuscate(fs.readFileSync('./public/js/script.js').toString(), { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/script.js', data));
+obfuscate(fs.readFileSync('./public/js/botchat.js').toString(), { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/botchat.js', data));
+obfuscate(fs.readFileSync('./public/js/type.js').toString(), { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/type.js', data));
+obfuscate(fs.readFileSync('./public/js/ads.js').toString(), { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/ads.js', data));
+obfuscate(fs.readFileSync('./public/js/autoload.js').toString(), { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/autoload.js', data));
+obfuscate(fs.readFileSync('./public/js/fetch.js').toString(), { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/fetch.js', data));
+autoMove('./public/js/script.js', 'script');
+autoMove('./public/js/botchat.js', 'botchat');
 
-obfuscate(scriptJS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/script.js', data));
-obfuscate(botchatJS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/botchat.js', data));
-obfuscate(typeJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/type.js', data));
-obfuscate(adsJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/ads.js', data));
-obfuscate(autoloadJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/autoload.js', data));
-obfuscate(fetchJS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/fetch.js', data));
-
-var PORT = process.env.PORT || 8000 || 5000 || 3000;
-var mainrouter = require('./routes/main.js'),
+var PORT = process.env.PORT || 8000 || 5000 || 3000,
+    mainrouter = require('./routes/main.js'),
     apirouter = require('./routes/api.js');
 
 app.enable('trust proxy');
@@ -37,8 +32,8 @@ app.use(bodyParser.urlencoded({ parameterLimit: 100000, limit: '10mb', extended:
 app.use('/', mainrouter);
 app.use('/api', apirouter);
 app.use(async (req, res, next) => {
-   var notfound = await fs.readFileSync(__path + '/views/404.html').toString();
-   res.status(404).send(await encryptHtml(notfound));
+var notfound = await fs.readFileSync(__path + '/views/404.html').toString();
+  res.status(404).send(await encryptHtml(notfound));
 });
 
 app.listen(PORT, async() => console.log(color('Server running on port ' + PORT, 'green')));
