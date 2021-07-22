@@ -1,3 +1,5 @@
+__path = process.cwd();
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -14,8 +16,8 @@ obfuscate(fs.readFileSync('./public/js/type.js').toString(), { target: 'browser'
 obfuscate(fs.readFileSync('./public/js/ads.js').toString(), { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/ads.js', data));
 obfuscate(fs.readFileSync('./public/js/autoload.js').toString(), { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/autoload.js', data));
 obfuscate(fs.readFileSync('./public/js/fetch.js').toString(), { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/fetch.js', data));
-autoMove('./public/js/script.js', 'script');
-autoMove('./public/js/botchat.js', 'botchat');
+autoMove(__path + '/public/js/script.js', 'script');
+autoMove(__path + '/public/js/botchat.js', 'botchat');
 
 var PORT = process.env.PORT || 8000 || 5000 || 3000,
     mainrouter = require('./routes/main.js'),
