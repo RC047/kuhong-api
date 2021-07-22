@@ -26,7 +26,7 @@ if (entries.split('$')[1] !== undefined) window.location = window.location.toStr
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     var params = '?platform=window';
     if (window.location.toString().includes('?')) params = '&platform=window';
-    if (!(/platform/i.test(window.location) || queryParams.get('platform') == 'window')) window.location += params;
+    if (!/platform/i.test(window.location)) window.location += params;
     document.getElementById("send").remove();
     document.querySelector("marquee").style.fontSize = '25px';
 } else {
