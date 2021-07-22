@@ -5,8 +5,7 @@ var app = express();
 var cors = require('cors');
 var secure = require('ssl-express-www');
 var fs = require('fs');
-var confuse = require('js-confuser');
-var { encryptHtml } = require('./lib/functions.js');
+var { encryptHtml, encryptScript } = require('./lib/functions.js');
 var { color } = require('./lib/color.js');
 
 var scriptJS = fs.readFileSync('./public/js/script.js').toString();
@@ -15,13 +14,12 @@ var typeJS = fs.readFileSync('./public/js/type.js').toString();
 var adsJS = fs.readFileSync('./public/js/ads.js').toString();
 var autoloadJS = fs.readFileSync('./public/js/autoload.js').toString();
 var fetchJS = fs.readFileSync('./public/js/fetch.js').toString();
-
-confuse.obfuscate(scriptJS, { target: 'browser', preset: 'low', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/script.js', data));
-confuse.obfuscate(botchatJS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/botchat.js', data));
-confuse.obfuscate(typeJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/type.js', data));
-confuse.obfuscate(adsJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/ads.js', data));
-confuse.obfuscate(autoloadJS, { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/autoload.js', data));
-confuse.obfuscate(fetchJS, { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/fetch.js', data));
+encryptScript(scriptJS).then(data => fs.writeFileSync('./public/js/script.js', data));
+encryptScript(botchatJS).then(data => fs.writeFileSync('./public/js/botchat.js', data));
+encryptScript(typeJS).then(data => fs.writeFileSync('./public/js/type.js', data));
+encryptScript(adsJS).then(data => fs.writeFileSync('./public/js/ads.js', data));
+encryptScript(autoloadJS).then(data => fs.writeFileSync('./public/js/autoload.js', data));
+encryptScript(fetchJS).then(data => fs.writeFileSync('./public/js/fetch.js', data));
 
 var PORT = process.env.PORT || 8000 || 5000 || 3000;
 var mainrouter = require('./routes/main.js'),
