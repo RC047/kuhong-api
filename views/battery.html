@@ -1,25 +1,8 @@
-<pre id="result"></pre>
+<div></div>
 <script>
-navigator.getBattery().then(status => {
+var div = document.querySelector("div");
 
-var creator = pickRandom(['Rendy', 'RC047', 'RendyCraft047', 'RendyGans', 'RendyGamteng', 'Kang Rendy'])
-var level = Math.floor(status.level * 100) + '%';
-var charging = status.charging;
-var discharging = null;
-if (status.charging == false) discharging = true;
-if (status.charging == true) discharging = false;
-var chargingTime = status.chargingTime;
-var dischargingTime = status.dischargingTime;
-if (status.level * 100 == NaN) {
-    document.getElementById("result").innerHTML = `{<br>   "error": "Battery is not supported!"<br>}`;
-    throw false;
-}
-
-var result = `{<br>   "status": true,<br>   "creator": "${creator}",<br>   "batteryLevel": "${level}",<br>   "statusCharging": ${charging},<br>   "statusDischarging": ${discharging},<br>   "chargingTime": "${chargingTime}",<br>   "dischargingTime": "${dischargingTime}"<br>}`;
-document.getElementById("result").innerHTML = result;
-});
-
-function pickRandom(list) {
-	return list[Math.floor(Math.random() * list.length)];
-}
+navigator.getBattery()
+.then(status => div.textContent = status.level * 100 + '%')
+.catch(() => div.textContent = 'Battery Not Supported');
 </script>
