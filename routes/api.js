@@ -456,7 +456,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!/text|json/.test(responseType)) responseType = responseType + ' (Buffer)'
         if (responseType == 'Error (Buffer)') responseType = 'Response Error'
         if (/json/.test(responseType)) responseType = 'text/json (String)'
-        if (/text/.test(responseType)) responseType = 'text/html (Html)'
 
        res.json({
        	   status: status,
