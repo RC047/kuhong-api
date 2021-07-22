@@ -522,13 +522,13 @@ if (!type) return sendBotMessage('Silahkan masukan type');
 if (!(type == 'local' || type == 'public')) return sendBotMessage('Pilih public/local');
 if (type == 'local') {
     window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-    if (!window.RTCPeerConnection) return sendBotMessage('IP tidak ditemukan');
     var rtc = new RTCPeerConnection({ iceServers: [] });
     noop = function() {};
     rtc.createDataChannel('');
     rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
     rtc.onicecandidate = function(ice) {
-    var res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+    var res = 'IP Tidak dapat ditemukan!';
+    if (ice.candidate !== null) res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
     sendBotMessage(res);
     rtc.onicecandidate = noop;
 	     }
