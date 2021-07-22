@@ -2,6 +2,7 @@ __path = process.cwd();
 
 var { encryptHtml } = require(__path + '/lib/functions.js');
 var { performance } = require('perf_hooks');
+var { JSDOM } = require('jsdom');
 var osu = require('node-os-utils');
 var fetch = require('node-fetch');
 var express = require('express');
@@ -156,7 +157,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
 router.post('/post', async (req, res, next) => {
 if (!req.body) return res.json({ status: false, message: 'No data posted' })
-res.json({ status: true, body: req.body });
+
+  res.json({ status: true, body: req.body });
 })
 
 router.get('/status', async (req, res, next) => {  
@@ -209,10 +211,11 @@ await Promise.all([p1, p2, p3, p4])
 var _ramTotal = (ramTotal + ' MB')
 var old = performance.now()
 var neww = performance.now()
+var battery = new JSDOM(await (await fetch('https://kuhong-api.herokuapp.com/api/battery?apikey=04102006')).text()).window.document.querySelector("div").textContent
 var user = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users')).json()
 var visitor = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var request = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var star = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating')).json()
+var star = await (await fetch('https://api.countapi.xyz/hit/kuhpi.herokuapp.com/rating')).json()
 var ip_used = await (await fetch('https://api.ipify.org/?format=json')).json()
 var port_used = process.env.PORT || 8000 || 5000 || 3000
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
@@ -222,6 +225,7 @@ res.json({
     stats:{
         status: 'Online',
         platform: platform.slice(0, 1).toUpperCase() + platform.slice(1),
+        battery: battery,
         ram: `${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})`,
         storage: `${driveUsed} GB / ${driveTotal} (${drivePer} Used)`,
         cpu: `${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)`,
@@ -234,7 +238,7 @@ res.json({
         time: time,
         uptime: muptime(process.uptime()),
         ping_ms: neww - old + ' ms',
-        ping_sec: (neww - old / 100000).toFixed(2) + ' sec'
+        ping_sec: (neww - old / 1000).toFixed(3) + ' sec'
     },
         total:{
             users: user.value.toString(),
