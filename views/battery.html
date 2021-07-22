@@ -1,8 +1,0 @@
-<div></div>
-<script>
-var div = document.querySelector("div");
-
-navigator.getBattery()
-.then(status => div.textContent = status.level * 100 + '%')
-.catch(() => div.textContent = 'Battery Not Supported');
-</script>
