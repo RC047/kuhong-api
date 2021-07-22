@@ -452,10 +452,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (params == 'apikey, ') params = ''
         var responseType = data.headers.get('content-type').split(';')[0]
         var status = 'Active'
-        if (/html/.test(responseType)) {
-             status = 'Error'
-             responseType = 'Error'
-        }
+        if (/html/.test(responseType)) status = 'Error', responseType = 'Error'
         if (!/text|json/.test(responseType)) responseType = responseType + ' (Buffer)'
         if (responseType == 'Error (Buffer)') responseType = 'Response Error'
         if (/json/.test(responseType)) responseType = 'text/json (String)'
@@ -496,7 +493,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var result = `Apikey Valid!\n\nName: ${name}\nApikey: ${apikeyInput}\nStatus: ${status}\nType: ${type}\nLimit: ${limit}`
     if (!(apikeyInput == `${owner_apikey}` || apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) result = 'Apikey Tidak Valid!'
 
-        res.json({ status: true, result: result })
+    res.json({ status: true, result: result })
 })
 
 router.post('/login', async (req, res, next) => {
@@ -543,7 +540,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     })
 
     if (code !== `${redeem_code}`) return res.json({ status: false, result: 'Kode Redeem Tidak Valid!' })
-    if (code == `${redeem_code}`) return res.json({ status: true, result: 'Kode Redeem Valid!', premium_key: apikey, custom_key: custom_apikey })
+    else return res.json({ status: true, result: 'Kode Redeem Valid!', premium_key: apikey, custom_key: custom_apikey })
 })
 
 router.get('/getapikey', async (req, res, next) => {
@@ -11996,10 +11993,11 @@ border: 0;
 })
 
 router.post('/upload', formidable({ encoding: 'UTF-8', uploadDir: '/tmp/', multiples: true }), async (req, res, next) => {
-if (!req.files) return res.json({ status: false, creator: creator, message: 'No files passed' })
+var files = req.files.data.path
+if (!files) return res.json({ status: false, creator: creator, message: 'No files passed' })
 
 try {
-var buffer = await fs.readFileSync(req.files.data.path)
+var buffer = await fs.readFileSync(files)
 var result = await saveToMedia(buffer)
 if (result == undefined) return res.json({ status: false, creator: creator, message: 'Failed to upload a files' })
 
