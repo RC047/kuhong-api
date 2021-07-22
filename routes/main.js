@@ -37,9 +37,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.indexOf(ip) > -1) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var devMode = req.query.dev;
     var docs = await fs.readFileSync(__path + '/views/docs.html').toString()
+    var sourceJS = fs.readFileSync(__path + '/tmp/script_save.txt').toString()
     var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
     if (devMode == 'true') docs = docs + devTools
-    res.send(await encryptHtml(docs))
+    res.send(await encryptHtml(docs.replace(/(script.js)/g, sourceJS)))
 })
 
 router.get('/game/pingpong', async  (req, res) => {
@@ -125,9 +126,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var bot = await fs.readFileSync(__path + '/views/botchat.html').toString()
     if (platform == 'mobile') bot = await fs.readFileSync(__path + '/views/botchat.html').toString().replace(/(blank.css)/g, 'botchat-mobile.css')
     if (platform == 'window') bot = await fs.readFileSync(__path + '/views/botchat.html').toString().replace(/(blank.css)/g, 'botchat-window.css')
+    var sourceJS = fs.readFileSync(__path + '/tmp/botchat_save.txt').toString()
     var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
     if (devMode == 'true') bot = bot + devTools
-    res.send(await encryptHtml(bot))
+    res.send(await encryptHtml(bot.replace(/(botchat.js)/g, sourceJS)))
 })
 
 router.get('/tutorial', async (req, res, next) => {
