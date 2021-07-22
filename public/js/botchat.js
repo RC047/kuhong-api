@@ -10,7 +10,6 @@ var prefix = new RegExp('^[!?#/$.,]');
 var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.', ',']) + pickRandom(['menu', 'help', 'start']);
 var previousMessage = '';
 var historyMessage = '';
-var historyCaption = '';
 var codeInput = '';
 var userVerified = false;
 var isVerified = false;
@@ -763,6 +762,10 @@ var res = fetchURI('https://kuhong-api.herokuapp.com/api/faktaunik?apikey=' + ge
      console.error(e);
   sendBotMessage('Telah terjadi error!');
   }
+}
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function pickRandom(list) {
