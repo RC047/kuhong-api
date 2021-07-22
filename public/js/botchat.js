@@ -16,19 +16,19 @@ var isVerified = false;
 var publicChat = false;
 var newLine = unescape('%3Cbr%3E');
 var nama = 'Guest' + Math.floor(Math.random() * 10000);
-var queryParam = new URL(window.location).searchParams;
+var queryParams = new URL(window.location).searchParams;
 document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
 
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     var params = '?platform=window';
     if (window.location.toString().includes('?')) params = '&platform=window';
-    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'window')) window.location += params;
+    if (!(/platform/i.test(window.location) || queryParams.get('platform') == 'window')) window.location += params;
     document.getElementById("send").remove();
     document.querySelector("marquee").style.fontSize = '25px';
 } else {
     var params = '?platform=mobile';
-    if (window.location.toString().includes('?')) params = '&platform=mobile';
-    if (!(/platform/i.test(window.location) || queryParam.get('platform') == 'mobile')) window.location += params;
+    if (window.location.toString().includes('?')) params = '&platform=mobile'; 
+    if (!(/platform/i.test(window.location) || queryParams.get('platform') == 'mobile')) window.location += params;
 }
 
 window.setTimeout('changePlaceholder();', 1);
@@ -39,17 +39,15 @@ window.setTimeout('changePlaceholder();', 1);
 }
 
 function eventKey(event) {
+document.getElementById("message").onkeydown = function(event) { if (event.keyCode == 13) return sendMessage() };
 if (event.keyCode == 17) return false;
 codeInput += event.keyCode;
 if (codeInput.toString() == '826978688971657883') { // rendygans
     if (nama.endsWith('(Verified)')) return alert('Akun anda sudah diverifikasi!');
     alert('Akun anda sekarang terverifikasi!');
     nama += color(' (Verified)', 'green');
+    codeInput = '';
     }
-}
-
-function enterKey(event) {
-if (event.keyCode == 13) return sendMessage();
 }
 
 function usedPrefix(cmd) {
@@ -144,7 +142,7 @@ if (!input) return false;
     if (document.getElementById("message").value !== '') {
      	var caption = document.getElementById("message").value;
          document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media + newLine + caption;
-         setTimeout(() => getBotMessage(caption + ' MEDIA_MESSAGE'), 1000);
+         setTimeout(() => getBotMessage(caption + ' MEDIA_MESSAGE_CAPTION'), 1000);
          document.getElementById("message").value = '';
          } else document.getElementById("chat").innerHTML += newLine + getDate() + color(nama + ': ', 'red') + newLine + media, setTimeout(() => getBotMessage(newLine), 1000);
      }
@@ -290,6 +288,7 @@ var loghandler = {
 }
 
 try {
+var or = ' atau ';
 var command = cmd.slice(1);
 if (!prefix.test(cmd)) return false;
 if (/^menu|help|start/i.test(command)) {
@@ -414,19 +413,18 @@ if (!text) return sendBotMessage(loghandler.notText);
 } else if (/^stic?ker/i.test(command)) {
 
 var url = command.split('ker ')[1];
-if (!url) return sendBotMessage(loghandler.notUrl);
-if (url) {
-    if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
-    sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
-} else if (url.endsWith('MEDIA_MESSAGE')) {
+if (!url) return sendBotMessage(loghandler.notUrl + or + loghandler.notCaption);
+if (url == 'MEDIA_MESSAGE_CAPTION') {
     downloadMediaMessage(function(media_url) {
     sendBotMessage(loghandler.wait);
     delay(5000);
     sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + media_url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
     });
-} else return sendBotMessage(loghandler.notUrl + ' atau ' + loghandler.notCaption);
+ } else if (isURL(url)) {
+    sendBotMessage(loghandler.wait);
+    delay(5000);
+    sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
+ } else return sendBotMessage(loghandler.invalidLink);
 
 } else if (/^toimg/i.test(command)) {
 
