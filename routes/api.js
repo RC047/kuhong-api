@@ -11992,14 +11992,25 @@ border: 0;
   }
 })
 
+router.get('/upload', async (req, res, next) => {
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+
+  res.json({ status: false, creator: creator, message: 'No files passed' })
+})
+
 router.post('/upload', formidable({ encoding: 'UTF-8', uploadDir: '/tmp/', multiples: true }), async (req, res, next) => {
-var files = req.files.data.path
-if (!files) return res.json({ status: false, creator: creator, message: 'No files passed' })
+var hits = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
+    if (blocked.indexOf(ip) > -1) return res.json(loghandler.blocked)
+    var files = req.files.data.path
+    if (!files) return res.json({ status: false, creator: creator, message: 'No files passed' })
 
 try {
 var buffer = await fs.readFileSync(files)
 var result = await saveToMedia(buffer)
-if (result == undefined) return res.json({ status: false, creator: creator, message: 'Failed to upload a files' })
+if (result == undefined) return res.json({ status: false, creator: creator, message: 'Unsupported Mimetype' })
 
    res.json({ status: true, creator: creator, result: result })
 } catch (e) {
