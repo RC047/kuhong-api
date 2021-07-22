@@ -18,6 +18,8 @@ obfuscate(fs.readFileSync('./public/js/autoload.js').toString(), { target: 'brow
 obfuscate(fs.readFileSync('./public/js/fetch.js').toString(), { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/fetch.js', data));
 autoMove(__path + '/public/js/script.js', 'script');
 autoMove(__path + '/public/js/botchat.js', 'botchat');
+fs.rmSync(__path + '/public/js/script.js');
+fs.rmSync(__path + '/public/js/botchat.js');
 
 var PORT = process.env.PORT || 8000 || 5000 || 3000,
     mainrouter = require('./routes/main.js'),
