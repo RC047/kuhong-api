@@ -17,12 +17,8 @@ var isVerified = false;
 var publicChat = false;
 var newLine = unescape('%3Cbr%3E');
 var nama = 'Guest' + Math.floor(Math.random() * 10000);
-var http = new URL(window.location);
 document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
 
-var entries = '';
-for (var i of http.searchParams.entries()) entries += i[0] + '$';
-if (entries.split('$')[1] !== undefined) window.location = window.location.toString().split('?')[0];
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
     var params = '?platform=window';
     if (window.location.toString().includes('?')) params = '&platform=window';
