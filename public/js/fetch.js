@@ -1,4 +1,4 @@
-function fetchURL(url, opts = { method: 'GET', body: null, headers: false }) {
+function fetchURI(url, opts = { method: 'GET', headers: false, body: null }) {
 var xhr = new XMLHttpRequest();
 xhr.open(opts.method.toUpperCase(), url, false);
 if (opts.headers) xhr.setRequestHeader('Content-type', opts.headers);
@@ -12,7 +12,7 @@ var res = {
 		requested: opts.headers ? opts.headers : 'default (text/html)',
 		userAgent: navigator.userAgent,
 		contentLength: xhr.getAllResponseHeaders().split('content-length: ')[1].split('content-type: ')[0],
-		contentType: xhr.getAllResponseHeaders().split('content-type: ')[1]
+		contentType: xhr.getAllResponseHeaders().split('content-type: ')[1].split(';')[0]
 	},
 	target: url,
 	method: opts.method.toUpperCase(),
