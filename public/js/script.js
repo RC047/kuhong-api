@@ -181,14 +181,13 @@ function getRating() {
 function getUserData() {
 
   window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-  var localIP = false;
-  if (!window.RTCPeerConnection) localIP = 'Not Found';
   var rtc = new RTCPeerConnection({ iceServers: [] });
   noop = function() {};
   rtc.createDataChannel('');
   rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
   rtc.onicecandidate = function(ice) {
-  localIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+  var localIP = 'Not Found';
+  if (ice.candidate !== null) localIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
   rtc.onicecandidate = noop;
   var res = fetchURI('https://kuhong-api.herokuapp.com/api/login', {
         method: 'POST',
