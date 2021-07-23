@@ -73,7 +73,7 @@ else return false;
 
 function runConsole() {
 
-  var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode JavaScript untuk menjalankan Console :');
+  var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode Node JavaScript untuk menjalankan :');
   if (console == '') alert('Masukan Kode!');
   if (!console) return false;
   if (console !== '') {
