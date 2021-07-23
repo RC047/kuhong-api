@@ -21,6 +21,11 @@ var PORT = process.env.PORT || 8000 || 5000 || 3000,
     mainrouter = require('./routes/main.js'),
     apirouter = require('./routes/api.js');
 
+global.database = fs.readFileSync('./database.json').toString();
+setInterval(async() => {
+  await global.database.write()
+}, 60 * 1000);
+
 app.enable('trust proxy');
 app.set('json spaces', 2);
 app.use(cors());
