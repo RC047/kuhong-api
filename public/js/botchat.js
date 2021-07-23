@@ -170,7 +170,6 @@ iframe.click();
 function sendBotMessage(message) {
 var botName = isTag('KuhongBot (Verified): ', true);
 if (message.startsWith('http') || message.endsWith('com')) message = link(message);
-if (message.startsWith('<')) message = '[Object Html]';
 var send = newLine + getDate() + botName + message;
 document.getElementById("chat").innerHTML += send;
 }
@@ -518,7 +517,7 @@ if (type == 'local') {
     rtc.createDataChannel('');
     rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
     rtc.onicecandidate = function(ice) {
-    var res = 'IP Tidak dapat ditemukan!';
+    var res = 'IP Tidak dapat ditemukan';
     if (ice.candidate !== null) res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
     sendBotMessage(res);
     rtc.onicecandidate = noop;
