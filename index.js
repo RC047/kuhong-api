@@ -1,10 +1,10 @@
 __path = process.cwd();
 
 var express = require('express');
-var bodyParser = require('body-parser');
 var app = express();
 var cors = require('cors');
 var secure = require('ssl-express-www');
+var bodyParser = require('body-parser');
 var fs = require('fs');
 var { encryptHtml, encryptScript } = require('./lib/functions.js');
 var { color } = require('./lib/color.js');
