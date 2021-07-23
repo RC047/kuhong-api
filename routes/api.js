@@ -4,6 +4,7 @@ __path = process.cwd();
 var {
     saveToMedia,
     encryptHtml,
+    encryptScript,
     escapeFull,
     getZodiac,
     alay,
@@ -11835,45 +11836,32 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (id !== session_id) return res.json({ status: false, message: 'session has expired' })
 
     try {
-    	var data = `
-<script src="https://kuhong-api.herokuapp.com/js/ads.js"></script>
-<script>
+	var script = await encryptScript(`
+// Author: RC047
+
 var lock = true;
 var rejected = false;
 
 while (lock) {
 
-   for (var i = 10; i > 0; i--) {
-          var passInput = prompt('Silahkan masukan Password untuk membuka Link :');
-          var kesempatan = i - 1;
+for (var i = 10; i > 0; i--) {
+     var passInput = prompt('Silahkan masukan Password untuk membuka Link :');
+     var kesempatan = i - 1;
 
    if (i > 10) i = 10;
-   if (kesempatan == 0) {
-   	alert('Anda sudah terlalu banyak memasukan Password yang salah!');
-       rejected = true;
-       throw false;
-   }
-   if (rejected == true) {
-   	alert('Anda sudah terlalu banyak memasukan Password yang salah!');
-       throw false;
-   }
-
-   if (passInput == null) {
-   alert('Tindakan ini tidak dapat dibatalkan!');
-   i += 1;
-   } else if (passInput == '') {
-   alert('Masukan Password!');
-   i += 1;
-   } else if (passInput !== '${pass}') {
-   alert('Password Salah!');
-   } else if (passInput == '${pass}') {
-   i = 0;
-   window.location = '${url}';
-   lock = false;
-   throw false;
-   }
+   if (kesempatan == 0) alert('Anda sudah terlalu banyak memasukan Password yang salah!'), rejected = true, throw false;
+   if (rejected == true) alert('Anda sudah terlalu banyak memasukan Password yang salah!'), throw false;
+   if (passInput == null) alert('Tindakan ini tidak dapat dibatalkan!'), i += 1;
+   else if (passInput == '') alert('Masukan Password!'), i += 1;
+   else if (passInput !== '${pass}') alert('Password Salah!');
+   else if (passInput == '${pass}') i = 0, lock = false, window.location = '${url}';
    }
 }
+`.trim())
+    	var data = `
+<script src="https://kuhong-api.herokuapp.com/js/ads.js"></script>
+<script>
+${script}
 </script>
 `.trim()
     	var result = await encryptHtml(data, 'URL Locker provided by Kuhong - Rest API')
@@ -11991,7 +11979,7 @@ border: 0;
 </body>
 </html>
 `.trim()
-        var loaded = await encryptHtml(data, 'This website has been Hacked by Kuhong - Rest API :V')
+        var loaded = await encryptHtml(data, 'HTML Loader provided by Kuhong - Rest API')
 
       res.send(loaded)
     } catch (e) {
