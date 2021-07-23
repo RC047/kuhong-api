@@ -165,6 +165,9 @@ var {
     createHash
 } = require('crypto');
 var {
+    obfuscate
+} = require('js-confuser');
+var {
     spawn,
     exec
 } = require('child_process');
@@ -12032,7 +12035,7 @@ router.get('/minify', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-    var url = req.query.url,
+    var text = req.query.text,
         apikeyInput = req.query.apikey;
 
         var maintenance = false
@@ -12050,6 +12053,36 @@ try {
 	  creator: creator,
 	  result: result.code
 	})
+} catch (e) {
+    console.log(e)
+  res.status(403).send(error)
+  }
+})
+
+router.get('/obfuscate', async (req, res, next) => {
+await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
+    if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
+    var text = req.query.text,
+        apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance == true) return res.status(500).send(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == `${owner_apikey}` || apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${blocked_apikey}`)) return res.status(406).send(invalidKey)
+        if (apikeyInput == `${blocked_apikey}`) return res.json(loghandler.blockedKey)
+        if (!text) return res.json(loghandler.nottext)
+
+try {
+    await obfuscate(text, { target: 'node', preset: 'medium', minify: true, stringEncoding: true })
+	.then(result => {
+
+  res.json({
+	  status: true,
+	  creator: creator,
+	  result: result
+	})
+   })
 } catch (e) {
     console.log(e)
   res.status(403).send(error)
