@@ -48,7 +48,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     if (!ip.startsWith('175.158.53')) return res.send('Acces Denied')
 
-  res.json({ data: await fs.readFileSync(__path + '/database.json').toString() })
+  res.json({ data: JSON.parse(await fs.readFileSync(__path + '/database.json').toString()) })
 })
 
 router.get('/game/pingpong', async  (req, res) => {
