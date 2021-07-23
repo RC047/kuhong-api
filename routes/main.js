@@ -167,39 +167,14 @@ var platform = osu.os.platform()
 var cpuModel = cpu.model()
 var cpuPer
 
-var p1 = cpu.usage().then(cpuPercentage => {
-    cpuPer = cpuPercentage
-}).catch(() => { 
-    cpuPer = NotDetect
-})
+var p1 = cpu.usage().then(cpuPercentage => cpuPer = cpuPercentage).catch(() => cpuPer = NotDetect)
 var driveTotal, driveUsed, drivePer
-var p2 = drive.info().then(info => {
-         driveTotal = (info.totalGb + ' GB'),
-         driveUsed = info.usedGb,
-         drivePer = (info.usedPercentage + '%')
-}).catch(() => { 
-    driveTotal = NotDetect,
-    driveUsed = NotDetect,
-    drivePer = NotDetect
-})
+var p2 = drive.info().then(info => driveTotal = (info.totalGb + ' GB'), driveUsed = info.usedGb, drivePer = (info.usedPercentage + '%')).catch(() => driveTotal = NotDetect,  driveUsed = NotDetect, drivePer = NotDetect)
 var ramTotal, ramUsed
-var p3 = mem.info().then(info => {
-    ramTotal = info.totalMemMb,
-    ramUsed = info.usedMemMb
-}).catch(() => { 
-   ramTotal = NotDetect,
-   ramUsed = NotDetect
-})
+var p3 = mem.info().then(info => ramTotal = info.totalMemMb, ramUsed = info.usedMemMb).catch(() => ramTotal = NotDetect, ramUsed = NotDetect)
 var netsIn, netsOut
-var p4 = netstat.inOut().then(info => {
-   netsIn = (info.total.inputMb + ' MB'),
-   netsOut = (info.total.outputMb + ' MB')
-}).catch(() => { 
-   netsIn = NotDetect,
-   netsOut = NotDetect
-})
+var p4 = netstat.inOut().then(info => netsIn = (info.total.inputMb + ' MB'), netsOut = (info.total.outputMb + ' MB')).catch(() => netsIn = NotDetect, netsOut = NotDetect)
 await Promise.all([p1, p2, p3, p4])
-
 var _ramTotal = (ramTotal + ' MB')
 var old = performance.now()
 var neww = performance.now()
@@ -235,7 +210,7 @@ res.json({
             requests: request.value,
             visitors: visitor.value,
             stars: star.value,
-            features: 356,
+            features: 358,
             ip_blocked: Object.keys(blocked).length
     },
         owner:{
