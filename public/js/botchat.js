@@ -1,11 +1,3 @@
-/* BOTCHAT.JS
- * Author: RC047
- * Description: A Simple Web Bot
- * Copyright: © 2021
- * Note: This script is free for everyone,, dont forget to give credit and the script is only work in Html or Html5!
- */
-
-
 var prefix = new RegExp('^[!?#/$.,]');
 var baseCmd = pickRandom(['!', '?', '#', '/', '$', '.', ',']) + pickRandom(['menu', 'help', 'start']);
 var previousMessage = '';
