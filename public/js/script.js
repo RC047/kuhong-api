@@ -20,9 +20,8 @@ function actionLogin() {
 var login = false;
 var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 var ip = fetchURI('https://api.ipify.org').data;
-if (!(res.data || res.data.publicIP == ip)) {
+if (!(res.data.name || res.data.publicIP == ip)) login = true;
 
-login = true;
 while (login) {
 var name = prompt(`
 LOGIN REQUIRED :
@@ -33,7 +32,7 @@ Silahkan masukan namamu disini untuk melanjutkan kewebsite :)
 if (name == null) alert('Login dibutuhkan!');
 else if (name == '') name = 'Guest', login = false;
 else if (name !== '') login = false;
-}} else return false;
+}
 
     return fetchURI('https://kuhong-api.herokuapp.com/api/login', { method: 'POST', headers: 'application/x-www-form-urlencoded', body: 'name=' + name });
 }
@@ -41,6 +40,7 @@ else if (name !== '') login = false;
 window.setTimeout('setTimes();', 1000);
 function setTimes() {
 
+    var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
     var date = new Date();
     var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     var ucapan;
@@ -48,9 +48,8 @@ function setTimes() {
     if (date.getHours() == 10 || date.getHours() == 11 || date.getHours() == 12 || date.getHours() == 13 || date.getHours() == 14) ucapan = 'Selamat Siang';
     if (date.getHours() == 15 || date.getHours() == 16 || date.getHours() == 17) ucapan = 'Selamat Sore';
     if (date.getHours() == 18 || date.getHours() == 19 || date.getHours() == 20 || date.getHours() == 21 || date.getHours() == 22 || date.getHours() == 23) ucapan = 'Selamat Malam';
-    var notif = ucapan + ' ' + name + '!';
-    if (notif == ucapan + ' null!') notif = ucapan + ' Guest!';
-        setTimeout('setTimes();', 1000);
+    var notif = ucapan + ' ' + res.data.name + '!';
+        window.setTimeout('setTimes();', 1000);
         document.getElementById("time").innerHTML = time;
         document.getElementById("notif").innerHTML = notif;
 }
