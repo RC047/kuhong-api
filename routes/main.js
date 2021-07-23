@@ -1,6 +1,6 @@
 __path = process.cwd();
 
-var { encryptHtml } = require(__path + '/lib/functions.js');
+var { encryptHtml, encryptScript } = require(__path + '/lib/functions.js');
 var { performance } = require('perf_hooks');
 var { execSync } = require('child_process');
 var osu = require('node-os-utils');
@@ -9,6 +9,11 @@ var express = require('express');
 var fs = require('fs');
 var router = express.Router();
 var blocked = new RegExp(['180.249.133.59'].join('|'), 'gi');
+
+var invalidKey = encryptHtml(fs.readFileSync(__path + '/views/invalidKey.html').toString())
+var error = encryptHtml(fs.readFileSync(__path + '/views/error.html').toString())
+var mtc = encryptHtml(fs.readFileSync(__path + '/views/maintenance.html').toString())
+var notfound = encryptHtml(fs.readFileSync(__path + '/views/notfound.html').toString())
 
 router.get('/', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
