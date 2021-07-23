@@ -405,6 +405,7 @@ var loghandler = {
 var invalidKey = encryptHtml(fs.readFileSync(__path + '/views/invalidKey.html').toString())
 var error = encryptHtml(fs.readFileSync(__path + '/views/error.html').toString())
 var mtc = encryptHtml(fs.readFileSync(__path + '/views/maintenance.html').toString())
+var notfound = encryptHtml(fs.readFileSync(__path + '/views/notfound.html').toString())
 
 // Random Functions :
 var len = 10
@@ -12083,5 +12084,34 @@ try {
   }
 })
 
+router.get('/logs', async (req, res, next) => {
+await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
+    if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
+    var apikeyInput = req.query.apikey;
+
+    if (apikeyInput !== `${owner_apikey}`) return res.status(404).send(notfound)
+    await execSync('heroku logs -a kuhong-api', (stdout, stderr, err) => {
+    var logs
+    if (stdout) logs = stdout
+    if (stderr) logs = stderr
+    if (err) logs = err
+
+res.send(encryptHtml(`
+<script>
+window.setTimeout('getLogs();', 1000);
+
+function getLogs() {
+console.log('${logs}');
+window.setTimeout('getLogs();', 1000);
+}
+
+document.write('Logs will shown in console');
+</script>
+${fs.readFileSync(__path + '/views/tools.html').toString()}
+`.trim());
+    })
+    
+})
 // End of script
 module.exports = router
