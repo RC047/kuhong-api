@@ -19,6 +19,5 @@ var res = {
 	body: opts.body,
 	data: data
   }
-  console.log(res);
-  return res;
+   return res;
 }
