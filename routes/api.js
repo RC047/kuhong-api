@@ -424,7 +424,7 @@ router.get('/getmusic', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-    res.sendFile(__path + '/src/music/' + pickRandom(fs.readdirSync(__path + '/src/music')))
+    res.sendFile(__path + '/src/music/' + pickRandom(await fs.readdirSync(__path + '/src/music')))
 })
 
 router.post('/getinfo', async (req, res, next) => {
@@ -522,7 +522,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
                 key = 'Login First'
            }
 
-        res.json({
+	var result = {
             name: name,
             mail: mail,
             userID: userID,
@@ -530,7 +530,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             accountType: accountType,
             apikey: key,
             serverID: randomText
-        })
+        }
+        await fs.writeFileSync(__path + '/database.json', JSON.stringify(result))
+
+    res.json(result)
 })
 
 router.post('/redeem', async (req, res, next) => {
@@ -572,7 +575,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
       await fs.writeFileSync(__path + '/console.js', console)
       await exec(`node ${__path}/console.js`, (err, stderr, stdout) => {
       var result
-      if (console.length > 1000) result = 'Max 1000 Line.'
+      if (console.length > 1000) result = 'Kode yang anda masukan terlalu panjang!'
       if (stderr) result = stderr
       if (stdout) result = stdout
       if (err) result = err.toString().split('console.js:1')[1].split('at ')[0].split(':1)')[0].split(':3')[0].split('(Use `node --trace-uncaught ...` to show where the exception was thrown)')[0]
@@ -592,9 +595,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
     try {
     if (!req.body) return res.json({ message: 'Masukan parameter' })
-    var message = 'Masukan parameter'
-    if (req.body.request) message = 'REQUEST:\n' + req.body.request
-    if (req.body.report) message = 'REPORT:\n' + req.body.report
+    var message
+    var data = JSON.parse(await fs.readFileSync(__path + '/database.json').toString())
+    if (req.body.request) message = `REQUEST :\n\nDari: ${data.name}\nIP: ${data.publicIP}\nAkun: ${data.accountType}\nPesan: ${req.body.request}`
+    if (req.body.report) message = `REPORT :\n\nDari: ${data.name}\nIP: ${data.publicIP}\nAkun: ${data.accountType}\nPesan: ${req.body.report}`
     await (await fetch(`https://api.callmebot.com/whatsapp.php?phone=+62895337278647&text=${message}&apikey=${callmebot_key}`)).text()
 
 	res.json({
