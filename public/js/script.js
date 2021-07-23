@@ -67,7 +67,7 @@ Response: ${res.data.responseType}
 
 *Silahkan pilih "Oke" untuk mencoba.
 `.trim());
-if (ok) window.location = res.data.fullUrl;
+if (ok) return window.open(res.data.fullUrl);
 else return false;
 }
 
