@@ -100,6 +100,7 @@ CHANGELOG :
 
 o Add Web Bot Chat!
 o Add JavaScript Minifier!
+o JavaScript Obfuscator!
 o Some Improvements!
 `.trim());
 }
