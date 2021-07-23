@@ -170,7 +170,9 @@ var {
 } = require('js-confuser');
 var {
     spawn,
-    exec
+    spawnSync,
+    exec,
+    execSync
 } = require('child_process');
 var {
     color,
