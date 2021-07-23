@@ -47,7 +47,7 @@ await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
 
-  res.json({ data: JSON.parse(await fs.readFileSync(__path + '/database.json').toString()) })
+  res.json(JSON.parse(await fs.readFileSync(__path + '/database.json').toString()))
 })
 
 router.get('/game/pingpong', async  (req, res) => {
