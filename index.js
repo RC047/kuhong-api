@@ -16,8 +16,8 @@ obfuscate(fs.readFileSync('./public/js/type.js').toString(), { target: 'browser'
 obfuscate(fs.readFileSync('./public/js/ads.js').toString(), { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/ads.js', data));
 obfuscate(fs.readFileSync('./public/js/autoload.js').toString(), { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/autoload.js', data));
 obfuscate(fs.readFileSync('./public/js/fetch.js').toString(), { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/fetch.js', data));
-encryptScript('./public/js/script.js');
-encryptScript('./public/js/botchat.js');
+encryptScript(__path + '/public/js/script.js');
+encryptScript(__path + '/public/js/botchat.js');
 
 var PORT = process.env.PORT || 8000 || 5000 || 3000,
     mainrouter = require('./routes/main.js'),
