@@ -1,4 +1,3 @@
-// Bar Functions (to set all bars)
 $(document).ready(function() {
 
     $('.sub-btn').click(function() {
@@ -16,20 +15,30 @@ $(document).ready(function() {
 });
 
 
-// Login is required (;v)
+function actionLogin() {
+
+var login = false;
+var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
+var ip = fetchURI('https://api.ipify.org').data;
+if (!(res.data || res.data.publicIP == ip)) {
+
+login = true;
+while (login) {
 var name = prompt(`
 LOGIN REQUIRED :
 
-Silahkan masukan namamu untuk identitas diwebsite ini :)
+Silahkan masukan namamu disini untuk melanjutkan kewebsite :)
 `.trim());
 
-if (!name) name = 'Guest';
-if (name == '') name = 'Guest';
-if (name !== '') fetchURI('https://kuhong-api.herokuapp.com/api/login', { method: 'POST', headers: 'application/x-www-form-urlencoded', body: 'name=' + name });
+if (name == null) alert('Login dibutuhkan!');
+else if (name == '') name = 'Guest', login = false;
+else if (name !== '') login = false;
+}} else return false;
 
-// Time Functions (to get a live online times)
+    return fetchURI('https://kuhong-api.herokuapp.com/api/login', { method: 'POST', headers: 'application/x-www-form-urlencoded', body: 'name=' + name });
+}
+
 window.setTimeout('setTimes();', 1000);
-
 function setTimes() {
 
     var date = new Date();
@@ -46,9 +55,9 @@ function setTimes() {
         document.getElementById("notif").innerHTML = notif;
 }
 
-// Other Functions (more functions?)
 function getInfo(url, param, method) {
 
+var name = fetchURI('https://kuhong-api.herokuapp.com/database.json').data.name;
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/getinfo', {
       method: 'POST',
       headers: 'application/x-www-form-urlencoded',
