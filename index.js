@@ -9,12 +9,12 @@ var fs = require('fs');
 var { encryptHtml, encryptScript } = require('./lib/functions.js');
 var { color } = require('./lib/color.js');
 
-encryptScript(fs.readFileSync('./public/js/script.js').toString()).then(data => fs.writeFileSync('./public/js/script.js', data));
-encryptScript(fs.readFileSync('./public/js/botchat.js').toString()).then(data => fs.writeFileSync('./public/js/botchat.js', data));
-encryptScript(fs.readFileSync('./public/js/type.js').toString(), { extended: true }).then(data => fs.writeFileSync('./public/js/type.js', data));
-encryptScript(fs.readFileSync('./public/js/ads.js').toString(), { extended: true }).then(data => fs.writeFileSync('./public/js/ads.js', data));
-encryptScript(fs.readFileSync('./public/js/autoload.js').toString(), { extended: true }).then(data => fs.writeFileSync('./public/js/autoload.js', data));
-encryptScript(fs.readFileSync('./public/js/fetch.js').toString()).then(data => fs.writeFileSync('./public/js/fetch.js', data));
+encryptScript(fs.readFileSync('./public/js/script.js').toString(), { promise: true }).then(data => fs.writeFileSync('./public/js/script.js', data));
+encryptScript(fs.readFileSync('./public/js/botchat.js').toString(), { promise: true }).then(data => fs.writeFileSync('./public/js/botchat.js', data));
+encryptScript(fs.readFileSync('./public/js/type.js').toString(), { promise: true }).then(data => fs.writeFileSync('./public/js/type.js', data));
+encryptScript(fs.readFileSync('./public/js/ads.js').toString(), { promise: true }).then(data => fs.writeFileSync('./public/js/ads.js', data));
+encryptScript(fs.readFileSync('./public/js/autoload.js').toString(), { promise: true }).then(data => fs.writeFileSync('./public/js/autoload.js', data));
+encryptScript(fs.readFileSync('./public/js/fetch.js').toString(), { promise: true }).then(data => fs.writeFileSync('./public/js/fetch.js', data));
 
 var PORT = process.env.PORT || 8000 || 5000 || 3000,
     mainrouter = require('./routes/main.js'),
@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ parameterLimit: 100000, limit: '10mb', extended:
 app.use('/', mainrouter);
 app.use('/api', apirouter);
 app.use(async (req, res, next) => {
-var notfound = await fs.readFileSync(__path + '/views/404.html').toString();
+var notfound = await fs.readFileSync(__path + '/views/notfound.html').toString();
   res.status(404).send(await encryptHtml(notfound));
 });
 
