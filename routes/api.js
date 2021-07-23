@@ -12018,7 +12018,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 try {
 var buffer = await fs.readFileSync(files)
 var result = await saveToMedia(buffer)
-if (result == undefined) return res.json({ status: false, creator: creator, message: 'Unsupported Mimetype' })
+if (!result) return res.json({ status: false, creator: creator, message: 'Unsupported Mimetype' })
 
    res.json({
 	   status: true,
@@ -12035,7 +12035,7 @@ router.get('/minify', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-    var text = req.query.text,
+    var code = req.query.code,
         apikeyInput = req.query.apikey;
 
         var maintenance = false
@@ -12043,10 +12043,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!apikeyInput) return res.json(loghandler.notparam)
         if (!(apikeyInput == `${owner_apikey}` || apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${blocked_apikey}`)) return res.status(406).send(invalidKey)
         if (apikeyInput == `${blocked_apikey}`) return res.json(loghandler.blockedKey)
-        if (!text) return res.json(loghandler.nottext)
+        if (!code) return res.json({ status: false, message: 'Masukan parameter code' })
 
 try {
-    var result = await minify(text)
+    var result = await minify(code)
 
   res.json({
 	  status: true,
@@ -12063,7 +12063,7 @@ router.get('/obfuscate', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-    var text = req.query.text,
+    var code = req.query.code,
         apikeyInput = req.query.apikey;
 
         var maintenance = false
@@ -12071,10 +12071,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!apikeyInput) return res.json(loghandler.notparam)
         if (!(apikeyInput == `${owner_apikey}` || apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${blocked_apikey}`)) return res.status(406).send(invalidKey)
         if (apikeyInput == `${blocked_apikey}`) return res.json(loghandler.blockedKey)
-        if (!text) return res.json(loghandler.nottext)
+        if (!code) return res.json({ status: false, message: 'Masukan parameter code' })
 
 try {
-    await obfuscate(text, { target: 'node', preset: 'medium', minify: true, stringEncoding: true })
+    await obfuscate(code, { target: 'node', preset: 'medium', minify: true, stringEncoding: true })
 	.then(result => {
 
   res.json({
