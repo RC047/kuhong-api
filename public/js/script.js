@@ -6,11 +6,11 @@ $(document).ready(function() {
     });
     $('.menu-btn').click(function() {
         $('.side-bar').addClass('active');
-        $('.menu-btn').css("visibility", "hidden");
+        $('.menu-btn').css('visibility', 'hidden');
     });
     $('.close-btn').click(function() {
         $('.side-bar').removeClass('active');
-        $('.menu-btn').css("visibility", "visible");
+        $('.menu-btn').css('visibility', 'visible');
     });
 });
 
@@ -26,7 +26,7 @@ while (login) {
 var name = prompt(`
 LOGIN REQUIRED :
 
-Silahkan masukan namamu disini untuk melanjutkan kewebsite :)
+Silahkan masukan namamu disini untuk melanjutkan ke website :)
 `.trim());
 
 if (name == null) alert('Login dibutuhkan!');
@@ -114,8 +114,8 @@ o Some Improvements!
 }
 
 function getApikey() {
-  var res = fetchURI('https://kuhong-api.herokuapp.com/api/getapikey');
-  prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + res.data.info, res.data.free_apikey);
+var res = fetchURI('https://kuhong-api.herokuapp.com/api/getapikey');
+  return prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + res.data.info, res.data.free_apikey);
 }
 
 function checkApikey() {
