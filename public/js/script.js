@@ -25,7 +25,7 @@ Silahkan masukan namamu untuk identitas diwebsite ini :)
 
 if (!name) name = 'Guest';
 if (name == '') name = 'Guest';
-if (name !== '') fetchURI('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users');
+if (name !== '') fetchURI('https://kuhong-api.herokuapp.com/api/login', { method: 'POST', headers: 'application/x-www-form-urlencoded', body: 'name=' + name });
 
 // Time Functions (to get a live online times)
 window.setTimeout('setTimes();', 1000);
@@ -191,11 +191,7 @@ function getUserData() {
   var localIP = 'Not Located';
   if (ice.candidate !== null) localIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
   rtc.onicecandidate = noop;
-  var res = fetchURI('https://kuhong-api.herokuapp.com/api/login', {
-        method: 'POST',
-        headers: 'application/x-www-form-urlencoded',
-        body: 'name=' + name
-  });
+  var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 
 alert(`
 MY ACCOUNT :
