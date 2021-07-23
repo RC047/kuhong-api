@@ -502,7 +502,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 })
 
 router.post('/login', async (req, res, next) => {
-await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/users')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
     var name = req.body.name;
