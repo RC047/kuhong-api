@@ -12,10 +12,10 @@ var { color } = require('./lib/color.js');
 
 obfuscate(fs.readFileSync('./public/js/script.js').toString(), { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/script.js', encryptScript(data)));
 obfuscate(fs.readFileSync('./public/js/botchat.js').toString(), { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/botchat.js', encryptScript(data)));
-obfuscate(fs.readFileSync('./public/js/type.js').toString(), { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/type.js', data));
-obfuscate(fs.readFileSync('./public/js/ads.js').toString(), { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/ads.js', data));
-obfuscate(fs.readFileSync('./public/js/autoload.js').toString(), { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/autoload.js', data));
-obfuscate(fs.readFileSync('./public/js/fetch.js').toString(), { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/fetch.js', data));
+obfuscate(fs.readFileSync('./public/js/type.js').toString(), { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/type.js', encryptScript(data)));
+obfuscate(fs.readFileSync('./public/js/ads.js').toString(), { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/ads.js', encryptScript(data)));
+obfuscate(fs.readFileSync('./public/js/autoload.js').toString(), { target: 'browser', preset: 'high', minify: true, stringEncoding: true }).then(data => fs.writeFileSync('./public/js/autoload.js', encryptScript(data)));
+obfuscate(fs.readFileSync('./public/js/fetch.js').toString(), { target: 'browser', minify: true }).then(data => fs.writeFileSync('./public/js/fetch.js', encryptScript(data)));
 
 var PORT = process.env.PORT || 8000 || 5000 || 3000,
     mainrouter = require('./routes/main.js'),
