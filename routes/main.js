@@ -2,7 +2,6 @@ __path = process.cwd();
 console.log('Starting mainrouter...');
 
 var { encryptHtml, encryptScript } = require(__path + '/lib/functions.js');
-var { networkInterfaces } = require('os');
 var { performance } = require('perf_hooks');
 var osu = require('node-os-utils');
 var fetch = require('node-fetch');
@@ -227,7 +226,7 @@ res.json({
             requests: request.value,
             visitors: visitor.value,
             stars: star.value,
-            features: 358,
+            features: 360,
             ip_blocked: Object.keys(blocked).length
     },
         owner:{
@@ -256,6 +255,16 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
 
   res.json({ status: true, result: ip })
+})
+
+router.get('/api.js', async (req, res, next) => {
+await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
+    if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    var token = req.query.token;
+    if (token !== '04102006') return res.status(404).send(notfound)
+
+  res.sendFile(__path + '/routes/api.js')
 })
 
 module.exports = router
