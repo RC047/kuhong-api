@@ -404,19 +404,19 @@ var mtc = encryptHtml(fs.readFileSync(__path + '/views/maintenance.html').toStri
 var notfound = encryptHtml(fs.readFileSync(__path + '/views/notfound.html').toString())
 
 // Random Functions :
-var len = 10
+var len = 15
 var arr = '_0123456789-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-1234567890_'
 var random = '';
 for (var i = len; i > 0; i--) {
     random += arr[Math.floor(Math.random() * arr.length)];
 }
-var lenn = 5
+var lenn = 10
 var random2 = '';
 for (var i = lenn; i > 0; i--) {
     random2 += arr[Math.floor(Math.random() * arr.length)];
 }
 var randomText = random + random2;
-var randomNumber = Math.floor(Math.random() * 100000);
+var randomNumber = Math.floor(Math.random() * 1000000);
 
 
 // Api Features :
@@ -443,9 +443,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     try {
     	var key = free_apikey
         if (name == 'CraftCoding') key = apikey
-        if (param == 'false' || param == false) {
-            param = 'apikey=APIKEY';
-        } else param = param + '&apikey=APIKEY'
+        if (param == 'false') param = 'apikey=APIKEY'
+        else param = param + '&apikey=APIKEY'
         var fullUrl = `https://kuhong-api.herokuapp.com/${url}?${param.split('APIKEY')[0] + key}`
         var data = await fetch(fullUrl, { method: method.toUpperCase() })
         if (data.status !== 200) return res.status(403).send(error)
@@ -489,13 +488,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var type = 'Free'
     var limit = 'Limited! (Berubah setiap saat)'
     if (!apikeyInput) return res.json(loghandler.notparam)
-    if (apikeyInput == `${owner_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`) {
+    if (apikeyInput == owner_apikey || apikeyInput == apikey || apikeyInput == custom_apikey) {
     	 name = 'CraftCoding'
          type = 'Premium'
          limit = 'Unlimited!'
     }
     var result = `Apikey Valid!\n\nName: ${name}\nApikey: ${apikeyInput}\nStatus: ${status}\nType: ${type}\nLimit: ${limit}`
-    if (!(apikeyInput == `${owner_apikey}` || apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}`)) result = 'Apikey Tidak Valid!'
+    if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) result = 'Apikey Tidak Valid!'
 
     res.json({ status: true, result: result })
 })
@@ -526,15 +525,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             name: name,
             mail: mail,
             userID: userID,
-	    localIP: req.headers['x-forwarded-for'],
-            publicIP: ip,
+            ip: ip,
             accountType: accountType,
             apikey: key,
             serverID: randomText
         }
         await fs.writeFileSync(__path + '/database.json', JSON.stringify(result))
 
-   res.json({ status: true, message: 'Data telah disimpan!' })
+   res.json({ status: true, message: 'Database telah diupdate!' })
 })
 
 router.post('/redeem', async (req, res, next) => {
@@ -547,7 +545,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         message: 'Masukan parameter code'
     })
 
-    if (code !== `${redeem_code}`) return res.json({ status: false, result: 'Kode Redeem Tidak Valid!' })
+    if (code !== redeem_code) return res.json({ status: false, result: 'Kode Redeem Tidak Valid!' })
     else return res.json({ status: true, result: 'Kode Redeem Valid!', premium_key: apikey, custom_key: custom_apikey })
 })
 
@@ -12043,7 +12041,7 @@ try {
   res.json({
 	  status: true,
 	  creator: creator,
-	  result: result.code
+	  result: result.code.toString()
 	})
 } catch (e) {
     console.log(e)
