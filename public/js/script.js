@@ -238,6 +238,7 @@ Remove Ads = 30K / Tahun
 All Packs = 75K / Bulan
 All Packs = 150K / Tahun
 
+
 *Silahkan pilih "Oke" untuk lanjut membeli.
 `.trim());
 
