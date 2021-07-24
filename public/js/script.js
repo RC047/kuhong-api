@@ -178,7 +178,7 @@ function getRating() {
 
 function getUserData() {
 
-getIpLocal(function (localIP) {
+getIpLocal(function (ip) {
 var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 
 alert(`
@@ -189,8 +189,8 @@ Mail: ${res.data.mail}
 User ID: ${res.data.userID}
 Account Type: ${res.data.accountType}
 Apikey: ${res.data.apikey}
-Local IP: ${localIP}
-Public IP: ${res.data.publicIP}
+Local IP: ${ip}
+Public IP: ${res.data.ip}
 Server ID: ${res.data.serverID}
 `.trim());
   });
@@ -206,7 +206,8 @@ alert(`
 STATISTICS :
 
 Status: ${res.data.stats.status}
-App: ${res.data.stats.platform}
+App: ${res.data.status.appName}
+Platform: ${res.data.stats.platform}
 Time: ${time}
 Uptime: ${res.data.stats.uptime}
 Users: ${res.data.total.users}
