@@ -20,7 +20,7 @@ function actionLogin() {
 var login = false;
 var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 var ip = fetchURI('https://api.ipify.org').data;
-if (!(res.data.name || res.data.publicIP == ip)) login = true;
+if (!(res.data.name || res.data.publicIP == ipPublic || res.data.localIP == ipLocal)) login = true;
 
 while (login) {
 var name = prompt(`
