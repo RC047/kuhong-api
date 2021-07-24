@@ -12,6 +12,7 @@ var {
     purba,
     stylizeText,
     tts,
+    formatLogs,
     wait,
     simih,
     getBuffer,
@@ -11641,8 +11642,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
   } catch (e) {
   	res.json({
      	status: true,
-         creator: creator,
-         result: formatLogs(e.message)
+        creator: creator,
+        result: formatLogs(e.message)
      })
    }
 })
