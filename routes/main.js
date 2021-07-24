@@ -6,6 +6,8 @@ var { performance } = require('perf_hooks');
 var osu = require('node-os-utils');
 var fetch = require('node-fetch');
 var express = require('express');
+var dns = require('dns');
+var os = require('os');
 var fs = require('fs');
 var router = express.Router();
 var blocked = new RegExp(['180.249.133.59'].join('|'), 'gi');
@@ -242,13 +244,10 @@ router.get('/ip', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    dns.lookup(os.hostname(), (err, local) => {
 
-  res.json({
-      status: true,
-      local: req.socket,
-      public: req.ip
-  })
-console.log(req);
+  res.json({ status: true, local: local, public: req.ip })
+ })
 })
 
 module.exports = router
