@@ -52,6 +52,7 @@ var res = fetchURI('https://kuhong-api.herokuapp.com/api/getinfo', {
       headers: 'application/x-www-form-urlencoded',
       body: 'name=' + name + '&url=' + url + '&param=' + encodeURIComponent(param) + '&method=' + method
 });
+if (!res.data.status) return alert('Internal Server Error (503)');
 
 var ok = confirm(`
 ${res.data.apiName} :
