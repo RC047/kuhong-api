@@ -1,11 +1,17 @@
+fetchURI = 'Usage: fetchURI(url, { method, headers, body })';
+
 function fetchURI(url, opts = { method: 'GET', headers: false, body: null }) {
+
+try {
+var err = (logs) => 'FetchError: ' + logs);
+if (!url) throw err('param cant be blank');
 var xhr = new XMLHttpRequest();
 xhr.open(opts.method.toUpperCase(), url, false);
 if (opts.headers) xhr.setRequestHeader('Content-type', opts.headers);
 xhr.send(opts.body);
 var data = xhr.responseText;
 if (/json/i.test(xhr.getAllResponseHeaders())) data = JSON.parse(xhr.responseText);
-var res = {
+  return {
 	status: xhr.status,
 	statusText: xhr.statusText,
 	headers:{
@@ -19,5 +25,7 @@ var res = {
 	body: opts.body,
 	data: data
   }
-   return res;
+} catch (e) {
+    throw err(e);
+    }
 }
