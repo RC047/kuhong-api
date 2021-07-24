@@ -41,6 +41,7 @@ var router = express.Router();
 var database = require(__path + '/lib/database.js');
 var creator = pickRandom(['Rendy', 'RendyGans', 'RendyGamteng', 'RendyCraft047', 'RC047', 'Kang Rendy']);
 var blocked = new RegExp(['180.249.133.59'].join('|'), 'gi');
+var setChange = (functions) => functions, setTimeout(functions, 60000));
 try { var kuhong = database.get('Kuhong') } catch (e) { console.log(e) }
 
 // Apikey :
