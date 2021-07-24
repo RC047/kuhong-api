@@ -18,12 +18,13 @@ $(document).ready(function() {
 function actionLogin() {
 
 var login = false;
+var name = null;
 var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 var ip = fetchURI('https://kuhong-api.herokuapp.com/ip');
 if (!(res.data.name || res.data.publicIP == ip.data.public || res.data.localIP == ip.data.local)) login = true;
 
 while (login) {
-var name = prompt(`
+name = prompt(`
 LOGIN REQUIRED :
 
 Silahkan masukan namamu disini untuk melanjutkan ke website :)
@@ -86,14 +87,14 @@ else return false;
 
 function runConsole() {
 
-  var console = prompt('RUN CONSOLE :\n\nSilahkan masukan kode Node JavaScript untuk menjalankan :');
-  if (console == '') alert('Masukan Kode!');
-  if (!console) return false;
-  if (console !== '') {
-  var res = fetchURI('https://kuhong-api.herokuapp.com/api/run', {
+  var code = prompt('RUN CONSOLE :\n\nSilahkan masukan kode NodeJS untuk menjalankan console :');
+  if (code == '') alert('Masukan Kode!');
+  if (!code) return false;
+  if (code !== '') {
+  var res = fetchURI('https://kuhong-api.herokuapp.com/api/console', {
         method: 'POST',
         headers: 'application/x-www-form-urlencoded',
-        body: 'console=' + console
+        body: 'code=' + code
   });
   alert(res.data.result);
   }
