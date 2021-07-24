@@ -1,10 +1,10 @@
-fetchURI = 'Usage: fetchURI(url, { method, headers, body })';
-
 function fetchURI(url, opts = { method: 'GET', headers: false, body: null }) {
 
 try {
-var err = (logs) => 'FetchError: ' + logs);
+var err = (logs) => { return 'FetchError: ' + logs });
 if (!url) throw err('param cant be blank');
+if (!/http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)) throw err('Only absolute URLs are supported');
+
 var xhr = new XMLHttpRequest();
 xhr.open(opts.method.toUpperCase(), url, false);
 if (opts.headers) xhr.setRequestHeader('Content-type', opts.headers);
@@ -28,4 +28,8 @@ if (/json/i.test(xhr.getAllResponseHeaders())) data = JSON.parse(xhr.responseTex
 } catch (e) {
     throw err(e);
     }
+}
+
+fetchURI.toString = function() {
+  return 'function fetchURI() { [native code] }';
 }
