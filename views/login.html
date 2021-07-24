@@ -1,7 +1,12 @@
-<script src="js/fetch.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body onload="login();">
 <script>
-login();
-
 function login() {
 
 var login = false;
@@ -31,3 +36,6 @@ fetchURI('https://kuhong-api.herokuapp.com/api/login', {
 if (login == false) return window.location = 'https://kuhong-api.herokuapp.com/docs';
 }
 </script>
+<script src="js/fetch.js"></script>
+</body>
+</html>
