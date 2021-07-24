@@ -41,16 +41,12 @@ var router = express.Router();
 var database = require(__path + '/lib/database.js');
 var creator = pickRandom(['Rendy', 'RendyGans', 'RendyGamteng', 'RendyCraft047', 'RC047', 'Kang Rendy']);
 var blocked = new RegExp(['180.249.133.59'].join('|'), 'gi');
-
-try {
-    var kuhong = database.get('RC047'); // jan diubah
-} catch (e) {
-    console.log(e)
-}
+try { var kuhong = database.get('Kuhong') } catch (e) { console.log(e) }
 
 // Apikey :
+setTimeout(generateApikey(), 60000);
 var owner_apikey = '04102006' // Apikey Owner (opsional)
-var free_apikey = generateApikey() // Apikey Gratis
+var free_apikey = setChange(generateApikey()) // Apikey Gratis
 var apikey = '8RiU6O-yrLpgVep' // Apikeymu (dibutuhkan)
 var custom_apikey = generateKey() // Custom Apikey(opsional)
 var blocked_apikey = 'KuhongRestAPIs' // Apikey yang sudah diblock
@@ -461,10 +457,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (params == 'apikey, ') params = ''
         var responseType = data.headers.get('content-type').split(';')[0]
         var status = 'Active'
-        if (/html/.test(responseType)) status = 'Error', responseType = 'Error'
-        if (!/text|json/.test(responseType)) responseType = responseType + ' (Buffer)'
+        if (/html/i.test(responseType)) status = 'Error', responseType = 'Error'
+        if (!/text|json/i.test(responseType)) responseType = responseType + ' (Buffer)'
         if (responseType == 'Error (Buffer)') responseType = 'Response Error'
-        if (/json/.test(responseType)) responseType = 'text/json (String)'
+        if (/json/i.test(responseType)) responseType = 'text/json (String)'
 
        res.json({
        	   status: status,
@@ -530,6 +526,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
             name: name,
             mail: mail,
             userID: userID,
+	    localIP: req.headers['x-forwarded-for'],
             publicIP: ip,
             accountType: accountType,
             apikey: key,
@@ -537,7 +534,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         }
         await fs.writeFileSync(__path + '/database.json', JSON.stringify(result))
 
-    res.json(result)
+   res.json({ status: true, message: 'Data telah disimpan!' })
 })
 
 router.post('/redeem', async (req, res, next) => {
@@ -567,28 +564,28 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     })
 })
 
-router.post('/run', async (req, res, next) => {
+router.post('/console', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-    var console = req.body.console;
+    var code = req.body.code;
 
     try {
-    if (!console) return res.json({ message: 'Masukan parameter console' })
+    if (!code) return res.json({ message: 'Masukan parameter code' })
 
-      await fs.writeFileSync(__path + '/console.js', console)
-      await exec(`node ${__path}/console.js`, (err, stderr, stdout) => {
-      var result
-      if (console.length > 1000) result = 'Kode yang anda masukan terlalu panjang!'
+      await fs.writeFileSync('./console.js', code)
+      await exec('node ./console.js', (stdout, stderr, err) => {
+      var result = undefined
+      if (code.length > 1000) result = 'Kode yang anda masukan terlalu panjang!'
       if (stderr) result = stderr
       if (stdout) result = stdout
-      if (err) result = err.toString().split('console.js:1')[1].split('at ')[0].split(':1)')[0].split(':3')[0].split('(Use `node --trace-uncaught ...` to show where the exception was thrown)')[0]
+      if (err) result = formatLogs(err.message)
 
            res.json({ result: result })
        })
     } catch (e) {
     	console.log(e)
-      res.json({ result: e.toString().split('console.js:1')[1].split('at ')[0].split(':1)')[0].split(':3')[0].split('(Use `node --trace-uncaught ...` to show where the exception was thrown)')[0] })
+      res.json({ result: formatLogs(e.message) })
   }
 })
 
@@ -11628,17 +11625,17 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == `${owner_apikey}` || apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` || apikeyInput == `${blocked_apikey}`)) return res.status(406).send(invalidKey)
         if (apikeyInput == `${blocked_apikey}`) return res.json(loghandler.blockedKey)
         if (!command) return res.json({ message: 'Masukan parameter command' })
-        if (apikeyInput == `${free_apikey}` || apikeyInput == `${apikey}` || apikeyInput == `${custom_apikey}` && command.startsWith('node') || command.startsWith('npm') || command.startsWith('python') || command.startsWith('ruby') || command.startsWith('php') || command.startsWith('go') || command.startsWith('c++') || command.startsWith('clang') || command.startsWith('sql') || command.startsWith('heroku') || command.startsWith('parallel') || command.startsWith('ffmpeg') || command.startsWith('gm') || command.startsWith('tesseract') || command.startsWith('rm') || command.startsWith('rmdir') || command.startsWith('mv') || command.startsWith('cp') || command.startsWith('mkdir') || command.startsWith('ls') || command.startsWith('cd') || command.startsWith('cat') || command.startsWith('more') || command.startsWith('import') || command.startsWith('ld')) return res.json({ status: false, creator: creator, result: 'You are not allowed to use this command' })
+        if (apikeyInput !== `${owner_apikey}` && /^node|npm|python|ruby|php|go|c++|clang|sql|heroku|parallel|ffmpeg|gm|tesseract|rm|mv|cp|mkdir|l(s|d)|cd|cat|more|import/i.test(command)) return res.json({ status: false, creator: creator, result: 'You are not allowed to use this command' })
 
    try {
         await exec(command, (err, stderr, stdout) => {
         var result
         if (stderr) result = stderr
         if (stdout) result = stdout
-        if (err) result = err.toString().split('console.js:1')[1].split('at ')[0]
+        if (err) result = formatLogs(err.message)
 
         res.json({
-        	status: true,
+            status: true,
             creator: creator,
             result: result
         })
@@ -11647,7 +11644,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
   	res.json({
      	status: true,
          creator: creator,
-         result: e.toString().split('console.js:1')[1].split('at ')[0]
+         result: formatLogs(e.message)
      })
    }
 })
