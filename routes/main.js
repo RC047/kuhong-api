@@ -240,14 +240,16 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
   res.json(JSON.parse(database))
 })
 
-router.get('/ip', async (req, res, next) => {
+router.post('/ip', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
-    dns.lookup(os.hostname(), (err, local) => {
+    var data = req.query.data;
 
-  res.json({ status: true, local: local, public: req.ip })
- })
+    if (!data) return res.json({ message: 'Masukan parameter data' })
+    await fs.writeFileSync(__path + '/local_ip.txt', data);
+
+  res.json({ message: 'success!' })
 })
 
 module.exports = router
