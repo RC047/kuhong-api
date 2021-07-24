@@ -239,19 +239,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
   res.json(JSON.parse(database))
 })
 
-router.get('/ip', async (req, res, next) => {
-await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
-var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
-    if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
-
-var nets = networkInterfaces();
-var results = {};
-for (var name of Object.keys(nets)) for (var net of nets[name]) if (net.family === 'IPv4' && !net.internal) if (!results[name]) results[name] = [], results[name].push(net.address);
-var local = JSON.stringify(results).split('[')[1].split(']')[0].replace(/["]/g, '');
-
-  res.json({ local: local, public: req.ip })
-})
-
 module.exports = router
 
 function muptime(seconds) {
