@@ -193,7 +193,7 @@ Local IP: ${localIP}
 Public IP: ${res.data.publicIP}
 Server ID: ${res.data.serverID}
 `.trim());
-  }
+  });
 }
 
 function getStatistics() {
