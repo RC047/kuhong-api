@@ -178,7 +178,7 @@ function getRating() {
 
 function getUserData() {
 
-getIpLocal(function (ip) {
+getIpLocal().then(ip => {
 var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 
 alert(`
@@ -246,18 +246,20 @@ if (buy) window.location = 'https://wa.me/62895337278647';
 else return false;
 }
 
-function getIpLocal(callback) {
-window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-var rtc = new RTCPeerConnection({ iceServers: [] });
-noop = function() {};
-rtc.createDataChannel('');
-rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
-rtc.onicecandidate = function(ice) {
-var res = 'Not Located';
-if (ice.candidate !== null) res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
-callback(res);
-rtc.onicecandidate = noop;
-    }
+function getIpLocal() {
+
+return new Promise(resolve => {
+  window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+  var rtc = new RTCPeerConnection({ iceServers: [] });
+  noop = function() {};
+  rtc.createDataChannel('');
+  rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
+  rtc.onicecandidate = function(ice) {
+  var res = 'Not Located';
+  if (ice.candidate !== null) res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+  rtc.onicecandidate = noop;
+      resolve(res);
+  }});
 }
 
 // End of script :P
