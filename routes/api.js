@@ -1,5 +1,5 @@
 __path = process.cwd();
-console.log('Starting api...');
+console.log('Starting apirouter...');
 
 // Database :
 var {
