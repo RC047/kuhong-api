@@ -22,24 +22,8 @@ var name = null;
 var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 var ip = fetchURI('http://api.ipify.org/');
 if (!(res.data.name || res.data.publicIP == ip.data)) login = true;
-
-while (login) {
-name = prompt(`
-LOGIN REQUIRED :
-
-Silahkan masukan namamu disini untuk melanjutkan ke website :)
-`.trim());
-
-if (name == null) alert('Login dibutuhkan!');
-else if (name == '') name = 'Guest', login = false;
-else if (name !== '') login = false;
-}
-
-  return fetchURI('https://kuhong-api.herokuapp.com/api/login', {
-     method: 'POST',
-     headers: 'application/x-www-form-urlencoded',
-     body: 'name=' + name
-  });
+if (login) return window.location = 'https://kuhong-api.herokuapp.com/login';
+  else return false;
 }
 
 window.setTimeout('setTimes();', 1000);
