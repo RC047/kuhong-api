@@ -247,7 +247,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 var nets = networkInterfaces();
 var results = {};
 for (var name of Object.keys(nets)) for (var net of nets[name]) if (net.family === 'IPv4' && !net.internal) if (!results[name]) results[name] = [], results[name].push(net.address);
-var ip = JSON.stringify(results).split('[')[1].split(']')[0].replace(/["]/g, '');
+var local = JSON.stringify(results).split('[')[1].split(']')[0].replace(/["]/g, '');
 
   res.json({ local: local, public: req.ip })
 })
