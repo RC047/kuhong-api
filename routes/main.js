@@ -49,6 +49,17 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     res.send(await encryptHtml(docs))
 })
 
+router.get('/login', async (req, res, next) => {
+await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
+    if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
+    var devMode = req.query.dev;
+    var login = await fs.readFileSync(__path + '/views/login.html').toString()
+    var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
+    if (devMode == 'true') login = login + devTools
+    res.send(await encryptHtml(login))
+})
+
 router.get('/game/pingpong', async  (req, res) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
