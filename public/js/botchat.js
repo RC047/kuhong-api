@@ -15,7 +15,8 @@ var userVerified = false;
 var isVerified = false;
 var publicChat = false;
 var newLine = unescape('%3Cbr%3E');
-var nama = 'Guest' + Math.floor(Math.random() * 10000);
+var nama = fetchURI('https://kuhong-api.herokuapp.com/database.json').data.name;
+if (!nama) window.location = 'https://kuhong-api.herokuapp.com/login';
 document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
 
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
@@ -121,7 +122,8 @@ var pesan = document.getElementById("message").value;
 if (pesan == '') return false;
 if (pesan.length > 500) return alert('Pesan terlalu panjang!');
 if (pesan.startsWith('http') || pesan.endsWith('com')) pesan = link(pesan);
-var send = newLine + getDate() + color(nama + ': ', 'red') + pesan.replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E'));
+if (isToxic(pesan)) pesan = censor(pesan);
+var send = newLine + getDate() + color(nama + ': ', 'red') + pesan.replace(/[\n]/g, newLine).replace(/_/g, unescape('%3Cvar%3E')).replace(/\*/g, unescape('%3Cstrong%3E'));
 document.getElementById("no-message").innerHTML = '';
 document.getElementById("chat").innerHTML += send;
 setTimeout(() => getBotMessage(pesan), 1000);
@@ -181,7 +183,8 @@ iframe.click();
 function sendBotMessage(message) {
 var botName = isTag('KuhongBot (Verified): ', true);
 if (message.startsWith('http') || message.endsWith('com')) message = link(message);
-var send = newLine + getDate() + botName + message;
+if (isToxic(message)) message = censor(message);
+var send = newLine + getDate() + botName + message.replace(/[\n]/g, newLine);
 document.getElementById("chat").innerHTML += send;
 }
 
@@ -277,6 +280,18 @@ function isURL(url) {
   return /http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url);
 }
 
+function isToxic(pesan) {
+  return /(a(su|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(pesan);
+}
+
+function censor(pesan) {
+return pesan.replace(/(a(su|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/g, function (match) {
+    var censored = '';
+    for (var i = 0; i < match.length; i++) censored += '*';
+    return censored;
+    });
+}
+
 function getBotMessageWithCommand(cmd) {
 
 var loghandler = {
@@ -367,7 +382,9 @@ document.getElementById("no-message").innerHTML = newLine + getDate() + tilt('Ti
 
 } else if (/^battery/i.test(command)) {
 
-navigator.getBattery().then(status => sendBotMessage(status.level * 100 + '%')).catch(() => sendBotMessage('Tidak Terdeteksi'));
+navigator.getBattery()
+   .then(status => sendBotMessage(status.level * 100 + '%'))
+   .catch(() => sendBotMessage('Tidak Terdeteksi'));
 
 } else if (/^time/i.test(command)) {
 
@@ -387,32 +404,28 @@ var ping = `${neww - old}.${date.getMilliseconds() + 'ms'}`;
 var text = command.split('intro ')[1];
 if (!text) return sendBotMessage(loghandler.notText);
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('intro.mp4', 'https://kuhong-api.herokuapp.com/api/intromaker?text=' + text + '&apikey=' + getApikey(), 'Nih Intronyaa');
+    setTimeout(() => sendMediaBotMessage('intro.mp4', 'https://kuhong-api.herokuapp.com/api/intromaker?text=' + text + '&apikey=' + getApikey(), 'Nih Intronyaa'), 5000);
 
 } else if (/^image/i.test(command)) {
 
 var query = command.split('image ')[1];
 if (!query) return sendBotMessage(loghandler.notQuery);
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('image.png', 'https://kuhong-api.herokuapp.com/api/gimage?q=' + query + '&apikey=' + getApikey(), 'Hasil pencarian :' + newLine + bold(query));
+    setTimeout(() => sendMediaBotMessage('image.png', 'https://kuhong-api.herokuapp.com/api/gimage?q=' + query + '&apikey=' + getApikey(), 'Hasil pencarian :' + newLine + bold(query)), 5000);
 
 } else if (/^attp/i.test(command)) {
 
 var text = command.split('attp ')[1];
 if (!text) return sendBotMessage(loghandler.notText);
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('attp.webp', 'https://kuhong-api.herokuapp.com/api/attp?text=' + text + '&apikey=' + getApikey());
+    setTimeout(() => sendMediaBotMessage('attp.webp', 'https://kuhong-api.herokuapp.com/api/attp?text=' + text + '&apikey=' + getApikey()), 5000);
 
 } else if (/^ttp/i.test(command)) {
 
 var text = command.split('ttp ')[1];
 if (!text) return sendBotMessage(loghandler.notText);
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('ttp.webp', 'https://kuhong-api.herokuapp.com/api/ttp2?text=' + text + '&apikey=' + getApikey());
+    setTimeout(() => sendMediaBotMessage('ttp.webp', 'https://kuhong-api.herokuapp.com/api/ttp2?text=' + text + '&apikey=' + getApikey()), 5000);
 
 } else if (/^stic?ker/i.test(command)) {
 
@@ -421,13 +434,11 @@ if (!args) return sendBotMessage(loghandler.notUrl + or + loghandler.notCaption)
 if (args == 'MEDIA_MESSAGE_CAPTION') {
     downloadMediaMessage().then(url => {
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
+    setTimeout(() => sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey()), 5000);
     });
 } else if (isURL(args)) {
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + args + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
+    setTimeout(() => sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + args + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey()), 5000);
 } else return sendBotMessage(loghandler.invalidLink);
 
 } else if (/^toimg/i.test(command)) {
@@ -437,8 +448,7 @@ if (!url) return sendBotMessage(loghandler.notUrl);
 if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/toimg?webp=' + url + '&apikey=' + getApikey());
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('toimg.png', res.data.result, 'Berhasil dikonversi ke Gambar!');
+    setTimeout(() => sendMediaBotMessage('toimg.png', res.data.result, 'Berhasil dikonversi ke Gambar!'), 5000);
 
 } else if (/^ytmp(3|4)/i.test(command)) {
 
@@ -447,8 +457,7 @@ if (!url) return sendBotMessage(loghandler.notUrl);
 if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/' + command.slice(0, 5) + '?url=' + url + '&apikey=' + getApikey());
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage(command.startsWith('ytmp4') ? 'video.mp4' : 'audio.mp3', res.data.result.link, 'Title: ' + res.data.result.title + newLine + 'Size: ' + res.data.result.size);
+    setTimeout(() => sendMediaBotMessage(command.startsWith('ytmp4') ? 'video.mp4' : 'audio.mp3', res.data.result.link, 'Title: ' + res.data.result.title + newLine + 'Size: ' + res.data.result.size), 5000);
 
 } else if (/^8bit/i.test(command)) {
 
@@ -456,8 +465,7 @@ var url = command.split('8bit ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('8bit.png', 'https://kuhong-api.herokuapp.com/api/8bit?img=' + url + '&apikey=' + getApikey(), 'Awokakakk Buriqq');
+    setTimeout(() => sendMediaBotMessage('8bit.png', 'https://kuhong-api.herokuapp.com/api/8bit?img=' + url + '&apikey=' + getApikey(), 'Awokakakk Buriqq'), 5000);
 
 } else if (/^blur/i.test(command)) {
 
@@ -465,8 +473,7 @@ var url = command.split('blur ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('blur.png', 'https://kuhong-api.herokuapp.com/api/blur?img=' + url + '&apikey=' + getApikey(), 'Ngebluurrr');
+    setTimeout(() => sendMediaBotMessage('blur.png', 'https://kuhong-api.herokuapp.com/api/blur?img=' + url + '&apikey=' + getApikey(), 'Ngebluurrr'), 5000);
 
 } else if (/^wasted/i.test(command)) {
 
@@ -474,8 +481,7 @@ var url = command.split('wasted ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('wasted.png', 'https://kuhong-api.herokuapp.com/api/wasted?img=' + url + '&apikey=' + getApikey(), 'rip');
+    setTimeout(() => sendMediaBotMessage('wasted.png', 'https://kuhong-api.herokuapp.com/api/wasted?img=' + url + '&apikey=' + getApikey(), 'rip'), 5000);
 
 } else if (/^burning/i.test(command)) {
 
@@ -483,8 +489,7 @@ var url = command.split('burning ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('burning.gif', 'https://kuhong-api.herokuapp.com/api/burning?img=' + url + '&apikey=' + getApikey(), 'Nihh');
+    setTimeout(() => sendMediaBotMessage('burning.gif', 'https://kuhong-api.herokuapp.com/api/burning?img=' + url + '&apikey=' + getApikey(), 'Nihh'), 5000);
 
 } else if (/^trigger/i.test(command)) {
 
@@ -492,16 +497,14 @@ var url = command.split('trigger ')[1];
 if (!url) return sendBotMessage(loghandler.notUrl);
 if (!isURL(url)) return sendBotMessage(loghandler.invalidLink);
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('trigger.gif', 'https://kuhong-api.herokuapp.com/api/triggered?img=' + url + '&apikey=' + getApikey());
+    setTimeout(() => sendMediaBotMessage('trigger.gif', 'https://kuhong-api.herokuapp.com/api/triggered?img=' + url + '&apikey=' + getApikey()), 5000);
 
 } else if (/^tahta/i.test(command)) {
 
 var text = command.split('tahta ')[1];
 if (!text) return sendBotMessage(loghandler.notText);
     sendBotMessage(loghandler.wait);
-    delay(5000);
-    sendMediaBotMessage('tahta.png', 'https://kuhong-api.herokuapp.com/api/tahta?text=' + text + '&apikey=' + getApikey(), 'Harta tahta ' + text);
+    setTimeout(() => sendMediaBotMessage('tahta.png', 'https://kuhong-api.herokuapp.com/api/tahta?text=' + text + '&apikey=' + getApikey(), 'Harta tahta ' + text), 5000);
 
 } else if (/^fetch/i.test(command)) {
 
@@ -764,10 +767,6 @@ var res = fetchURI('https://kuhong-api.herokuapp.com/api/faktaunik?apikey=' + ge
      console.error(e);
   sendBotMessage('Telah terjadi error!');
   }
-}
-
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function pickRandom(list) {
