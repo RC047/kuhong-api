@@ -50,7 +50,7 @@ var name = user.data.name || 'Guest';
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/getinfo', {
       method: 'POST',
       headers: 'application/x-www-form-urlencoded',
-      body: 'name=' + name + '&url=' + url + '&param=' + escape(param) + '&method=' + method
+      body: 'name=' + name + '&url=' + url + '&param=' + encodeURIComponent(param) + '&method=' + method
 });
 
 var ok = confirm(`
