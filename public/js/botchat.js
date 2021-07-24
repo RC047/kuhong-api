@@ -535,8 +535,8 @@ if (type == 'local') {
 	     }
     }
 if (type == 'public') {
-    var res = fetchURI('https://api.ipify.org');
-    sendBotMessage(res.data);
+    var res = fetchURI('https://kuhong-api.herokuapp.com/ip');
+    sendBotMessage(res.data.result);
     }
 
 } else if (/^tts/i.test(command)) {
