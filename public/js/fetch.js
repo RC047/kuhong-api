@@ -1,8 +1,9 @@
 function fetchURI(url, opts = { method: 'GET', headers: false, body: null }) {
 
-if (!url) throw err('param cant be blank');
-if (!/http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)) throw err('Only absolute URLs are supported');
+if (!url) return err('param cant be blank');
+if (!/http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)) return err('Only absolute URLs are supported');
 
+if (url) {
 var xhr = new XMLHttpRequest();
 xhr.open(opts.method.toUpperCase(), url, false);
 if (opts.headers) xhr.setRequestHeader('Content-type', opts.headers);
@@ -24,10 +25,11 @@ if (/json/i.test(xhr.getAllResponseHeaders())) data = JSON.parse(xhr.responseTex
 	body: opts.body,
 	data: data
   }
+ }
 }
 
 function err(logs) {
-  return 'FetchError: ' + logs;
+  return console.error('FetchError: ' + logs);
 }
 
 fetchURI.toString = function() {
