@@ -14,14 +14,14 @@ $(document).ready(function() {
     });
 });
 
+var user = fetchURI('https://kuhong-api.herokuapp.com/database.json');
+if (!user.data.name) actionLogin();
 
 function actionLogin() {
 
 var login = false;
-var name = null;
-var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
-var ip = fetchURI('http://api.ipify.org/');
-if (!(res.data.name || res.data.publicIP == ip.data)) login = true;
+var res = fetchURI('http://api.ipify.org');
+if (user.data.publicIP !== res.data) login = true;
 if (login) return window.location = 'https://kuhong-api.herokuapp.com/login';
   else return false;
 }
@@ -29,7 +29,6 @@ if (login) return window.location = 'https://kuhong-api.herokuapp.com/login';
 window.setTimeout('setTimes();', 1000);
 function setTimes() {
 
-    var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
     var date = new Date();
     var time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
     var ucapan;
@@ -37,7 +36,7 @@ function setTimes() {
     if (date.getHours() == 10 || date.getHours() == 11 || date.getHours() == 12 || date.getHours() == 13 || date.getHours() == 14) ucapan = 'Selamat Siang';
     if (date.getHours() == 15 || date.getHours() == 16 || date.getHours() == 17) ucapan = 'Selamat Sore';
     if (date.getHours() == 18 || date.getHours() == 19 || date.getHours() == 20 || date.getHours() == 21 || date.getHours() == 22 || date.getHours() == 23) ucapan = 'Selamat Malam';
-    var notif = `${ucapan} ${res.data.name}!`;
+    var notif = `${ucapan} ${user.data.name}!`;
 
 window.setTimeout('setTimes();', 1000);
 document.getElementById("time").innerHTML = time;
@@ -46,11 +45,10 @@ document.getElementById("notif").innerHTML = notif;
 
 function getInfo(url, param, method) {
 
-var name = fetchURI('https://kuhong-api.herokuapp.com/database.json').data.name;
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/getinfo', {
       method: 'POST',
       headers: 'application/x-www-form-urlencoded',
-      body: 'name=' + name + '&url=' + url + '&param=' + escape(param) + '&method=' + method
+      body: 'name=' + user.data.name + '&url=' + url + '&param=' + escape(param) + '&method=' + method
 });
 
 var ok = confirm(`
@@ -180,16 +178,8 @@ function getRating() {
 
 function getUserData() {
 
-  window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-  var rtc = new RTCPeerConnection({ iceServers: [] });
-  noop = function() {};
-  rtc.createDataChannel('');
-  rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
-  rtc.onicecandidate = function(ice) {
-  var localIP = 'Not Located';
-  if (ice.candidate !== null) localIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
-  rtc.onicecandidate = noop;
-  var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
+getIpLocal(function (localIP) {
+var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 
 alert(`
 MY ACCOUNT :
@@ -254,5 +244,18 @@ if (buy) window.location = 'https://wa.me/62895337278647';
 else return false;
 }
 
+function getIpLocal(callback) {
+window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
+var rtc = new RTCPeerConnection({ iceServers: [] });
+noop = function() {};
+rtc.createDataChannel('');
+rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
+rtc.onicecandidate = function(ice) {
+var res = 'Not Located';
+if (ice.candidate !== null) res = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+callback(res);
+rtc.onicecandidate = noop;
+    }
+}
 
 // End of script :P
