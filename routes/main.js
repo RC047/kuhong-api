@@ -1,7 +1,7 @@
 __path = process.cwd();
 console.log('Starting mainrouter...');
 
-var { pickRandom, encryptHtml, encryptScript } = require(__path + '/lib/functions.js');
+var { encryptHtml, encryptScript } = require(__path + '/lib/functions.js');
 var { performance } = require('perf_hooks');
 var osu = require('node-os-utils');
 var fetch = require('node-fetch');
@@ -245,9 +245,10 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
   res.json({
       status: true,
-      local: pickRandom([req.connection.remoteAddress, req.socket.remoteAddress, req.connection.socket.remoteAddress]),
+      local: req.socket,
       public: req.ip
   })
+console.log(req);
 })
 
 module.exports = router
