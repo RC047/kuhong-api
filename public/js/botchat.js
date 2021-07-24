@@ -152,7 +152,8 @@ document.querySelector("input[type=file]").value = '';
 historyMessage += input.name + '\n';
 }
 
-function downloadMediaMessage(callback) {
+function downloadMediaMessage() {
+return new Promise(resolve => {
 var fr = new FileReader();
 var input = document.querySelector("input[type=file]").files[0];
 if (!input) return false;
@@ -161,11 +162,13 @@ var ext = input.name.slice(input.name.length - 3);
     fetch(fr.result).then(res => res.blob()).then(file => {
     var form = new FormData();
     form.append('data', file, 'tmp.' + ext.toLowerCase());
-    fetch('https://kuhong-api.herokuapp.com/api/upload', { method: 'POST', body: form })
-      .then(res => res.json()).then(json => callback(json.result));
-      });
-    }
+    fetch('https://kuhong-api.herokuapp.com/api/upload', {
+       method: 'POST',
+       body: form
+    }).then(res => res.json()).then(json => resolve(json.result));
+      })};
 fr.readAsDataURL(input);
+ });
 }
 
 function downloadAsDocument(url) {
@@ -416,7 +419,7 @@ if (!text) return sendBotMessage(loghandler.notText);
 var args = command.split('ker ')[1];
 if (!args) return sendBotMessage(loghandler.notUrl + or + loghandler.notCaption);
 if (args == 'MEDIA_MESSAGE_CAPTION') {
-    downloadMediaMessage((url) => {
+    downloadMediaMessage().then(url => {
     sendBotMessage(loghandler.wait);
     delay(5000);
     sendMediaBotMessage('sticker.webp', 'https://kuhong-api.herokuapp.com/api/stickerwm?url=' + url + '&packname=Sticker%20Maker&author=Kuhong%20Bot&apikey=' + getApikey());
