@@ -46,7 +46,7 @@ var blocked = new RegExp(['180.249.133.59'].join('|'), 'gi');
 try { var kuhong = database.get('Kuhong') } catch (e) { console.log(e) }
 
 // Apikey :
-setTimeout(generateApikey(), 60000);
+setTimeout(setChange(generateApikey()), 60000);
 var owner_apikey = '04102006' // Apikey Owner (opsional)
 var free_apikey = setChange(generateApikey()) // Apikey Gratis
 var apikey = '8RiU6O-yrLpgVep' // Apikeymu (dibutuhkan)
