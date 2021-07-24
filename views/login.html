@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
 </head>
 <body onload="login();">
 <script>
@@ -11,9 +11,6 @@ function login() {
 
 var login = false;
 var name = null;
-var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
-var ip = fetchURI('http://api.ipify.org');
-if (!(res.data.name || res.data.publicIP == ip.data)) login = true;
 
 while (login) {
 name = prompt(`
