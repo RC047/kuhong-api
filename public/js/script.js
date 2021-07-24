@@ -19,8 +19,8 @@ function actionLogin() {
 
 var login = false;
 var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
-var ip = fetchURI('https://api.ipify.org').data;
-if (!(res.data.name || res.data.publicIP == ipPublic || res.data.localIP == ipLocal)) login = true;
+var ip = fetchURI('https://kuhong-api.herokuapp.com/ip');
+if (!(res.data.name || res.data.publicIP == ip.data.public || res.data.localIP == ip.data.local)) login = true;
 
 while (login) {
 var name = prompt(`
@@ -34,7 +34,11 @@ else if (name == '') name = 'Guest', login = false;
 else if (name !== '') login = false;
 }
 
-    return fetchURI('https://kuhong-api.herokuapp.com/api/login', { method: 'POST', headers: 'application/x-www-form-urlencoded', body: 'name=' + name });
+  return fetchURI('https://kuhong-api.herokuapp.com/api/login', {
+     method: 'POST',
+     headers: 'application/x-www-form-urlencoded',
+     body: 'name=' + name
+  });
 }
 
 window.setTimeout('setTimes();', 1000);
@@ -48,10 +52,11 @@ function setTimes() {
     if (date.getHours() == 10 || date.getHours() == 11 || date.getHours() == 12 || date.getHours() == 13 || date.getHours() == 14) ucapan = 'Selamat Siang';
     if (date.getHours() == 15 || date.getHours() == 16 || date.getHours() == 17) ucapan = 'Selamat Sore';
     if (date.getHours() == 18 || date.getHours() == 19 || date.getHours() == 20 || date.getHours() == 21 || date.getHours() == 22 || date.getHours() == 23) ucapan = 'Selamat Malam';
-    var notif = ucapan + ' ' + res.data.name + '!';
-        window.setTimeout('setTimes();', 1000);
-        document.getElementById("time").innerHTML = time;
-        document.getElementById("notif").innerHTML = notif;
+    var notif = `${ucapan} ${res.data.name}!`;
+
+window.setTimeout('setTimes();', 1000);
+document.getElementById("time").innerHTML = time;
+document.getElementById("notif").innerHTML = notif;
 }
 
 function getInfo(url, param, method) {
