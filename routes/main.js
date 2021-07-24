@@ -1,4 +1,5 @@
 __path = process.cwd();
+console.log('Starting mainrouter...');
 
 var { encryptHtml, encryptScript } = require(__path + '/lib/functions.js');
 var { performance } = require('perf_hooks');
