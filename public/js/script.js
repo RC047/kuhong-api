@@ -20,8 +20,8 @@ if (!user.data.name) actionLogin();
 function actionLogin() {
 
 var login = false;
-var res = fetchURI('http://api.ipify.org');
-if (user.data.publicIP !== res.data) login = true;
+var res = fetchURI('https://kuhong-api.herokuapp.com/ip');
+if (user.data.publicIP !== res.data.result) login = true;
 if (login) return window.location = 'https://kuhong-api.herokuapp.com/login';
   else return false;
 }
