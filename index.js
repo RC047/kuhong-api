@@ -9,12 +9,13 @@ var fs = require('fs');
 var { encryptHtml, encryptScript } = require('./lib/functions.js');
 var { color } = require('./lib/color.js');
 
-fs.writeFileSync('./public/js/script.js', encryptScript(fs.readFileSync('./public/js/script.js').toString()));
-fs.writeFileSync('./public/js/botchat.js', encryptScript(fs.readFileSync('./public/js/botchat.js').toString()));
-fs.writeFileSync('./public/js/type.js', encryptScript(fs.readFileSync('./public/js/type.js').toString()));
-fs.writeFileSync('./public/js/ads.js', encryptScript(fs.readFileSync('./public/js/ads.js').toString()));
-fs.writeFileSync('./public/js/autoload.js', encryptScript(fs.readFileSync('./public/js/autoload.js').toString()));
-fs.writeFileSync('./public/js/fetch.js', encryptScript(fs.readFileSync('./public/js/fetch.js').toString()));
+encryptScript(fs.readFileSync('./public/js/script.js').toString()).then(fs.writeFileSync('./public/js/script.js'));
+encryptScript(fs.readFileSync('./public/js/botchat.js').toString()).then(fs.writeFileSync('./public/js/botchat.js'));
+encryptScript(fs.readFileSync('./public/js/login.js').toString()).then(fs.writeFileSync('./public/js/login.js'));
+encryptScript(fs.readFileSync('./public/js/type.js').toString()).then(fs.writeFileSync('./public/js/type.js'));
+encryptScript(fs.readFileSync('./public/js/ads.js').toString()).then(fs.writeFileSync('./public/js/ads.js'));
+encryptScript(fs.readFileSync('./public/js/autoload.js').toString()).then(fs.writeFileSync('./public/js/autoload.js'));
+encryptScript(fs.readFileSync('./public/js/fetch.js').toString()).then(fs.writeFileSync('./public/js/fetch.js'));
 
 var PORT = process.env.PORT || 8000 || 5000 || 3000,
     mainrouter = require('./routes/main.js'),
