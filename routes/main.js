@@ -227,7 +227,7 @@ res.json({
             visitors: visitor.value,
             stars: star.value,
             features: 360,
-            ip_blocked: Object.keys(blocked).length
+            ip_blocked: Object.keys(blocked.split('|')).length
     },
         owner:{
             nama: 'Rendy',
