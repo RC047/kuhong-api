@@ -12029,6 +12029,7 @@ try {
 	  creator: creator,
 	  result: result
 	})
+    })
 } catch (e) {
     console.log(e)
   res.status(403).send(error)
