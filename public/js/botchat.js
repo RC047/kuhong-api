@@ -15,9 +15,10 @@ var userVerified = false;
 var isVerified = false;
 var publicChat = false;
 var newLine = unescape('%3Cbr%3E');
-var nama = fetchURI('https://kuhong-api.herokuapp.com/database.json').data.name;
-var user = fetchURI('https://kuhong-api.herokuapp.com/ip');
-if (!(user.data.ip == res.data.result || nama)) window.location = 'https://kuhong-api.herokuapp.com/login';
+var user = fetchURI('https://kuhong-api.herokuapp.com/database.json');
+var ip = fetchURI('https://kuhong-api.herokuapp.com/ip');
+if (!(user.data.name || user.data.ip == ip.data.result)) window.location = 'https://kuhong-api.herokuapp.com/login?location=botchat';
+var nama = user.data.name || 'Guest';
 document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
 
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
