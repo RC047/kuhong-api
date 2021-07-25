@@ -575,7 +575,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!code) return res.json({ message: 'Masukan parameter code' })
 
       await fs.writeFileSync('./console.js', code)
-      await execSync('node ./console.js', (stdout, stderr, err) => {
+      await exec('node ./console.js', (stdout, stderr, err) => {
       var result
       if (code.length > 1000) result = 'Kode yang anda masukan terlalu panjang!'
       if (stderr) result = stderr
@@ -11854,17 +11854,11 @@ for (var i = 10; i > 0; i--) {
    else if (passInput == '${pass}') i = 0, lock = false, window.location = '${url}';
    }
 }
-`.trim()).then(script => {
-    	var data = `
-<script src="https://kuhong-api.herokuapp.com/js/ads.js"></script>
-<script>
-${script}
-</script>
-`.trim()
-    	var result = encryptHtml(data, 'URL Locker provided by Kuhong - Rest API')
+`.trim()).then(script => fs.writeFileSync(__path + '/public/js/locker.js', script))
+    	var data = '<script src="https://kuhong-api.herokuapp.com/js/locker.js"></script><script src="https://kuhong-api.herokuapp.com/js/ads.js"></script>'
+    	var result = await encryptHtml(data, 'URL Locker provided by Kuhong - Rest API')
 
      res.send(result)
-     });
   } catch (e) {
       console.error(e)
     res.status(403).send(error)
@@ -12055,7 +12049,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!code) return res.json({ status: false, message: 'Masukan parameter code' })
 
 try {
-    await obfuscate(code, { target: 'node', preset: 'medium', minify: true })
+    await obfuscate(code, { target: 'node', preset: 'low', minify: true })
 	.then(result => {
 
   res.json({
