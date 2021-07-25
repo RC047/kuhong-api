@@ -11990,7 +11990,7 @@ border: 0;
   }
 })
 
-router.get('/upload', formidable({ encoding: 'UTF-8', uploadDir: '/tmp/', multiples: true }), async (req, res, next) => {
+router.all('/upload', formidable({ encoding: 'UTF-8', uploadDir: '/tmp/', multiples: true }), async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
