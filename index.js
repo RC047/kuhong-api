@@ -1,3 +1,4 @@
+__path = process.cwd();
 console.log('Starting...');
 
 var express = require('express');
