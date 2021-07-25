@@ -1,4 +1,4 @@
-function login() {
+function login(href) {
 
 var login = true;
 var name = null;
@@ -21,5 +21,5 @@ fetchURI('https://kuhong-api.herokuapp.com/api/login', {
      body: 'name=' + name
 });
 
-if (login == false) return window.location = 'https://kuhong-api.herokuapp.com/docs';
+if (login == false) return window.location = 'https://kuhong-api.herokuapp.com/' + href;
 }
