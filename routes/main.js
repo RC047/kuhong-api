@@ -42,7 +42,7 @@ await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
     var devMode = req.query.dev;
-    var docs = await fs.readFileSync(__path + '/views/docs.html').toString().replace(/(blank.css)/g, 'docs.css')
+    var docs = await fs.readFileSync(__path + '/views/docs.html').toString()
     var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
     if (devMode == 'true') docs = docs + devTools
     res.send(await encryptHtml(docs))
@@ -52,7 +52,9 @@ router.get('/login', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/visits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json({ message: 'Kamu telah diblokir oleh Owner!' })
-    var devMode = req.query.dev;
+    var location = req.query.location,
+        devMode = req.query.dev;
+    if (!location) return res.json({ status: false, message: 'Masukan parameter location' })
     var login = await fs.readFileSync(__path + '/views/login.html').toString()
     var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
     if (devMode == 'true') login = login + devTools
@@ -140,8 +142,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         devMode = req.query.dev;
 
     var bot = await fs.readFileSync(__path + '/views/botchat.html').toString()
-    if (platform == 'mobile') bot = await fs.readFileSync(__path + '/views/botchat.html').toString().replace(/(blank.css)/g, 'botchat-mobile.css')
-    if (platform == 'window') bot = await fs.readFileSync(__path + '/views/botchat.html').toString().replace(/(blank.css)/g, 'botchat-window.css')
+    if (platform == 'mobile') bot = await fs.readFileSync(__path + '/views/botchat.html').toString().replace(/(botchat.css)/g, 'botchat-mobile.css')
+    if (platform == 'window') bot = await fs.readFileSync(__path + '/views/botchat.html').toString().replace(/(botchat.css)/g, 'botchat-window.css')
     var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
     if (devMode == 'true') bot = bot + devTools
     res.send(await encryptHtml(bot))
