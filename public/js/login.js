@@ -1,8 +1,7 @@
-function login(href) {
+function login() {
 
 var login = true;
 var name = null;
-if (!href) return document.write('Internal Server Error (503)');
 
 while (login) {
 name = prompt(`
@@ -22,5 +21,5 @@ fetchURI('https://kuhong-api.herokuapp.com/api/login', {
      body: 'name=' + name
 });
 
-if (login == false) return window.location = 'https://kuhong-api.herokuapp.com/' + href;
+if (login == false) return window.location = 'https://kuhong-api.herokuapp.com/docs';
 }
