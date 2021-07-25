@@ -1,4 +1,4 @@
-[08.52, 25/7/2021] rendy.js: /* BOTCHAT.JS
+/* BOTCHAT.JS
  * Author: RC047
  * Description: A Simple Web Bot
  * Copyright: © 2021
