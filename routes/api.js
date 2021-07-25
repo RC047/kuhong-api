@@ -449,7 +449,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         else param = param + '&apikey=APIKEY'
         var fullUrl = `https://kuhong-api.herokuapp.com/${url}?${param.split('APIKEY')[0] + key}`
         var data = await fetch(fullUrl, { method: method.toUpperCase() })
-        if (data.status !== 200) return res.status(403).send(error)
         var entries = new URLSearchParams(param.split('&apikey=APIKEY')[0]).entries()
         var params = ''
         for (var entry of entries) {
@@ -457,6 +456,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         }
         if (params == 'apikey, ') params = ''
         var responseType = data.headers.get('content-type').split(';')[0]
+	if (data.status !== 200) res.status(data.status)
         var status = 'Active'
         if (/html/i.test(responseType)) status = 'Error', responseType = 'Error'
         if (!/text|json/i.test(responseType)) responseType = responseType + ' (Buffer)'
@@ -464,7 +464,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (/json/i.test(responseType)) responseType = 'text/json (String)'
 
        res.json({
-       	status: status,
+       	   status: status,
            code: data.status,
            apiName: url.split('api/')[1].toUpperCase(),
            pathUrl: url,
