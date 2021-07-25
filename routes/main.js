@@ -220,6 +220,7 @@ var port_used = process.env.PORT || 8000 || 5000 || 3000
 res.json({
     stats:{
         status: 'Online',
+        appName: 'Node JS',
         platform: platform.slice(0, 1).toUpperCase() + platform.slice(1),
         ram: `${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})`,
         storage: `${driveUsed} GB / ${driveTotal} (${drivePer} Used)`,
