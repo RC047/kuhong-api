@@ -117,9 +117,6 @@ var fs = require('fs');
 var msu = require('minecraft-server-util');
 var options = require(__path + '/lib/options.js');
 var {
-	minify
-} = require('uglify-js');
-var {
 	photooxy,
 	textpro,
 	ephoto
@@ -11833,7 +11830,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (id !== session_id) return res.json({ status: false, message: 'session has expired' })
 
     try {
-	var script = await encryptScript(`
+	await encryptScript(`
 // Author: RC047
 
 var lock = true;
@@ -11854,19 +11851,20 @@ for (var i = 10; i > 0; i--) {
    else if (passInput == '${pass}') i = 0, lock = false, window.location = '${url}';
    }
 }
-`.trim())
+`.trim()).then(script => {
     	var data = `
 <script src="https://kuhong-api.herokuapp.com/js/ads.js"></script>
 <script>
 ${script}
 </script>
 `.trim()
-    	var result = await encryptHtml(data, 'URL Locker provided by Kuhong - Rest API')
+    	var result = encryptHtml(data, 'URL Locker provided by Kuhong - Rest API')
 
      res.send(result)
-    } catch (e) {
-   	console.log(e)
-     res.status(403).send(error)
+     });
+  } catch (e) {
+      console.log(e)
+    res.status(403).send(error)
   }
 })
 
@@ -11888,7 +11886,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     	var result = Buffer.from(text, 'utf-8').toString('hex')
 
       res.json({
-      	status: true,
+      	  status: true,
           creator: creator,
           text: text,
           result: result
@@ -11985,29 +11983,17 @@ border: 0;
   }
 })
 
-router.get('/upload', async (req, res, next) => {
-await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
-    if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-
-  res.json({
-	  status: false,
-	  creator: creator,
-	  message: 'No files passed'
-    })
-})
-
-router.post('/upload', formidable({ encoding: 'UTF-8', uploadDir: '/tmp/', multiples: true }), async (req, res, next) => {
+router.get('/upload', formidable({ encoding: 'UTF-8', uploadDir: '/tmp/', multiples: true }), async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
     var files = req.files.data.path
-    if (!files) return res.json({ status: false, creator: creator, message: 'No files passed' })
+    if (!(files || req.method.toUpperCase() == 'POST')) return res.json({ status: false, creator: creator, message: 'No files passed' })
 
 try {
 var buffer = await fs.readFileSync(files)
 var result = await saveToMedia(buffer)
-if (!result) return res.json({ status: false, creator: creator, message: 'Unsupported Mimetype' })
+if (!result) return res.json({ status: false, creator: creator, message: 'File type is Not Supported' })
 
    res.json({
 	   status: true,
@@ -12035,12 +12021,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!code) return res.json({ status: false, message: 'Masukan parameter code' })
 
 try {
-    var result = await minify(code)
+    await obfuscate(code, { target: 'node', minify: true })
+	.then(result => {
 
   res.json({
 	  status: true,
 	  creator: creator,
-	  result: result.code.toString()
+	  result: result
 	})
 } catch (e) {
     console.log(e)
