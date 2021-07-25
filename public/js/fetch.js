@@ -1,12 +1,13 @@
-function fetchURI(url, opts = { method: 'GET', headers: false, body: null }) {
+function fetchURI(url, opts = { method: 'GET', headers: false, body: null, username: false, password: false }) {
 
 if (!url) return err('param cant be blank');
 if (!/^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)) return err('Only absolute URLs are supported');
 
 if (url) {
 var xhr = new XMLHttpRequest();
-xhr.open(opts.method.toUpperCase(), url, false);
+xhr.open(opts.method.toUpperCase(), url, false, opts.username, opts.password);
 if (opts.headers) xhr.setRequestHeader('Content-type', opts.headers);
+xhr.addEventListener('error', err);
 xhr.send(opts.body);
 var data = xhr.responseText;
 if (/json/i.test(xhr.getAllResponseHeaders())) data = JSON.parse(xhr.responseText);
