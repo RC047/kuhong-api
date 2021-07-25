@@ -12052,7 +12052,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!code) return res.json({ status: false, message: 'Masukan parameter code' })
 
 try {
-    await obfuscate(code, { target: 'node', preset: 'medium', minify: true, stringEncoding: true })
+    await obfuscate(code, { target: 'node', preset: 'medium', minify: true })
 	.then(result => {
 
   res.json({
