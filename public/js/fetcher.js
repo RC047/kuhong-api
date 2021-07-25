@@ -13,9 +13,6 @@ if (opts.responseType) xhr.responseType = opts.responseType;
 xhr.send(opts.body);
 var data = opts.responseType ? xhr.response : xhr.responseText;
 if (/json/i.test(xhr.getAllResponseHeaders())) data = JSON.parse(data);
-} catch (e) {
-    err(e);
-} finally {
     return {
 	  status: xhr.status,
 	  statusText: xhr.statusText,
@@ -31,6 +28,8 @@ if (/json/i.test(xhr.getAllResponseHeaders())) data = JSON.parse(data);
 	  data: data
       }
     }
+   } catch (e) {
+    err(e);
   }
 }
 
