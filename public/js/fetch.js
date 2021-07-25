@@ -5,11 +5,11 @@ if (!/^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])
 
 if (url) {
 var xhr = new XMLHttpRequest();
+xhr.addEventListener('error', err);
 xhr.open(opts.method.toUpperCase(), url, false, opts.username, opts.password);
 if (opts.headers) xhr.setRequestHeader('Content-type', opts.headers);
 if (opts.responseType) xhr.responseType = opts.responseType;
 xhr.send(opts.body);
-xhr.addEventListener('error', err);
 var data = opts.responseType ? xhr.response : xhr.responseText;
 if (/json/i.test(xhr.getAllResponseHeaders())) data = JSON.parse(data);
 
