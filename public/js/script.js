@@ -200,7 +200,7 @@ alert(`
 STATISTICS :
 
 Status: ${res.data.stats.status}
-App: ${res.data.status.appName}
+App: ${res.data.stats.appName}
 Platform: ${res.data.stats.platform}
 Time: ${time}
 Uptime: ${res.data.stats.uptime}
