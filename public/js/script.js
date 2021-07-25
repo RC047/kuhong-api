@@ -14,9 +14,14 @@ $(document).ready(function() {
     });
 });
 
+var logged = false;
 var user = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 var ip = fetchURI('https://kuhong-api.herokuapp.com/ip');
-if (!(user.data.name || user.data.ip == ip.data.result)) window.location = 'https://kuhong-api.herokuapp.com/login?location=docs';
+if (logged || user.data.name || user.data.ip == ip) {
+var a = document.getElementById("login");
+    a.textContent = 'My Account';
+    a.onclick = getUserData();
+}
 
 window.setTimeout('setTimes();', 1000);
 function setTimes() {
@@ -96,6 +101,7 @@ o Some Improvements!
 }
 
 function getApikey() {
+if (!logged) return alert('Login terlebih dahulu untuk mendapatkan apikey!');
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/getapikey');
   return prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + res.data.info, res.data.free_apikey);
 }
@@ -163,15 +169,35 @@ function getReport() {
 
 function getRating() {
 
-    var rating = confirm('RATING :\n\nIngin menilai website ini?\n\nSilahkan pilih "Oke" untuk memberikan 1 Bintang ke website ini :)');
-    if (rating) {
-        alert('Terimakasih atas 1 Bintang Anda!');
-        return fetchURI('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating');
-    } else return false;
+var rating = confirm('RATING :\n\nIngin menilai website ini?\n\nSilahkan pilih "Oke" untuk memberikan 1 Bintang ke website ini :)');
+if (rating) alert('Terimakasih atas 1 Bintang Anda!'), return fetchURI('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating');
+  else return false;
+}
+
+function actionLogin() {
+
+if (logged) return getUserData();
+var name = prompt('Silahkan masukan nama disini untuk masuk :');
+if (!name) return false;
+if (name == '') alert('Nama tidak boleh kosong!');
+if (name !== '') {
+    alert('Selamat Datang ' + nama + '!';
+    var a = document.getElementById("login");
+    a.textContent = 'My Account';
+    a.onclick = getUserData();
+    logged = true;
+
+  return fetchURI('https://kuhong-api.herokuapp.com/api/login', {
+     method: 'POST',
+     headers: 'application/x-www-form-urlencoded',
+     body: 'name=' + name
+  });
+ }
 }
 
 function getUserData() {
 
+if (!logged) return actionLogin();
 getIpLocal().then(ip => {
 var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 
