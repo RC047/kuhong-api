@@ -63,7 +63,7 @@ var redeem_code = generateCode() // Kode Redeem untuk dapatkan Apikey Premium
 console.log(`
 > CHECKING DATA...
 
-Total IP Blocked: ${Object.keys(blocked).length}
+Total IP Blocked: ${Object.keys(blocked.split('|')).length}
 Owner Apikey: ${owner_apikey}
 Apikey: ${apikey}
 Free Apikey: ${free_apikey}
