@@ -48,7 +48,7 @@ var listAds = [
 
 var ads = pickRandom(listAds);
 var a = Math.floor(Math.random() * 10);
-var b = Math.floor(Math.random() * 10);
+var b = Math.floor(Math.random() * 7);
 if (a == b || b == a) {
     alert('ADS :\n\n' + ads.split(' url:')[0]);
     window.location = ads.split('url:')[1];
