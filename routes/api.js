@@ -11773,7 +11773,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var devTools
     	if (devMode == 'true') devTools = await fs.readFileSync(__path + '/views/tools.html').toString(), html = html + devTools
 
-  res.send(html)
+  res.send(unescape(html))
     } catch (e) {
    	console.log(e)
      res.status(403).send(error)
