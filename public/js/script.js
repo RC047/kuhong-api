@@ -26,7 +26,7 @@ if (login) return window.location = 'https://kuhong-api.herokuapp.com/login?loca
   else return false;
 }
 
-window.setTimeout('setTimes();', 1);
+window.setTimeout('setTimes();', 1000);
 function setTimes() {
 
     var name = user.data.name || 'Guest';
@@ -39,7 +39,7 @@ function setTimes() {
     if (date.getHours() == 18 || date.getHours() == 19 || date.getHours() == 20 || date.getHours() == 21 || date.getHours() == 22 || date.getHours() == 23) ucapan = 'Selamat Malam';
     var notif = `${ucapan} ${name}!`;
 
-window.setTimeout('setTimes();', 1);
+window.setTimeout('setTimes();', 1000);
 document.getElementById("time").innerHTML = time;
 document.getElementById("notif").innerHTML = notif;
 }
