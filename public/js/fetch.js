@@ -1,7 +1,7 @@
 function fetchURI(url, opts = { method: 'GET', headers: false, body: null }) {
 
 if (!url) return err('param cant be blank');
-if (!/http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)) return err('Only absolute URLs are supported');
+if (!/^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)) return err('Only absolute URLs are supported');
 
 if (url) {
 var xhr = new XMLHttpRequest();
