@@ -11626,7 +11626,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey || apikeyInput == blocked_apikey)) return res.status(406).send(invalidKey)
         if (apikeyInput == blocked_apikey) return res.json(loghandler.blockedKey)
         if (!command) return res.json({ message: 'Masukan parameter command' })
-        if (apikeyInput !== owner_apikey && /^node|npm|python|ruby|php|go|(c)lang|sql|heroku|parallel|ffmpeg|gm|tesseract|rm|mv|cp|mkdir|l(s|d)|cd|cat|more|import/i.test(command)) return res.json({ status: false, creator: creator, result: 'You are not allowed to use this command' })
+        if (apikeyInput !== owner_apikey && /^node|npm|python|ruby|php|go|(c)lang|sql|heroku|parallel|ffmpeg|gm|tesseract|rm|mv|cp|mkdir|l(s|d)|cd|cat|more|import/i.test(command)) return res.json({ status: false, creator: creator, result: 'Anda tidak diizinkan untuk menggunakan perintah ini!' })
 
    try {
         await execSync(command, (err, stderr, stdout) => {
@@ -11635,6 +11635,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (stdout) result = stdout
         if (err) result = formatLogs(err.message)
 
+	res.set('Content-Type', 'application/json');
         res.json({
             status: true,
             creator: creator,
@@ -11767,8 +11768,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey || apikeyInput == blocked_apikey)) return res.status(406).send(invalidKey)
         if (apikeyInput == blocked_apikey) return res.json(loghandler.blockedKey)
         if (!html) return res.json({ message: 'Masukan parameter html' })
-        if (!html.startsWith('<')) return res.json({ message: 'Masukan data html dengan benar!\n\nMisal : <pre>Halo!</pre>' })
-        if (!html.endsWith('>')) return res.json({ message: 'Masukan data html dengan benar!\n\nMisal : <pre>Halo!</pre>' })
 
     try {
     	if (devMode == 'true') {
