@@ -244,7 +244,7 @@ All Packs = 150K / Tahun
 *Silahkan pilih "Oke" untuk lanjut membeli.
 `.trim());
 
-if (buy) window.location = 'https://wa.me/62895337278647';
+if (buy) return window.open('https://wa.me/62895337278647');
 else return false;
 }
 
