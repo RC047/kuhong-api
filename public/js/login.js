@@ -1,6 +1,7 @@
 function actionLogin() {
 
 setTimeout(() => {
+document.querySelector("a").innerHTML = 'Success!';
 var login = true;
 var name = null;
 var param = new URL(window.location).searchParams;
@@ -26,4 +27,4 @@ fetchURI('https://kuhong-api.herokuapp.com/api/login', {
 });
 
 if (!login) return window.location = 'https://kuhong-api.herokuapp.com/' + location;
-}, 3000)}
+}, 5000)}
