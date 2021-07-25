@@ -46,6 +46,7 @@ var blocked = new RegExp(['180.249.133.59'].join('|'), 'gi');
 try { var kuhong = database.get('Kuhong') } catch (e) { console.log(e) }
 
 // Apikey :
+var total_blocked = Object.keys(blocked.source.split('|')).length
 var owner_apikey = '04102006' // Apikey Owner (opsional)
 var free_apikey = generateApikey() // Apikey Gratis
 var apikey = '8RiU6O-yrLpgVep' // Apikeymu (dibutuhkan)
@@ -63,7 +64,7 @@ var redeem_code = generateCode() // Kode Redeem untuk dapatkan Apikey Premium
 console.log(`
 > CHECKING DATA...
 
-Total IP Blocked: ${Object.keys(blocked.split('|')).length}
+Total IP Blocked: ${total_blocked}
 Owner Apikey: ${owner_apikey}
 Apikey: ${apikey}
 Free Apikey: ${free_apikey}
