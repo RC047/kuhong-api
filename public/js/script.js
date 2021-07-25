@@ -31,7 +31,7 @@ function setTimes() {
 
     var name = user.data.name || 'Guest';
     var date = new Date();
-    var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()).join(':');
+    var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds()).join(':');
     var ucapan = 'Selamat Datang!';
     if (date.getHours() == 0 || date.getHours() == 1 || date.getHours() == 2 || date.getHours() == 3 || date.getHours() == 4 || date.getHours() == 5 || date.getHours() == 6 || date.getHours() == 7 || date.getHours() == 8 || date.getHours() == 9) ucapan = 'Selamat Pagi';
     if (date.getHours() == 10 || date.getHours() == 11 || date.getHours() == 12 || date.getHours() == 13 || date.getHours() == 14) ucapan = 'Selamat Siang';
