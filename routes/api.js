@@ -363,6 +363,12 @@ var loghandler = {
         code: 406,
         message: 'Masukan parameter teks base64'
     },
+    notfiles: {
+        status: false,
+        creator: creator,
+        code: 406,
+        message: 'Tidak ada file yang masuk'
+    },
     number: {
         status: false,
         creator: creator,
@@ -11988,8 +11994,9 @@ router.get('/upload', formidable({ encoding: 'UTF-8', uploadDir: '/tmp/', multip
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
+    if (req.method.toUpperCase() !== 'POST') return res.json(loghandler.notfiles)
     var files = req.files.data.path
-    if (!(files || req.method.toUpperCase() == 'POST')) return res.json({ status: false, creator: creator, message: 'No files passed' })
+    if (!files) return res.json(loghandler.notfiles)
 
 try {
 var buffer = await fs.readFileSync(files)
