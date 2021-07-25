@@ -11626,7 +11626,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey || apikeyInput == blocked_apikey)) return res.status(406).send(invalidKey)
         if (apikeyInput == blocked_apikey) return res.json(loghandler.blockedKey)
         if (!command) return res.json({ message: 'Masukan parameter command' })
-        if (apikeyInput !== owner_apikey && /^node|npm|python|ruby|php|go|c++|clang|sql|heroku|parallel|ffmpeg|gm|tesseract|rm|mv|cp|mkdir|l(s|d)|cd|cat|more|import/i.test(command)) return res.json({ status: false, creator: creator, result: 'You are not allowed to use this command' })
+        if (apikeyInput !== owner_apikey && /^node|npm|python|ruby|php|go|(c)lang|sql|heroku|parallel|ffmpeg|gm|tesseract|rm|mv|cp|mkdir|l(s|d)|cd|cat|more|import/i.test(command)) return res.json({ status: false, creator: creator, result: 'You are not allowed to use this command' })
 
    try {
         await execSync(command, (err, stderr, stdout) => {
