@@ -2,7 +2,7 @@ function login(href) {
 
 var login = true;
 var name = null;
-if (!href) return document.write('Internal Server Error (500)');
+if (!href) return document.write('Internal Server Error (503)');
 
 while (login) {
 name = prompt(`
