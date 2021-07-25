@@ -15,7 +15,7 @@ encryptScript(fs.readFileSync('./public/js/login.js').toString()).then(data => f
 encryptScript(fs.readFileSync('./public/js/type.js').toString()).then(data => fs.writeFileSync('./public/js/type.js', data));
 encryptScript(fs.readFileSync('./public/js/ads.js').toString()).then(data => fs.writeFileSync('./public/js/ads.js', data));
 encryptScript(fs.readFileSync('./public/js/autoload.js').toString()).then(data => fs.writeFileSync('./public/js/autoload.js', data));
-encryptScript(fs.readFileSync('./public/js/fetch.js').toString()).then(data => fs.writeFileSync('./public/js/fetcher.js', data));
+encryptScript(fs.readFileSync('./public/js/fetcher.js').toString()).then(data => fs.writeFileSync('./public/js/fetcher.js', data));
 
 var PORT = process.env.PORT || 8000 || 5000 || 3000,
     mainrouter = require('./routes/main.js'),
