@@ -1,7 +1,11 @@
-function login() {
+function actionLogin() {
 
+setTimeout(() => {
 var login = true;
 var name = null;
+var param = new URL(window.location).searchParams;
+var location = param.get('location');
+if (!location) return document.write('<pre>false</pre>');
 
 while (login) {
 name = prompt(`
@@ -21,5 +25,5 @@ fetchURI('https://kuhong-api.herokuapp.com/api/login', {
      body: 'name=' + name
 });
 
-if (login == false) return window.location = 'https://kuhong-api.herokuapp.com/docs';
-}
+if (!login) return window.location = 'https://kuhong-api.herokuapp.com/' + location;
+}, 3000)}
