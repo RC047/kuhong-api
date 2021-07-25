@@ -15,16 +15,8 @@ $(document).ready(function() {
 });
 
 var user = fetchURI('https://kuhong-api.herokuapp.com/database.json');
-if (!user.data.name) actionLogin();
-
-function actionLogin() {
-
-var login = false;
-var res = fetchURI('https://kuhong-api.herokuapp.com/ip');
-if (user.data.ip !== res.data.result) login = true;
-if (login) return window.location = 'https://kuhong-api.herokuapp.com/login?location=docs';
-  else return false;
-}
+var ip = fetchURI('https://kuhong-api.herokuapp.com/ip');
+if (!(user.data.name || user.data.ip == ip.data.result)) window.location = 'https://kuhong-api.herokuapp.com/login?location=docs';
 
 window.setTimeout('setTimes();', 1000);
 function setTimes() {
