@@ -582,7 +582,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
        })
     } catch (e) {
     	console.log(e)
-      res.json({ result: fullLogs == 'true' ? e.message : formatLogs(err.message) })
+      res.json({ result: fullLogs == 'true' ? e.message : formatLogs(e.message) })
   }
 })
 
