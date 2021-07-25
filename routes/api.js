@@ -11770,10 +11770,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!html) return res.json({ message: 'Masukan parameter html' })
 
     try {
-    	if (devMode == 'true') {
-    	var devTools = await fs.readFileSync(__path + '/views/tools.html').toString()
-        html = html + devTools
-        }
+        var devTools
+    	if (devMode == 'true') devTools = await fs.readFileSync(__path + '/views/tools.html').toString(), html = html + devTools
 
   res.send(html)
     } catch (e) {
