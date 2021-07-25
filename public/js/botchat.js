@@ -16,7 +16,8 @@ var isVerified = false;
 var publicChat = false;
 var newLine = unescape('%3Cbr%3E');
 var nama = fetchURI('https://kuhong-api.herokuapp.com/database.json').data.name;
-if (!nama) window.location = 'https://kuhong-api.herokuapp.com/login';
+var user = fetchURI('https://kuhong-api.herokuapp.com/ip');
+if (!(user.data.ip == res.data.result || nama)) window.location = 'https://kuhong-api.herokuapp.com/login';
 document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
 
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
@@ -122,8 +123,7 @@ var pesan = document.getElementById("message").value;
 if (pesan == '') return false;
 if (pesan.length > 500) return alert('Pesan terlalu panjang!');
 if (pesan.startsWith('http') || pesan.endsWith('com')) pesan = link(pesan);
-if (isToxic(pesan)) pesan = censor(pesan);
-var send = newLine + getDate() + color(nama + ': ', 'red') + pesan.replace(/[\n]/g, newLine);
+var send = newLine + getDate() + color(nama + ': ', 'red') + safeMessage(pesan.replace(/[\n]/g, newLine));
 document.getElementById("no-message").innerHTML = '';
 document.getElementById("chat").innerHTML += send;
 setTimeout(() => getBotMessage(pesan), 1000);
@@ -183,7 +183,6 @@ iframe.click();
 function sendBotMessage(message) {
 var botName = isTag('KuhongBot (Verified): ', true);
 if (message.startsWith('http') || message.endsWith('com')) message = link(message);
-if (isToxic(message)) message = censor(message);
 var send = newLine + getDate() + botName + message.replace(/[\n]/g, newLine);
 document.getElementById("chat").innerHTML += send;
 }
@@ -202,7 +201,7 @@ if (pesan.startsWith('<')) {
     document.getElementById("chat").innerHTML += send;
     } else if (!prefix.test(pesan))  {
     var res = fetchURI('https://kuhong-api.herokuapp.com/api/simsimi?kata=' + pesan + '&apikey=' + getApikey());
-    var message = res.data.result.replace(/SIMI/g, 'AKU').replace(/simi/g, 'aku').replace(/simsimi/g, 'aku').replace(/SIMSIMI/g, 'AKU');
+    var message = res.data.result.replace(/SIMI/g, 'AKU').replace(/simi/g, 'aku').replace(/simsimi/g, 'aku').replace(/SIMSIMI/g, 'AKU') || 'Server Chat kami sedang Error!';
     var send = newLine + getDate() + taggedName + message;
     document.getElementById("chat").innerHTML += send;
     } else return getBotMessageWithCommand(pesan);
@@ -241,7 +240,7 @@ function autoSendMessage() {
 if (publicChat == false) return false;
 var delaySend = Math.floor(Math.random() * 30000);
 var ranName = getRandomName();
-var ranMessage = getRandomMessage(nama);
+var ranMessage = safeMessage(getRandomMessage(nama));
 var taggedName = isTag(ranName);
 if (ranName.endsWith('(Verified): ')) taggedName = isTag(ranName, true);
 var sendPublic = newLine + getDate() + taggedName + ranMessage;
@@ -280,11 +279,7 @@ function isURL(url) {
   return /http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url);
 }
 
-function isToxic(pesan) {
-  return /(a(su|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(pesan);
-}
-
-function censor(pesan) {
+function safeMessage(pesan) {
 return pesan.replace(/(a(su|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/g, function (match) {
     var censored = '';
     for (var i = 0; i < match.length; i++) censored += '*';
@@ -313,61 +308,61 @@ if (!prefix.test(cmd)) return false;
 if (/^menu|help|start/i.test(command)) {
 
 var menu = `
-${newLine}MENU BOT :${newLine}${newLine}
-${usedPrefix(cmd)}intro [text]${newLine}
-${usedPrefix(cmd)}image [query]${newLine}
-${usedPrefix(cmd)}attp [text]${newLine}
-${usedPrefix(cmd)}ttp [text]${newLine}
-${usedPrefix(cmd)}sticker [url/caption]${newLine}
-${usedPrefix(cmd)}toimg [url]${newLine}
-${usedPrefix(cmd)}ytmp4 [url]${newLine}
-${usedPrefix(cmd)}ytmp3 [url]${newLine}
-${usedPrefix(cmd)}8bit [url/caption]${newLine}
-${usedPrefix(cmd)}blur [url/caption]${newLine}
-${usedPrefix(cmd)}wasted [url/caption]${newLine}
-${usedPrefix(cmd)}burning [url/caption]${newLine}
-${usedPrefix(cmd)}trigger [url/caption]${newLine}
-${usedPrefix(cmd)}tahta [text]${newLine}
-${usedPrefix(cmd)}tts [lang|text]${newLine}
-${usedPrefix(cmd)}exec [bash]${newLine}
-${usedPrefix(cmd)}fetch [method|url]${newLine}
-${usedPrefix(cmd)}binary [text]${newLine}
-${usedPrefix(cmd)}unbinary [text]${newLine}
-${usedPrefix(cmd)}base64 [text]${newLine}
-${usedPrefix(cmd)}unbase64 [text]${newLine}
-${usedPrefix(cmd)}tinyurl [url]${newLine}
-${usedPrefix(cmd)}bitly [url]${newLine}
-${usedPrefix(cmd)}lock [url]${newLine}
-${usedPrefix(cmd)}calculator [angka]${newLine}
-${usedPrefix(cmd)}translate [lang|text]${newLine}
-${usedPrefix(cmd)}persen [type|name]${newLine}
-${usedPrefix(cmd)}iq${newLine}
-${usedPrefix(cmd)}dadu${newLine}
-${usedPrefix(cmd)}say [text]${newLine}
-${usedPrefix(cmd)}alay [text]${newLine}
-${usedPrefix(cmd)}purba [text]${newLine}
-${usedPrefix(cmd)}reverse [text]${newLine}
-${usedPrefix(cmd)}battery${newLine}
-${usedPrefix(cmd)}kerang [pertanyaan]${newLine}
-${usedPrefix(cmd)}halah [text]${newLine}
-${usedPrefix(cmd)}hilih [text]${newLine}
-${usedPrefix(cmd)}huluh [text]${newLine}
-${usedPrefix(cmd)}heleh [text]${newLine}
-${usedPrefix(cmd)}holoh [text]${newLine}
-${usedPrefix(cmd)}twister${newLine}
-${usedPrefix(cmd)}pantun${newLine}
-${usedPrefix(cmd)}katabijak${newLine}
-${usedPrefix(cmd)}katailham${newLine}
-${usedPrefix(cmd)}bucin${newLine}
-${usedPrefix(cmd)}quotes${newLine}
-${usedPrefix(cmd)}sindiran${newLine}
-${usedPrefix(cmd)}fml${newLine}
-${usedPrefix(cmd)}faktaunik${newLine}
-${usedPrefix(cmd)}ip [local/public]${newLine}
-${usedPrefix(cmd)}time${newLine}
-${usedPrefix(cmd)}ping${newLine}
-${usedPrefix(cmd)}clear${newLine}
-${usedPrefix(cmd)}owner${newLine}
+MENU BOT :
+${usedPrefix(cmd)}intro [text]
+${usedPrefix(cmd)}image [query]
+${usedPrefix(cmd)}attp [text]
+${usedPrefix(cmd)}ttp [text]
+${usedPrefix(cmd)}sticker [url/caption]
+${usedPrefix(cmd)}toimg [url]
+${usedPrefix(cmd)}ytmp4 [url]
+${usedPrefix(cmd)}ytmp3 [url]
+${usedPrefix(cmd)}8bit [url/caption]
+${usedPrefix(cmd)}blur [url/caption]
+${usedPrefix(cmd)}wasted [url/caption]
+${usedPrefix(cmd)}burning [url/caption]
+${usedPrefix(cmd)}trigger [url/caption]
+${usedPrefix(cmd)}tahta [text]
+${usedPrefix(cmd)}tts [lang|text]
+${usedPrefix(cmd)}exec [bash]
+${usedPrefix(cmd)}fetch [method|url]
+${usedPrefix(cmd)}binary [text]
+${usedPrefix(cmd)}unbinary [text]
+${usedPrefix(cmd)}base64 [text]
+${usedPrefix(cmd)}unbase64 [text]
+${usedPrefix(cmd)}tinyurl [url]
+${usedPrefix(cmd)}bitly [url]
+${usedPrefix(cmd)}lock [url]
+${usedPrefix(cmd)}calculator [angka]
+${usedPrefix(cmd)}translate [lang|text]
+${usedPrefix(cmd)}persen [type|name]
+${usedPrefix(cmd)}iq
+${usedPrefix(cmd)}dadu
+${usedPrefix(cmd)}say [text]
+${usedPrefix(cmd)}alay [text]
+${usedPrefix(cmd)}purba [text]
+${usedPrefix(cmd)}reverse [text]
+${usedPrefix(cmd)}battery
+${usedPrefix(cmd)}kerang [pertanyaan]
+${usedPrefix(cmd)}halah [text]
+${usedPrefix(cmd)}hilih [text]
+${usedPrefix(cmd)}huluh [text]
+${usedPrefix(cmd)}heleh [text]
+${usedPrefix(cmd)}holoh [text]
+${usedPrefix(cmd)}twister
+${usedPrefix(cmd)}pantun
+${usedPrefix(cmd)}katabijak
+${usedPrefix(cmd)}katailham
+${usedPrefix(cmd)}bucin
+${usedPrefix(cmd)}quotes
+${usedPrefix(cmd)}sindiran
+${usedPrefix(cmd)}fml
+${usedPrefix(cmd)}faktaunik
+${usedPrefix(cmd)}ip [local/public]
+${usedPrefix(cmd)}time
+${usedPrefix(cmd)}ping
+${usedPrefix(cmd)}clear
+${usedPrefix(cmd)}owner
 `.trim();
      sendBotMessage(menu);
 
