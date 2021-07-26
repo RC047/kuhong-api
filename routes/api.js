@@ -633,25 +633,26 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
 try {
   var prefix = new RegExp('^[!?#/$.,]', 'gi')
-  var json = await (await fetch(`https://simsumi.herokuapp.com/api?text=${message}&lang=id`)).json()
-  if (json.success == '' || json.success == undefined || /Limit/i.test(json.success)) {
-      json = await (await fetch(`https://api.simsimi.net/v1/?text=${message}&lang=id`)).json()
-      if (json.success == undefined) json.success = 'Bot Simsimi sedang Error! (403)'
-  }
-  var simiMessage = json.success
-  var resultMessage
-  if (!prefix.test(message)) return res.json({ status: true, creator: creator, reply: simiMessage })
+  var send = async(message) => res.json({ status: true, creator: creator, reply: message })
+  if (!prefix.test(message)) return send('Gunakan Prefix!')
+
   if (/^ping/i.test(message)) {
       var old = performance.now()
       var neww = performance.now()
-      resultMessage = neww - old + 'ms'
-  } else resultMessage = 'Perintah tidak ditemukan!'
+      send(neww - old + 'ms')
 
-    res.json({
-       status: true,
-       creator: creator,
-       reply: resultMessage
-     })
+  } else if (/^lirik/i.test(message)) {
+      var text = message.split('lirik ')[1]
+      if (!text) return send('Masukan parameter text')
+      var json = await (await fetch(`https://some-random-api.ml/lyrics?title=${text}`)).json()
+      send(json.lyrics)
+
+  } else if (/^chord/i.test(message)) {
+      var text = message.split('chord ')[1]
+      if (!text) return send('Masukan parameter text')
+      var json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/chord?q=${text}`)).json()
+      send(json.result)
+  } else send('Perintah tidak ditemukan!')
 } catch (e) {
     console.error(e)
   res.json({ status: true, creator: creator, reply: util.format(e.message) })
@@ -2497,7 +2498,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         message: 'Masukan parameter kata'
     })
 
-    var json = await (await fetch(`https://scrap.terhambar.com/lirik?word=${lagu}`)).json()
+    var json = await (await fetch(`https://some-random-api.ml/lyrics?title=${lagu}`)).json()
     if (json.result.lirik == undefined) return res.json({ status: false, error: 'Lirik tidak ditemukan!' })
     res.json({
     	status: true,
