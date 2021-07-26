@@ -182,8 +182,8 @@ function actionLogin() {
 
 if (logged) return getUserData();
 var name = prompt('Silahkan masukan nama disini untuk masuk :');
-if (!name) return false;
 if (name == '') alert('Nama tidak boleh kosong!');
+if (!name) return false;
 if (name !== '') {
     alert('Selamat Datang ' + name + '!');
     var a = document.getElementById("login");
