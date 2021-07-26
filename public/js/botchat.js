@@ -113,7 +113,11 @@ function getRandomMessage(name) {
 }
 
 function getApikey() {
-var res = fetchURI('https://kuhong-api.herokuapp.com/api/getapikey');
+var res = fetchURI('https://kuhong-api.herokuapp.com/api/getapikey', {
+      method: 'POST',
+      headers: 'application/x-www-form-urlencoded',
+      body: null
+  });
   return res.data.free_apikey;
 }
 
@@ -222,18 +226,17 @@ document.getElementById("chat").innerHTML += newLine + getDate() + botName + new
 
 function setPublic(turn) {
 var delaySend = Math.floor(Math.random() * 30000);
-if (turn == false) {
-    alert('Mode chat berhasil diubah menjadi Private!');
-    document.getElementById("no-message").innerHTML = '';
-    document.getElementById("chat").innerHTML += newLine + newLine + bold('Mode chat telah diubah menjadi "' + tilt('Private') + '"');
-    publicChat = false;
-   }
-if (turn == true) {
+if (turn) {
     alert('Mode chat berhasil diubah menjadi Public!');
     document.getElementById("no-message").innerHTML = '';
     document.getElementById("chat").innerHTML += newLine + newLine + bold('Mode chat telah diubah menjadi "' + tilt('Public') + '"');
     publicChat = true;
     setTimeout('autoSendMessage();', delaySend);
+    } else {
+    alert('Mode chat berhasil diubah menjadi Private!');
+    document.getElementById("no-message").innerHTML = '';
+    document.getElementById("chat").innerHTML += newLine + newLine + bold('Mode chat telah diubah menjadi "' + tilt('Private') + '"');
+    publicChat = false;
     }
 }
 
