@@ -170,8 +170,10 @@ function getReport() {
 function getRating() {
 
 var rating = confirm('RATING :\n\nIngin menilai website ini?\n\nSilahkan pilih "Oke" untuk memberikan 1 Bintang ke website ini :)');
-if (rating) alert('Terimakasih atas 1 Bintang Anda!'), return fetchURI('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating');
-  else return false;
+if (rating) {
+    alert('Terimakasih atas 1 Bintang Anda!');
+    return fetchURI('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/rating');
+  } else return false;
 }
 
 function actionLogin() {
