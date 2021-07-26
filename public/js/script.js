@@ -20,7 +20,7 @@ var ip = fetchURI('https://kuhong-api.herokuapp.com/ip');
 if (user.data.name || user.data.ip == ip.data.result) {
 var a = document.getElementById("login");
     a.innerHTML = unescape('%3Ci%20class%3D%22fas%20fa-user%22%3E%3C/i%3EMy%20Account');
-    a.onclick = async() => getUserData());
+    a.onclick = async() => getUserData();
 }
 
 window.setTimeout('setTimes();', 1000);
@@ -185,7 +185,7 @@ if (name !== '') {
     alert('Selamat Datang ' + name + '!');
     var a = document.getElementById("login");
     a.innerHTML = unescape('%3Ci%20class%3D%22fas%20fa-user%22%3E%3C/i%3EMy%20Account');
-    a.onclick = async() => getUserData());
+    a.onclick = async() => getUserData();
     logged = true;
 
   return fetchURI('https://kuhong-api.herokuapp.com/api/login', {
