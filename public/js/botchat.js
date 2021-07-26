@@ -16,9 +16,7 @@ var isVerified = false;
 var publicChat = false;
 var newLine = unescape('%3Cbr%3E');
 var user = fetchURI('https://kuhong-api.herokuapp.com/database.json');
-var ip = fetchURI('https://kuhong-api.herokuapp.com/ip');
-if (!(user.data.name || user.data.ip == ip.data.result)) window.location = 'https://kuhong-api.herokuapp.com/login?location=botchat';
-var nama = user.data.name || 'Guest';
+var nama = user.data.name || 'Guest' + Math.floor(Math.random() * 10000) + ': ';
 document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
 
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
@@ -95,7 +93,7 @@ if (nama == null || nama == '') {
     alert('Nama yang anda masukan sudah dimiliki!');
     nama = 'Guest' + Math.floor(Math.random() * 10000);
     return false;
-    } else if (/Verified|[<()>]/i.test(nama)) {
+    } else if (/Verified|[<>()]/i.test(nama)) {
     alert('Nama anda tidak diizinkan!');
     nama = 'Guest' + Math.floor(Math.random() * 10000);
     return false;
