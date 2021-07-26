@@ -629,9 +629,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
         var maintenance = false
         if (maintenance) return res.status(500).send(mtc)
-        if (!apikeyInput) return res.json(loghandler.notparam)
-        if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey || apikeyInput == blocked_apikey)) return res.status(406).send(invalidKey)
-        if (apikeyInput == blocked_apikey) return res.json(loghandler.blockedKey)
 	if (!(app || sender || message || group_name || phone)) return res.json({ status: false, message: 'Parameter tidak lengkap' })
 
 try {
