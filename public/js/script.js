@@ -19,6 +19,7 @@ var user = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 var ip = fetchURI('https://kuhong-api.herokuapp.com/ip');
 if (logged || user.data.name || user.data.ip == ip) {
 var a = document.getElementById("login");
+    logged = true;
     a.innerHTML = unescape('%3Ci%20class%3D%22fas%20fa-user%22%3E%3C/i%3EMy%20Account');
     a.onclick = function() {
       return getUserData();
@@ -103,7 +104,7 @@ o Some Improvements!
 }
 
 function getApikey() {
-if (logged == false) return alert('Login terlebih dahulu untuk mendapatkan apikey!');
+if (!logged) return alert('Login terlebih dahulu untuk mendapatkan apikey!');
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/getapikey');
   return prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + res.data.info, res.data.free_apikey);
 }
@@ -180,7 +181,7 @@ if (rating) {
 
 function actionLogin() {
 
-if (logged) return getUserData();
+if (!logged) return getUserData();
 var name = prompt('Silahkan masukan nama disini untuk masuk :');
 if (name == '') alert('Nama tidak boleh kosong!');
 if (!name) return false;
@@ -204,7 +205,7 @@ if (name !== '') {
 function getUserData() {
 
 getIpLocal().then(ip => {
-if (logged == false) return actionLogin();
+if (!logged) return actionLogin();
 var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 
 alert(`
