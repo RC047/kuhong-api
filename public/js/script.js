@@ -183,7 +183,7 @@ var name = prompt('Silahkan masukan nama disini untuk masuk :');
 if (!name) return false;
 if (name == '') alert('Nama tidak boleh kosong!');
 if (name !== '') {
-    alert('Selamat Datang ' + nama + '!';
+    alert('Selamat Datang ' + nama + '!');
     var a = document.getElementById("login");
     a.textContent = 'My Account';
     a.onclick = getUserData();
