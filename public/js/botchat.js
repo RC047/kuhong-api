@@ -84,21 +84,22 @@ var date = new Date();
 }
 
 function changeName() {
-nama = prompt('Silahkan ganti namamu :', nama.split('<')[0]).split(':')[0];
-if (nama == null || nama == '') {
+var inputName = prompt('Silahkan ganti namamu :', nama.split('<')[0]);
+if (inputName == null || inputName == '') {
     nama = 'Guest' + Math.floor(Math.random() * 10000);
-    if (userVerified == true) nama = nama + color(' (Verified)', 'green');
+    if (userVerified == true) inputName = nama + color(' (Verified)', 'green');
     return false;
-    } else if (/Kuhong|RC047/i.test(nama)) {
+    } else if (/Kuhong|RC047/i.test(inputName)) {
     alert('Nama yang anda masukan sudah dimiliki!');
     nama = 'Guest' + Math.floor(Math.random() * 10000);
     return false;
-    } else if (/Verified|[<>()]/i.test(nama)) {
+    } else if (/Verified|[<>()]/i.test(inputName)) {
     alert('Nama anda tidak diizinkan!');
     nama = 'Guest' + Math.floor(Math.random() * 10000);
     return false;
     }
-alert('Nama diupdate menjadi ' + nama.split('<')[0].split(':')[0]);
+nama = inputName.split(':')[0];
+alert('Nama diupdate menjadi ' + inputName.split('<')[0].split(':')[0]);
 }
 
 function getRandomName() {
