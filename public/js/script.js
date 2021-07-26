@@ -19,7 +19,6 @@ var user = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 var ip = fetchURI('https://kuhong-api.herokuapp.com/ip');
 if (user.data.name || user.data.ip == ip) {
 var a = document.getElementById("login");
-    logged = true;
     a.innerHTML = unescape('%3Ci%20class%3D%22fas%20fa-user%22%3E%3C/i%3EMy%20Account');
     a.onclick = function() {
       return getUserData();
@@ -181,7 +180,6 @@ if (rating) {
 
 function actionLogin() {
 
-if (!logged) return getUserData();
 var name = prompt('Silahkan masukan nama disini untuk masuk :');
 if (name == '') alert('Nama tidak boleh kosong!');
 if (!name) return false;
@@ -204,7 +202,6 @@ if (name !== '') {
 
 function getUserData() {
 
-if (!logged) return actionLogin();
 getIpLocal().then(ip => {
 var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 
