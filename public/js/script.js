@@ -20,9 +20,7 @@ var ip = fetchURI('https://kuhong-api.herokuapp.com/ip');
 if (user.data.name || user.data.ip == ip.data.result) {
 var a = document.getElementById("login");
     a.innerHTML = unescape('%3Ci%20class%3D%22fas%20fa-user%22%3E%3C/i%3EMy%20Account');
-    a.onclick = function() {
-      return getUserData();
-    }
+    a.onclick = async() => getUserData());
 }
 
 window.setTimeout('setTimes();', 1000);
@@ -103,7 +101,7 @@ o Some Improvements!
 }
 
 function getApikey() {
-if (document.getELementBy("login").innerHTML !== unescape('%3Ci%20class%3D%22fas%20fa-user%22%3E%3C/i%3EMy%20Account')) return alert('Login terlebih dahulu untuk mendapatkan apikey!');
+if (document.getELementById("login").innerHTML !== unescape('%3Ci%20class%3D%22fas%20fa-user%22%3E%3C/i%3EMy%20Account')) return alert('Login terlebih dahulu untuk mendapatkan apikey!');
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/getapikey');
   return prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + res.data.info, res.data.free_apikey);
 }
@@ -187,9 +185,7 @@ if (name !== '') {
     alert('Selamat Datang ' + name + '!');
     var a = document.getElementById("login");
     a.innerHTML = unescape('%3Ci%20class%3D%22fas%20fa-user%22%3E%3C/i%3EMy%20Account');
-    a.onclick = function() {
-      return getUserData();
-    }
+    a.onclick = async() => getUserData());
     logged = true;
 
   return fetchURI('https://kuhong-api.herokuapp.com/api/login', {
