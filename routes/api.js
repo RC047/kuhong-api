@@ -118,17 +118,20 @@ var fs = require('fs');
 var msu = require('minecraft-server-util');
 var options = require(__path + '/lib/options.js');
 var {
-	photooxy,
-	textpro,
-	ephoto
+    performance
+} = require('perf_hooks');
+var {
+    photooxy,
+    textpro,
+    ephoto
 } = require(__path + '/lib/scraper.js');
 var {
     braillefy
 } = require('img2braille');
 var {
-	toMP3,
-	toPTT,
-	toMP4
+    toMP3,
+    toPTT,
+    toMP4
 } = require(__path + '/lib/converter.js');
 var {
     servers,
