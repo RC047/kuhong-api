@@ -16,7 +16,7 @@ var isVerified = false;
 var publicChat = false;
 var newLine = unescape('%3Cbr%3E');
 var user = fetchURI('https://kuhong-api.herokuapp.com/database.json');
-var nama = user.data.name || 'Guest' + Math.floor(Math.random() * 10000) + ': ';
+var nama = user.data.name || 'Guest' + Math.floor(Math.random() * 10000);
 document.getElementById("no-message").innerHTML += newLine + getDate() + isTag('KuhongBot (Verified): ', true) + 'Hai ' + color(nama, 'red') + '!' + newLine + 'Silahkan ketik ' + bold(baseCmd) + ' untuk memulai Bot';
 
 if (!/Mobile|Android|Phone|IOS/i.test(navigator.userAgent)) {
@@ -200,7 +200,8 @@ if (pesan.startsWith('<')) {
     document.getElementById("chat").innerHTML += send;
     } else if (!prefix.test(pesan))  {
     var res = fetchURI('https://kuhong-api.herokuapp.com/api/simsimi?kata=' + pesan + '&apikey=' + getApikey());
-    var message = res.data.result.replace(/SIMI/g, 'AKU').replace(/simi/g, 'aku').replace(/simsimi/g, 'aku').replace(/SIMSIMI/g, 'AKU') || 'Server Chat kami sedang Error!';
+    if (!res.data.result) return sendBotMessage(getRandomMessage(getRandomName()));
+    var message = res.data.result.replace(/SIMI/g, 'AKU').replace(/simi/g, 'aku').replace(/simsimi/g, 'aku').replace(/SIMSIMI/g, 'AKU');
     var send = newLine + getDate() + taggedName + message;
     document.getElementById("chat").innerHTML += send;
     } else return getBotMessageWithCommand(pesan);
@@ -280,10 +281,10 @@ function isURL(url) {
 
 function safeMessage(pesan) {
 return pesan.replace(/(a(su|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/g, function (match) {
-    var censored = '';
-    for (var i = 0; i < match.length; i++) censored += '*';
+  var censored = '';
+  for (var i = 0; i < match.length; i++) censored += '*';
     return censored;
-    });
+  });
 }
 
 function getBotMessageWithCommand(cmd) {
@@ -303,7 +304,6 @@ var loghandler = {
 try {
 var or = ' atau ';
 var command = cmd.slice(1);
-if (!prefix.test(cmd)) return false;
 if (/^menu|help|start/i.test(command)) {
 
 var menu = `
