@@ -14,10 +14,9 @@ $(document).ready(function() {
     });
 });
 
-var logged = false;
 var user = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 var ip = fetchURI('https://kuhong-api.herokuapp.com/ip');
-if (user.data.name || user.data.ip == ip.data.result) {
+if (user.data.ip == ip.data.result || user.data.name) {
 var a = document.getElementById("login");
     a.innerHTML = unescape('%3Ci%20class%3D%22fas%20fa-user%22%3E%3C/i%3EMy%20Account');
     a.onclick = async() => getUserData();
