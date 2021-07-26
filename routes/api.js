@@ -652,7 +652,6 @@ try {
        creator: creator,
        reply: resultMessage
      })
-   })
 } catch (e) {
     console.error(e)
   res.json({ status: true, creator: creator, reply: util.format(e.message) })
