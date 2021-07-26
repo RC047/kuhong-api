@@ -204,8 +204,8 @@ if (name !== '') {
 
 function getUserData() {
 
-getIpLocal().then(ip => {
 if (!logged) return actionLogin();
+getIpLocal().then(ip => {
 var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 
 alert(`
