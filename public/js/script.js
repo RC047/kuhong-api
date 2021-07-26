@@ -26,7 +26,7 @@ var a = document.getElementById("login");
 window.setTimeout('setTimes();', 1000);
 function setTimes() {
 
-    var name = user.data.name || 'Guest';
+    var name = fetchURI('https://kuhong-api.herokuapp.com/database.json').data.name || 'Guest';
     var date = new Date();
     var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds()).join(':');
     var ucapan = 'Selamat Datang!';
