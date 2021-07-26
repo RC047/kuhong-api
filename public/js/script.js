@@ -101,7 +101,7 @@ o Some Improvements!
 }
 
 function getApikey() {
-if (document.getELementById("login").innerHTML !== unescape('%3Ci%20class%3D%22fas%20fa-user%22%3E%3C/i%3EMy%20Account')) return alert('Login terlebih dahulu untuk mendapatkan apikey!');
+if (document.getElementById("login").innerHTML !== unescape('%3Ci%20class%3D%22fas%20fa-user%22%3E%3C/i%3EMy%20Account')) return alert('Login terlebih dahulu untuk mendapatkan apikey!');
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/getapikey');
   return prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + res.data.info, res.data.free_apikey);
 }
