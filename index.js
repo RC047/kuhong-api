@@ -10,9 +10,9 @@ var fs = require('fs');
 var { encryptHtml, encryptScript } = require('./lib/functions.js');
 var { color } = require('./lib/color.js');
 
+encryptScript(fs.readFileSync('./public/js/home.js').toString()).then(data => fs.writeFileSync('./public/js/home.js', data));
 encryptScript(fs.readFileSync('./public/js/script.js').toString()).then(data => fs.writeFileSync('./public/js/script.js', data));
 encryptScript(fs.readFileSync('./public/js/botchat.js').toString()).then(data => fs.writeFileSync('./public/js/botchat.js', data));
-encryptScript(fs.readFileSync('./public/js/type.js').toString()).then(data => fs.writeFileSync('./public/js/type.js', data));
 encryptScript(fs.readFileSync('./public/js/ads.js').toString()).then(data => fs.writeFileSync('./public/js/ads.js', data));
 encryptScript(fs.readFileSync('./public/js/autoload.js').toString()).then(data => fs.writeFileSync('./public/js/autoload.js', data));
 encryptScript(fs.readFileSync('./public/js/fetcher.js').toString()).then(data => fs.writeFileSync('./public/js/fetcher.js', data));
