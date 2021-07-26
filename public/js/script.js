@@ -103,7 +103,7 @@ o Some Improvements!
 }
 
 function getApikey() {
-if (!logged) return alert('Login terlebih dahulu untuk mendapatkan apikey!');
+if (logged == false) return alert('Login terlebih dahulu untuk mendapatkan apikey!');
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/getapikey');
   return prompt('GET APIKEY :\n\nSilahkan salin apikeynya disini\n\n*' + res.data.info, res.data.free_apikey);
 }
@@ -203,8 +203,8 @@ if (name !== '') {
 
 function getUserData() {
 
-if (!logged) return actionLogin();
 getIpLocal().then(ip => {
+if (logged == false) return actionLogin();
 var res = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 
 alert(`
