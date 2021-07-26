@@ -614,6 +614,51 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
   }
 })
 
+router.post('/bot.js', async (req, res, next) => {
+await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
+    if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
+    var app = req.body.app,
+	sender = req.body.sender,
+	message = req.body.message,
+	group_name = req.body.group_name,
+	phone = req.body.phone;
+
+        var maintenance = false
+        if (maintenance) return res.status(500).send(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey || apikeyInput == blocked_apikey)) return res.status(406).send(invalidKey)
+        if (apikeyInput == blocked_apikey) return res.json(loghandler.blockedKey)
+	if (!(app || sender || message || group_name || phone)) return res.json({ status: false, message: 'Parameter tidak lengkap' })
+
+try {
+  var prefix = new RegExp('^[!?#/$.,]', 'gi')
+  var json = await (await fetch(`https://simsumi.herokuapp.com/api?text=${message}&lang=id`)).json()
+  if (json.success == '' || json.success == undefined || /Limit/i.test(json.success)) {
+      json = await (await fetch(`https://api.simsimi.net/v1/?text=${message}&lang=id`)).json()
+      if (json.success == undefined) json.success = 'Bot Simsimi sedang Error! (403)'
+  }
+  var simiMessage = json.success
+  var resultMessage
+  if (!prefix.test(message)) return res.json({ status: true, creator: creator, reply: simiMessage })
+  if (/^ping/i.test(message)) {
+      var old = performance.now()
+      var neww = performance.now()
+      resultMessage = neww - old + 'ms'
+  } else resultMessage = 'Perintah tidak ditemukan!'
+
+    res.json({
+       status: true,
+       creator: creator,
+       reply: resultMessage
+     })
+   })
+} catch (e) {
+    console.error(e)
+  res.json({ status: true, creator: creator, reply: util.format(e.message) })
+  }
+})
+
 router.get('/tiktok', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
@@ -4293,7 +4338,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
     try {
         var json = await (await fetch(`https://simsumi.herokuapp.com/api?text=${kata}&lang=id`)).json()
-        if (json.success == '' || json.success == undefined || json.success.startsWith('Limit')) {
+        if (json.success == '' || json.success == undefined || /Limit/i.test(json.success)) {
             json = await (await fetch(`https://api.simsimi.net/v1/?text=${kata}&lang=id`)).json()
             if (json.success == undefined) return res.status(403).send(error)
         }
@@ -12028,6 +12073,36 @@ try {
 	  result: result
 	})
     })
+} catch (e) {
+    console.error(e)
+  res.status(403).send(error)
+  }
+})
+
+router.get('/obfuscate', async (req, res, next) => {
+await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
+    if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
+    var code = req.query.code,
+        apikeyInput = req.query.apikey;
+
+        var maintenance = false
+        if (maintenance) return res.status(500).send(mtc)
+        if (!apikeyInput) return res.json(loghandler.notparam)
+        if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey || apikeyInput == blocked_apikey)) return res.status(406).send(invalidKey)
+        if (apikeyInput == blocked_apikey) return res.json(loghandler.blockedKey)
+        if (!code) return res.json({ status: false, message: 'Masukan parameter code' })
+
+try {
+    await obfuscate(code, { target: 'node', preset: 'low', minify: true })
+	.then(result => {
+
+  res.json({
+	  status: true,
+	  creator: creator,
+	  result: result
+	})
+   })
 } catch (e) {
     console.error(e)
   res.status(403).send(error)
