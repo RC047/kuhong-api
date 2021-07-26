@@ -17,7 +17,7 @@ $(document).ready(function() {
 var logged = false;
 var user = fetchURI('https://kuhong-api.herokuapp.com/database.json');
 var ip = fetchURI('https://kuhong-api.herokuapp.com/ip');
-if (logged || user.data.name || user.data.ip == ip) {
+if (user.data.name || user.data.ip == ip) {
 var a = document.getElementById("login");
     logged = true;
     a.innerHTML = unescape('%3Ci%20class%3D%22fas%20fa-user%22%3E%3C/i%3EMy%20Account');
