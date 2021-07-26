@@ -312,6 +312,7 @@ if (/^menu|help|start/i.test(command)) {
 
 var menu = `
 MENU BOT :
+
 ${usedPrefix(cmd)}intro [text]
 ${usedPrefix(cmd)}image [query]
 ${usedPrefix(cmd)}attp [text]
