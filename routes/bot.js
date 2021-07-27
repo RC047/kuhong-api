@@ -168,20 +168,21 @@ var handler = async (message, user, send, { app, sender, group_name, phone }) =>
   var command = message.slice(1)
   var usedPrefix = message.slice(0, 1)
   var readMore = String.fromCharCode(8206).repeat(4001)
-  if (!prefix.test(message)) return false
 
   if (/(a(su|sw|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return send(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n~Biasakan Jangan Toxic!`)
+  if (!prefix.test(message)) return false
   if (/^(menu|help|start|\?)/i.test(command)) {
       var menu = `
 ╭─「 KUHONG LITE 」
 │
-│• Nama: ${sender}
-│• Grup: ${group_name ? group_name : 'false'}
+│• Nama: ${sender} ${group_name ? '\n│(' + group_name + ')\n' : ''}
+│• Location: ${group_name ? 'Group' : 'Private'} Chat
 │• Prefix: [ ${usedPrefix} ]
 │• App: ${app}
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
-│• Date: ${date}
+│• Date:
+│${date}
 ╰────
 ${readMore}
 
