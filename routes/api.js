@@ -12131,16 +12131,3 @@ try {
 
 // End of script
 module.exports = router
-
-function muptime(seconds) {
-
-var hours = Math.floor(seconds / (60 * 60));
-var minutes = Math.floor(seconds % (60 * 60) / 60);
-var seconds = Math.floor(seconds % 60);
-
-  return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
-}
-
-function pad(s) {
-  return (s < 10 ? '0' : '') + s;
-}
