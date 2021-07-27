@@ -168,15 +168,16 @@ var handler = async (message, user, send, { app, sender, group_name, phone }) =>
   var command = message.slice(1)
   var usedPrefix = message.slice(0, 1)
   var readMore = String.fromCharCode(8206).repeat(4001)
+  if (!prefix.test(message)) return false
 
-  if (/(a(su|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return send(`*「 ANTI TOXIC 」*\n\nNomor: ${sender}\nessage}\n\n~Biasakan Jangan Toxic!`)
+  if (/(a(su|sw|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return send(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n~Biasakan Jangan Toxic!`)
   if (/^(menu|help|start|\?)/i.test(command)) {
       var menu = `
 ╭─「 KUHONG LITE 」
 │
 │• Nama: ${sender}
 │• Grup: ${group_name ? group_name : 'false'}
-│• Prefix: ${usedPrefix}
+│• Prefix: [ ${usedPrefix} ]
 │• App: ${app}
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
@@ -286,7 +287,7 @@ ${'```~Powered By RC047~```'}
       return send(time)
 
   } else if (/^iq/i.test(command)) {
-  	var iq = Math.floor(Math.random() * 10000)
+  	var iq = Math.floor(Math.random() * 1000)
     	return send('IQ Anda sebesar ' + iq + '!')
 
   } else if (/^dadu/i.test(command)) {
@@ -357,13 +358,13 @@ ${'```~Powered By RC047~```'}
   } else if (/^md(4|5)/i.test(command)) {
       var text = command.split('md4 ')[1] || command.split('md5 ')[1]
       if (!text) return send(loghandler.notText)
-      var result = await createHash(command.split(text)).update(text).digest('hex')
+      var result = await createHash('md' + command.slice(2, 3)).update(text).digest('hex')
         return send(result)
 
   } else if (/^sha(1|256|512)/i.test(command)) {
       var text = command.split('sha1 ')[1] || command.split('sha256 ')[1] || command.split('sha512 ')[1]
       if (!text) return send(loghandler.notText)
-      var result = await createHash(command.split(text)[0]).update(text).digest('hex')
+      var result = await createHash('sha' + command.slice(3, 4)).update(text).digest('hex')
         return send(result)
 
   } else if (/^h([aiueo])l\1h/i.test(command)) {
