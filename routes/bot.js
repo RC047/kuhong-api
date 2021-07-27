@@ -159,7 +159,7 @@ var loghandler = {
 }
 
 
-var handler = async (message, user, conn, { app, sender, group_name, phone }) => {
+var handler = async (message, user, send, { app, sender, group_name, phone }) => {
 
   var prefix = new RegExp('^[xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-]', 'gi')
   var date = new Date()
@@ -168,7 +168,7 @@ var handler = async (message, user, conn, { app, sender, group_name, phone }) =>
   var usedPrefix = command.slice(0, 1)
   var readMore = String.fromCharCode(8206).repeat(4001)
 
-  if (/(a(su|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return conn.send(`*「 ANTI TOXIC 」*\n\nNomor: ${sender}\nessage}\n\n~Biasakan Jangan Toxic!`)
+  if (/(a(su|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return send(`*「 ANTI TOXIC 」*\n\nNomor: ${sender}\nessage}\n\n~Biasakan Jangan Toxic!`)
   if (/^(menu|help|start|\?)/i.test(command)) {
       var menu = `
 ╭─「 KUHONG LITE 」
@@ -219,91 +219,91 @@ ${readMore}
 
 ${'```~Powered By RC047~```'}
 `.trim()
-       return conn.send(menu)
+       return send(menu)
 
   } else if (/^say/i.test(command)) {
   	var text = command.split('say ')[1]
-      if (!text) return conn.send(loghandler.notText)
-    	return conn.send(text)
+      if (!text) return send(loghandler.notText)
+    	return send(text)
 
   } else if (/^alay/i.test(command)) {
   	var text = command.split('alay ')[1]
-      if (!text) return conn.send(loghandler.notText)
-    	return conn.send(await alay(text))
+      if (!text) return send(loghandler.notText)
+    	return send(await alay(text))
 
   } else if (/^purba/i.test(command)) {
   	var text = command.split('purba ')[1]
-      if (!text) return conn.send(loghandler.notText)
-    	return conn.send(await purba(text))
+      if (!text) return send(loghandler.notText)
+    	return send(await purba(text))
 
   } else if (/^repeat/i.test(command)) {
   	var txt = command.split('repeat ')[1]
-      if (!txt) return conn.send(loghandler.notText)
+      if (!txt) return send(loghandler.notText)
       var [text, jumlah] = txt.split('|')
-      if (!jumlah) return conn.send(loghandler.notLength)
-      if (isNaN(jumlah)) return conn.send(loghandler.number)
-    	return conn.send(text.repeat(jumlah * 1))
+      if (!jumlah) return send(loghandler.notLength)
+      if (isNaN(jumlah)) return send(loghandler.number)
+    	return send(text.repeat(jumlah * 1))
 
   } else if (/^reverse/i.test(command)) {
   	var text = command.split('reverse ')[1]
-      if (!text) return conn.send(loghandler.notText)
+      if (!text) return send(loghandler.notText)
       var result = ''
       for (var index = text.length - 1; index >= 0; index--) result += text[index]
-        return conn.send(result)
+        return send(result)
 
   } else if (/^base64/i.test(command)) {
   	var text = command.split('base64 ')[1]
-      if (!text) return conn.send(loghandler.notText)
-    	return conn.send(Buffer.from(text, 'UTF-8').toString('base64'))
+      if (!text) return send(loghandler.notText)
+    	return send(Buffer.from(text, 'UTF-8').toString('base64'))
 
   } else if (/^unbase64/i.test(command)) {
   	var text = command.split('unbase64 ')[1]
-      if (!text) return conn.send(loghandler.notText)
-    	return conn.send(Buffer.from(text, 'base64').toString())
+      if (!text) return send(loghandler.notText)
+    	return send(Buffer.from(text, 'base64').toString())
 
   } else if (/^hex/i.test(command)) {
       var text = command.split('hex ')[1]
-      if (!text) return conn.send(loghandler.notText)
-        return conn.send(Buffer.from(text, 'UTF-8').toString('hex'))
+      if (!text) return send(loghandler.notText)
+        return send(Buffer.from(text, 'UTF-8').toString('hex'))
 
   } else if (/^unhex/i.test(command)) {
       var text = command.split('unhex ')[1]
-      if (!text) return conn.send(loghandler.notText)
-        return conn.send(Buffer.from(text, 'hex').toString())
+      if (!text) return send(loghandler.notText)
+        return send(Buffer.from(text, 'hex').toString())
 
   } else if (/^escape/i.test(command)) {
   	var text = command.split('escape ')[1]
-      if (!text) return conn.send(loghandler.notText)
-    	return conn.send(await escapeFull(text))
+      if (!text) return send(loghandler.notText)
+    	return send(await escapeFull(text))
 
   } else if (/^unescape/i.test(command)) {
   	var text = command.split('unescape ')[1]
-      if (!text) return conn.send(loghandler.notText)
-    	return conn.send(await unescape(text))
+      if (!text) return send(loghandler.notText)
+    	return send(await unescape(text))
 
   } else if (/^time/i.test(command)) {
-      return conn.send(time)
+      return send(time)
 
   } else if (/^iq/i.test(command)) {
   	var iq = Math.floor(Math.random() * 10000)
-    	return conn.send('IQ Anda sebesar ' + iq + '!')
+    	return send('IQ Anda sebesar ' + iq + '!')
 
   } else if (/^dadu/i.test(command)) {
   	var dadu = Math.floor(Math.random() * 12)
-    	return conn.send('Kamu mendapatkan angka ' + dadu + '!')
+    	return send('Kamu mendapatkan angka ' + dadu + '!')
 
   } else if (/^ping/i.test(command)) {
       var old = performance.now()
       var neww = performance.now()
-        return conn.send('Pong!\n\n' + neww - old + 'ms')
+        return send('Pong!\n\n' + neww - old + 'ms')
 
   } else if (/^ip/i.test(command)) {
       var json = await (await fetch('https://kuhong-api.herokuapp.com/ip')).json()
-        return conn.send(json.result)
+        return send(json.result)
 
   } else if (/^calculator/i.test(command)) {
   	var angka = command.split('calculator ')[1]
-      if (!angka) return conn.send(loghandler.notNumber)
+      if (!angka) return send(loghandler.notNumber)
       var val = angka
         .replace(/[^0-9\-\/+*×÷πEe()piPI/]/g, '')
         .replace(/×/g, '*')
@@ -320,46 +320,46 @@ ${'```~Powered By RC047~```'}
         .replace(/\*×/g, '×')
         var result = (new Function('return ' + val))()
         if (!result) result = result
-          return conn.send(result)
+          return send(result)
 
   } else if (/^tinyurl/i.test(command)) {
   	var url = command.split('tinyurl ')[1]
-      if (!url) return conn.send(loghandler.notUrl)
+      if (!url) return send(loghandler.notUrl)
   	var result = await (await fetch('https://tinyurl.com/api-create.php?url=' + url)).text()
-        return conn.send(result)
+        return send(result)
 
   } else if (/^lirik/i.test(command)) {
       var text = command.split('lirik ')[1]
-      if (!text) return conn.send(loghandler.notText)
+      if (!text) return send(loghandler.notText)
       var json = await (await fetch(`https://some-random-api.ml/lyrics?title=${text}`)).json()
-        return conn.send(json.lyrics)
+        return send(json.lyrics)
 
   } else if (/^chord/i.test(command)) {
       var text = command.split('chord ')[1]
-      if (!text) return conn.send(loghandler.notText)
+      if (!text) return send(loghandler.notText)
       var json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/chord?q=${text}`)).json()
-        return conn.send(json.result)
+        return send(json.result)
 
   } else if (/^md(4|5)/i.test(command)) {
       var text = command.split('md4 ')[1] || command.split('md5 ')[1]
-      if (!text) return conn.send(loghandler.notText)
+      if (!text) return send(loghandler.notText)
       var result = await createHash(command.split(text)).update(text).digest('hex')
-        return conn.send(result)
+        return send(result)
 
   } else if (/^sha(1|256|512)/i.test(command)) {
       var text = command.split('sha1 ')[1] || command.split('sha256 ')[1] || command.split('sha512 ')[1]
-      if (!text) return conn.send(loghandler.notText)
+      if (!text) return send(loghandler.notText)
       var result = await createHash(command.split(text)[0]).update(text).digest('hex')
-        return conn.send(result)
+        return send(result)
 
   } else if (/^h([aiueo])l\1h/i.test(command)) {
       var text = command.split('h ')[1]
-      if (!text) return conn.send(loghandler.notText)
+      if (!text) return send(loghandler.notText)
       var txt = command.slice(1, 2)
       var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, txt.toUpperCase())
       send(result)
 
-  } else return conn.send(`Perintah tidak ditemukan!\n\nSilahkan ketik ${usedPrefix + 'menu'} untuk melihat list menu`)
+  } else return send(`Perintah tidak ditemukan!\n\nSilahkan ketik ${usedPrefix + 'menu'} untuk melihat list menu`)
 }
 
 module.exports = { handler }
