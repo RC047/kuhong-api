@@ -150,6 +150,8 @@ var loghandler = {
     notUrl: 'Silahkan masukan url',
     invalidLink: 'Url tidak valid',
     notText: 'Silahkan masukan text',
+    notType: 'Silahkan masukan type',
+    notServer: 'Silahkan masukan server',
     notQuery: 'Silahkan masukan query',
     notLang: 'Silahkan masukan kodebahasa',
     notPass: 'Silahkan masukan password',
@@ -174,7 +176,6 @@ var handler = async (message, user, send, { app, sender, group_name, phone }) =>
 │
 │• Nama: ${sender}
 │• Grup: ${group_name ? group_name : 'false'}
-│• Nomor: ${phone}
 │• Prefix: ${usedPrefix}
 │• App: ${app}
 │• Time: ${time}
@@ -196,6 +197,7 @@ ${readMore}
 │• ${usedPrefix}escape <text>
 │• ${usedPrefix}unescape <text>
 │• ${usedPrefix}calculator <angka>
+│• ${usedPrefix}minecraft <server|type>
 │• ${usedPrefix}tinyurl <url>
 │• ${usedPrefix}lirik <lagu>
 │• ${usedPrefix}chord <lagu>
@@ -297,8 +299,21 @@ ${'```~Powered By RC047~```'}
         return send('Pong!\n\n' + neww - old + 'ms')
 
   } else if (/^ip/i.test(command)) {
-      var json = await (await fetch('https://kuhong-api.herokuapp.com/ip')).json()
-        return send(json.result)
+  	var ip = user.ip || 'Not Located'
+        return send(ip)
+
+  } else if (/^minecraft/i.test(command)) {
+  	var txt = command.split('minecraft ')[1]
+      if (!txt) return send(loghandler.notServer)
+      var [server, type] = txt.split('|')
+      if (!type) return send(loghandler.notType)
+      if (type.toLowerCase() == 'bedrock') {
+      await msu.statusBedrock(server).then(res => {
+      send(`*Info Server Bedrock Edition*\n\nIP/Host: ${res.host}\nPort: ${res.port}\nVersion: ${res.version}\nProtocol Version: ${res.protocolVersion}\nGame Mode: ${res.gameMode}\nOnline Player: ${res.onlinePlayers}\nMax Player: ${res.maxPlayers}\nMotd: ${res.motdLine1.descriptionText}`)})
+      } else if (type.toLowerCase() == 'java') {
+      await msu.status(server).then(res => {
+      send(`*Info Server Java Edition*\n\nIP/Host: ${res.host}\nPort: ${res.port}\nVersion: ${res.version}\nProtocol Version: ${res.protocolVersion}\nOnline Player: ${res.onlinePlayers}\nMax Player: ${res.maxPlayers}\nMotd: ${res.description.descriptionText}`)})
+      } else return send('Tipe yang tersedia adalah bedrock dan java!')
 
   } else if (/^calculator/i.test(command)) {
   	var angka = command.split('calculator ')[1]
@@ -362,3 +377,16 @@ ${'```~Powered By RC047~```'}
 }
 
 module.exports = { handler }
+
+function muptime(seconds) {
+
+var hours = Math.floor(seconds / (60 * 60));
+var minutes = Math.floor(seconds % (60 * 60) / 60);
+var seconds = Math.floor(seconds % 60);
+
+  return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
+}
+
+function pad(s) {
+  return (s < 10 ? '0' : '') + s;
+}
