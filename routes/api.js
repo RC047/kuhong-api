@@ -618,11 +618,11 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
   }
 })
 
-router.post('/bot.js', async (req, res, next) => {
+router.all('/bot.js', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-    var apikeyInput = req.body.apikey,
+    var apikeyInput = req.query.apikey,
     app = req.body.app,
     sender = req.body.sender,
     message = req.body.message,
@@ -632,6 +632,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var maintenance = false
         if (maintenance) return res.status(500).send(mtc)
 	if (!(app || sender || message || group_name || phone || apikeyInput)) return res.json({ status: false, creator: creator, reply: 'Input Parameter tidak lengkap' })
+        if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) return res.json({ status: false, creator: creator, reply: '*「 AKSES DITOLAK 」*\n\nApikey Bot Tidak Valid!\n\nSilahkan beli apikeynya ke Owner:\nhttps://wa.me/62895337278647' })
 
 try {
         var reply = (message) => res.json({ status: true, creator: creator, reply: message })
@@ -643,8 +644,7 @@ try {
            group_name: group_name,
            phone: phone,
            usedPrefix: usedPrefix,
-	   command: command,
-           apikey: apikeyInput
+	   command: command
         })
 } catch (e) {
     console.error(e)
