@@ -213,6 +213,7 @@ ${readMore}
 │• ${usedPrefix}unhex <text>
 │• ${usedPrefix}escape <text>
 │• ${usedPrefix}unescape <text>
+│• ${usedPrefix}translate <text|lang>
 │• ${usedPrefix}calculator <angka>
 │• ${usedPrefix}minecraft <server|type>
 │• ${usedPrefix}tinyurl <url>
@@ -240,8 +241,11 @@ ${readMore}
 │• ${usedPrefix}bucin
 │• ${usedPrefix}sindiran
 │• ${usedPrefix}katailham
+│• ${usedPrefix}bacot
 │• ${usedPrefix}iq
 │• ${usedPrefix}dadu
+│• ${usedPrefix}truth
+│• ${usedPrefix}dare
 │• ${usedPrefix}suit <pilihan>
 │• ${usedPrefix}suitjawa <pilihan>
 │• ${usedPrefix}modapk
@@ -256,7 +260,7 @@ ${watermark}
 `.trim()
        return reply(menu)
 
-} else if (/^owner/i.test(command)) {
+  } else if (/^owner/i.test(command)) {
     return reply('https://wa.me/62895337278647?text=Halo+bang+jago!')
  
   } else if (/^say/i.test(command)) {
@@ -471,6 +475,14 @@ ${watermark}
       if (!json.result) return reply('Chord tidak ditemukan!')
         return reply(json.result)
 
+  } else if (/^translate/i.test(command)) {
+  	  var txt = command.split(' ')[1]
+      if (!txt) return reply(loghandler.notText)
+      var [text, lang] = txt.split('|')
+      if (!lang) return reply(loghandler.notLang)
+      var result = await translate(text, { tld: 'cn', to: lang })
+    	return reply(result[0])
+
   } else if (/^md(4|5)/i.test(command)) {
       var text = command.split('md4 ')[1] || command.split('md5 ')[1]
       if (!text) return reply(loghandler.notText)
@@ -488,6 +500,383 @@ ${watermark}
       if (!text) return reply(loghandler.notText)
       var txt = command.slice(1, 2)
       var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, txt.toUpperCase())
+        return reply(result)
+
+  } else if (/^fml/i.test(command)) {
+      var fml = await (await fetch('https://www.fmylife.com/random')).text()
+      var $ = cheerio.load(fml)
+      var resultEN = $('#content article.article-panel > .panel > .article-contents > a.article-link').first().text()
+      var result = await translate(resultEN, { tld: 'cn', to: 'id' })
+        return reply(result[0])
+
+  } else if (/^quotes?/i.test(command)) {
+      var data = await fs.readFileSync(__path + '/lib/scraper/quotes.json')
+      var object = JSON.parse(data);
+      var index = Math.floor(Math.random() * object.length);
+      var json = object[index];
+        return reply(json.result)
+
+  } else if (/^sindiran/i.test(command)) {
+      var data = await fs.readFileSync(__path + '/lib/scraper/sindiran.json')
+      var object = JSON.parse(data);
+      var index = Math.floor(Math.random() * object.length);
+      var json = object[index];
+        return reply(json.result)
+
+  } else if (/^pantun/i.test(command)) {
+      var data = await fs.readFileSync(__path + '/lib/scraper/pantun.txt').toString()
+      var pantun = data.split('\n')
+      var result = pantun[Math.floor(Math.random() * pantun.length)]
+        return reply(result)
+
+  } else if (/^katailham/i.test(command)) {
+      var katailham = [
+          'Nggak ada yang peduli denganmu di sosmed kecuali kamu cakep.',
+          'Sesimpel ini deh sibuk itu palsu, semua tergantung prioritas.',
+          'Dia hanya menghargaimu bukan mencintaimu.',
+          'Keadilan sosial hanya berlaku bagi warna negara yang good looking.',
+          'Jangan jadi pelangi untuk orang yang buta warna.',
+          'Dia yang tertidur nyenyak setelah mematahkan hatimu tidak pantas untuk kamu ingat.',
+          'Dia cuman bercanda, harusnya kamu ketawa, bukan malah jatuh cinta.',
+          'Mencintaimu adalah seni menyakiti diri.',
+          'Dia gak jahat, bapermu aja yang salah tempat.',
+          'Jika tidak bisa mewarnai hidup seseorang, maka jangan pudarkan warna aslinya.',
+          'Cukup tahu namaku, jangan rupaku.',
+          'Sesuatu akan terasa berharga jika sudah kehilangan- kata ilham.',
+          'Jangan pernah mengeluh ketika kopimu dingin, ia pernah hangat, namun kau diamkan.'
+     ]
+     var result = pickRandom(katailham)
+       return reply(result)
+
+  } else if (/^bucin/i.test(command)) {
+     var bucin = [
+            'Aku memilih untuk sendiri, bukan karena menunggu yang sempurna, tetapi butuh yang tak pernah menyerah.',
+            'Seorang yang single diciptakan bersama pasangan yang belum ditemukannya.',
+            'Jomblo. Mungkin itu cara Tuhan untuk mengatakan',
+            'Istirahatlah dari cinta yang salah',
+            'Jomblo adalah anak muda yang mendahulukan pengembangan pribadinya untuk cinta yang lebih berkelas nantinya.',
+            'Aku bukan mencari seseorang yang sempurna, tapi aku mencari orang yang menjadi sempurna berkat kelebihanku.',
+            'Pacar orang adalah jodoh kita yang tertunda.',
+            'Jomblo pasti berlalu. Semua ada saatnya, saat semua kesendirian menjadi sebuah kebersamaan dengannya kekasih halal. Bersabarlah.',
+            'Romeo rela mati untuk juliet, Jack mati karena menyelamatkan Rose. Intinya, kalau tetap mau hidup, jadilah single.',
+            'Aku mencari orang bukan dari kelebihannya tapi aku mencari orang dari ketulusan hatinya.',
+            'Jodoh bukan sendal jepit, yang kerap tertukar. Jadi teruslah berada dalam perjuangan yang semestinya.',
+            'Kalau kamu jadi senar gitar, aku nggak mau jadi gitarisnya. Karena aku nggak mau mutusin kamu.',
+            'Bila mencintaimu adalah ilusi, maka izinkan aku berimajinasi selamanya.',
+            'Sayang... Tugas aku hanya mencintaimu, bukan melawan takdir.',
+            'Saat aku sedang bersamamu rasanya 1 jam hanya 1 detik, tetapi jika aku jauh darimu rasanya 1 hari menjadi 1 tahun.',
+            'Kolak pisang tahu sumedang, walau jarak membentang cintaku takkan pernah hilang.',
+            'Aku ingin menjadi satu-satunya, bukan salah satunya.',
+            'Aku tidak bisa berjanji untuk menjadi yang baik. Tapi aku berjanji akan selalu mendampingi kamu.',
+            'Kalau aku jadi wakil rakyat aku pasti gagal, gimana mau mikirin rakyat kalau yang selalu ada dipikiran aku hanyalah dirimu.',
+            'Lihat kebunku, penuh dengan bunga. Lihat matamu, hatiku berbunga-bunga.',
+            'Berjanjilah untuk terus bersamaku sekarang, esok, dan selamanya.',
+            'Rindu tidak hanya muncul karena jarak yang terpisah. Tapi juga karena keinginan yang tidak terwujud.',
+            'Kamu tidak akan pernah jauh dariku, kemanapun aku pergi kamu selalu ada, karena kamu selalu di hatiku, yang jauh hanya raga kita bukan hati kita.',
+            'Aku tahu dalam setiap tatapanku, kita terhalang oleh jarak dan waktu. Tapi aku yakin kalau nanti kita pasti bisa bersatu.',
+            'Merindukanmu tanpa pernah bertemu sama halnya dengan menciptakan lagu yang tak pernah ternyayikan.',
+            'Ada kalanya jarak selalu menjadi penghalang antara aku sama kamu, namun tetap saja di hatiku kita selalu dekat.',
+            'Jika hati ini tak mampu membendung segala kerinduan, apa daya tak ada yang bisa aku lakukan selain mendoakanmu.',
+            'Mungkin di saat ini aku hanya bisa menahan kerinduan ini. Sampai tiba saatnya nanti aku bisa bertemu dan melepaskan kerinduan ini bersamamu.',
+            'Melalui rasa rindu yang bergejolak dalam hati, di situ terkadang aku sangat membutuhkan dekap peluk kasih sayangmu.',
+            'Dalam dinginnya malam, tak kuingat lagi; Berapa sering aku memikirkanmu juga merindukanmu.',
+            'Merindukanmu itu seperti hujan yang datang tiba-tiba dan bertahan lama. Dan bahkan setelah hujan reda, rinduku masih terasa.',
+            'Sejak mengenalmu bawaannya aku pengen belajar terus, belajar menjadi yang terbaik buat kamu.',
+            'Tahu gak perbedaan pensi sama wajah kamu? Kalau pensil tulisannya bisa dihapus, tapi kalau wajah kamu gak akan ada yang bisa hapus dari pikiran aku.',
+            'Bukan Ujian Nasional besok yang harus aku khawatirkan, tapi ujian hidup yang aku lalui setelah kamu meninggalkanku.',
+            'Satu hal kebahagiaan di sekolah yang terus membuatku semangat adalah bisa melihat senyumanmu setiap hari.',
+            'Kamu tahu gak perbedaanya kalau ke sekolah sama ke rumah kamu? Kalo ke sekolah pasti yang di bawa itu buku dan pulpen, tapi kalo ke rumah kamu, aku cukup membawa hati dan cinta.',
+            'Aku gak sedih kok kalo besok hari senin, aku sedihnya kalau gak ketemu kamu.',
+            'Momen cintaku tegak lurus dengan momen cintamu. Menjadikan cinta kita sebagai titik ekuilibrium yang sempurna.',
+            'Aku rela ikut lomba lari keliling dunia, asalkan engkai yang menjadi garis finishnya.',
+            'PR-ku adalah merindukanmu. Lebih kuat dari Matematika, lebih luas dari Fisika, lebih kerasa dari Biologi.',
+            'Cintaku kepadamu itu bagaikan metabolisme, yang gak akan berhenti sampai mati.',
+            'Kalau jelangkungnya kaya kamu, dateng aku jemput, pulang aku anter deh.',
+            'Makan apapun aku suka asal sama kamu, termasuk makan ati.',
+            'Cinta itu kaya hukuman mati. Kalau nggak ditembak, ya digantung.',
+            'Mencintaimu itu kayak narkoba: sekali coba jadi candu, gak dicoba bikin penasaran, ditinggalin bikin sakaw.',
+            'Gue paling suka ngemil karena ngemil itu enak. Apalagi ngemilikin kamu sepenuhnya...',
+            'Dunia ini cuma milik kita berdua. Yang lainnya cuma ngontrak.',
+            'Bagi aku, semua hari itu adalah hari Selasa. Selasa di Surga bila dekat denganmu...',
+            'Bagaimana kalau kita berdua jadi komplotan penjahat? Aku curi hatimu dan kamu curi hatiku.',
+            'Kamu itu seperti kopi yang aku seruput pagi ini. Pahit, tapi bikin nagih.',
+            'Aku sering cemburu sama lipstikmu. Dia bisa nyium kamu tiap hari, dari pagi sampai malam.',
+            'Hanya mendengar namamu saja sudah bisa membuatku tersenyum seperti orang bodoh.',
+            'Aku tau teman wanitamu bukan hanya satu, dan menyukaimu pun bukan hanya aku.',
+            'Semenjak aku berhenti berharap pada dirimu, aku jadi tidak semangat dalam segala hal..',
+            'Denganmu, jatuh cinta adalah patah hati paling sengaja.',
+            'Sangat sulit merasakan kebahagiaan hidup tanpa kehadiran kamu disisiku.',
+            'Melalui rasa rindu yang bergejolak dalam hati, di situ terkadang aku sangat membutuhkan dekap peluk kasih sayangmu.',
+            'Sendainya kamu tahu, sampai saat ini aku masih mencintaimu.',
+            'Terkadang aku iri sama layangan..talinya putus saja masih dikejar kejar dan gak rela direbut orang lain...',
+            'Aku tidak tahu apa itu cinta, sampai akhirnya aku bertemu denganmu. Tapi, saat itu juga aku tahu rasanya patah hati.',
+            'Mengejar itu capek, tapi lebih capek lagi menunggu\nMenunggu kamu menyadari keberadaanku...',
+            'Jangan berhenti mencinta hanya karena pernah terluka. Karena tak ada pelangi tanpa hujan, tak ada cinta sejati tanpa tangisan.',
+            'Aku punya sejuta alasan unutk melupakanmu, tapi tak ada yang bisa memaksaku untuk berhenti mencintaimu.',
+            'Terkadang seseorang terasa sangat bodoh hanya untuk mencintai seseorang.',
+            'Kamu adalah patah hati terbaik yang gak pernah aku sesali.',
+            'Bukannya tak pantas ditunggu, hanya saja sering memberi harapan palsu.',
+            'Sebagian diriku merasa sakit, Mengingat dirinya yang sangat dekat, tapi tak tersentuh.',
+            'Hal yang terbaik dalam mencintai seseorang adalah dengan diam-diam mendo akannya.',
+            'Kuharap aku bisa menghilangkan perasaan ini secepat aku kehilanganmu.',
+            'Demi cinta kita menipu diri sendiri. Berusaha kuat nyatanya jatuh secara tak terhormat.',
+            'Anggaplah aku rumahmu, jika kamu pergi kamu mengerti kemana arah pulang. Menetaplah bila kamu mau dan pergilah jika kamu bosan...',
+            'Aku bingung, apakah aku harus kecewa atu tidak? Jika aku kecewa, emang siapa diriku baginya?\n\nKalau aku tidak kecewa, tapi aku menunggu ucapannya.',
+            'Rinduku seperti ranting yang tetap berdiri.Meski tak satupun lagi dedaunan yang menemani, sampai akhirnya mengering, patah, dan mati.',
+            'Kurasa kita sekarang hanya dua orang asing yang memiliki kenangan yang sama.',
+            'Buatlah aku bisa membencimu walau hanya beberapa menit, agar tidak terlalu berat untuk melupakanmu.',
+            'Aku mencintaimu dengan segenap hatiku, tapi kau malah membagi perasaanmu dengan orang lain.',
+            'Mencintaimu mungkin menghancurkanku, tapi entah bagaimana meninggalkanmu tidak memperbaikiku.',
+            'Kamu adalah yang utama dan pertama dalam hidupku. Tapi, aku adalah yang kedua bagimu.',
+            'Jika kita hanya bisa dipertemukan dalam mimpi, aku ingin tidur selamanya.',
+            'Melihatmu bahagia adalah kebahagiaanku, walaupun bahagiamu tanpa bersamaku.',
+            'Aku terkadang iri dengan sebuah benda. Tidak memiliki rasa namun selalu dibutuhkan. Berbeda dengan aku yang memiliki rasa, namun ditinggalkan dan diabaikan...',
+            'Bagaimana mungkin aku berpindah jika hanya padamu hatiku bersinggah?',
+            'Kenangan tentangmu sudah seperti rumah bagiku. Sehingga setiap kali pikiranku melayang, pasti ujung-ujungnya akan selalu kembali kepadamu.',
+            'Kenapa tisue bermanfaat? Karena cinta tak pernah kemarau. - Sujiwo Tejo',
+            'Kalau mencintaimu adalah kesalahan, yasudah, biar aku salah terus saja.',
+            'Sejak kenal kamu, aku jadi pengen belajar terus deh. Belajar jadi yang terbaik buat kamu.',
+            'Ada yang bertingkah bodoh hanya untuk melihatmu tersenyum. Dan dia merasa bahagia akan hal itu.',
+            'Aku bukan orang baik, tapi akan belajar jadi yang terbaik untuk kamu.',
+            'Kita tidak mati, tapi lukanya yang membuat kita tidak bisa berjalan seperti dulu lagi.',
+            'keberadaanmu bagaikan secangkir kopi yang aku butuhkan setiap pagi, yang dapat mendorongku untuk tetap bersemangat menjalani hari.',
+            'Aku mau banget ngasih dunia ke kamu. Tapi karena itu nggak mungkin, maka aku akan kasih hal yang paling penting dalam hidupku, yaitu duniaku.',
+            'Mending sing humoris tapi manis, ketimbang sok romantis tapi akhire tragis.',
+            'Ben akhire ora kecewa, dewe kudu ngerti kapan waktune berharap lan kapan kudu mandeg.',
+            'Aku ki wong Jowo seng ora ngerti artine',
+            'I Love U. Tapi aku ngertine mek',
+            'Aku tresno awakmu',
+            'Ora perlu ayu lan sugihmu, aku cukup mok setiani wes seneng ra karuan.',
+            'Cintaku nang awakmu iku koyok kamera, fokus nang awakmu tok liyane mah ngeblur.',
+            'Saben dino kegowo ngimpi tapi ora biso nduweni.',
+            'Ora ketemu koe 30 dino rasane koyo sewulan.',
+            'Aku tanpamu bagaikan sego kucing ilang karete. Ambyar.',
+            'Pengenku, Aku iso muter wektu. Supoyo aku iso nemokne kowe lewih gasik. Ben Lewih dowo wektuku kanggo urip bareng sliramu.',
+            'Aku ora pernah ngerti opo kui tresno, kajaba sak bare ketemu karo sliramu.',
+            'Cinta aa ka neng moal leungit-leungit sanajan aa geus kawin deui.',
+            'Kasabaran kaula aya batasna, tapi cinta kaula ka anjeun henteu aya se epna.',
+            'Kanyaah akang moal luntur najan make Bayclean.',
+            'Kenangan endah keur babarengan jeung anjeun ek tuluy diinget-inget nepi ka poho.',
+            'Kuring moal bakal tiasa hirup sorangan, butuh bantosan jalmi sejen.',
+            'Nyaahna aa ka neg teh jiga tukang bank keur nagih hutang (hayoh mumuntil).',
+            'Kasabaran urang aya batasna, tapi cinta urang ka maneh moal aya beakna.',
+            'Hayang rasana kuring ngarangkai kabeh kata cinta anu aya di dunya ieu, terus bade ku kuring kumpulkeun, supaya anjeun nyaho gede pisan rasa cinta kuring ka anjeun.',
+            'Tenang wae neng, ari cinta Akang mah sapertos tembang krispatih; Tak lekang oleh waktu.',
+            'Abdi sanes jalmi nu sampurna pikeun anjeun, sareng sanes oge nu paling alus kanggo anjeun. Tapi nu pasti, abdi jalmi hiji-hijina nu terus emut ka anjeun.',
+            'Cukup jaringan aja yang hilang, kamu jangan.',
+            'Sering sih dibikin makan ati. Tapi menyadari kamu masih di sini bikin bahagia lagi.',
+            'Musuhku adalah mereka yang ingin memilikimu juga.',
+            'Banyak yang selalu ada, tapi kalo cuma kamu yang aku mau, gimana?',
+            'Jam tidurku hancur dirusak rindu.',
+            'Cukup China aja yang jauh, cinta kita jangan.',
+            'Yang penting itu kebahagiaan kamu, aku sih gak penting..',
+            'Cuma satu keinginanku, dicintai olehmu..',
+            'Aku tanpamu bagaikan ambulans tanpa wiuw wiuw wiuw.',
+            'Cukup antartika aja yang jauh. Antarkita jangan.'
+      ]
+      var result = pickRandom(bucin)
+        return reply(result)
+
+  } else if (/^katabija(k|x)/i.test(command)) {
+      var body = await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/katabijax.txt')).text()
+      var json = body.split('\n')
+      var result = json[Math.floor(Math.random() * json.length)]
+        return reply(result)
+
+  } else if (/^truth/i.test(command)) {
+      var truth = [
+        'Acara tv apa yang paling kamu benci? Berikan alasannya!',
+        'Apa baju yang (menurutmu) paling jelek yang pernah kamu pakai, dan kapan kamu memakainya?',
+        'Apa hal paling buruk (gosip) yang pernah kamu bilang tentang temenmu?',
+        'Apa hal paling memalukan dari dirimu?',
+        'Apa hal paling memalukan dari temanmu?',
+        'Apa hal pertama yang kamu lihat saat kamu melihat orang lain (lawan jenis)?',
+        'Apa hal pertama yang terlintas di pikiranmu saat kamu melihat cermin?',
+        'Apa hal terbodoh yang pernah kamu lakukan?',
+        'Apa hal terbodoh yang pernah kamu lakukan?',
+        'Apa ketakutan terbesar kamu?',
+        'Apa mimpi terburuk yang pernah kamu alami?',
+        'Apa mimpi terkonyol yang sampai sekarang kamu kamu ingat?',
+        'Apa pekerjaan paling konyol yang pernah kamu bayangin kamu akan jadi?',
+        'Apa sifat terburukmu menurut kamu?',
+        'Apa sifat yang ingin kamu rubah dari dirimu?',
+        'Apa sifat yang ingin kamu rubah dari temanmu?',
+        'Apa yang akan kamu lakuin bila pacarmu bilang hidung atau jarimu jelek?',
+        'Apa yang kamu fikirkan sebelum kamu tidur ? ex: menghayal tentang jodoh,dll.',
+        'Apakah hal yang menurutmu paling menonjol dari dirimu?',
+        'Bagian tubuh temanmu mana yang paling kamu sukai dan ingin kamu punya?',
+        'Bagian tubuhmu mana yang paling kamu benci?',
+        'Dari semua kelas yang ada di sekolah, kelas mana yang paling ingin kamu masuki dan kelas mana yang paling ingin kamu hindari?',
+        'Deksripsikan teman terdekat mu!',
+        'Deskripsikan dirimu dalam satu kata!',
+        'Film dan lagu apa yang pernah membuat kamu menangis?',
+        'Hal apa yang kamu rahasiakan sampe sekarang dan gak ada satu orangpun yang tau?',
+        'Hal paling romantis apa yang seseorang (lawan jenis) pernah lakuin atau kasih ke kamu?',
+        'Hal-hal menjijikan apa yang pernah kamu alami ?',
+        'Jika kamu lahir kembali dan harus jadi salah satu dari temanmu, siapa yang akan kamu pilih untuk jadi dia?',
+        'Jika punya kekuatan super/ super power ingin melakukan apa',
+        'Jika sebentar lagi kiamat, apa yang kamu lakukan ?',
+        'Kalo kamu disuruh operasi plastik dengan contoh wajah dari teman sekelasmu, wajah siapa yang akan kamu tiru?',
+        'Kamu pernah mencuri sesuatu gak?',
+        'Apakah kamu takut mati? kenapa?',
+        'Kapan terakhir kali kamu menangis dan mengapa?',
+        'Apa kemampuan spesial kamu apa?',
+        'Kok bisa suka sama orang yang kamu sukai?',
+        'Menurutmu, apa sifat baik teman terdekatmu yang nggak dia sadari?',
+        'Orang seperti apa yang ingin kamu nikahi suatu saat nanti?',
+        'Pekerjaan paling ngenes apa yang menurutmu cocok untuk teman yang sedang duduk di sebelahmu? Dan kenapa?',
+        'Pengen tukeran hidup sehari dengan siapa? (teman terdekat yang kalian sama-sama tahu) dan mengapa',
+        'Pernahkah kamu diam-diam berharap hubungan seseorang dengan pacarnya putus? Siapa?',
+        'Pilih PACAR atau TEMAN ? why?',
+        'Quote apa yang paling kamu ingat dan kamu suka?',
+        'Rahasia apa yang belum pernah kamu katakan sampai sekarang kepada teman mu ?',
+        'Siapa panutan yang benar-benar menjadi panutanmu?',
+        'Siapa di antara temanmu yang kamu pikir matre?',
+        'Siapa di antara teman-temanmu yang menurutmu potongan rambutnya paling nggak banget?',
+        'Siapa diantara temen-temenmu yang paling NGGAK fotogenik dan kalo difoto lagi ketawa mukanya jelek banget?',
+        'Siapa mantan terindah mu? dan mengapa kalian putus ?!',
+        'Siapa nama artis yang pernah kamu bucinin diam-diam?',
+        'Siapa nama guru cowok yang pernah kamu sukai dulu?',
+        'Siapa nama mantan pacar teman mu yang pernah kamu sukai diam diam?',
+        'Siapa nama orang (lawan jenis) yang menurutmu akan asyik bila dijadikan pacar?',
+        'Siapa nama orang yang kamu benci, tapi kamu rasa orang itu suka sama kamu (nggak harus lawan jenis)?',
+        'Siapa nama orang yang pernah kamu kepoin diam-diam?',
+        'Siapa orang (lawan jenis) yang paling sering terlintas di pikiranmu?',
+        'Siapa orang yang paling menjengkelkan di antara teman teman mu ? alasannya!',
+        'Siapa sebenernya di antara teman-temanmu yang kamu pikir harus di make-over?',
+        'Siapa yang paling mendekati tipe pasangan idealmu di sini',
+        'Apa hal pertama yang akan Anda lakukan jika Anda bangun sebagai lawan jenis?',
+        'Pernahkah Anda membiarkan orang lain mendapat masalah karena sesuatu yang Anda lakukan?',
+        'Kapan terakhir kali Anda mengompol?',
+        'Apa yang paling kamu impikan dari tidur?',
+        'Jika Anda akan menghasilkan uang secara ilegal, bagaimana Anda membuatnya?',
+        'Apa yang kekanak-kanakan yang masih Anda lakukan?',
+        'Jika Anda buta, siapa yang akan menjadi anjing pemandu Anda?',
+        'Apa yang paling mengesankan Anda?',
+        'Jika Anda diizinkan untuk menggunakan hanya 3 kata untuk sisa malam mulai sekarang - yang mana itu?',
+        'Jika Anda seorang diktator, hukum mana yang akan Anda undang terlebih dahulu?',
+        'Jika Anda hidup selama era Nazi, siapa Anda?',
+        'Apa pengalaman paling memalukan di waktu sekolah / waktu belajar / pendidikan / tahun lalu?',
+        'Hewan apa yang paling cocok untukmu dan mengapa?',
+        'Apa kencan terburukmu?',
+        'Siapa yang ingin kamu cium sekarang?',
+        'Apa rahasia kamu, fantasi gelap?',
+        'Apakah Anda lebih suka tato pantat Anda atau menusuk lidah Anda?',
+        'Apakah kamu selalu setia?',
+        'Apakah Anda memiliki naksir remaja?',
+        'Di orang mana kamu jatuh cinta?',
+        'Selebritas mana yang ingin kamu kencani?',
+        'Apa waasa saat paling memalukan dalam hidup Anda?'
+      ]
+      var result = pickRandom(truth)
+        return reply(result)
+
+  } else if (/^dare/i.test(command)) {
+      var dare = [
+    "Ajak orang yg tidak kamu kenal itu selfie berdua dengan mu lalu upload ke snapgram", 
+    "Ambil beberapa nomor dari kontakmu secara acak dan kirim sms 'Aku hamil' sama mereka.",
+    "Ambil minuman apa saja yg ada didekat mu lalu campurkan dengan cabai dan minum!",
+    "Ambil nomor secara acak dari kontakmu, telepon dia, dan bilang 'Aku mencintaimu'",
+    "Beli makanan paling murah di kantin (atau beli sebotol aqua) dan bilang sambil tersedu-sedu pada teman sekelasmu 'Ini.. adalah makanan yang paling mahal yang pernah kubeli.. Hiks'",
+    "Beli satu botol coca cola dan siram bunga dengan coca cola itu di depan orang banyak.",
+    "Berdiri deket kulkas, tutup mata, pilih makanan secara acak didalemnya, pas makanpun mata harus tetep ditutup.",
+    "Berdiri di tengah lapangan basket dan berteriak, 'AKU MENCINTAIMU PANGERANKU/PUTRIKU'",
+    "Beri hormat pada seseorang di kelas, lalu bilang 'Hamba siap melayani Anda, Yang Mulia.'",
+    "Berjalan sambil bertepuk tangan dan menyanyi lagu 'Selamat Ulang Tahun' dari kelas ke koridor.",
+    "Berlutut satu kaki dan bilang 'Marry me?' sama orang pertama yang masuk ke ruangan.",
+    "Bikin hiasan kepala absurd dari tisu, apapun itu, terus suruh pose didepan kamera, terus upload",
+    "Bilang 'KAMU CANTIK BANGET NGGAK BOHONG' sama cewek yang menurutmu paling cantik di kelas ini",
+    "Bilang pada seorang guru, 'Bu/Pak, baju saya terasa sempit' dengan ekspresi memelas.",
+    "Bilang pada seseorang di kelas, 'Aku baru saja diberi tahu aku adalah kembaranmu dulu, kita dipisahkan, lalu aku menjalani operasi plastik. Dan ini adalah hal paling serius yang pernah aku katakan.'",
+    "Buang buku catatan seseorang ke tempat sampah, di depan matanya, sambil bilang 'Buku ini isinya tidak ada yang bisa memahami'",
+    "Cabut bulu kaki mu sendiri sebanyak 3x",
+    "Chat kedua orangtuamu, katakan bahwa kamu kangen dengan mereka lengkap dengan emoticon sedih.",
+    "Coba searcing google mengenai hal-hal yang mengerikan atau menggelikan seperti trypophobia, dll.",
+    "Duduk relaks di tengah lapangan basket sambil berpura-pura itu adalah pantai untuk berjemur.",
+    "isi mulut penuh dengan air dan harus tahan hingga dua putaran. Jika tertawa dan tumpah atau terminum, maka harus ngisi ulang dan ditambah satu putaran lagi.",
+    "Jabat tangan orang pertama yang masuk ke ruangan ini dan bilang 'Selamat datang di Who Wants To Be a Millionaire!'",
+    "Kirim sms pada orangtuamu 'Hai, bro! Aku baru beli majalah Playboy edisi terbaru!'",
+    "Kirim sms pada orangtuamu, 'Ma, Pa, aku sudah tahu bahwa aku adalah anak adopsi dari Panti Asuhan. Jangan menyembunyikan hal ini lagi.'",
+    "Kirim sms pada tiga nomor acak di kontakmu dan tulis 'Aku baru saja menjadi model majalah Playboy.'",
+    "Makan 1 Sendok makan kecap manis dan kecap asin!",
+    "Makan sesuatu tapi gak pake tangan.",
+    "Marah-marah ketemen kamu yang gak dateng padahal udah janjian mau main 'truth or dare' bareng-bareng",
+    "Mecahin telur pake kepala.",
+    "Memakan makanan yang sudah dicampur-campur dan rasanya pasti aneh, namun pastikan bahwa makanan itu tidak berbahaya untuk kesehatan jangka panjang maupun jangka pendek.",
+    "Menari ala Girls' Generation untuk cowok di depan kelas, atau menari ala Super Junior untuk cewek.",
+    "Mengerek tiang bendera tanpa ada benderanya.",
+    "Menggombali orang yang ditaksir, sahabat terdekat, lawan jenis yang tidak dikenal sama sekali dan  sejenisnya.",
+    "Meniru style rambut semua temen kamu.",
+    "Menyanyikan lagu HAI TAYO di depan banyak orang sambil menari",
+    "Menyanyikan lagu Iwak Peyek dengan keras di ruang kelas.",
+    "Minjem sesuatu ke tetangga",
+    "Minta tandatangan pada seorang guru yang paling kamu benci sambil bilang 'Anda benar-benar orang yang paling saya kagumi di dunia.'",
+    "Minta uang pada seseorang (random/acak) di jalan sambil bilang 'Saya tidak punya uang untuk naik angkot.'",
+    "Minum sesuatu yang udah dibuat/disepakatin, tapi pastiin gak berbahaya, bisa kayak minum sirup yang digaremin terus ditambah kecap.",
+    "Minum tiga teguk teh atau coke (coca-cola atau sprite) yang dicampur sambal.",
+    "Ngomong ke gebetannya emoticon-Takut, ngobrol ngalurngidul apapun lah boleh ,via manapun juga bisa.",
+    "Nyanyi-nyanyi lagu favorit difilm disney diluar rumah sambil teriak-teriak.",
+    "Nyebutin 1 biru sampai 10 biru dengan cepat dan tidak boleh melakukan kesalahan. Jika salah maka harus diulang dari awal.",
+    "Pakai mahkota tiruan dari kertas buku dan bilang sama setiap orang di ruangan 'BERI PENGHORMATAN PADA YANG MULIA RAJA' sambil menunjuk setiap orang dengan penggaris.",
+    "Pake celana kebalik sampe besok paginya.",
+    "Pegang bola basket, berdiri di depan kelas, dan berteriak, 'ADA YANG TAHU MENGAPA BOLA GOLF INI SANGAT BESAR? APA PABRIKNYA SALAH CETAK?'",
+    "Peluk orang yang NGGAK kamu sukai di kelas dan bilang, 'Terimakasih banyak kamu sudah bersedia menjadi orang paling baik untukku.'",
+    "Pergi ke lapangan yg luas, lalu berlari sekencang kencangnya sambil mengatakan 'aku gila aku gila'",
+    "Petik 1 bunga lalu tancapkan bunga itu ke orang yg tidak kamu kenal (harus lawan jenis ya)",
+    "Pilih orang secara acak di jalan, lalu bilang 'You don't know you're beautiful' (ala One Direction)",
+    "Pura pura kerasukan ex: kerasukan macan dll",
+    "Suruh bersiul pas mulutnya lagi penuh dijejelin makanan.",
+    "Suruh jadi pelayan buat ngelayanin kamu sama temen-temen kamu buat makan siang.",
+    "Suruh pake kaos kaki buat dijadiin sarung tangan.",
+    "Suruh pake topi paling aneh/helm paling absurd selama 3 putaraann kedepan.",
+    "Telpon mama kamu dan bilang 'ma, aku mau nikah secepatnya'",
+    "Telpon mantan kamu dan bialng 'aku rindu kamu'",
+    "Teriak 'WOI GW JACK, DENGER NIH RAUNGAN GW, ROAAAAR!' ditempat rame",
+    "Tuker baju sama orang terdekat sampe ronde berikutnya.",
+    "Update status di BBM, Line, WA, atau apapun itu dengan kata kata yang semuanya berawalan 'T'",
+    "Upload video dia nyanyi ke youtube yang lagi nyanyiin lagu-lagu populer",
+    "Warnain kuku kaki dan tangan tapi dengan warna berbeda-beda buat seminggu"
+     ]
+     var result = pickRandom(dare)
+        return reply(result)
+
+  } else if (/^bacot/i.test(command)) {
+      var bacot = [
+        'Kamu suka kopi nggak? Aku sih suka. Tau kenapa alesannya? Kopi itu ibarat kamu, pahit sih tapi bikin candu jadi pingin terus.',
+        'Gajian itu kayak mantan ya? Bisanya cuman lewat sebentar saja.',
+        'Kata pak haji, cowok yang nggak mau pergi Sholat Jumat disuruh pakai rok aja.',
+        'Kamu tahu mantan nggak? Mantan itu ibarat gajian, biasa numpang lewat dong di kehidupan kita.',
+        'Aku suka kamu, kamu suka dia, tapi dia sayangnya nggak ke kamu. Wkwkw lucu ya? Cinta serumit ini.',
+        'Google itu hebat ya? Tapi sayang sehebat-hebatnya Google nggak bisa menemukan jodoh kita.',
+        'Terlalu sering memegang pensil alis dapat membuat mata menjadi buta, jika dicolok-colokkan ke mata.',
+        'Saya bekerja keras karena sadar kalau uang nggak punya kaki buat jalan sendiri ke kantong saya.',
+        'Jika kamu tak mampu meyakinkan dan memukau orang dengan kepintaranmu, bingungkan dia dengan kebodohanmu.',
+        'Selelah-lelahnya bekerja, lebih lelah lagi kalau nganggur.',
+        'Kita hidup di masa kalau salah kena marah, pas bener dibilang tumben.',
+        'Nggak ada bahu pacar? Tenang aja, masih ada bahu jalan buat nyandar.',
+        'Mencintai dirimu itu wajar, yang gak wajar mencintai bapakmu.',
+        'Katanya enggak bisa bohong. Iyalah, mata kan cuma bisa melihat.',
+        'Madu di tangan kananmu, racun di tangan kirimu, jodoh tetap di tangan tuhan.',
+        'Selingkuh terjadi bukan karena ada niat, selingkuh terjadi karna pacar kamu masih laku.',
+        'Netizen kalau senam jempol di ponsel nggak pakai pendinginan, pantes komennya bikin panas terus.',
+        'Jodoh memang enggak kemana, tapi saingannya ada dimana-mana.',
+        'Perasaan aku salah terus di matamu. Kalu gitu, besok aku pindah ke hidungmu.',
+        'Jomblo tidak perlu malu, jomblo bukan berarti tidak laku, tapi memang tidak ada yang mau.',
+        'Jika doamu belum terkabul maka bersabar, ingatlah bahwa yang berdoa bukan cuma kamu!',
+        'Masih berharap dan terus berharap lama-lama aku jadi juara harapan.',
+        'Manusia boleh berencana, tapi akhirnya saldo juga yang menentukan.',
+        'Statusnya rohani, kelakuannya rohalus.',
+        'Kegagalan bukan suatu keberhasilan.',
+        'Tadi mau makan bakso, cuma kok panas banget, keliatannya baksonya lagi demam.',
+        'Aku juga pernah kaya, waktu gajian.',
+        'Aku diputusin sama pacar karena kita beda keyakinan. Aku yakin kalau aku ganteng, tapi dia enggak.',
+        'Masa depanmu tergantung pada mimpimu, maka perbanyaklah tidur.',
+        'Seberat apapun pekerjaanmu, akan semakin ringan jika tidak dibawa.',
+        'Jangan terlalu berharap! nanti jatuhnya sakit!',
+        'Ingat! Anda itu jomblo',
+        'Gak tau mau ngetik apa',
+      ]
+      var result = pickRandom(bacot)
         return reply(result)
 
   } else if (/^artinama/i.test(command)) {
