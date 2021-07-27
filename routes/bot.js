@@ -161,30 +161,28 @@ var loghandler = {
 }
 
 
-var handler = async (message, user, reply, { app, sender, group_name, phone }) => {
+var handler = async (message, user, reply, { app, sender, group_name, phone, usedPrefix, command }) => {
 
   var prefix = new RegExp('^[xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-]', 'gi')
   var date = new Date()
   var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()).join(':')
-  var command = message.slice(1)
-  var usedPrefix = message.slice(0, 1)
   var watermark = '```Powered By RC047```'
   var isURL = (url) => /^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)
-  if (/(a(su|sw|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return reply(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n~Biasakan Jangan Toxic ya!`)
+  if (/(a(su|sw|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return reply(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Biasakan Jangan Toxic ya!_`)
   if (!prefix.test(message)) return false
 
   if (/^(menu|help|start|\?)/i.test(command)) {
       var menu = `
 ╭─「 KUHONG LITE 」
 │
-│• Nama: ${sender} ${group_name ? '\n│(' + group_name + ')\n' : ''}
+│• ${sender.startsWith('+') ? 'Phone: ' + sender : 'Name: ' + sender + group_name ? '\n│• Group: ' + group_name : ''}
 │• Location: ${group_name ? 'Group' : 'Private'} Chat
 │• Prefix: [ ${usedPrefix} ]
 │• App: ${app}
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
-│• Date:
-│${date}
+│• Date: ${date.toString().split(' (')[0]}
+│(${date.split(' (')[1].split(')')[0]})
 ╰────
 ${readMore}
 
@@ -196,8 +194,15 @@ ${readMore}
 │• ${usedPrefix}repeat <text|jumlah>
 │• ${usedPrefix}reverse <text>
 │• ${usedPrefix}readmore <text>
+│• ${usedPrefix}spoiler <text>
 │• ${usedPrefix}brainly <query>
 │• ${usedPrefix}belajar <query>
+│• ${usedPrefix}simsimi <chat>
+│• ${usedPrefix}s <chat>
+│• ${usedPrefix}artinama <nama>
+│• ${usedPrefix}artimimpi <mimpi>
+│• ${usedPrefix}nomorhoki <nomor hp>
+│• ${usedPrefix}tggljadian <tggl>
 │• ${usedPrefix}base64 <text>
 │• ${usedPrefix}unbase64 <text>
 │• ${usedPrefix}hex <text>
@@ -219,9 +224,12 @@ ${readMore}
 │• ${usedPrefix}huluh <text>
 │• ${usedPrefix}heleh <text>
 │• ${usedPrefix}holoh <text>
+│• ${usedPrefix}hidetag
+│• ${usedPrefix}hidetext
 │• ${usedPrefix}zodiak <nama|tgl-bln-thn>
 │• ${usedPrefix}font <text>
 │• ${usedPrefix}style <text>
+│• ${usedPrefix}monoscope <text>
 │• ${usedPrefix}quotes
 │• ${usedPrefix}katabijak
 │• ${usedPrefix}fml
@@ -231,15 +239,23 @@ ${readMore}
 │• ${usedPrefix}katailham
 │• ${usedPrefix}iq
 │• ${usedPrefix}dadu
+│• ${usedPrefix}suit <pilihan>
+│• ${usedPrefix}suitjawa <pilihan>
+│• ${usedPrefix}modapk
 │• ${usedPrefix}ip
 │• ${usedPrefix}ping
 │• ${usedPrefix}time
+│• ${usedPrefix}donasi
+│• ${usedPrefix}owner
 ╰────
 
 ${watermark}
 `.trim()
        return reply(menu)
 
+} else if (/^owner/i.test(command)) {
+    return reply('https://wa.me/62895337278647?text=Halo+bang+jago!')
+ 
   } else if (/^say/i.test(command)) {
   	var text = command.split('say ')[1]
       if (!text) return reply(loghandler.notText)
@@ -265,18 +281,21 @@ ${watermark}
 
   } else if (/^reverse/i.test(command)) {
   	var text = command.split('reverse ')[1]
-      if (!text) return reply(loghandler.notText)
-      var result = ''
-      for (var index = text.length - 1; index >= 0; index--) result += text[index]
+    if (!text) return reply(loghandler.notText)
+    var result = ''
+    for (var index = text.length - 1; index >= 0; index--) result += text[index]
         return reply(result)
 
-  } else if (/^readmore/i.test(command)) {
-  	var text = command.split('readmore ')[1]
-      if (!text) return reply(loghandler.notText)
-      var [l, r] = text.split('|')
-      if (!l) l = ''
-      if (!r) r = ''
+  } else if (/^readmore|spoiler/i.test(command)) {
+  	var text = command.split('readmore ')[1] || command.split('spoiler ')[1]
+    if (!text) return reply(loghandler.notText)
+    var [l, r] = text.split('|')
+    if (!l) l = ''
+    if (!r) r = ''
     	return reply(l + readMore + r)
+
+  } else if (/^hide(tag|text)/i.test(command)) {
+    	return reply('' + readMore + '')
 
   } else if (/^b(rainly|elajar)/i.test(command)) {
   	var query = command.split('brainly ')[1] || command.split('belajar ')[1]
@@ -285,6 +304,17 @@ ${watermark}
     var result = json.data.map((v, i) => `_*PERTANYAAN KE ${i + 1}*_\n${v.pertanyaan}\n${v.jawaban.map((v,i) => `*JAWABAN KE ${i + 1}*\n${v.text}`).join('\n')}`).join('\n\n•------------•\n\n')
       return reply(result)
 
+  } else if (/^s|si(m|msimi)i/i.test(command)) {
+    var text = command.split(' ')[1]
+    if (!text) return reply(loghandler.notText)
+    var json = await (await fetch(`https://simsumi.herokuapp.com/api?text=${text}&lang=id`)).json()
+    if (json.success == '' || json.success == undefined || /Limit/i.test(json.success)) {
+        json = await (await fetch(`https://api.simsimi.net/v1/?text=${text}&lang=id`)).json()
+        if (json.success == undefined) return reply('Fitur Simsimi sedang error!')
+     }
+     var result = json.success
+       return reply(result)
+
   } else if (/^base64/i.test(command)) {
   	var text = command.split('base64 ')[1]
       if (!text) return reply(loghandler.notText)
@@ -292,7 +322,7 @@ ${watermark}
 
   } else if (/^unbase64/i.test(command)) {
   	var text = command.split('unbase64 ')[1]
-      if (!text) return reply(loghandler.notText)
+    if (!text) return reply(loghandler.notText)
     	return reply(Buffer.from(text, 'base64').toString())
 
   } else if (/^hex/i.test(command)) {
@@ -333,8 +363,8 @@ ${watermark}
         return reply('Pong!\n\n' + neww - old + 'ms')
 
   } else if (/^ip/i.test(command)) {
-  	var ip = user.ip || 'Not Located'
-        return reply(ip)
+  	var ip = user.ip || 'tidak ditemukan!'
+        return reply('Alamat IP kamu adalah: ' + ip)
 
   } else if (/^minecraft/i.test(command)) {
   	var txt = command.split('minecraft ')[1]
@@ -389,7 +419,6 @@ ${watermark}
             })
             var nomor = Math.floor(Math.random() * 10)
             var url = cerpen[nomor]
-
             request.get({
                     headers: {
                         'content-type' : 'application/x-www-form-urlencoded'
@@ -408,16 +437,21 @@ ${watermark}
        })
 
   } else if (/^font|style/i.test(command)) {
-  	var text = command.split('font ')[1] || command.split('style ')[1]
+  	  var text = command.split('font ')[1] || command.split('style ')[1]
       if (!text) return reply(loghandler.notText)
       var result = Object.entries(await stylizeText(text)).map(([name, value]) => `*${name}*\n${value}`).join`\n\n`
         return reply(result)
 
+  } else if (/^monoscope/i.test(command)) {
+      var text = command.split('monoscope ')[1]
+      if (!text) return reply(loghandler.notText)
+        return reply('```' + text + '```')
+
   } else if (/^tinyurl/i.test(command)) {
-  	var url = command.split('tinyurl ')[1]
+  	  var url = command.split('tinyurl ')[1]
       if (!url) return reply(loghandler.notUrl)
       if (!isURL(url)) return reply(loghandler.invalidLink)
-  	var result = await (await fetch('https://tinyurl.com/api-create.php?url=' + url)).text()
+  	  var result = await (await fetch('https://tinyurl.com/api-create.php?url=' + url)).text()
         return reply(result)
 
   } else if (/^lirik/i.test(command)) {
@@ -449,7 +483,7 @@ ${watermark}
       if (!text) return reply(loghandler.notText)
       var txt = command.slice(1, 2)
       var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, txt.toUpperCase())
-      reply(result)
+        return reply(result)
 
   } else if (/^zodia(c|k)/i.test(command)) {
       var txt = command.split('zodiak ')[1] || command.split('zodiac ')[1]
@@ -471,7 +505,154 @@ ${watermark}
       var birthday = [tahun + (birth[1] < bulan), ...birth.slice(1)]
       var umur = bulan === birth[1] && tanggal === birth[2] ? `Selamat ulang tahun yang ke ${age}!` : age
       var result = `Nama: ${nama}\nLahir: ${birth.join('-')}\nUltah: ${birthday.join('-')}\nUsia: ${umur}\nZodiak: ${zodiac}`
-        reply(result)
+        return reply(result)
+
+  } else if (/^suit|suitjawa/i.test(command)) {
+      var you = command.split('suit ')[1] || command.split('suitjawa ')[1]
+      var pilihan = 'gunting, kertas, batu'
+      if (/jawa/i.test(command)) pilihan = 'orang, semut, gajah'
+      if (!you) return reply('Silahkan masukan pilihannya :\n\n' + pilihan)
+      var bot = Math.random();
+      if (bot < 0.34) bot = /gunting/i.test(pilihan) ? 'batu' : 'orang'
+      else if (bot > 0.34 && bot < 0.67) bot = /gunting/i.test(pilihan) ? 'gunting' : 'semut'
+      else bot = /gunting/i.test(pilihan) ? 'kertas' : 'gajah'
+
+      var hasil;
+      if (you.toLowerCase() == bot) {
+          hasil = `Seri!\nKamu : ${you.toLowerCase()}\nBot : ${bot}`;
+      } else if (you.toLowerCase() == /gunting/i.test(pilihan) ? 'batu' : 'orang') {
+          if (bot == /gunting/i.test(pilihan) ? 'gunting' : 'semut') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`;
+          else hasil = `Kamu Kalah!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`;
+      } else if (you.toLowerCase() == /gunting/i.test(pilihan) ? 'gunting' : 'semut') {
+          if (bot == /gunting/i.test(pilihan) ? 'kertas' : 'gajah') hasil = `Kamu Menang!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`;
+          else hasil = `Kamu Kalah!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`;
+      } else if (you.toLowerCase() == /gunting/i.test(pilihan) ? 'kertas' : 'gajah') {
+          if (bot == /gunting/i.test(pilihan) ? 'batu' : 'orang') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`;
+          else hasil = `Kamu Kalah!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`;
+      } else hasil = 'Pilihan yang tersedia : ' + pilihan;
+        return reply(hasil)
+
+  } else if (/^modapk|apkdownload/i.test(command)) {
+      var str = `
+╭─「 MOD APK 」
+│
+│• Minecraft (Original)
+│https://www.mediafire.com/file/z9vqj628w494sso/Minecraft_1.17_By_RC047.apk/file
+│• Geometry Dash (MOD)
+│http://www.mediafire.com/file/thnoi1wpa5ex2wn/Geometry_Dash_%2528MOD%2529.apk/file
+│• KineMaster (PRO)
+│https://www.mediafire.com/download/eshb8rra8eg5xa3
+│• KineMaster Diamond (MOD)
+│https://www.mediafire.com/download/9p8wsnwupnq0lun
+│• KineMaster Ruby (MOD)
+│https://www.mediafire.com/download/6b2wa08cmtsr8x8
+│• Adobe Photoshop (Original)
+│https://www.mediafire.com/download/whfh12tj4zjpedp
+│• Alight Motion (PRO)
+│http://www.mediafire.com/file/tpxj2grwf8imp6i/Alight_Motion_V.3.1.4_%2528Mod%2529_By_bilqis_neha.apk/file
+│• Avee Player (PRO)
+│https://www.mediafire.com/download/5vkde8d1gcyk33y
+│• Pixellab (PRO)
+│https://www.mediafire.com/download/kxj0xyvrkc8w6h0
+│• Inshot (PRO)
+│https://www.mediafire.com/download/7qcmrfdy2o1ynxf
+│• WavePad (PRO)
+│https://www.mediafire.com/download/oif50qb8ltdoe2x
+│• Vimage (PRO)
+│https://www.mediafire.com/download/egjumopr2wl89tl
+│• Zeotropic (PRO)
+│https://www.mediafire.com/download/tw9zwj2km2tjsnh
+│• 90s (PRO)
+│https://www.mediafire.com/download/0y2bba69f6wakuh
+╰────
+
+╭─「 TEMPLATE 」
+│
+│• Template MineImator
+│http://www.mediafire.com/file/cxa8io0j0i3a0x4/Mine-Imator_%2528Template_Pika_Gamer%2529_Edited.zip/file
+│• 50 Template Avee Player 1
+│https://realsht.mobi/teCTj
+│• 50 Template Avee Player 2
+│https://realsht.mobi/hhSMc
+│• Template Quotes Rainbow
+│https://realsht.mobi/LbmVw
+│• Template Quotes 1
+│https://realsht.mobi/GZuvl
+│• Template Quotes 2
+│https://realsht.mobi/lFLqm
+│• Template Quotes 3
+│https://realsht.mobi/prMyC
+│• Template Quotes 4
+│https://realsht.mobi/FyGha
+│• Template Quotes 5
+│https://realsht.mobi/LdpNd
+│• Template Quotes 6
+│https://realsht.mobi/BdlQe
+│• Template Quotes 7
+│https://realsht.mobi/fdZCs
+│• Template Quotes 8
+│https://realsht.mobi/YkqIk
+│• Template Quotes 9
+│https://realsht.mobi/BcKdr
+│• Template Quotes 10
+│https://realsht.mobi/MaZno
+│• Template Mega Colab
+│https://realsht.mobi/JinWs
+│• Template Colab 1
+│https://realsht.mobi/bocSM
+│• Template Colab 2
+│https://realsht.mobi/eJwLd
+│• Template Colab 3
+│https://realsht.mobi/tGMxp
+│• Template Colab 4
+│https://realsht.mobi/oQtWo
+│• Template Colab 5
+│https://realsht.mobi/rbvWQ
+│• Template Wajah Orang
+│https://realsht.mobi/tGMxp
+│• Template Kacamata
+│https://realsht.mobi/MpoKs
+│• Template Unix 1
+│https://realsht.mobi/dfToI
+│• Template Unix 2
+│https://realsht.mobi/hRMsq
+│• Template Partikel
+│https://realsht.mobi/wOMlc
+│• Template Pistol
+│https://realsht.mobi/exXCy
+│• Template Solo
+│https://realsht.mobi/MvYbm
+╰────
+
+╭─「 FONT 」
+│
+│• Kumpulan Font Untuk Quotes
+│https://realsht.mobi/JkmXx
+│• 800 Font Picsay/Pixelab
+│https://realsht.mobi/brKhI
+│• 400 Font Picsay/Pixelab
+│https://realsht.mobi/gBhyt
+│• 200 Font Picsay/Pixelab
+│https://realsht.mobi/iJQbj
+│• 100 Font Picsay/Pixelab
+│https://realsht.mobi/hrTdE
+╰────
+`.trim()
+    return reply(str)
+
+  } else if (/^dona(te|si)/i.test(command)) {
+    var str = `
+╭─「 DONATION 」
+│
+│• SAWERIA :
+│https://saweria.co/donate/RC047
+│• OVO [+62895337278647]
+│• TRI [+62895337278647]
+│• DANA [+62895337278647]
+│• GOPAY [+62895337278647]
+╰────
+`.trim()
+    return reply(str)
 
   } else return reply(`Perintah tidak ditemukan!\n\nSilahkan ketik ${usedPrefix + 'menu'} untuk melihat list menu`)
 }
