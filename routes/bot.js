@@ -163,16 +163,20 @@ var loghandler = {
 
 
 var handler = async (message, user, reply, { app, sender, group_name, phone, usedPrefix, command }) => {
+await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json()
 
   var prefix = new RegExp('^[xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-]', 'gi')
   var date = new Date()
   var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()).join(':')
   var watermark = '```Powered By RC047```'
   var isURL = (url) => /^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)
+  if (group_name && /chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i.test(message)) return reply(`*「 ANTI LINK 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
   if (/(a(su|sw|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return reply(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Biasakan Jangan Toxic ya!_`)
+  if (/kuhong|bot/gi.test(message)) return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
   if (!prefix.test(message)) return false
 
   if (/^(menu|help|start|\?)/i.test(command)) {
+      var totalreply = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/reply')).json().value
       var menu = `
 ╭─「 KUHONG LITE 」
 │
@@ -182,12 +186,14 @@ var handler = async (message, user, reply, { app, sender, group_name, phone, use
 │• App: ${app}
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
+│• Total Reply: ${totalreply} message
 │• Date: ${date.toString().split(' (')[0]}
 │(${date.split(' (')[1].split(')')[0]})
 ╰────
 ${readMore}
 
 ╭─「 LIST MENU 」
+│
 │• ${usedPrefix}say <text>
 │• ${usedPrefix}alay <text>
 │• ${usedPrefix}purba <text>
@@ -677,7 +683,7 @@ ${watermark}
         return reply(result)
 
   } else if (/^katabija(k|x)/i.test(command)) {
-      var body = await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/katabijax.txt')).text()
+      var body = await (await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/katabijax.txt')).text()
       var json = body.split('\n')
       var result = json[Math.floor(Math.random() * json.length)]
         return reply(result)
