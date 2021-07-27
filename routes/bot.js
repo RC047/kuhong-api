@@ -145,6 +145,8 @@ var {
 } = require(__path + '/lib');
 var loghandler = {
     wait: 'Mohon tunggu sebentar...',
+    notDate: 'Silahkan masukan tanggal',
+    notName: 'Silahkan masukan nama',
     number: 'Teks harus berupa angka!',
     notNumber: 'Silahkan masukan angka',
     notLength: 'Silahkan masukan jumlah',
@@ -201,8 +203,10 @@ ${readMore}
 │• ${usedPrefix}s <chat>
 │• ${usedPrefix}artinama <nama>
 │• ${usedPrefix}artimimpi <mimpi>
+│• ${usedPrefix}cekjodoh <nama|pasangan>
 │• ${usedPrefix}nomorhoki <nomor hp>
 │• ${usedPrefix}tggljadian <tggl>
+│• ${usedPrefix}zodiak <nama|tgl-bln-thn>
 │• ${usedPrefix}base64 <text>
 │• ${usedPrefix}unbase64 <text>
 │• ${usedPrefix}hex <text>
@@ -226,7 +230,6 @@ ${readMore}
 │• ${usedPrefix}holoh <text>
 │• ${usedPrefix}hidetag
 │• ${usedPrefix}hidetext
-│• ${usedPrefix}zodiak <nama|tgl-bln-thn>
 │• ${usedPrefix}font <text>
 │• ${usedPrefix}style <text>
 │• ${usedPrefix}monoscope <text>
@@ -458,12 +461,14 @@ ${watermark}
       var query = command.split('lirik ')[1]
       if (!query) return reply(loghandler.notQuery)
       var json = await (await fetch(`https://some-random-api.ml/lyrics?title=${query}`)).json()
+      if (!json.lyrics) return reply('Lirik tidak ditemukan!')
         return reply(json.lyrics)
 
   } else if (/^chord/i.test(command)) {
       var query = command.split('chord ')[1]
       if (!query) return reply(loghandler.notQuery)
       var json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/chord?q=${query}`)).json()
+      if (!json.result) return reply('Chord tidak ditemukan!')
         return reply(json.result)
 
   } else if (/^md(4|5)/i.test(command)) {
@@ -484,6 +489,111 @@ ${watermark}
       var txt = command.slice(1, 2)
       var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, txt.toUpperCase())
         return reply(result)
+
+  } else if (/^artinama/i.test(command)) {
+      var nama = command.split(' ')[1]
+      if (!nama) return reply(loghandler.notName)
+      request.get({
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            url: 'http://www.primbon.com/arti_nama.php?nama1=' + nama + '&proses=+Submit%21+',
+
+        }, function(error, response, body) {
+            var $ = cheerio.load(body);
+            var y = $.html().split('arti:')[1];
+            var t = y.split('method="get">')[1];
+            var f = y.replace(t, ' ');
+            var x = f.replace(/<br\s*[\/]?>/gi, '\n');
+            var h = x.replace(/<[^>]*>?/gm, '');
+              return reply(`Arti dari namamu adalah\n\nNama *${nama}*\n${h}`)
+        })
+
+  } else if (/^artimimpi/i.test(command)) {
+      var mimpi = command.split(' ')[1]
+      if (!mimpi) return reply('Silahkan masukan nama mimpi')
+      request.get({
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            url: 'https://www.primbon.com/tafsir_mimpi.php?mimpi=' + mimpi + '&submit=+Submit+',
+
+        }, function(error, response, body) {
+            var $ = cheerio.load(body);
+            var y = $.html().split('Hasil pencarian untuk kata kunci: ' + mimpi)[1];
+            var t = y.split('method="get">')[1];
+            var f = y.replace(t, ' ');
+            var x = f.replace(/<br\s*[\/]?>/gi, '\n');
+            var result = x.replace(/<[^>]*>?/gm, '');
+              return reply(result.split('.')[0])
+       })
+
+  } else if (/^cekjodoh/i.test(command)) {
+      var txt = command.split(' ')[1]
+      if (!txt) return reply(loghandler.notName)
+      var [nama, pasangan] = txt.split('|')
+      if (!pasangan) return reply('Silahkan masukan nama pasangan')
+      request.get({
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            url: 'http://www.primbon.com/kecocokan_nama_pasangan.php?nama1=' + nama + '&nama2=' + pasangan + '&proses=+Submit%21+',
+
+        }, function(error, response, body) {
+            var $ = cheerio.load(body);
+            var y = $.html().split('<b>KECOCOKAN JODOH BERDASARKAN NAMA PASANGAN</b><br><br>')[1];
+            var t = y.split('.<br><br>')[1];
+            var f = y.replace(t, ' ');
+            var x = f.replace(/<br\s*[\/]?>/gi, '\n');
+            var h = x.replace(/<[^>]*>?/gm, '');
+            var d = h.replace('&amp;', '&')
+              return reply( `Kecocokan Berdasarkan Nama :\n\n${d}`)
+        })
+
+  } else if (/^nomorhoki/i.test(command)) {
+      var nomor = command.split(' ')[1]
+      if (!nomor) return reply(loghandler.notNumber)
+      request.post({
+    	    url: 'https://www.primbon.com/no_hoki_bagua_shuzi.php',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            body: `nomer=${nomor}&submit=+Submit+`,
+            
+        }, (e, r, b) => {
+            var $ = cheerio.load(b);
+            var y = $.html().split('No. HP : ')[1];
+            var t = y.split('method="post">')[1];
+            var f = y.replace(t, ' ');
+            var x = f.replace(/<br\s*[\/]?>/gi, '\n');
+            var h = x.replace(/<[^>]*>?/gm, '');
+            var result = h.split('(adsbygoogle')[0];
+              return reply('Nomor HP ' + result)
+       })
+
+  } else if (/^tggljadian|jadian/i.test(command)) {
+      var date = command.split(' ')[1]
+      if (!date) return reply(loghandler.notDate)
+      if (!date.includes('-')) return reply('Gunakan "-" disetiap tanggalnya\n\nContoh: 27-10-04')
+      var tggl = dates.split('-')[0]
+      var bln = dates.split('-')[1]
+      var thn = dates.split('-')[2]
+      request.get({
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            url: `https://www.primbon.com/tanggal_jadian_pernikahan.php?tgl=${Number(tggl)}&bln=${Number(bln)}&thn=${Number(thn)}&proses=+Submit%21+`,
+            
+        }, function(e, r, b) {
+            var $ = cheerio.load(b);
+            var y = $.html().split('MAKNA TANGGAL JADIAN, PERNIKAHAN')[1];
+            var t = y.split('method="get">')[1];
+            var f = y.replace(t, ' ');
+            var x = f.replace(/<br\s*[\/]?>/gi, '\n');
+            var h = x.replace(/<[^>]*>?/gm, '');
+            var result = h.split('&lt;')[0]
+              return reply(result)
+       })
 
   } else if (/^zodia(c|k)/i.test(command)) {
       var txt = command.split('zodiak ')[1] || command.split('zodiac ')[1]
@@ -508,28 +618,28 @@ ${watermark}
         return reply(result)
 
   } else if (/^suit|suitjawa/i.test(command)) {
-      var you = command.split('suit ')[1] || command.split('suitjawa ')[1]
+      var you = command.split(' ')[1]
       var pilihan = 'gunting, kertas, batu'
       if (/jawa/i.test(command)) pilihan = 'orang, semut, gajah'
       if (!you) return reply('Silahkan masukan pilihannya :\n\n' + pilihan)
-      var bot = Math.random();
+      var bot = Math.random()
       if (bot < 0.34) bot = /gunting/i.test(pilihan) ? 'batu' : 'orang'
       else if (bot > 0.34 && bot < 0.67) bot = /gunting/i.test(pilihan) ? 'gunting' : 'semut'
       else bot = /gunting/i.test(pilihan) ? 'kertas' : 'gajah'
 
-      var hasil;
+      var hasil
       if (you.toLowerCase() == bot) {
-          hasil = `Seri!\nKamu : ${you.toLowerCase()}\nBot : ${bot}`;
+          hasil = `Seri!\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
       } else if (you.toLowerCase() == /gunting/i.test(pilihan) ? 'batu' : 'orang') {
-          if (bot == /gunting/i.test(pilihan) ? 'gunting' : 'semut') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`;
-          else hasil = `Kamu Kalah!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`;
+          if (bot == /gunting/i.test(pilihan) ? 'gunting' : 'semut') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
+          else hasil = `Kamu Kalah!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
       } else if (you.toLowerCase() == /gunting/i.test(pilihan) ? 'gunting' : 'semut') {
-          if (bot == /gunting/i.test(pilihan) ? 'kertas' : 'gajah') hasil = `Kamu Menang!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`;
-          else hasil = `Kamu Kalah!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`;
+          if (bot == /gunting/i.test(pilihan) ? 'kertas' : 'gajah') hasil = `Kamu Menang!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
+          else hasil = `Kamu Kalah!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
       } else if (you.toLowerCase() == /gunting/i.test(pilihan) ? 'kertas' : 'gajah') {
-          if (bot == /gunting/i.test(pilihan) ? 'batu' : 'orang') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`;
-          else hasil = `Kamu Kalah!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`;
-      } else hasil = 'Pilihan yang tersedia : ' + pilihan;
+          if (bot == /gunting/i.test(pilihan) ? 'batu' : 'orang') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
+          else hasil = `Kamu Kalah!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
+      } else hasil = 'Pilihan yang tersedia : ' + pilihan
         return reply(hasil)
 
   } else if (/^modapk|apkdownload/i.test(command)) {
