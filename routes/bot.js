@@ -286,11 +286,11 @@ ${'```~Powered By RC047~```'}
 
   } else if (/^iq/i.test(command)) {
   	var iq = Math.floor(Math.random() * 10000)
-    	return conn.send('IQ Anda sebesar ' + iq '!')
+    	return conn.send('IQ Anda sebesar ' + iq + '!')
 
   } else if (/^dadu/i.test(command)) {
   	var dadu = Math.floor(Math.random() * 12)
-    	return conn.send('Kamu mendapatkan angka ' + dadu '!')
+    	return conn.send('Kamu mendapatkan angka ' + dadu + '!')
 
   } else if (/^ping/i.test(command)) {
       var old = performance.now()
