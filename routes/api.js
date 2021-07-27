@@ -635,18 +635,17 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) return res.json({ status: false, creator: creator, reply: 'Apikey Bot Tidak Valid!\n\nSilahkan beli apikey ke Owner:\nhttps://wa.me/62895337278647' })
 
 try {
-	  var reply = (message) => res.json({ status: true, creator: creator, reply: message })
-	  var command = message.slice(1)
-          var usedPrefix = message.slice(0, 1)
-          var result = await handler(message, req, reply, {
-      	          app: app,
-                  sender: sender,
-                  group_name: group_name,
-                  phone: phone,
-		  usedPrefix: usedPrefix,
-		  command: command
-          })
-      console.log(req.body)
+        var reply = (message) => res.json({ status: true, creator: creator, reply: message })
+	var command = message.slice(1)
+        var usedPrefix = message.slice(0, 1)
+        await handler(message, req, reply, {
+      	   app: app,
+           sender: sender,
+           group_name: group_name,
+           phone: phone,
+           usedPrefix: usedPrefix,
+	   command: command
+        })
 } catch (e) {
     console.error(e)
   res.json({ status: true, creator: creator, reply: formatLogs(e.message) })
