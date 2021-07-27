@@ -632,7 +632,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         var maintenance = false
         if (maintenance) return res.status(500).send(mtc)
 	if (!(app || sender || message || group_name || phone || apikeyInput)) return res.json({ status: false, creator: creator, reply: 'Input Parameter tidak lengkap' })
-        if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) return res.json({ status: false, creator: creator, reply: 'Apikey Bot Tidak Valid!\n\nSilahkan beli apikey ke Owner:\nhttps://wa.me/62895337278647' })
 
 try {
         var reply = (message) => res.json({ status: true, creator: creator, reply: message })
@@ -644,7 +643,8 @@ try {
            group_name: group_name,
            phone: phone,
            usedPrefix: usedPrefix,
-	   command: command
+	   command: command,
+           apikey: apikeyInput
         })
 } catch (e) {
     console.error(e)
