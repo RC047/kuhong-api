@@ -42,7 +42,6 @@ var http = require('http');
 var htmlToText = require('html-to-text');
 var canvacord = require('canvacord');
 var Shopee = require('shopee');
-var bra
 var bodyParser = require('body-parser');
 var barcode = require('barcode');
 var imgbb = require('imgbb-uploader');
