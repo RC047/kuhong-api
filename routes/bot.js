@@ -42,6 +42,7 @@ var http = require('http');
 var htmlToText = require('html-to-text');
 var canvacord = require('canvacord');
 var Shopee = require('shopee');
+var bra
 var bodyParser = require('body-parser');
 var barcode = require('barcode');
 var imgbb = require('imgbb-uploader');
@@ -195,6 +196,8 @@ ${readMore}
 │• ${usedPrefix}repeat <text|jumlah>
 │• ${usedPrefix}reverse <text>
 │• ${usedPrefix}readmore <text>
+│• ${usedPrefix}brainly <query>
+│• ${usedPrefix}belajar <query>
 │• ${usedPrefix}base64 <text>
 │• ${usedPrefix}unbase64 <text>
 │• ${usedPrefix}hex <text>
@@ -204,8 +207,8 @@ ${readMore}
 │• ${usedPrefix}calculator <angka>
 │• ${usedPrefix}minecraft <server|type>
 │• ${usedPrefix}tinyurl <url>
-│• ${usedPrefix}lirik <lagu>
-│• ${usedPrefix}chord <lagu>
+│• ${usedPrefix}lirik <query>
+│• ${usedPrefix}chord <query>
 │• ${usedPrefix}md4 <text>
 │• ${usedPrefix}md5 <text>
 │• ${usedPrefix}sha1 <text>
@@ -217,6 +220,8 @@ ${readMore}
 │• ${usedPrefix}heleh <text>
 │• ${usedPrefix}holoh <text>
 │• ${usedPrefix}zodiak <nama|tgl-bln-thn>
+│• ${usedPrefix}font <text>
+│• ${usedPrefix}style <text>
 │• ${usedPrefix}quotes
 │• ${usedPrefix}katabijak
 │• ${usedPrefix}fml
@@ -272,6 +277,13 @@ ${watermark}
       if (!l) l = ''
       if (!r) r = ''
     	return reply(l + readMore + r)
+
+  } else if (/^b(rainly|elajar)/i.test(command)) {
+  	var query = command.split('brainly ')[1] || command.split('belajar ')[1]
+    if (!query) return reply(loghandler.notQuery)
+    var json = await (await fetch('https://recoders-area.caliph.repl.co/api/brainly?q=' + query)).json()
+    var result = json.data.map((v, i) => `_*PERTANYAAN KE ${i + 1}*_\n${v.pertanyaan}\n${v.jawaban.map((v,i) => `*JAWABAN KE ${i + 1}*\n${v.text}`).join('\n')}`).join('\n\n•------------•\n\n')
+      return reply(result)
 
   } else if (/^base64/i.test(command)) {
   	var text = command.split('base64 ')[1]
@@ -409,15 +421,15 @@ ${watermark}
         return reply(result)
 
   } else if (/^lirik/i.test(command)) {
-      var text = command.split('lirik ')[1]
-      if (!text) return reply(loghandler.notText)
-      var json = await (await fetch(`https://some-random-api.ml/lyrics?title=${text}`)).json()
+      var query = command.split('lirik ')[1]
+      if (!query) return reply(loghandler.notQuery)
+      var json = await (await fetch(`https://some-random-api.ml/lyrics?title=${query}`)).json()
         return reply(json.lyrics)
 
   } else if (/^chord/i.test(command)) {
-      var text = command.split('chord ')[1]
-      if (!text) return reply(loghandler.notText)
-      var json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/chord?q=${text}`)).json()
+      var query = command.split('chord ')[1]
+      if (!query) return reply(loghandler.notQuery)
+      var json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/chord?q=${query}`)).json()
         return reply(json.result)
 
   } else if (/^md(4|5)/i.test(command)) {
