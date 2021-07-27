@@ -169,7 +169,7 @@ var handler = async (message, user, conn, { app, sender, group_name, phone }) =>
   var readMore = String.fromCharCode(8206).repeat(4001)
 
   if (/(a(su|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return conn.send(`*「 ANTI TOXIC 」*\n\nNomor: ${sender}\nessage}\n\n~Biasakan Jangan Toxic!`)
-  if (/^(menu|help|start|?)/i.test(command)) {
+  if (/^(menu|help|start|\?)/i.test(command)) {
       var menu = `
 ╭─「 KUHONG LITE 」
 │
@@ -351,6 +351,13 @@ ${'```~Powered By RC047~```'}
       if (!text) return conn.send(loghandler.notText)
       var result = await createHash(command.split(text)[0]).update(text).digest('hex')
         return conn.send(result)
+
+  } else if (/^h([aiueo])l\1h/i.test(command)) {
+      var text = command.split('h ')[1]
+      if (!text) return conn.send(loghandler.notText)
+      var txt = command.slice(1, 2)
+      var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, txt.toUpperCase())
+      send(result)
 
   } else return conn.send(`Perintah tidak ditemukan!\n\nSilahkan ketik ${usedPrefix + 'menu'} untuk melihat list menu`)
 }
