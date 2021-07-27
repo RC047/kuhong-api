@@ -1,6 +1,7 @@
 __path = process.cwd();
 
 // Database :
+var bot_key = '04102006';
 var {
     saveToMedia,
     encryptHtml,
@@ -162,23 +163,25 @@ var loghandler = {
 }
 
 
-var handler = async (message, user, reply, { app, sender, group_name, phone, usedPrefix, command }) => {
-await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json()
+var handler = async (message, user, reply, { app, sender, group_name, phone, usedPrefix, command, apikey }) => {
+await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => reply('Server Bot kini sedang Error! (403)'))
 
   var prefix = new RegExp('^[xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-]', 'gi')
   var date = new Date()
   var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()).join(':')
   var watermark = '```Powered By RC047```'
   var isURL = (url) => /^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)
+  if (apikey !== bot_key) return reply('*「 AKSES DITOLAK 」*\n\nApikey Bot Tidak Valid!\nSilahkan beli apikeynya ke Owner:\nhttps://wa.me/62895337278647')
   if (group_name && /chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i.test(message)) return reply(`*「 ANTI LINK 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
   if (/(a(su|sw|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return reply(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Biasakan Jangan Toxic ya!_`)
   if (/kuhong|bot/gi.test(message)) return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
+  if (message.toLowerCase() == 'pesan uji') return reply('Pesan dari server diterima!')
   if (!prefix.test(message)) return false
 
   if (/^(menu|help|start|\?)/i.test(command)) {
       var totalreply = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/reply')).json().value
       var menu = `
-╭─「 KUHONG LITE 」
+╭─「 KUHONG BOT 」
 │
 │• ${sender.startsWith('+') ? 'Phone: ' + sender : 'Name: ' + sender + group_name ? '\n│• Group: ' + group_name : ''}
 │• Location: ${group_name ? 'Group' : 'Private'} Chat
@@ -187,6 +190,7 @@ await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botrep
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
 │• Total Reply: ${totalreply} message
+│• IP Address: ${user.ip}
 │• Date: ${date.toString().split(' (')[0]}
 │(${date.split(' (')[1].split(')')[0]})
 ╰────
@@ -194,14 +198,21 @@ ${readMore}
 
 ╭─「 LIST MENU 」
 │
+│• ${usedPrefix}ytmp4 <url>
+│• ${usedPrefix}ytmp3 <url>
+│• ${usedPrefix}tiktok <url>
 │• ${usedPrefix}say <text>
 │• ${usedPrefix}alay <text>
 │• ${usedPrefix}purba <text>
+│• ${usedPrefix}kerang <pertanyaan>
 │• ${usedPrefix}cerpen
 │• ${usedPrefix}repeat <text|jumlah>
 │• ${usedPrefix}reverse <text>
 │• ${usedPrefix}readmore <text>
 │• ${usedPrefix}spoiler <text>
+│• ${usedPrefix}google <query>
+│• ${usedPrefix}ytsearch <query>
+│• ${usedPrefix}github <query>
 │• ${usedPrefix}brainly <query>
 │• ${usedPrefix}belajar <query>
 │• ${usedPrefix}simsimi <chat>
@@ -224,6 +235,8 @@ ${readMore}
 │• ${usedPrefix}tinyurl <url>
 │• ${usedPrefix}lirik <query>
 │• ${usedPrefix}chord <query>
+│• ${usedPrefix}infobmkg
+│• ${usedPrefix}infocovid
 │• ${usedPrefix}md4 <text>
 │• ${usedPrefix}md5 <text>
 │• ${usedPrefix}sha1 <text>
@@ -254,7 +267,6 @@ ${readMore}
 │• ${usedPrefix}suit <pilihan>
 │• ${usedPrefix}suitjawa <pilihan>
 │• ${usedPrefix}modapk
-│• ${usedPrefix}ip
 │• ${usedPrefix}ping
 │• ${usedPrefix}time
 │• ${usedPrefix}donasi
@@ -267,7 +279,30 @@ ${watermark}
 
   } else if (/^owner/i.test(command)) {
     return reply('https://wa.me/62895337278647?text=Halo+bang+jago!')
- 
+
+  } else if (/^ytmp(3|4)/i.test(command)) {
+  	var url = command.split(' ')[1]
+      if (!url) return reply(loghandler.notUrl)
+      if (!isURL(url)) return reply(loghandler.invalidLink)
+      var server = (url || 'id4').toLowerCase()
+      var {
+        dl_link,
+        thumb,
+        title,
+        filesize,
+        filesizeF
+      } = /3/i.test(command) ? await yta(url, servers.includes(server) ? server : 'id4') : await ytv(url, servers.includes(server) ? server : 'id4')
+      var result = `Title: ${title}\nSize: ${filesizeF}\nThumb: ${thumb}\nDownload:\n${dl_link}`
+    	return reply(result)
+
+  } else if (/^tiktok/i.test(command)) {
+  	var url = command.split(' ')[1]
+      if (!url) return reply(loghandler.notUrl)
+      if (!isURL(url)) return reply(loghandler.invalidLink)
+      await TikTokScraper.getVideoMeta(url).then(dl_link => {
+        return reply('Download:\n' + dl_link)
+      }).catch(() => reply('Video tidak dapat ditemukan!'))
+
   } else if (/^say/i.test(command)) {
   	var text = command.split('say ')[1]
       if (!text) return reply(loghandler.notText)
@@ -316,7 +351,7 @@ ${watermark}
     var result = json.data.map((v, i) => `_*PERTANYAAN KE ${i + 1}*_\n${v.pertanyaan}\n${v.jawaban.map((v,i) => `*JAWABAN KE ${i + 1}*\n${v.text}`).join('\n')}`).join('\n\n•------------•\n\n')
       return reply(result)
 
-  } else if (/^s|si(m|msimi)i/i.test(command)) {
+  } else if (/^s|si(m|msim)i/i.test(command)) {
     var text = command.split(' ')[1]
     if (!text) return reply(loghandler.notText)
     var json = await (await fetch(`https://simsumi.herokuapp.com/api?text=${text}&lang=id`)).json()
@@ -374,21 +409,17 @@ ${watermark}
       if (isNaN(old) || isNaN(neww)) return reply(neww + old)
         return reply('Pong!\n\n' + neww - old + 'ms')
 
-  } else if (/^ip/i.test(command)) {
-  	var ip = user.ip || 'tidak ditemukan!'
-        return reply('Alamat IP kamu adalah: ' + ip)
-
   } else if (/^minecraft/i.test(command)) {
   	var txt = command.split('minecraft ')[1]
       if (!txt) return reply(loghandler.notServer)
       var [server, type] = txt.split('|')
       if (!type) return reply(loghandler.notType)
-      if (type.toLowerCase() == 'bedrock') {
+      if (/bedroc?k/i.test(command)) {
       await msu.statusBedrock(server).then(res => {
-      reply(`*Info Server Bedrock Edition*\n\nIP/Host: ${res.host}\nPort: ${res.port}\nVersion: ${res.version}\nProtocol Version: ${res.protocolVersion}\nGame Mode: ${res.gameMode}\nOnline Player: ${res.onlinePlayers}\nMax Player: ${res.maxPlayers}\nMotd: ${res.motdLine1.descriptionText}`)})
-      } else if (type.toLowerCase() == 'java') {
+      reply(`IP/Host: ${res.host}\nPort: ${res.port}\nVersion: ${res.version}\nProtocol Version: ${res.protocolVersion}\nGame Mode: ${res.gameMode}\nOnline Player: ${res.onlinePlayers}\nMax Player: ${res.maxPlayers}\nMotd: ${res.motdLine1.descriptionText}`)})
+      } else if (/java/i.test(type)) {
       await msu.status(server).then(res => {
-      reply(`*Info Server Java Edition*\n\nIP/Host: ${res.host}\nPort: ${res.port}\nVersion: ${res.version}\nProtocol Version: ${res.protocolVersion}\nOnline Player: ${res.onlinePlayers}\nMax Player: ${res.maxPlayers}\nMotd: ${res.description.descriptionText}`)})
+      reply(`IP/Host: ${res.host}\nPort: ${res.port}\nVersion: ${res.version}\nProtocol Version: ${res.protocolVersion}\nOnline Player: ${res.onlinePlayers}\nMax Player: ${res.maxPlayers}\nMotd: ${res.description.descriptionText}`)})
       } else return reply('Tipe yang tersedia adalah bedrock dan java!')
 
   } else if (/^calculator/i.test(command)) {
@@ -411,6 +442,61 @@ ${watermark}
         var result = (new Function('return ' + val))()
         if (!result) result = result
           return reply('Hasil: ' + result)
+
+  } else if (/^kerang/i.test(command) || /(\?$)/i.test(command)) {
+        var text = command.split(' ')[1]
+        if (!text) return reply(loghandler.notText)
+        var ranName = pickRandom(['Aliando', 'Saya', 'Bukan Saya', 'Bukan Bot', 'Cwek', 'Cwok', 'Cowok', 'Cewek', 'Doimu', 'Doi', 'Febian', 'Putri', 'Fadil', 'Helin', 'Annisa', 'Cantika', 'Rizki', 'Zidan', 'Budi', 'Udin', 'Ibnu', 'Samarrr', 'Ular', 'Patrick', 'Patung', 'Hayabusa', 'Gatotkaca', 'ejenali', 'qaqaa', 'xd', 'Arnold', 'Master', 'Chef', 'Orang', 'Mikey', 'Agil', 'Awoakakak', 'Helmi', 'Dika', 'Suster', 'Anak', 'Ridwan', 'Razz', 'P cari doi', 'Hmm', 'Si Manis', 'Kacung', 'sygg', '86', 'Pajar', 'Ardian', 'Septian', 'Jungkook', 'Ryan', 'alboOwkdiw', 'Y', 'Reza', 'Kang copas', 'Tukang Seblak', 'Pikri', 'Manusia', 'Wibu-Lovers', 'FF Burik', 'Ardjoena', 'Selfia', 'Kenzo', 'Rafli', 'Dean', 'Felita', 'Wili', 'Putra', 'F', 'Gamers', 'Ipin', 'Botak', 'Hehe', 'Gunawan', 'Jin', 'Masha', 'Sadboy', 'Sofian', 'Mega', 'Zaky', 'Orang Ganteng', 'Wildan', 'Dhani', 'Pak Eko', 'Dzikri', 'Bapak', 'Pak Guru', 'PP Mikey', 'Om Deddy', 'Mas Botak', 'Tirta', 'Gak Ada Nama', 'Fio', 'Cakra', 'Rull', 'Kemal', 'Rama', 'Nenek', 'Siska', 'Abi', 'Ini Saya', 'RRQ Lemon', 'EVOS ajlh', 'EVOS', '@', 'User', 'Pengguna Google', 'Pengguna HP', 'Pengguna EpEp', 'Bot EpEp']);
+        var answer
+        if (!/^apa|bisa|kapan|siapa|berapa/i.test(text)) answer = 'Kata tanya yang tersedia : apa, apakah, kapan, kapankah, siapa, siapakah, bisa, bisakah, berapa dan berapakah'
+        else if (/^apa/i.test(text)) answer = pickRandom(['Ya', 'Mungkin iya', 'Mungkin', 'Mungkin tidak', 'Tidak', 'Tidak mungkin'])
+        else if (/^bisa/i.test(text)) answer = pickRandom(['Iya', 'Bisa', 'Tentu saja bisa', 'Tentu bisa', 'Sudah pasti', 'Sudah pasti bisa', 'Tidak', 'Tidak bisa', 'Tentu tidak', 'tentu tidak bisa', 'Sudah pasti tidak'])
+        else if (/^kapan/i.test(text)) answer = Math.floor(Math.random() * 100) + pickRandom([' detik', ' menit', ' jam', ' hari', ' pekan', ' minggu', ' bulan', ' tahun', ' dekade', ' windu', ' abad']) + ' lagi ...'
+        else if (/^siapa/i.test(text)) answer = ranName
+        else if (/^berapa/i.test(text)) answer = Math.floor(Math.random() * 1000).toString()
+          return reply(`Pertanyaan: ${text}\nJawaban: ${answer}`)
+
+  } else if (/^yt(s|search)/i.test(command) || /(\?$)/i.test(command)) {
+        var query = command.split(' ')[1]
+        if (!query) return reply(loghandler.notQuery)
+        var res = await yts(q)
+        var data = res.all.find(video => video.seconds < 3600)
+        var {
+            dl_link,
+            thumb,
+            title,
+            filesize,
+            filesizeF
+        } = await ytv(data.url, 'id4')
+        var result = `Title: ${title}\nDuration: ${data.timestamp}\nViews: ${data.views}\nUploaded: ${data.ago}\nThumb: ${thumb}\nSource: ${data.url}\nSize: ${filesizeF}\nUploader: ${data.author.name}\nChannel Link:\n${data.author.url}\nDownload MP4:\n${dl_link}`
+          return reply(result)
+
+  } else if (/^google/i.test(command) || /(\?$)/i.test(command)) {
+        var query = command.split(' ')[1]
+        if (!query) return reply(loghandler.notQuery)
+        var search = await googleIt({ query: query })
+        var result = search.map(({ title, link, snippet }) => `*${title}*\n\n${link}\n${snippet}`).join('\n\n')
+          return reply(result)
+
+  } else if (/^github|g(ithub|h)search/i.test(command)) {
+  	  var query = command.split(' ')[1]
+        if (!query) return reply(loghandler.notQuery)
+        var json = await (await fetch(`https://api.github.com/search/repositories?q=${query}`)).json()
+        var result = json.items.map((repo, index) => `
+${1 + index}. *${repo.full_name}* ${repo.fork ? '(Fork)' : ''}
+_${repo.html_url}_
+
+Dibuat: ${formatDate(repo.created_at)}
+Terakhir Update: ${formatDate(repo.updated_at)}
+Watchs: ${repo.watchers}
+Forks: ${repo.forks}
+Stargazers: ${repo.stargazers_count}
+${repo.open_issues} Issue
+${repo.description ? `
+Deskripsi:${'\n' + repo.description}` : ' Tidak Ada Deskripsi'}
+Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
+`.trim()).join('\n\n')
+          return reply(result)
 
   } else if (/^cerpen/i.test(command)) {
         var cerita = ['cerpen-horor-hantu', 'cerpen-bahasa-inggris', 'cerpen-cinta', 'cerpen-cinta-dalam-hati-terpendam', 'cerpen-cinta-islami']
@@ -444,7 +530,7 @@ ${watermark}
                                  ignoreHref: true,
                                  ignoreImage:true
                       })
-               reply(result.split('Share ke Facebook Twitter Google+')[0].split('Kontak Kami')[1])
+               return reply(result.split('Share ke Facebook Twitter Google+')[0].split('Kontak Kami')[1])
            })
        })
 
@@ -460,10 +546,10 @@ ${watermark}
         return reply('```' + text + '```')
 
   } else if (/^tinyurl/i.test(command)) {
-  	  var url = command.split('tinyurl ')[1]
+  	var url = command.split('tinyurl ')[1]
       if (!url) return reply(loghandler.notUrl)
       if (!isURL(url)) return reply(loghandler.invalidLink)
-  	  var result = await (await fetch('https://tinyurl.com/api-create.php?url=' + url)).text()
+      var result = await (await fetch('https://tinyurl.com/api-create.php?url=' + url)).text()
         return reply(result)
 
   } else if (/^lirik/i.test(command)) {
@@ -487,6 +573,19 @@ ${watermark}
       if (!lang) return reply(loghandler.notLang)
       var result = await translate(text, { tld: 'cn', to: lang })
     	return reply(result[0])
+
+  } else if (/^info(covid|bmkg|gempa)/i.test(command)) {
+  	var result
+      if (/covid/i.test(command)) {
+      	var json = await (await fetch(`https://api.kawalcorona.com/indonesia`)).json()
+          result = `Positif: ${json.positif}\nSembuh: ${json.sembuh}\nMeninggal: ${json.menginggal}\nDirawat: ${json.dirawat}`
+            return reply(result)
+      } else {
+      	await Gempa().then(json => {
+      	var result = `Waktu: ${json.Waktu}\nLintang: ${json.Lintang}\nBujur: ${json.Bujur}\nMagnitudo: ${json.Magnitudo}\nKedalaman: ${json.Kedalaman}\nWilayah: ${json.Wilayah}\nMap: ${json.Map}`
+            return reply(result)
+          })
+       }
 
   } else if (/^md(4|5)/i.test(command)) {
       var text = command.split('md4 ')[1] || command.split('md5 ')[1]
@@ -1163,13 +1262,26 @@ ${watermark}
 
 module.exports = { handler }
 
+function formatDate(n, locale = 'id') {
+var d = new Date(n)
+  return d.toLocaleDateString(locale, {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    })
+}
+
 function muptime(seconds) {
 
 var hours = Math.floor(seconds / (60 * 60));
 var minutes = Math.floor(seconds % (60 * 60) / 60);
 var seconds = Math.floor(seconds % 60);
 
-  return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
+  return new Array(pad(hours), pad(minutes), pad(seconds)).join(':')
 }
 
 function pad(s) {
