@@ -163,7 +163,7 @@ var loghandler = {
 }
 
 
-var handler = async (message, user, reply, { app, sender, group_name, phone, usedPrefix, command, apikey }) => {
+var handler = async (message, user, reply, { app, sender, group_name, phone, usedPrefix, command }) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => reply('Server Bot kini sedang Error! (403)'))
 
   var prefix = new RegExp('^[xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-]', 'gi')
@@ -171,7 +171,6 @@ await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botrep
   var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()).join(':')
   var watermark = '```Powered By RC047```'
   var isURL = (url) => /^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)
-  if (apikey !== bot_key) return reply('*「 AKSES DITOLAK 」*\n\nApikey Bot Tidak Valid!\nSilahkan beli apikeynya ke Owner:\nhttps://wa.me/62895337278647')
   if (group_name && /chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i.test(message)) return reply(`*「 ANTI LINK 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
   if (/(a(su|sw|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return reply(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Biasakan Jangan Toxic ya!_`)
   if (/kuhong|bot/gi.test(message)) return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
@@ -491,7 +490,7 @@ Terakhir Update: ${formatDate(repo.updated_at)}
 Watchs: ${repo.watchers}
 Forks: ${repo.forks}
 Stargazers: ${repo.stargazers_count}
-${repo.open_issues} Issue
+Issue: ${repo.open_issues}
 ${repo.description ? `
 Deskripsi:${'\n' + repo.description}` : ' Tidak Ada Deskripsi'}
 Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
