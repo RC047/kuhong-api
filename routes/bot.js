@@ -1,5 +1,4 @@
 __path = process.cwd();
-console.log('Starting bot...');
 
 // Database :
 var {
@@ -165,7 +164,7 @@ var handler = async (message, user, send, { app, sender, group_name, phone }) =>
   var date = new Date()
   var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()).join(':')
   var command = message.slice(1)
-  var usedPrefix = command.slice(0, 1)
+  var usedPrefix = message.slice(0, 1)
   var readMore = String.fromCharCode(8206).repeat(4001)
 
   if (/(a(su|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return send(`*「 ANTI TOXIC 」*\n\nNomor: ${sender}\nessage}\n\n~Biasakan Jangan Toxic!`)
