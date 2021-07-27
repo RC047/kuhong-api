@@ -624,20 +624,20 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
     app = req.body.app,
-	sender = req.body.sender,
-	message = req.body.message,
-	group_name = req.body.group_name,
-	phone = req.body.phone;
+    sender = req.body.sender,
+    message = req.body.message,
+    group_name = req.body.group_name,
+    phone = req.body.phone;
 
         var maintenance = false
         if (maintenance) return res.status(500).send(mtc)
-	    if (!(app || sender || message || group_name || phone || apikeyInput)) return res.json({ status: false, creator: creator, message: 'Input Parameter tidak lengkap' })
-	    if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) return res.status(406).json({ status: false, creator: creator, reply: 'Apikey is Invalid' })
+	if (!(app || sender || message || group_name || phone || apikeyInput)) return res.json({ status: false, creator: creator, message: 'Input Parameter tidak lengkap' })
+        if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) return res.status(406).json({ status: false, creator: creator, reply: 'Apikey is Invalid' })
         if (req.method.toUpperCase() !== 'POST') return res.json({ status: false, creator: creator, message: 'Method Not Allowed' })
 
 try {
-	  var send = (message) => res.json({ status: true, creator: creator, reply: message })
-          var result = await handler(message, req, send, {
+	  var reply = (message) => res.json({ status: true, creator: creator, reply: message })
+          var result = await handler(message, req, reply, {
       	          app: app,
                   sender: sender,
                   group_name: group_name,
