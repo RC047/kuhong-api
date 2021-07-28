@@ -176,6 +176,7 @@ var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.heroku
   if (/kuhong/gi.test(message)) return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
   if (message.toLowerCase() == 'pesan uji') return reply('Pesan dari server diterima!')
   if (!prefix.test(message)) return false
+  console.log(`${sender} : ${message}`)
 
   if (/^(menu|help|start|\?)/i.test(command)) {
       var menu = `
