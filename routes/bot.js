@@ -281,7 +281,7 @@ ${watermark}
     return reply('https://wa.me/62895337278647?text=Halo+bang+jago!')
 
   } else if (/^ytmp(3|4)/i.test(command)) {
-  	var url = command.split(' ')[1]
+  	var url = command.split('3 ')[1] || command.split('4 ')[1]
       if (!url) return reply(loghandler.notUrl)
       if (!isURL(url)) return reply(loghandler.invalidLink)
       var server = (url || 'id4').toLowerCase()
@@ -352,7 +352,7 @@ ${watermark}
       return reply(result)
 
   } else if (/^s|simi|simsimi/i.test(command)) {
-    var text = command.split(' ')[1]
+    var text = command.split('s ')[1] ||command.split('imi ')[1]
     if (!text) return reply(loghandler.notText)
     var json = await (await fetch(`https://simsumi.herokuapp.com/api?text=${text}&lang=id`)).json()
     if (json.success == '' || json.success == undefined || /Limit/i.test(json.success)) {
@@ -472,14 +472,14 @@ ${watermark}
           return reply(result)
 
   } else if (/^google|search/i.test(command)) {
-        var query = command.split(' ')[1]
+        var query = command.split('google ')[1] || command.split('search ')[1]
         if (!query) return reply(loghandler.notQuery)
         var search = await googleIt({ query: query })
         var result = search.map(({ title, link, snippet }) => `*${title}*\n\n${link}\n${snippet}`).join('\n\n')
           return reply(result)
 
   } else if (/^github|g(ithub|h)search/i.test(command)) {
-  	  var query = command.split(' ')[1]
+  	  var query = command.split('hub ')[1] || command.split('search ')[1]
         if (!query) return reply(loghandler.notQuery)
         var json = await (await fetch(`https://api.github.com/search/repositories?q=${query}`)).json()
         var result = json.items.map((repo, index) => `
@@ -567,7 +567,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
         return reply(json.result)
 
   } else if (/^translate/i.test(command)) {
-  	  var txt = command.split(' ')[1]
+  	  var txt = command.split('translate ')[1]
       if (!txt) return reply(loghandler.notText)
       var [text, lang] = txt.split('|')
       if (!lang) return reply(loghandler.notLang)
@@ -575,11 +575,10 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
     	return reply(result[0])
 
   } else if (/^info(covid|bmkg|gempa)/i.test(command)) {
-  	var result
       if (/covid/i.test(command)) {
       	var json = await (await fetch(`https://api.kawalcorona.com/indonesia`)).json()
-          result = `Positif: ${json.positif}\nSembuh: ${json.sembuh}\nMeninggal: ${json.menginggal}\nDirawat: ${json.dirawat}`
-            return reply(result)
+        var result = `Positif: ${json.positif}\nSembuh: ${json.sembuh}\nMeninggal: ${json.menginggal}\nDirawat: ${json.dirawat}`
+          return reply(result)
       } else {
       	await Gempa().then(json => {
       	var result = `Waktu: ${json.Waktu}\nLintang: ${json.Lintang}\nBujur: ${json.Bujur}\nMagnitudo: ${json.Magnitudo}\nKedalaman: ${json.Kedalaman}\nWilayah: ${json.Wilayah}\nMap: ${json.Map}`
@@ -984,7 +983,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
         return reply(result)
 
   } else if (/^artinama/i.test(command)) {
-      var nama = command.split('nama ')[1]
+      var nama = command.split('artinama ')[1]
       if (!nama) return reply(loghandler.notName)
       request.get({
             headers: {
@@ -1003,7 +1002,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
         })
 
   } else if (/^artimimpi/i.test(command)) {
-      var mimpi = command.split('mimpi ')[1]
+      var mimpi = command.split('artimimpi ')[1]
       if (!mimpi) return reply('Silahkan masukan nama mimpi')
       request.get({
             headers: {
@@ -1022,7 +1021,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
        })
 
   } else if (/^cekjodoh/i.test(command)) {
-      var txt = command.split('jodoh ')[1]
+      var txt = command.split('cekjodoh ')[1]
       if (!txt) return reply(loghandler.notName)
       var [nama, pasangan] = txt.split('|')
       if (!pasangan) return reply('Silahkan masukan nama pasangan')
