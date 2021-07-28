@@ -181,8 +181,7 @@ var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.heroku
       var menu = `
 ╭─「 KUHONG BOT 」
 │
-│• ${sender.startsWith('+') ? 'Phone: ' + sender : 'Name: ' + sender + group_name ? '\n│• Group: ' + group_name : ''}
-│• Location: ${group_name ? 'Group' : 'Private'} Chat
+│• ${sender.startsWith('+') ? 'Phone: ' + sender : 'Name: ' + sender}
 │• Prefix: [ ${usedPrefix} ]
 │• App: ${app}
 │• Time: ${time}
