@@ -167,7 +167,6 @@ var handler = async (message, user, reply, { app, sender, group_name, phone, use
 var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => reply('Server Bot kini sedang Error! (403)'))
 
   var prefix = new RegExp('^[xzXZ/¡!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?¿&.\\-]', 'gi')
-  var date = new Date()
   var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()).join(':')
   var watermark = '```Powered By RC047```'
   var isURL = (url) => /^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)
@@ -179,6 +178,9 @@ var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.heroku
   console.log(`${sender} : ${message}`)
 
   if (/^(menu|help|start|\?)/i.test(command)) {
+      var d = new Date(new Date + 3600000)
+      var weton = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'][Math.floor(d / 84600000) % 5]
+      var islamic = Intl.DateTimeFormat('id-TN-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' }).format(d)
       var menu = `
 ╭─「 KUHONG BOT 」
 │
@@ -188,10 +190,12 @@ var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.heroku
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
 │• Total Reply: ${replies.value} message
-│• IP Address: ${user.ip}
+│• Weton ${weton}
+│• Islamic: ${islamic}
 │• Date: ${date.toString().split(' (')[0]}
 │(${date.toString().split(' (')[1].split(')')[0]})
 ╰────
+
 ${readMore}
 
 ╭─「 LIST MENU 」
@@ -577,7 +581,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
   } else if (/^info(covid|bmkg|gempa)/i.test(command)) {
       if (/covid/i.test(command)) {
       	var json = await (await fetch(`https://api.kawalcorona.com/indonesia`)).json()
-        var result = `Positif: ${json.positif}\nSembuh: ${json.sembuh}\nMeninggal: ${json.menginggal}\nDirawat: ${json.dirawat}`
+        var result = `Positif: ${json[0].positif}\nSembuh: ${json[0].sembuh}\nMeninggal: ${json[0].menginggal}\nDirawat: ${json[0].dirawat}`
           return reply(result)
       } else {
       	await Gempa().then(json => {
