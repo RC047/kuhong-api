@@ -74,6 +74,7 @@ var TikTokScraper = require('tiktok-scraper');
 var yts = require('yt-search');
 var fs = require('fs');
 var msu = require('minecraft-server-util');
+var osu = require('node-os-utils');
 var options = require(__path + '/lib/options.js');
 var {
     performance
@@ -171,7 +172,7 @@ var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.heroku
   var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()).join(':')
   var watermark = '```Powered By RC047```'
   var isURL = (url) => /^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)
-  if (group_name && /chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i.test(message)) return reply(`*「 ANTI LINK 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
+  if (/chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i.test(message)) return reply(`*「 ANTI LINK 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
   if (/(a(su|sw|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return reply(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Biasakan Jangan Toxic ya!_`)
   if (/kuhong/gi.test(message)) return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
   if (message.toLowerCase() == 'pesan uji') return reply('Pesan dari server diterima!')
@@ -191,7 +192,7 @@ var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.heroku
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
 │• Total Reply: ${replies.value} message
-│• Weton ${weton}
+│• Weton: ${weton}
 │• Islamic: ${islamic}
 │• Date: ${date.toString().split(' (')[0]}
 │(${date.toString().split(' (')[1].split(')')[0]})
@@ -226,6 +227,7 @@ ${readMore}
 │• ${usedPrefix}nomorhoki <nomor hp>
 │• ${usedPrefix}tggljadian <tggl>
 │• ${usedPrefix}zodiak <nama|tgl-bln-thn>
+│• ${usedPrefix}binary <text>
 │• ${usedPrefix}base64 <text>
 │• ${usedPrefix}unbase64 <text>
 │• ${usedPrefix}hex <text>
@@ -273,8 +275,8 @@ ${readMore}
 │• ${usedPrefix}suit <pilihan>
 │• ${usedPrefix}suitjawa <pilihan>
 │• ${usedPrefix}modapk
-│• ${usedPrefix}ping
 │• ${usedPrefix}time
+│• ${usedPrefix}status
 │• ${usedPrefix}donasi
 │• ${usedPrefix}owner
 ╰────
@@ -285,6 +287,42 @@ ${watermark}
 
   } else if (/^owner/i.test(command)) {
     return reply('https://wa.me/62895337278647?text=Halo+bang+jago!')
+
+  } else if (/^status/i.test(command)) {
+      var NotDetect = 'Not Detected',
+      cpu = osu.cpu,
+      cpuCore = cpu.count(),
+      drive = osu.drive,
+      mem = osu.mem,
+      netstat = osu.netstat,
+      platform = osu.os.platform(),
+      cpuModel = cpu.model(),
+      cpuPer
+      var p1 = cpu.usage().then(cpuPercentage => cpuPer = cpuPercentage).catch(() => cpuPer = NotDetect)
+      var driveTotal, driveUsed, drivePer
+      var p2 = drive.info().then(info => { driveTotal = (info.totalGb + ' GB'), driveUsed = info.usedGb, drivePer = (info.usedPercentage + '%') }).catch(() => driveTotal = NotDetect,  driveUsed = NotDetect, drivePer = NotDetect)
+      var ramTotal, ramUsed
+      var p3 = mem.info().then(info => { ramTotal = info.totalMemMb, ramUsed = info.usedMemMb }).catch(() => ramTotal = NotDetect, ramUsed = NotDetect)
+      var netsIn, netsOut
+      var p4 = netstat.inOut().then(info => { netsIn = (info.total.inputMb + ' MB'), netsOut = (info.total.outputMb + ' MB') }).catch(() => netsIn = NotDetect, netsOut = NotDetect)
+      await Promise.all([p1, p2, p3, p4])
+      var _ramTotal = (ramTotal + ' MB')
+      var result = `
+╭─「 STATUS BOT 」
+│
+│• Nama: Kuhong Bot
+│• Device: ${user.get('User-Agent').split('(')[1].split(')')[0]}
+│• Platform: ${platform.slice(0, 1).toUpperCase() + platform.slice(1)}
+│• Ram: ${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})
+│• Storage: ${driveUsed} GB / ${driveTotal} (${drivePer} Used)
+│• CPU: ${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)
+│• Network In: ${netsIn}
+│• Network Out: ${netsOut}
+│• Port: ${process.env.PORT || 8000 || 5000 || 3000}
+│• Program: Node JavaScript
+│• Ping: ${performance.now() - performance.now()}ms
+╰────
+`.trim()
 
   } else if (/^ytmp(3|4)/i.test(command)) {
   	var url = command.split('3 ')[1] || command.split('4 ')[1]
@@ -337,7 +375,7 @@ ${watermark}
     if (!text) return reply(loghandler.notText)
     var result = ''
     for (var index = text.length - 1; index >= 0; index--) result += text[index]
-        return reply(result)
+      return reply(result)
 
   } else if (/^readmore|spoiler/i.test(command)) {
   	var text = command.split('readmore ')[1] || command.split('spoiler ')[1]
@@ -368,9 +406,16 @@ ${watermark}
      var result = json.success
        return reply(result)
 
+  } else if (/^binary/i.test(command)) {
+  	var text = command.split('binary ')[1]
+    if (!text) return reply(loghandler.notText)
+    var result = ''
+    for (var i = 0; i < text.length; i++) result += text[i].charCodeAt(0).toString(2)
+    	return reply(result)
+
   } else if (/^base64/i.test(command)) {
   	var text = command.split('base64 ')[1]
-      if (!text) return reply(loghandler.notText)
+    if (!text) return reply(loghandler.notText)
     	return reply(Buffer.from(text, 'UTF-8').toString('base64'))
 
   } else if (/^unbase64/i.test(command)) {
@@ -408,11 +453,6 @@ ${watermark}
   } else if (/^dadu/i.test(command)) {
   	var dadu = Math.floor(Math.random() * 12)
     	return reply('Kamu mendapatkan angka ' + dadu + '!')
-
-  } else if (/^ping/i.test(command)) {
-      var old = performance.now()
-      var neww = performance.now()
-        return reply(neww - old + 'ms')
 
   } else if (/^minecraft/i.test(command)) {
   	var txt = command.split('minecraft ')[1]
