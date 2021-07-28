@@ -166,14 +166,14 @@ var loghandler = {
 var handler = async (message, user, reply, { app, sender, group_name, phone, usedPrefix, command }) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => reply('Server Bot kini sedang Error! (403)'))
 
-  var prefix = new RegExp('^[xzXZ/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-]', 'gi')
+  var prefix = new RegExp('^[xzXZ/¡!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?¿&.\\-]', 'gi')
   var date = new Date()
   var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()).join(':')
   var watermark = '```Powered By RC047```'
   var isURL = (url) => /^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)
   if (group_name && /chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i.test(message)) return reply(`*「 ANTI LINK 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
   if (/(a(su|sw|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return reply(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Biasakan Jangan Toxic ya!_`)
-  if (/kuhong|bot/gi.test(message)) return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
+  if (/kuhong/gi.test(message)) return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
   if (message.toLowerCase() == 'pesan uji') return reply('Pesan dari server diterima!')
   if (!prefix.test(message)) return false
 
@@ -442,8 +442,8 @@ ${watermark}
         if (!result) result = result
           return reply('Hasil: ' + result)
 
-  } else if (/^kerang/i.test(command) || /(\?$)/i.test(command)) {
-        var text = command.split(' ')[1]
+  } else if (/^kerang/i.test(command) || /(?<=\S+)\?$/gi.test(command)) {
+        var text = command.split('kerang ')[1]
         if (!text) return reply(loghandler.notText)
         var ranName = pickRandom(['Aliando', 'Saya', 'Bukan Saya', 'Bukan Bot', 'Cwek', 'Cwok', 'Cowok', 'Cewek', 'Doimu', 'Doi', 'Febian', 'Putri', 'Fadil', 'Helin', 'Annisa', 'Cantika', 'Rizki', 'Zidan', 'Budi', 'Udin', 'Ibnu', 'Samarrr', 'Ular', 'Patrick', 'Patung', 'Hayabusa', 'Gatotkaca', 'ejenali', 'qaqaa', 'xd', 'Arnold', 'Master', 'Chef', 'Orang', 'Mikey', 'Agil', 'Awoakakak', 'Helmi', 'Dika', 'Suster', 'Anak', 'Ridwan', 'Razz', 'P cari doi', 'Hmm', 'Si Manis', 'Kacung', 'sygg', '86', 'Pajar', 'Ardian', 'Septian', 'Jungkook', 'Ryan', 'alboOwkdiw', 'Y', 'Reza', 'Kang copas', 'Tukang Seblak', 'Pikri', 'Manusia', 'Wibu-Lovers', 'FF Burik', 'Ardjoena', 'Selfia', 'Kenzo', 'Rafli', 'Dean', 'Felita', 'Wili', 'Putra', 'F', 'Gamers', 'Ipin', 'Botak', 'Hehe', 'Gunawan', 'Jin', 'Masha', 'Sadboy', 'Sofian', 'Mega', 'Zaky', 'Orang Ganteng', 'Wildan', 'Dhani', 'Pak Eko', 'Dzikri', 'Bapak', 'Pak Guru', 'PP Mikey', 'Om Deddy', 'Mas Botak', 'Tirta', 'Gak Ada Nama', 'Fio', 'Cakra', 'Rull', 'Kemal', 'Rama', 'Nenek', 'Siska', 'Abi', 'Ini Saya', 'RRQ Lemon', 'EVOS ajlh', 'EVOS', '@', 'User', 'Pengguna Google', 'Pengguna HP', 'Pengguna EpEp', 'Bot EpEp']);
         var answer
@@ -455,8 +455,8 @@ ${watermark}
         else if (/^berapa/i.test(text)) answer = Math.floor(Math.random() * 1000).toString()
           return reply(`Pertanyaan: ${text}\nJawaban: ${answer}`)
 
-  } else if (/^yt(s|search)/i.test(command) || /(\?$)/i.test(command)) {
-        var query = command.split(' ')[1]
+  } else if (/^yt(s|search)/i.test(command)) {
+        var query = command.split('ytsearch ')[1] || command.split('yts ')[1]
         if (!query) return reply(loghandler.notQuery)
         var res = await yts(q)
         var data = res.all.find(video => video.seconds < 3600)
@@ -470,7 +470,7 @@ ${watermark}
         var result = `Title: ${title}\nDuration: ${data.timestamp}\nViews: ${data.views}\nUploaded: ${data.ago}\nThumb: ${thumb}\nSource: ${data.url}\nSize: ${filesizeF}\nUploader: ${data.author.name}\nChannel Link:\n${data.author.url}\nDownload MP4:\n${dl_link}`
           return reply(result)
 
-  } else if (/^google/i.test(command) || /(\?$)/i.test(command)) {
+  } else if (/^google|search/i.test(command)) {
         var query = command.split(' ')[1]
         if (!query) return reply(loghandler.notQuery)
         var search = await googleIt({ query: query })
