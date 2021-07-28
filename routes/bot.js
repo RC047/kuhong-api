@@ -1,7 +1,6 @@
 __path = process.cwd();
 
 // Database :
-var bot_key = '04102006';
 var {
     saveToMedia,
     encryptHtml,
@@ -70,7 +69,7 @@ var cheerio = require('cheerio');
 var request = require('request');
 var instagramScraper = require('instagram-scraper');
 var instagramGetUrl = require('instagram-url-direct');
-var TikTokScraper = require('tiktok-scraper');
+var tiktok = require('tiktok-scraper');
 var yts = require('yt-search');
 var fs = require('fs');
 var msu = require('minecraft-server-util');
@@ -172,12 +171,24 @@ var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.heroku
   var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()).join(':')
   var watermark = '```Powered By RC047```'
   var isURL = (url) => /^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)
-  if (/chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i.test(message)) return reply(`*「 ANTI LINK 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
-  if (/(a(su|sw|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) return reply(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Biasakan Jangan Toxic ya!_`)
-  if (/kuhong/gi.test(message)) return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
-  if (message.toLowerCase() == 'pesan uji') return reply('Pesan dari server diterima!')
-  if (!prefix.test(message)) return false
-  console.log(`${sender} : ${message}`)
+
+// Starting
+try {
+  console.info(`${sender} : ${message}`)
+  if (/chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i.test(message)) {
+      return reply(`*「 ANTI LINK 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
+  } else if (/(a(s[uw]|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) {
+      var toxic = message.replace(/(a(s[uw]|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/g, function (match) {
+      var detected = ''
+      for (var i = 0; i < match.length; i++) detected += '*' + match + '*'
+        return detected
+      });
+        return reply(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${toxic}\n\n_Biasakan Jangan Toxic ya!_`)
+  } else if (/kuhong/gi.test(message)) {
+      return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
+  } else if (message.toLowerCase() == 'pesan uji') {
+      return reply('Pesan dari server diterima!')
+  } else if (!prefix.test(message)) return false
 
   if (/^(menu|help|start|\?)/i.test(command)) {
       var d = new Date(new Date + 3600000)
@@ -188,7 +199,6 @@ var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.heroku
 │
 │• ${sender.startsWith('+') ? 'Phone: ' + sender : 'Name: ' + sender}
 │• Prefix: [ ${usedPrefix} ]
-│• App: ${app}
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
 │• Total Reply: ${replies.value} message
@@ -199,21 +209,21 @@ var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.heroku
 ╰────
 
 ${readMore}
-
 ╭─「 LIST MENU 」
 │
 │• ${usedPrefix}ytmp4 <url>
 │• ${usedPrefix}ytmp3 <url>
 │• ${usedPrefix}tiktok <url>
+│• ${usedPrefix}tiktokstalk <url>
 │• ${usedPrefix}say <text>
 │• ${usedPrefix}alay <text>
 │• ${usedPrefix}purba <text>
 │• ${usedPrefix}kerang <pertanyaan>
-│• ${usedPrefix}cerpen
 │• ${usedPrefix}repeat <text|jumlah>
 │• ${usedPrefix}reverse <text>
 │• ${usedPrefix}readmore <text>
 │• ${usedPrefix}spoiler <text>
+│• ${usedPrefix}nulis <text>
 │• ${usedPrefix}google <query>
 │• ${usedPrefix}ytsearch <query>
 │• ${usedPrefix}github <query>
@@ -258,10 +268,13 @@ ${readMore}
 │• ${usedPrefix}font <text>
 │• ${usedPrefix}style <text>
 │• ${usedPrefix}monoscope <text>
+│• ${usedPrefix}cerpen
 │• ${usedPrefix}quotes
 │• ${usedPrefix}katabijak
+│• ${usedPrefix}faktaunik
 │• ${usedPrefix}fml
 │• ${usedPrefix}pantun
+│• ${usedPrefix}puisi
 │• ${usedPrefix}bucin
 │• ${usedPrefix}gombal
 │• ${usedPrefix}sindiran
@@ -287,6 +300,9 @@ ${watermark}
 
   } else if (/^owner/i.test(command)) {
     return reply('https://wa.me/62895337278647?text=Halo+bang+jago!')
+
+  } else if (/^test$/i.test(command)) {
+     return reply('{nama}')
 
   } else if (/^status/i.test(command)) {
       var NotDetect = 'Not Detected',
@@ -316,16 +332,17 @@ ${watermark}
 │• Ram: ${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})
 │• Storage: ${driveUsed} GB / ${driveTotal} (${drivePer} Used)
 │• CPU: ${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)
-│• Network In: ${netsIn}
-│• Network Out: ${netsOut}
-│• Port: ${process.env.PORT || 8000 || 5000 || 3000}
+│• Incoming Network: ${netsIn}
+│• Outgoing Network: ${netsOut}
+│• Application: ${app}
 │• Program: Node JavaScript
+│• Port: ${process.env.PORT || 8000 || 5000 || 3000}
 │• Ping: ${performance.now() - performance.now()}ms
 ╰────
 `.trim()
 
   } else if (/^ytmp(3|4)/i.test(command)) {
-  	var url = command.split('3 ')[1] || command.split('4 ')[1]
+  	var url = command.split('ytmp3 ')[1] || command.split('ytmp4 ')[1]
       if (!url) return reply(loghandler.notUrl)
       if (!isURL(url)) return reply(loghandler.invalidLink)
       var server = (url || 'id4').toLowerCase()
@@ -340,11 +357,20 @@ ${watermark}
     	return reply(result)
 
   } else if (/^tiktok/i.test(command)) {
-  	var url = command.split(' ')[1]
+  	var url = command.split('tiktok ')[1]
       if (!url) return reply(loghandler.notUrl)
       if (!isURL(url)) return reply(loghandler.invalidLink)
-      await TikTokScraper.getVideoMeta(url).then(dl_link => {
-        return reply('Download:\n' + dl_link)
+      await tiktok.getVideoMeta(url).then(res => {
+      var result = `Title: ${res.collector[0].text}\nID: ${res.collector[0].id}\nUploader: ${res.collector[0].authorMeta.nickName}\nThumb: ${res.collector[0].imageUrl}\nDownload:\n${res.collector[0].videoUrlNoWaterMark !== '' ? res.collector[0].videoUrlNoWaterMark : res.collector[0].videoUrl}`
+        return reply(result)
+      }).catch(() => reply('Video tidak dapat ditemukan!'))
+
+  } else if (/^tiktokstalk/i.test(command)) {
+  	var name = command.split('tiktokstalk ')[1]
+      if (!name) return reply(loghandler.notName)
+      await tiktok.getUserProfileInfo(name).then(res => {
+      var result = `Nickname: ${res.user.nickname}\nUser ID: ${res.user.id}\nAvatar: ${res.user.avatarLarger}\nSignature: ${res.user.signature}\nFollowers: ${res.stats.followerCount}\nFollowing: ${res.stats.followingCount}\nVideos: ${res.stats.videoCount}\nVerified: ${res.user.verified}
+        return reply(result)
       }).catch(() => reply('Video tidak dapat ditemukan!'))
 
   } else if (/^say/i.test(command)) {
@@ -396,7 +422,7 @@ ${watermark}
       return reply(result)
 
   } else if (/^s|simi|simsimi/i.test(command)) {
-    var text = command.split('s ')[1] ||command.split('imi ')[1]
+    var text = command.split('s ')[1] ||command.split('simi ')[1]
     if (!text) return reply(loghandler.notText)
     var json = await (await fetch(`https://simsumi.herokuapp.com/api?text=${text}&lang=id`)).json()
     if (json.success == '' || json.success == undefined || /Limit/i.test(json.success)) {
@@ -501,6 +527,34 @@ ${watermark}
         else if (/^berapa/i.test(text)) answer = Math.floor(Math.random() * 1000).toString()
           return reply(`Pertanyaan: ${text}\nJawaban: ${answer}`)
 
+  } else if (/^nulis/i.test(command)) {
+  	var text = command.split('nulis ')[1]
+      if (!text) return reply(loghandler.notText)
+      var fontPath = __path + '/lib/font/Zahraaa.ttf'
+      var inputPath = __path + '/lib/kertas/nulis.jpg'
+      var outputPath = __path + '/tmp/hasil.jpg'
+      var fixedText = textWrap(text, 47)
+      spawn('convert', [
+                inputPath,
+                '-font',
+                fontPath,
+                '-size',
+                '700x960',
+                '-pointsize',
+                '30',
+                '-interline-spacing',
+                '-7',
+                '-annotate',
+                '+170+222',
+                fixedText,
+                outputPath
+         ])
+         .on('error', () => res.status(403).send(error))
+         .on('exit', () => {
+         var result = saveToMedia(outputPath)
+           return reply('Nihh hasilnya maaf via link yaa,, karna inimah Bot jadul. Jdi gk bisa ngirim pesan media :v\n\n' + result)
+         })
+
   } else if (/^yt(s|search)/i.test(command)) {
         var query = command.split('ytsearch ')[1] || command.split('yts ')[1]
         if (!query) return reply(loghandler.notQuery)
@@ -529,8 +583,8 @@ ${watermark}
         var json = await (await fetch(`https://api.github.com/search/repositories?q=${query}`)).json()
         var result = json.items.map((repo, index) => `
 ${1 + index}. *${repo.full_name}* ${repo.fork ? '(Fork)' : ''}
-_${repo.html_url}_
 
+Url: ${repo.html_url}
 Dibuat: ${formatDate(repo.created_at)}
 Terakhir Update: ${formatDate(repo.updated_at)}
 Watchs: ${repo.watchers}
@@ -613,17 +667,17 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
 
   } else if (/^translate/i.test(command)) {
   	  var txt = command.split('translate ')[1]
-      if (!txt) return reply(loghandler.notText)
-      var [text, lang] = txt.split('|')
-      if (!lang) return reply(loghandler.notLang)
-      var result = await translate(text, { tld: 'cn', to: lang })
-    	return reply(result[0])
+        if (!txt) return reply(loghandler.notText)
+        var [text, lang] = txt.split('|')
+        if (!lang) return reply(loghandler.notLang)
+        var result = await translate(text, { tld: 'cn', to: lang })
+      	return reply(result[0])
 
   } else if (/^info(covid|bmkg|gempa)/i.test(command)) {
       if (/covid/i.test(command)) {
       	var json = await (await fetch(`https://api.kawalcorona.com/indonesia`)).json()
-        var result = `Positif: ${json[0].positif}\nSembuh: ${json[0].sembuh}\nMeninggal: ${json[0].menginggal}\nDirawat: ${json[0].dirawat}`
-          return reply(result)
+          var result = `Positif: ${json[0].positif}\nSembuh: ${json[0].sembuh}\nMeninggal: ${json[0].menginggal}\nDirawat: ${json[0].dirawat}`
+            return reply(result)
       } else {
       	await Gempa().then(json => {
       	var result = `Waktu: ${json.Waktu}\nLintang: ${json.Lintang}\nBujur: ${json.Bujur}\nMagnitudo: ${json.Magnitudo}\nKedalaman: ${json.Kedalaman}\nWilayah: ${json.Wilayah}\nMap: ${json.Map}`
@@ -657,27 +711,44 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       var result = await translate(resultEN, { tld: 'cn', to: 'id' })
         return reply(result[0])
 
-  } else if (/^quotes?/i.test(command)) {
+  } else if (/^quotes?$/i.test(command)) {
       var data = await fs.readFileSync(__path + '/lib/scraper/quotes.json')
       var object = JSON.parse(data);
       var index = Math.floor(Math.random() * object.length);
       var json = object[index];
         return reply(json.result)
 
-  } else if (/^sindiran/i.test(command)) {
+  } else if (/^sindiran$/i.test(command)) {
       var data = await fs.readFileSync(__path + '/lib/scraper/sindiran.json')
       var object = JSON.parse(data);
       var index = Math.floor(Math.random() * object.length);
       var json = object[index];
         return reply(json.result)
 
-  } else if (/^pantun/i.test(command)) {
+  } else if (/^pantun$/i.test(command)) {
       var data = await fs.readFileSync(__path + '/lib/scraper/pantun.txt').toString()
       var pantun = data.split('\n')
       var result = pantun[Math.floor(Math.random() * pantun.length)]
         return reply(result)
 
-  } else if (/^katailham/i.test(command)) {
+  } else if (/^puisi$/i.test(command)) {
+  	var puisi = [
+         'Sontak\n\nSetiap hendak menulis sajak sketsa wajahmu itu selalu saja merebak udara menjadi sesak penaku henti mendadak serangkaian kosakata di benakku pun luluh-lantak setiap itu pula aku tak tahu harus apa selain menunda dan menyaksikan tiap imaji yang tersisa malihrupa jadi jelaga.',
+         'Menyerah\n\nMaaf, aku harus menyerah telah lama kucoba untuk bertahan namun aku semakin terluka maaf, aku harus menyerah kuat inginku untuk bertahan namun hati tak bisa lagi menerima maaf, aku harus menyerah luka ini sudah terlalu dalam hingga membuat hatiku pecah bergelimang darah maaf, aku harus menyerah menghentikan langkah menutup semua lembar kisah mimpi indah sepasang anak manusia yang bercerita tentang cinta maaf, aku menyerah…. Doaku Untukmu Selalu tersebut namamu, Diantara 7 titik kerendahan diri, Diatas lembar permadani, Berangkat semoga sampai langit untuk kembali turun kebumi sebagai karunia.',
+         'Sepi\n\nTersebab, Tak mungkin bisa bersama, Maka aku selalu menuliskan syair hati, Dimana kehidupan dunia bisa diatur sesuai mauku, Lantas kau dan aku menjadi kita… Hanya bisa memanggil ingatan untuk mengusir kesunyian, Tapi ia datang tak pernah sendirian, Selalu beserta kerinduan. Terbayang suatu hari tangan kita terkait, Terlelap bersama dibawah saku langit. Sepi ini slalu menghantarkanku padamu',
+         'Ini Tentangmu\n\nKatamu kau tak pandai berkata-kata, namun kata-katamu mampu membuatku terbata-bata… Bagimu kau tak terlalu suka mengungkap rasa, namun yang kau isyaratkan membuatku tak mungkin lupa… Menurutmu apa yang kau perbuat bukanlah apa-apa, namun tanpa kau sadari, bagiku kau begitu istimewa… Demikian tentangmu, dan sungguh! aku bukan sedang memujimu…',
+         'Jejak Dalam Udara\n\nDan lihatlah, Sekumpulan burung-burung melintas dikotaku Dilangit senja yang perlahan pekat ditelan malam Beriringan mereka terbang pergi dan berlalu Sedang aku, Menyesap rindu dijejak-jejak yang semakin hilang Kuingin kau mencintai aku seperti udara, Meski kasat tapi kau hirup selamanya…',
+         'Rasa\n\nLantas, biarlah sementara begini Tepatnya kan kubiarkan seperti ini Mungkin hati ini perlu waktu tuk menghapusnya Karena sesungguhnya aku telah terbiasa oleh keberadaanmu Dan sesungguhnya ada rindu yang mulai tertata Karenamupun, kini aku benar-benar tak sanggup mengelabui rasa',
+         'Isyarat Yang Entah\n\nPada undakan anak tangga kelima Seorang perindu duduk menatap awan senja Ia tabah menunggu isyarat yang entah Tapi kau salah puan… Jika menganggapku setabah itu Justru karena tak sanggup menahan rindu Aku senantiasa mencurahkannya pada aksaraku Dan sementara di keningnya Waktu terus melukis kerut perlahan…',
+         'Aku dan Hujan\n\nJalan itu menghitam,basah oleh hujan.Namun aku, muram, Kering oleh kerinduan.Gerimis ini menghapus jejak apapun,Namun kasihmu tak hilang dalam hitungan tahun.Lebih dari hancur Seperti pisau tajam yang menusuk hatitak pernah bisa dilepas lagimenusuk sampai nurani tempat aku bingkai indah namamu Aku hanyalah serpihan puing yang rapuh ingin aku ceritakan kehancuran ini tapi, kau seolah tak peduli, tak mampu kusatukan lagi kepingan hati',
+         'Sudut Pandang\n\nKita lahir dari rahim yang sama Membuka mata di saat berbeda Aku menolongnya kau mencacinya Tapi kau yang jeli dan aku tertipu belaka Ini hanya masalah sudut pandang Menganggap kaya berlebihan atau miskin keterlaluan Mata rahim melihat itu semua seimbang Kita semua lahir dari rahim yang sama, rahim keadilan.',
+         'Sebutir Debu\n\nAku hanya sebutir debu yang memburamkan kilau tak pantas berada diatas suci tak bisa menghindar saat angin hembuskan aku untukmu, lalu terbang Aq hanya kecewa bagai hampa mengharap udara, atau debu ditengah gersang mengharap hujan hentikan angin membawaku terbang.',
+         'Kesabaran\n\nGubung bambu istana baginya, Perut yang selalu bernyanyi dalam hidupnya, Walau pahit telan untuk manis, Bersyukur kunci agar tak menangis, Melangkah kaki ini hingga membentuk garis pecahan, Duri-duri selalu menghadang raga, Wajah menahan kesakitan, Menyebut namaNya dalam jiwa.',
+      ]
+      var result = pickRandom(puisi)
+        return reply(result)
+
+  } else if (/^katailham$/i.test(command)) {
       var katailham = [
           'Nggak ada yang peduli denganmu di sosmed kecuali kamu cakep.',
           'Sesimpel ini deh sibuk itu palsu, semua tergantung prioritas.',
@@ -696,7 +767,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
      var result = pickRandom(katailham)
        return reply(result)
 
-  } else if (/^bucin/i.test(command)) {
+  } else if (/^bucin$/i.test(command)) {
      var bucin = [
             'Aku memilih untuk sendiri, bukan karena menunggu yang sempurna, tetapi butuh yang tak pernah menyerah.',
             'Seorang yang single diciptakan bersama pasangan yang belum ditemukannya.',
@@ -825,7 +896,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       var result = pickRandom(bucin)
         return reply(result)
 
-  } else if (/^gombal/i.test(command)) {
+  } else if (/^gombal$/i.test(command)) {
       var gombal = [
      "Kamu tau gak? Kenapa kalau aku menghafal lihatnya ke atas? soalnya kalau merem langsung kebayang wajahmu.",
      "Orang kurus itu setia, makan aja tidak pernah nambah apalagi pasangan.",
@@ -852,13 +923,19 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
      var result = pickRandom(gombal)
         return reply(result)
 
-  } else if (/^katabija(k|x)/i.test(command)) {
+  } else if (/^katabija(k|x)$/i.test(command)) {
       var body = await (await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/katabijax.txt')).text()
       var json = body.split('\n')
       var result = json[Math.floor(Math.random() * json.length)]
         return reply(result)
 
-  } else if (/^truth/i.test(command)) {
+  } else if (/^fakta?(unik)$/i.test(command)) {
+      var body = await (await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/faktaunix.txt')).text()
+      var json = body.split('\n')
+      var result = json[Math.floor(Math.random() * json.length)]
+        return reply(result)
+
+  } else if (/^truth$/i.test(command)) {
       var truth = [
         'Acara tv apa yang paling kamu benci? Berikan alasannya!',
         'Apa baju yang (menurutmu) paling jelek yang pernah kamu pakai, dan kapan kamu memakainya?',
@@ -946,7 +1023,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       var result = pickRandom(truth)
         return reply(result)
 
-  } else if (/^dare/i.test(command)) {
+  } else if (/^dare$/i.test(command)) {
       var dare = [
     "Ajak orang yg tidak kamu kenal itu selfie berdua dengan mu lalu upload ke snapgram", 
     "Ambil beberapa nomor dari kontakmu secara acak dan kirim sms 'Aku hamil' sama mereka.",
@@ -1015,7 +1092,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
      var result = pickRandom(dare)
         return reply(result)
 
-  } else if (/^bacot/i.test(command)) {
+  } else if (/^bacot$/i.test(command)) {
       var bacot = [
         'Kamu suka kopi nggak? Aku sih suka. Tau kenapa alesannya? Kopi itu ibarat kamu, pahit sih tapi bikin candu jadi pingin terus.',
         'Gajian itu kayak mantan ya? Bisanya cuman lewat sebentar saja.',
@@ -1206,7 +1283,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       } else hasil = 'Pilihan yang tersedia : ' + pilihan
         return reply(hasil)
 
-  } else if (/^modapk|apkdownload/i.test(command)) {
+  } else if (/^modapk|apkdownload$/i.test(command)) {
       var str = `
 ╭─「 MOD APK 」
 │
@@ -1314,7 +1391,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
 `.trim()
     return reply(str)
 
-  } else if (/^dona(te|si)/i.test(command)) {
+  } else if (/^dona(te|si)$/i.test(command)) {
     var str = `
 ╭─「 DONATION 」
 │
@@ -1346,7 +1423,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
         })
     })
 
-  } else if (/^slots?/i.test(command)) {
+  } else if (/^slots?$/i.test(command)) {
       var emojis = ['🍎', '🍌', '🍇', '♦️', '🥇', '💵'];
       var a = Math.floor(Math.random() * emojis.length);
       var b = Math.floor(Math.random() * emojis.length);
@@ -1376,7 +1453,10 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       else end = 'Kamu Kalah!, Yang Sabar yaa. Anggap aja ini Ujian :)', poin = '5';
         return reply(`${end}\n\n${x[0]} ${y[0]} ${z[0]}\n${x[1]} ${y[1]} ${z[1]}\n${x[2]} ${y[2]} ${z[2]}`)
 
-  } else return reply(`Perintah tidak ditemukan!\n\nSilahkan ketik ${usedPrefix + 'menu'} untuk melihat list menu`)
+  } else return reply(`*「 TIDAK DITEMUKAN 」*\nPerintah tidak ditemukan!\n\nSilahkan ketik ${usedPrefix + 'menu'} untuk melihat list menu yang tersedia`)
+} catch (e) {
+	return reply(e.message)
+	}
 }
 
 
