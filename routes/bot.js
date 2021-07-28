@@ -540,7 +540,7 @@ ${watermark}
       var fontPath = __path + '/lib/font/Zahraaa.ttf'
       var inputPath = __path + '/lib/kertas/nulis.jpg'
       var outputPath = __path + '/tmp/hasil.jpg'
-      var fixedText = textWrap(text, 47)
+      var fixedText = await textWrap(text, 47)
       await spawn('convert', [
                 inputPath,
                 '-font',
