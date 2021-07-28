@@ -166,7 +166,7 @@ var loghandler = {
 var handler = async (message, user, reply, { app, sender, group_name, phone, usedPrefix, command }) => {
 var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => reply('Server Bot kini sedang Error! (403)'))
 
-  var prefix = /^[xzXZ/¡!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?¿&.\\-]/gi
+  var prefix = new RegExp('^[xzXZ/¡!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?¿&.\\-]', 'gi')
   var date = new Date()
   var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()).join(':')
   var watermark = '```Powered By RC047```'
