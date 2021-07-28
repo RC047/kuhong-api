@@ -164,7 +164,7 @@ var loghandler = {
 
 
 var handler = async (message, user, reply, { app, sender, group_name, phone, usedPrefix, command }) => {
-await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => reply('Server Bot kini sedang Error! (403)'))
+var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => reply('Server Bot kini sedang Error! (403)'))
 
   var prefix = new RegExp('^[xzXZ/¡!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?¿&.\\-]', 'gi')
   var date = new Date()
@@ -178,7 +178,6 @@ await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botrep
   if (!prefix.test(message)) return false
 
   if (/^(menu|help|start|\?)/i.test(command)) {
-      var totalreply = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/reply')).json().value
       var menu = `
 ╭─「 KUHONG BOT 」
 │
@@ -188,7 +187,7 @@ await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botrep
 │• App: ${app}
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
-│• Total Reply: ${totalreply} message
+│• Total Reply: $replies.value} message
 │• IP Address: ${user.ip}
 │• Date: ${date.toString().split(' (')[0]}
 │(${date.toString().split(' (')[1].split(')')[0]})
