@@ -268,6 +268,7 @@ ${readMore}
 │• ${usedPrefix}font <text>
 │• ${usedPrefix}style <text>
 │• ${usedPrefix}monoscope <text>
+│• ${usedPrefix}quran
 │• ${usedPrefix}cerpen
 │• ${usedPrefix}quotes
 │• ${usedPrefix}katabijak
@@ -298,13 +299,13 @@ ${watermark}
 `.trim()
        return reply(menu)
 
-  } else if (/^owner/i.test(command)) {
+  } else if (/^owner$/i.test(command)) {
     return reply('https://wa.me/62895337278647?text=Halo+bang+jago!')
 
   } else if (/^test$/i.test(command)) {
      return reply('{nama}')
 
-  } else if (/^status/i.test(command)) {
+  } else if (/^status$/i.test(command)) {
       var NotDetect = 'Not Detected',
       cpu = osu.cpu,
       cpuCore = cpu.count(),
@@ -416,10 +417,10 @@ ${watermark}
 
   } else if (/^b(rainly|elajar)/i.test(command)) {
   	var query = command.split('brainly ')[1] || command.split('belajar ')[1]
-    if (!query) return reply(loghandler.notQuery)
-    var json = await (await fetch('https://recoders-area.caliph.repl.co/api/brainly?q=' + query)).json()
-    var result = json.data.map((v, i) => `_*PERTANYAAN KE ${i + 1}*_\n${v.pertanyaan}\n${v.jawaban.map((v,i) => `*JAWABAN KE ${i + 1}*\n${v.text}`).join('\n')}`).join('\n\n•------------•\n\n')
-      return reply(result)
+      if (!query) return reply(loghandler.notQuery)
+      var json = await (await fetch('https://recoders-area.caliph.repl.co/api/brainly?q=' + query)).json()
+      var result = json.data.map((v, i) => `_*PERTANYAAN KE ${i + 1}*_\n${v.pertanyaan}\n${v.jawaban.map((v,i) => `*JAWABAN KE ${i + 1}*\n${v.text}`).join('\n')}`).join('\n\n•------------•\n\n')
+        return reply(result)
 
   } else if (/^s|simi|simsimi/i.test(command)) {
     var text = command.split('s ')[1] ||command.split('simi ')[1]
@@ -469,16 +470,22 @@ ${watermark}
       if (!text) return reply(loghandler.notText)
     	return reply(await unescape(text))
 
-  } else if (/^time/i.test(command)) {
+  } else if (/^time$/i.test(command)) {
       return reply(time)
 
-  } else if (/^iq/i.test(command)) {
+  } else if (/^iq$/i.test(command)) {
   	var iq = Math.floor(Math.random() * 1000)
     	return reply('IQ Anda sebesar ' + iq + '!')
 
-  } else if (/^dadu/i.test(command)) {
+  } else if (/^dadu$/i.test(command)) {
   	var dadu = Math.floor(Math.random() * 12)
     	return reply('Kamu mendapatkan angka ' + dadu + '!')
+
+  } else if (/^quran$/i.test(command)) {
+  	var json = await (await fetch(`https://api.banghasan.com/quran/format/json/acak`)).json()
+      var ket = json.acak.id.ayat.replace(/{(.*?)}/gi, '')
+      var result = `[${ket}] ${json.acak.ar.teks}\n\n${json.acak.id.teks}\n\n(QS.${json.surat.nama}, Ayat ${ket})`
+        return reply(result)
 
   } else if (/^minecraft/i.test(command)) {
   	var txt = command.split('minecraft ')[1]
@@ -1428,30 +1435,27 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       var a = Math.floor(Math.random() * emojis.length);
       var b = Math.floor(Math.random() * emojis.length);
       var c = Math.floor(Math.random() * emojis.length);
-      var x = [],
-          y = [],
-          z = [];
+      var x = [], y = [], z = []
       for (var i = 0; i < 3; i++) {
-          x[i] = emojis[a];
-          a++;
-          if (a == emojis.length) a = 0;
+          x[i] = emojis[a]
+          a++
+          if (a == emojis.length) a = 0
       }
       for (var i = 0; i < 3; i++) {
-          y[i] = emojis[b];
-          b++;
-          if (b == emojis.length) b = 0;
+          y[i] = emojis[b]
+          b++
+          if (b == emojis.length) b = 0
       }
       for (var i = 0; i < 3; i++) {
-          z[i] = emojis[c];
-          c++;
-          if (c == emojis.length) c = 0;
+          z[i] = emojis[c]
+          c++
+          if (c == emojis.length) c = 0
       }
-      var end;
-      var poin;
-      if (a == b && b == c) end = 'JACKPOT!!!', poin = 10000;
-      else if (a == b || a == c || b == c) end = 'Dikit Lagi!', poin = 500;
-      else end = 'Kamu Kalah!, Yang Sabar yaa. Anggap aja ini Ujian :)', poin = '5';
-        return reply(`${end}\n\n${x[0]} ${y[0]} ${z[0]}\n${x[1]} ${y[1]} ${z[1]}\n${x[2]} ${y[2]} ${z[2]}`)
+      var end, poin
+      if (a == b && b == c) end = 'JACKPOT!!!', poin = 10000
+      else if (a == b || a == c || b == c) end = 'Dikit Lagi!', poin = 500
+      else end = 'Kamu Kalah!, Yang Sabar yaa. Anggap aja ini Ujian :)', poin = 5
+        return reply(`${x[0]} | ${y[0]} | ${z[0]}\n${x[1]} | ${y[1]} | ${z[1]} <===\n${x[2]} | ${y[2]} | ${z[2]}\n\n${end}`)
 
   } else return reply(`*「 TIDAK DITEMUKAN 」*\nPerintah tidak ditemukan!\n\nSilahkan ketik ${usedPrefix + 'menu'} untuk melihat list menu yang tersedia`)
 } catch (e) {
@@ -1485,5 +1489,5 @@ var seconds = Math.floor(seconds % 60);
 }
 
 function pad(s) {
-  return (s < 10 ? '0' : '') + s;
+  return (s < 10 ? '0' : '') + s
 }
