@@ -187,7 +187,7 @@ var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.heroku
 │• App: ${app}
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
-│• Total Reply: $replies.value} message
+│• Total Reply: ${replies.value} message
 │• IP Address: ${user.ip}
 │• Date: ${date.toString().split(' (')[0]}
 │(${date.toString().split(' (')[1].split(')')[0]})
@@ -351,7 +351,7 @@ ${watermark}
     var result = json.data.map((v, i) => `_*PERTANYAAN KE ${i + 1}*_\n${v.pertanyaan}\n${v.jawaban.map((v,i) => `*JAWABAN KE ${i + 1}*\n${v.text}`).join('\n')}`).join('\n\n•------------•\n\n')
       return reply(result)
 
-  } else if (/^s|si(m|msim)i/i.test(command)) {
+  } else if (/^s|simi|simsimi/i.test(command)) {
     var text = command.split(' ')[1]
     if (!text) return reply(loghandler.notText)
     var json = await (await fetch(`https://simsumi.herokuapp.com/api?text=${text}&lang=id`)).json()
