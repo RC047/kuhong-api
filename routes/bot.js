@@ -171,19 +171,18 @@ var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.heroku
   var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()).join(':')
   var watermark = '```Powered By RC047```'
   var isURL = (url) => /^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)
+  var device = user.get('User-Agent')
 
-// Starting
 try {
-  console.info(`${sender} : ${message}`)
   if (/chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i.test(message)) {
       return reply(`*「 ANTI LINK 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
   } else if (/(a(s[uw]|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) {
-      var toxic = message.replace(/(a(s[uw]|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/g, function (match) {
+      var censored = message.replace(/(a(s[uw]|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/g, function (match) {
       var detected = ''
-      for (var i = 0; i < match.length; i++) detected += '*' + match + '*'
+      for (var i = 0; i < match.length; i++) detected += '*'
         return detected
       });
-        return reply(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${toxic}\n\n_Biasakan Jangan Toxic ya!_`)
+        return reply(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${censored}\n\n_Biasakan Jangan Toxic ya!_`)
   } else if (/kuhong/gi.test(message)) {
       return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
   } else if (message.toLowerCase() == 'pesan uji') {
@@ -295,6 +294,7 @@ ${readMore}
 │• ${usedPrefix}owner
 ╰────
 
+
 ${watermark}
 `.trim()
        return reply(menu)
@@ -328,7 +328,7 @@ ${watermark}
 ╭─「 STATUS BOT 」
 │
 │• Nama: Kuhong Bot
-│• Device: ${user.get('User-Agent').split('(')[1].split(')')[0]}
+│• Device: ${device.split('(')[1].split(')')[0]}
 │• Platform: ${platform.slice(0, 1).toUpperCase() + platform.slice(1)}
 │• Ram: ${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})
 │• Storage: ${driveUsed} GB / ${driveTotal} (${drivePer} Used)
@@ -1457,7 +1457,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       else end = 'Kamu Kalah!, Yang Sabar yaa. Anggap aja ini Ujian :)', poin = 5
         return reply(`${x[0]} | ${y[0]} | ${z[0]}\n${x[1]} | ${y[1]} | ${z[1]} <===\n${x[2]} | ${y[2]} | ${z[2]}\n\n${end}`)
 
-  } else return reply(`*「 TIDAK DITEMUKAN 」*\nPerintah tidak ditemukan!\n\nSilahkan ketik ${usedPrefix + 'menu'} untuk melihat list menu yang tersedia`)
+  } else return reply(`*「 TIDAK DITEMUKAN 」*\n\nPerintah tidak ditemukan!\nSilahkan ketik ${usedPrefix + 'menu'} untuk melihat list menu yang tersedia`)
 } catch (e) {
 	return reply(e.message)
 	}
