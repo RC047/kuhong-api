@@ -422,8 +422,8 @@ ${watermark}
       var result = json.data.map((v, i) => `_*PERTANYAAN KE ${i + 1}*_\n${v.pertanyaan}\n${v.jawaban.map((v,i) => `*JAWABAN KE ${i + 1}*\n${v.text}`).join('\n')}`).join('\n\n•------------•\n\n')
         return reply(result)
 
-  } else if (/^s|simi|simsimi/i.test(command)) {
-    var text = command.split('s ')[1] ||command.split('simi ')[1]
+  } else if (/^simi|simsimi/i.test(command)) {
+    var text = command.split('simi ')[1]
     if (!text) return reply(loghandler.notText)
     var json = await (await fetch(`https://simsumi.herokuapp.com/api?text=${text}&lang=id`)).json()
     if (json.success == '' || json.success == undefined || /Limit/i.test(json.success)) {
@@ -541,7 +541,7 @@ ${watermark}
       var inputPath = __path + '/lib/kertas/nulis.jpg'
       var outputPath = __path + '/tmp/hasil.jpg'
       var fixedText = textWrap(text, 47)
-      spawn('convert', [
+      await spawn('convert', [
                 inputPath,
                 '-font',
                 fontPath,
@@ -556,9 +556,9 @@ ${watermark}
                 fixedText,
                 outputPath
          ])
-         .on('error', () => res.status(403).send(error))
-         .on('exit', () => {
-         var result = saveToMedia(outputPath)
+         .on('error', () => reply('Error!'))
+         .on('exit', async() => {
+         var result = await saveToMedia(outputPath)
            return reply('Nihh hasilnya maaf via link yaa,, karna inimah Bot jadul. Jdi gk bisa ngirim pesan media :v\n\n' + result)
          })
 
@@ -641,7 +641,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
        })
 
   } else if (/^font|style/i.test(command)) {
-  	  var text = command.split('font ')[1] || command.split('style ')[1]
+  	var text = command.split('font ')[1] || command.split('style ')[1]
       if (!text) return reply(loghandler.notText)
       var result = Object.entries(await stylizeText(text)).map(([name, value]) => `*${name}*\n${value}`).join`\n\n`
         return reply(result)
