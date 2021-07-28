@@ -166,23 +166,22 @@ var loghandler = {
 var handler = async (message, user, reply, { app, sender, group_name, phone, usedPrefix, command }) => {
 var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => reply('Server Bot kini sedang Error! (403)'))
 
-  var prefix = new RegExp('^[xzXZ/¡!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?¿&.\\-]', 'gi')
+  var prefix = /^[xzXZ/¡!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?¿&.\\-]/gi
   var date = new Date()
   var time = new Array(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()).join(':')
   var watermark = '```Powered By RC047```'
   var isURL = (url) => /^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)
+  var isGroupLink = (url) => /chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/gi
+  var isToxic = /(a(s[uw]|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/gi
   var device = user.get('User-Agent')
 
 try {
-  if (/chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i.test(message)) {
-      return reply(`*「 ANTI LINK 」*\n\nPengirim: ${sender}\nPesan: ${message}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
-  } else if (/(a(s[uw]|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/i.test(message)) {
-      var censored = message.replace(/(a(s[uw]|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/g, function (match) {
-      var detected = ''
-      for (var i = 0; i < match.length; i++) detected += '*'
-        return detected
-      });
-        return reply(`*「 ANTI TOXIC 」*\n\nPengirim: ${sender}\nPesan: ${censored}\n\n_Biasakan Jangan Toxic ya!_`)
+  if (isGroupLink.test(message)) {
+      var matched = message.match(isGroupLink).join('\n')
+      return reply(`*「 ANTI LINK 」*\n\nDari: ${sender}\nLink:\n${matched}\nPesan:\n${message}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
+  } else if (isToxic.test(message)) {
+      var matched = message.match(isToxic).join(', ')
+      return reply(`*「 ANTI TOXIC 」*\n\nDari: ${sender}\nKata Kasar: ${matched}\nPesan:\n${message}\n\n_Biasakan Jangan Toxic ya!_`)
   } else if (/kuhong/gi.test(message)) {
       return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
   } else if (message.toLowerCase() == 'pesan uji') {
@@ -225,17 +224,19 @@ ${readMore}
 │• ${usedPrefix}nulis <text>
 │• ${usedPrefix}google <query>
 │• ${usedPrefix}ytsearch <query>
+│• ${usedPrefix}play <query>
 │• ${usedPrefix}github <query>
 │• ${usedPrefix}brainly <query>
 │• ${usedPrefix}belajar <query>
 │• ${usedPrefix}simsimi <chat>
-│• ${usedPrefix}s <chat>
 │• ${usedPrefix}artinama <nama>
 │• ${usedPrefix}artimimpi <mimpi>
 │• ${usedPrefix}cekjodoh <nama|pasangan>
 │• ${usedPrefix}nomorhoki <nomor hp>
 │• ${usedPrefix}tggljadian <tggl>
 │• ${usedPrefix}zodiak <nama|tgl-bln-thn>
+│• ${usedPrefix}spamcall <nomor hp>
+│• ${usedPrefix}spamsms <nomor hp>
 │• ${usedPrefix}binary <text>
 │• ${usedPrefix}base64 <text>
 │• ${usedPrefix}unbase64 <text>
@@ -416,7 +417,7 @@ ${watermark}
     	return reply('' + readMore + '')
 
   } else if (/^b(rainly|elajar)/i.test(command)) {
-  	var query = command.split('brainly ')[1] || command.split('belajar ')[1]
+      var query = command.split('brainly ')[1] || command.split('belajar ')[1]
       if (!query) return reply(loghandler.notQuery)
       var json = await (await fetch('https://recoders-area.caliph.repl.co/api/brainly?q=' + query)).json()
       var result = json.data.map((v, i) => `_*PERTANYAAN KE ${i + 1}*_\n${v.pertanyaan}\n${v.jawaban.map((v,i) => `*JAWABAN KE ${i + 1}*\n${v.text}`).join('\n')}`).join('\n\n•------------•\n\n')
@@ -425,24 +426,27 @@ ${watermark}
   } else if (/^simi|simsimi/i.test(command)) {
     var text = command.split('simi ')[1]
     if (!text) return reply(loghandler.notText)
-    var json = await (await fetch(`https://simsumi.herokuapp.com/api?text=${text}&lang=id`)).json()
-    if (json.success == '' || json.success == undefined || /Limit/i.test(json.success)) {
-        json = await (await fetch(`https://api.simsimi.net/v1/?text=${text}&lang=id`)).json()
-        if (json.success == undefined) return reply('Fitur Simsimi sedang error!')
-     }
-     var result = json.success
-       return reply(result)
+    var tmp = await (await fetch(`https://raw.githubusercontent.com/herokuapp-com/kuhong-api/main/api/simsimi.json`)).json()
+    var ranMessage = tmp[Math.floor(Math.random() * tmp.length)].result
+    var res = await fetch(`https://simsumi.herokuapp.com/api?text=${text}&lang=id`)
+    if (!/json/i.test(res.headers.get('content-type'))) {
+	res = await fetch(`https://api.simsimi.net/v1/?text=${text}&lang=id`)
+	if (!/json/i.test(res.headers.get('content-type'))) return reply(ranMessage)
+    }
+    var json = await res.json()
+    if (json.success == '' || json.success == undefined || /Limit/i.test(json.success)) return reply(ranMessage)
+      return reply(json.success)
 
   } else if (/^binary/i.test(command)) {
-  	var text = command.split('binary ')[1]
+    var text = command.split('binary ')[1]
     if (!text) return reply(loghandler.notText)
     var result = ''
     for (var i = 0; i < text.length; i++) result += text[i].charCodeAt(0).toString(2)
     	return reply(result)
 
   } else if (/^base64/i.test(command)) {
-  	var text = command.split('base64 ')[1]
-    if (!text) return reply(loghandler.notText)
+       var text = command.split('base64 ')[1]
+      if (!text) return reply(loghandler.notText)
     	return reply(Buffer.from(text, 'UTF-8').toString('base64'))
 
   } else if (/^unbase64/i.test(command)) {
@@ -562,10 +566,10 @@ ${watermark}
            return reply('Nihh hasilnya maaf via link yaa,, karna inimah Bot jadul. Jdi gk bisa ngirim pesan media :v\n\n' + result)
          })
 
-  } else if (/^yt(s|search)/i.test(command)) {
-        var query = command.split('ytsearch ')[1] || command.split('yts ')[1]
+  } else if (/^play|yt(s|search|play)/i.test(command)) {
+        var query = command.split('ytsearch ')[1] || command.split('yts ')[1] || command.split('play ')[1]
         if (!query) return reply(loghandler.notQuery)
-        var res = await yts(q)
+        var res = await yts(query)
         var data = res.all.find(video => video.seconds < 3600)
         var {
             dl_link,
@@ -573,7 +577,7 @@ ${watermark}
             title,
             filesize,
             filesizeF
-        } = await ytv(data.url, 'id4')
+        } = /play/i.test(command) ? await yta(data.url, 'id4') : await ytv(data.url, 'id4')
         var result = `Title: ${title}\nDuration: ${data.timestamp}\nViews: ${data.views}\nUploaded: ${data.ago}\nThumb: ${thumb}\nSource: ${data.url}\nSize: ${filesizeF}\nUploader: ${data.author.name}\nChannel Link:\n${data.author.url}\nDownload MP4:\n${dl_link}`
           return reply(result)
 
@@ -692,6 +696,15 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
           })
        }
 
+  } else if (/^spam(call|sms)/i.test(command)) {
+      var nomor = command.split('spamcall ')[1] || command.split('spamsms ')[1]
+      if (!nomor) return reply(loghandler.notNumber)
+      var json = {}
+      if (/call/i.test(command)) json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/spamcall?no=${nomor.split('62')[1].split('0')[1]}`)).json()
+      if (/sms/i.test(command)) json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/spamsms?no=${nomor.split('62')[1].split('0')[1]}&jum=20`)).json()
+      if (!json.logs) return reply(json.msg)
+        return reply(json.logs)
+
   } else if (/^md(4|5)/i.test(command)) {
       var text = command.split('md4 ')[1] || command.split('md5 ')[1]
       if (!text) return reply(loghandler.notText)
@@ -711,7 +724,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       var result = text.replace(/[aiueo]/g, txt).replace(/[AIUEO]/g, txt.toUpperCase())
         return reply(result)
 
-  } else if (/^fml/i.test(command)) {
+  } else if (/^fml$/i.test(command)) {
       var fml = await (await fetch('https://www.fmylife.com/random')).text()
       var $ = cheerio.load(fml)
       var resultEN = $('#content article.article-panel > .panel > .article-contents > a.article-link').first().text()
@@ -936,7 +949,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       var result = json[Math.floor(Math.random() * json.length)]
         return reply(result)
 
-  } else if (/^fakta?(unik)$/i.test(command)) {
+  } else if (/^faktaunik$/i.test(command)) {
       var body = await (await fetch('https://raw.githubusercontent.com/ArugaZ/scraper-results/main/random/faktaunix.txt')).text()
       var json = body.split('\n')
       var result = json[Math.floor(Math.random() * json.length)]
@@ -1459,8 +1472,17 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
 
   } else return reply(`*「 TIDAK DITEMUKAN 」*\n\nPerintah tidak ditemukan!\nSilahkan ketik ${usedPrefix + 'menu'} untuk melihat list menu yang tersedia`)
 } catch (e) {
-	return reply(e.message)
-	}
+  var err = e.message
+  var urlRegex = /http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi
+  if (urlRegex) {
+      err = e.message.replace(urlRegex, function (match) {
+      var censored = ''
+      for (var i = 0; i < match.length; i++) censored += '*'
+      return censored
+      })
+   }
+  return reply(util.format(err))
+ }
 }
 
 
