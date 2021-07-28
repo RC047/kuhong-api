@@ -191,7 +191,7 @@ await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botrep
 │• Total Reply: ${totalreply} message
 │• IP Address: ${user.ip}
 │• Date: ${date.toString().split(' (')[0]}
-│(${date.split(' (')[1].split(')')[0]})
+│(${date.toString().split(' (')[1].split(')')[0]})
 ╰────
 ${readMore}
 
@@ -236,6 +236,7 @@ ${readMore}
 │• ${usedPrefix}chord <query>
 │• ${usedPrefix}infobmkg
 │• ${usedPrefix}infocovid
+│• ${usedPrefix}resep <query>
 │• ${usedPrefix}md4 <text>
 │• ${usedPrefix}md5 <text>
 │• ${usedPrefix}sha1 <text>
@@ -261,6 +262,7 @@ ${readMore}
 │• ${usedPrefix}bacot
 │• ${usedPrefix}iq
 │• ${usedPrefix}dadu
+│• ${usedPrefix}slots
 │• ${usedPrefix}truth
 │• ${usedPrefix}dare
 │• ${usedPrefix}suit <pilihan>
@@ -593,7 +595,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
         return reply(result)
 
   } else if (/^sha(1|256|512)/i.test(command)) {
-      var text = command.split('sha1 ')[1] || command.split('sha256 ')[1] || command.split('sha512 ')[1]
+      var text = command.split('1 ')[1] || command.split('256 ')[1] || command.split('512 ')[1]
       if (!text) return reply(loghandler.notText)
       var result = await createHash('sha' + command.slice(3, 4)).update(text).digest('hex')
         return reply(result)
@@ -983,7 +985,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
         return reply(result)
 
   } else if (/^artinama/i.test(command)) {
-      var nama = command.split(' ')[1]
+      var nama = command.split('nama ')[1]
       if (!nama) return reply(loghandler.notName)
       request.get({
             headers: {
@@ -1002,7 +1004,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
         })
 
   } else if (/^artimimpi/i.test(command)) {
-      var mimpi = command.split(' ')[1]
+      var mimpi = command.split('mimpi ')[1]
       if (!mimpi) return reply('Silahkan masukan nama mimpi')
       request.get({
             headers: {
@@ -1021,7 +1023,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
        })
 
   } else if (/^cekjodoh/i.test(command)) {
-      var txt = command.split(' ')[1]
+      var txt = command.split('jodoh ')[1]
       if (!txt) return reply(loghandler.notName)
       var [nama, pasangan] = txt.split('|')
       if (!pasangan) return reply('Silahkan masukan nama pasangan')
@@ -1064,7 +1066,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
        })
 
   } else if (/^tggljadian|jadian/i.test(command)) {
-      var date = command.split(' ')[1]
+      var date = command.split('jadian ')[1]
       if (!date) return reply(loghandler.notDate)
       if (!date.includes('-')) return reply('Gunakan "-" disetiap tanggalnya\n\nContoh: 27-10-04')
       var tggl = dates.split('-')[0]
@@ -1110,26 +1112,26 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
         return reply(result)
 
   } else if (/^suit|suitjawa/i.test(command)) {
-      var you = command.split(' ')[1]
+      var you = command.split('suit ')[1] || command.split('jawa ')[1]
       var pilihan = 'gunting, kertas, batu'
       if (/jawa/i.test(command)) pilihan = 'orang, semut, gajah'
       if (!you) return reply('Silahkan masukan pilihannya :\n\n' + pilihan)
       var bot = Math.random()
-      if (bot < 0.34) bot = /gunting/i.test(pilihan) ? 'batu' : 'orang'
-      else if (bot > 0.34 && bot < 0.67) bot = /gunting/i.test(pilihan) ? 'gunting' : 'semut'
-      else bot = /gunting/i.test(pilihan) ? 'kertas' : 'gajah'
+      if (bot < 0.34) bot = !/jawa/i.test(command) ? 'batu' : 'orang'
+      else if (bot > 0.34 && bot < 0.67) bot = !/jawa/i.test(command) ? 'gunting' : 'semut'
+      else bot = !/jawa/i.test(command) ? 'kertas' : 'gajah'
 
       var hasil
       if (you.toLowerCase() == bot) {
           hasil = `Seri!\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
-      } else if (you.toLowerCase() == /gunting/i.test(pilihan) ? 'batu' : 'orang') {
-          if (bot == /gunting/i.test(pilihan) ? 'gunting' : 'semut') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
+      } else if (you.toLowerCase() == !/jawa/i.test(command) ? 'batu' : 'orang') {
+          if (bot == !/jawa/i.test(command) ? 'gunting' : 'semut') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
           else hasil = `Kamu Kalah!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
-      } else if (you.toLowerCase() == /gunting/i.test(pilihan) ? 'gunting' : 'semut') {
-          if (bot == /gunting/i.test(pilihan) ? 'kertas' : 'gajah') hasil = `Kamu Menang!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
+      } else if (you.toLowerCase() == !/jawa/i.test(command) ? 'gunting' : 'semut') {
+          if (bot == !/jawa/i.test(command) ? 'kertas' : 'gajah') hasil = `Kamu Menang!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
           else hasil = `Kamu Kalah!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
-      } else if (you.toLowerCase() == /gunting/i.test(pilihan) ? 'kertas' : 'gajah') {
-          if (bot == /gunting/i.test(pilihan) ? 'batu' : 'orang') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
+      } else if (you.toLowerCase() == !/jawa/i.test(command) ? 'kertas' : 'gajah') {
+          if (bot == !/jawa/i.test(command) ? 'batu' : 'orang') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
           else hasil = `Kamu Kalah!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
       } else hasil = 'Pilihan yang tersedia : ' + pilihan
         return reply(hasil)
@@ -1256,8 +1258,57 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
 `.trim()
     return reply(str)
 
+  } else if (/^resep|masakan/i.test(command)) {
+      var query = command.split('resep ')[1] || command.split('masakan ')[1]
+      if (!query) return reply(loghandler.notQuery)
+      await axios.get('https://masak-apa.tomorisakura.vercel.app/api/search/?q=' + query).then(async(res) => {
+      var { results } = await res.data
+      var random = Math.floor(Math.random() * 16)
+      axios.get('https://masak-apa.tomorisakura.vercel.app/api/recipe/' + results[random].key).then(async(result) => {
+      var { results } = await result.data
+      var bahannya = await results.ingredient
+      var bahan = bahannya.replace(/,/g,'\n')
+      var tutornya = await results.step
+      var tutornih = tutornya.replace(/,/g,'\n')
+      var tutor = tutornih.replace(/.,/g,'\n')
+      var hasil = `Title: ${results.title}\nAuthor: ${results.author.user}\nDipublikasikan: ${results.author.datePublished}\nTingkat: ${results.dificulty}\nWaktu: ${results.times}\nPorsi: ${results.servings}\n\nBahan-bahan:\n${bahan}\n\nLangkah2:\n${tutor}`
+        return reply(hasil)
+        })
+    })
+
+  } else if (/^slots?/i.test(command)) {
+      var emojis = ['🍎', '🍌', '🍇', '♦️', '🥇', '💵'];
+      var a = Math.floor(Math.random() * emojis.length);
+      var b = Math.floor(Math.random() * emojis.length);
+      var c = Math.floor(Math.random() * emojis.length);
+      var x = [],
+          y = [],
+          z = [];
+      for (var i = 0; i < 3; i++) {
+          x[i] = emojis[a];
+          a++;
+          if (a == emojis.length) a = 0;
+      }
+      for (var i = 0; i < 3; i++) {
+          y[i] = emojis[b];
+          b++;
+          if (b == emojis.length) b = 0;
+      }
+      for (var i = 0; i < 3; i++) {
+          z[i] = emojis[c];
+          c++;
+          if (c == emojis.length) c = 0;
+      }
+      var end;
+      var poin;
+      if (a == b && b == c) end = 'JACKPOT!!!', poin = 10000;
+      else if (a == b || a == c || b == c) end = 'Dikit Lagi!', poin = 500;
+      else end = 'Kamu Kalah!, Yang Sabar yaa. Anggap aja ini Ujian :)', poin = '5';
+        return reply(`${end}\n\n${x[0]} ${y[0]} ${z[0]}\n${x[1]} ${y[1]} ${z[1]}\n${x[2]} ${y[2]} ${z[2]}`)
+
   } else return reply(`Perintah tidak ditemukan!\n\nSilahkan ketik ${usedPrefix + 'menu'} untuk melihat list menu`)
 }
+
 
 module.exports = { handler }
 
