@@ -369,7 +369,7 @@ ${watermark}
   	var name = command.split('tiktokstalk ')[1]
       if (!name) return reply(loghandler.notName)
       await tiktok.getUserProfileInfo(name).then(res => {
-      var result = `Nickname: ${res.user.nickname}\nUser ID: ${res.user.id}\nAvatar: ${res.user.avatarLarger}\nSignature: ${res.user.signature}\nFollowers: ${res.stats.followerCount}\nFollowing: ${res.stats.followingCount}\nVideos: ${res.stats.videoCount}\nVerified: ${res.user.verified}
+      var result = `Nickname: ${res.user.nickname}\nUser ID: ${res.user.id}\nAvatar: ${res.user.avatarLarger}\nSignature: ${res.user.signature}\nFollowers: ${res.stats.followerCount}\nFollowing: ${res.stats.followingCount}\nVideos: ${res.stats.videoCount}\nVerified: ${res.user.verified}`
         return reply(result)
       }).catch(() => reply('Video tidak dapat ditemukan!'))
 
