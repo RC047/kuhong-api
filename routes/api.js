@@ -809,7 +809,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
            })
 })
 
-router.get('/jadwalbioskop', (req, res) => {
+router.get('/jadwalbioskop', async (req, res, next) => {
     var apikeyInput = req.query.apikey
 
     var maintenance = false
