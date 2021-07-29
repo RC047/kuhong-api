@@ -288,6 +288,8 @@ ${readMore}
 │• ${usedPrefix}dare
 │• ${usedPrefix}suit <pilihan>
 │• ${usedPrefix}suitjawa <pilihan>
+│• ${usedPrefix}exec
+│• ${usedPrefix}eval
 │• ${usedPrefix}modapk
 │• ${usedPrefix}time
 │• ${usedPrefix}status
@@ -342,6 +344,17 @@ ${watermark}
 ╰────
 `.trim()
       return reply(result)
+
+  } else if (/^exec|eval/i.test(command)) {
+  	var text = command.split('exec ')[1] || command.split('eval ')[1]
+      if (!text) return reply(loghandler.notText)
+      if (/^exec/i.test(command)) {
+      	await exec(text, (stdout, stderr, err) => {
+      	if (err) return reply(err.message)
+          else if (stdout) return reply(stdout)
+          else if (stderr) return reply(stderr)
+          })
+       } else return reply(eval(text))
 
   } else if (/^ytmp(3|4)/i.test(command)) {
   	var url = command.split('ytmp3 ')[1] || command.split('ytmp4 ')[1]
