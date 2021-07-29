@@ -635,7 +635,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 	var reply = (message, message2, message3) => {
 	if (!message) return false
 	console.log(`Kuhong: ${message}`)
-	await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json()
+	fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply').then(res => res.text())
 	var messages = [{ message: message }]
 	if (message && message2) messages.push({ message: message2 })
 	if (message && message2 && message3) messages.push({ message: message3 })
