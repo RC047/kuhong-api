@@ -622,7 +622,7 @@ router.all('/bot.js', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-    var apikey = req.query.apikey,
+    var apikeyInput = req.query.apikey,
     appPackageName = req.body.appPackageName,
     messengerPackageName = req.body.messengerPackageName,
     sender = req.body.query.sender,
