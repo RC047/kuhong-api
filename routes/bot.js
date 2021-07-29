@@ -330,7 +330,7 @@ ${watermark}
 │• Nama: Kuhong Bot
 │• Device: ${user.get('User-Agent').split('(')[1].split(')')[0].replace(/[;]/g, '')}
 │• Platform: ${platform.slice(0, 1).toUpperCase() + platform.slice(1)}
-│• Battery: %battery%%
+│• Battery: #BatteryLevel
 │• Ram: ${ramUsed} MB / ${ramTotal + ' MB'} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})
 │• Storage: ${driveUsed} GB / ${driveTotal} (${drivePer} Used)
 │• CPU: ${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)
@@ -339,11 +339,10 @@ ${watermark}
 │• Application: Node JavaScript
 │• Port: ${process.env.PORT || 8000 || 5000 || 3000}
 │• IP: ${ip.result}
-│• Ping:
-│${(performance.now() - performance.now()).toString().replace(/[-]/g, '')}ms
+│• Ping: ${date.getMilliseconds()}ms
 ╰────
 `.trim()
-      return reply(result)
+      return reply(result.replace(/🔋/g, ''))
 
   } else if (/^exec|eval/i.test(command)) {
   	var text = command.split('exec ')[1] || command.split('eval ')[1]
@@ -1486,7 +1485,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
 
   } else return reply(`*「 TIDAK DITEMUKAN 」*\n\nPerintah tidak temukan!\nSilahkan ketik *${usedPrefix}menu* untuk melihat list menu yang tersedia`)
 } catch (e) {
-  var err = e.message
+  var err = e.message || e
   var urlRegex = /http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi
   if (urlRegex.test(err)) {
       err = e.message.replace(urlRegex, function (match) {
