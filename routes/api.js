@@ -636,8 +636,8 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) return reply('*「 AKSES DITOLAK 」*\n\nApikey Bot Tidak Valid!\n\nSilahkan beli apikeynya ke Owner:\nhttps://wa.me/62895337278647')
 
 try {
-	var command = message.slice(1)
-        var usedPrefix = message.slice(0, 1)
+	var command = senderMessage.slice(1)
+        var usedPrefix = senderMessage.slice(0, 1)
         await handler(req, reply, {
       	   receiveMessageAppId: receiveMessageAppId,
            receiveMessagePattern: receiveMessagePattern,
