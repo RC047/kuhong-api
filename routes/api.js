@@ -652,7 +652,7 @@ try {
 	var command = message.slice(1)
         var usedPrefix = message.slice(0, 1)
 	console.log(`${sender}: ${message}`)
-        await handler(reply, {
+        await handler(req, reply, {
       	   app: appPackageName,
            package: messengerPackageName,
            sender: sender,
