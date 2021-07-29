@@ -174,17 +174,15 @@ var handler = async (user, reply, { receiveMessageAppId, receiveMessagePattern, 
   var isToxic = /(a(s[uw]|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/gi
 
 try {
-  if (isMessageFromGroup && isGroupLink.test(message)) {
+  if (isMessageFromGroup && isGroupLink.test(senderMessage)) {
       var matched = senderMessage.match(isGroupLink).join('\n')
       return reply(`*「 ANTI LINK 」*\n\nDari: ${senderName}\nLink:\n${matched}\nPesan:\n${senderMessage}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
-  } else if (isToxic.test(message)) {
+  } else if (isToxic.test(senderMessage)) {
       var matched = senderMessage.match(isToxic).join(', ')
       return reply(`*「 ANTI TOXIC 」*\n\nDari: ${senderName}\nKata Kasar: ${matched}\nPesan:\n${senderMessage}\n\n_Biasakan Jangan Toxic ya!_`)
-  } else if (/kuhong/gi.test(message)) {
+  } else if (/kuhong/gi.test(senderMessage)) {
       return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
-  } else if (senderMessage.toLowerCase() == 'pesan uji') {
-      return reply('Pesan dari server diterima!')
-  } else if (!prefix.test(message)) return false
+  } else if (!prefix.test(senderMessage)) return false
 
   if (/^menu|help|start/i.test(command)) {
       var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => reply('Server Bot sedang Error!'))
