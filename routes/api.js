@@ -618,37 +618,23 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
   }
 })
 
-router.all('/bot.js', async (req, res, next) => {
+router.post('/bot.js', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-    if (req.method.toUpperCase() !== 'POST') return res.status(404).send(notfound)
     var apikeyInput = req.query.apikey,
-    appPackageName = req.body.appPackageName,
-    messengerPackageName = req.body.messengerPackageName,
-    sender = req.body.query.sender,
-    message = req.body.query.message,
-    isGroup = req.body.query.isGroup,
-    ruleId = req.body.query.ruleId;
+    receiveMessageAppId = req.body.receiveMessageAppId,
+    isMessageFromGroup = req.body.isMessageFromGroup,
+    messageDateTime = req.body.messageDateTime,
+    senderMessage = req.body.senderMessage,
+    groupName = req.body.groupName,
+    senderName = req.body.senderName,
+    receiveMessagePattern = req.body.receiveMessagePattern;
 
         var maintenance = false
         if (maintenance) return res.status(500).send(mtc)
 	if (!(appPackageName || messengerPackageName || sender || message || isGroup || ruleId || apikeyInput)) return reply('Input Parameter tidak lengkap!')
         if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) return reply('*「 AKSES DITOLAK 」*\n\nApikey Bot Tidak Valid!\n\nSilahkan beli apikeynya ke Owner:\nhttps://wa.me/62895337278647')
-	function reply(message, message2, message3) {
-	if (!message) return false
-	console.log(`${sender}: ${message}`)
-	console.log(`Kuhong: ${message}`)
-	fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply').then(res => res.text())
-	var messages = [{ message: message }]
-	if (message && message2) messages.push({ message: message2 })
-	if (message && message2 && message3) messages.push({ message: message3 })
-	  return res.json({
-	       status: true,
-	       creator: creator,
-	       replies: messages
-	  })
-	}
 
 try {
 	var command = message.slice(1)
@@ -663,6 +649,23 @@ try {
            usedPrefix: usedPrefix,
 	   command: command
         })
+
+function reply(message, message2, message3) {
+
+if (!message) throw 'Error: Message cant be blank'
+console.log(`${sender}: ${message}`)
+console.log(`Kuhong: ${message}`)
+fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply').then(res => res.text())
+var messages = [{ message: message }]
+if (message && message2) messages.push({ message: message2 })
+if (message && message2 && message3) messages.push({ message: message3 })
+
+   return res.json({
+              status: true,
+	      creator: creator,
+	      data: messages
+        })
+    }
 } catch (e) {
     console.error(e)
   res.status(403).send(error)
