@@ -624,28 +624,28 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
     var apikeyInput = req.query.apikey,
     receiveMessageAppId = req.body.receiveMessageAppId,
+    receiveMessagePattern = req.body.receiveMessagePattern,
     isMessageFromGroup = req.body.isMessageFromGroup,
     messageDateTime = req.body.messageDateTime,
     senderMessage = req.body.senderMessage,
     groupName = req.body.groupName,
-    senderName = req.body.senderName,
-    receiveMessagePattern = req.body.receiveMessagePattern;
+    senderName = req.body.senderName;
 
         var maintenance = false
         if (maintenance) return res.status(500).send(mtc)
-	if (!(appPackageName || messengerPackageName || sender || message || isGroup || ruleId || apikeyInput)) return reply('Input Parameter tidak lengkap!')
         if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) return reply('*「 AKSES DITOLAK 」*\n\nApikey Bot Tidak Valid!\n\nSilahkan beli apikeynya ke Owner:\nhttps://wa.me/62895337278647')
 
 try {
 	var command = message.slice(1)
         var usedPrefix = message.slice(0, 1)
         await handler(req, reply, {
-      	   app: appPackageName,
-           package: messengerPackageName,
-           sender: sender,
-	   message: message,
-           isGroup: isGroup,
-           ruleId: ruleId,
+      	   receiveMessageAppId: receiveMessageAppId,
+           receiveMessagePattern: receiveMessagePattern,
+           isMessageFromGroup: isMessageFromGroup,
+           messageDateTime: messageDateTime,
+           senderMessage: senderMessage,
+           groupName: groupName,
+           senderName: senderName,
            usedPrefix: usedPrefix,
 	   command: command
         })
@@ -817,9 +817,8 @@ router.get('/jadwalbioskop', (req, res) => {
     if (!apikeyInput) return res.json(loghandler.notparam)
     if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey || apikeyInput == blocked_apikey)) return res.status(406).send(invalidKey)
     if (apikeyInput == blocked_apikey) return res.json(loghandler.blockedKey)
-    var cheerio = require('cheerio')
 
-    axios.get('https://jadwalnonton.com/now-playing').then((result) => {
+    await axios.get('https://jadwalnonton.com/now-playing').then((result) => {
         var $ = cheerio.load(result.data)
         var title = []
         var url = []
@@ -841,8 +840,8 @@ router.get('/jadwalbioskop', (req, res) => {
                 img: img[i]
             })
         }
-        res.send({
-        	status: true,
+        res.json({
+            status: true,
             creator: creator,
             result: result
         })
