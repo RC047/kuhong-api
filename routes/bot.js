@@ -193,7 +193,7 @@ try {
 ╭─「 KUHONG BOT 」
 │
 │• ${isMessageFromGroup ? 'Group: ' + groupName : 'Name: ' + senderName}
-│• Location: ${isGroup ? 'Group' : 'Private'} Chat
+│• Location: ${isMessageFromGroup ? 'Group' : 'Private'} Chat
 │• Prefix: [ ${usedPrefix} ]
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
@@ -305,6 +305,7 @@ ${watermark}
 
   } else if (/^status$/i.test(command)) {
   	var ip = await (await fetch('https://kuhong-api.herokuapp.com/ip')).json()
+      var port = process.env.PORT || 8000 || 5000 || 3000
       var NotDetect = 'Tidak Terdeteksi',
       cpu = osu.cpu,
       cpuCore = cpu.count(),
@@ -322,20 +323,22 @@ ${watermark}
       var netsIn, netsOut
       var p4 = netstat.inOut().then(info => { netsIn = (info.total.inputMb + ' MB'), netsOut = (info.total.outputMb + ' MB') }).catch(() => netsIn = NotDetect, netsOut = NotDetect)
       await Promise.all([p1, p2, p3, p4])
+      var battery = '#BatteryLevel'
+      var deviceName = user.get('User-Agent') ? user.get('User-Agent').split('(')[1].split(')')[0].replace(/[;]/g, '') : 'Unknown'
       var result = `
 ╭─「 STATUS BOT 」
 │
 │• Nama: Kuhong Bot
-│• Device: ${user.get('User-Agent').split('(')[1].split(')')[0].replace(/[;]/g, '')}
+│• Device: ${deviceName}
 │• Platform: ${platform.slice(0, 1).toUpperCase() + platform.slice(1)}
-│• Battery: #BatteryLevel
+│• Battery: ${battery.split('aaa')[1]}
 │• Ram: ${ramUsed} MB / ${ramTotal + ' MB'} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})
 │• Storage: ${driveUsed} GB / ${driveTotal} (${drivePer} Used)
 │• CPU: ${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)
 │• Incoming Network: ${netsIn}
 │• Outgoing Network: ${netsOut}
 │• Application: Node JavaScript
-│• Port: ${process.env.PORT || 8000 || 5000 || 3000}
+│• Port: ${port}
 │• IP: ${ip.result}
 │• Ping: ${date.getMilliseconds()}ms
 ╰────
@@ -1483,6 +1486,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
 
   } else return reply(`*「 TIDAK DITEMUKAN 」*\n\nPerintah tidak temukan!\nSilahkan ketik *${usedPrefix}menu* untuk melihat list menu yang tersedia`)
 } catch (e) {
+  console.error(e)
   var err = e.message || e
   var urlRegex = /http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi
   if (urlRegex.test(err)) {
