@@ -335,8 +335,9 @@ ${watermark}
 │• Outgoing Network: ${netsOut}
 │• Application: Node JavaScript
 │• Port: ${process.env.PORT || 8000 || 5000 || 3000}
+│• IP: ${await (await fetch('https://kuhong-api.herokuapp.com/ip')).json().result}
 │• Ping:
-│${Math.floor(performance.now() - performance.now()).replace(/[-]/g, '')}ms
+│${Math.floor(performance.now() - performance.now()).toString().replace(/[-]/g, '')}ms
 ╰────
 `.trim()
       return reply(result)
@@ -1255,7 +1256,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
   } else if (/^zodia(c|k)/i.test(command)) {
       var txt = command.split('zodiak ')[1] || command.split('zodiac ')[1]
       if (!txt) return reply(loghandler.notName)
-      var [name, dates] = txt.split('|')
+      var [nama, dates] = txt.split('|')
       if (!dates) return reply(loghandler.notDate)
       if (!dates.includes('-')) return reply('Gunakan "-" disetiap tanggalnya\n\nContoh: 27-10-04')
       var tggl = dates.split('-')[0]
