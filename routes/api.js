@@ -634,6 +634,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
         if (maintenance) return res.status(500).send(mtc)
 	var reply = (message, message2, message3) => {
 	if (!message) return false
+	console.log(`${sender}: ${message}`)
 	console.log(`Kuhong: ${message}`)
 	fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply').then(res => res.text())
 	var messages = [{ message: message }]
@@ -651,7 +652,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 try {
 	var command = message.slice(1)
         var usedPrefix = message.slice(0, 1)
-	console.log(`${sender}: ${message}`)
         await handler(req, reply, {
       	   app: appPackageName,
            package: messengerPackageName,
