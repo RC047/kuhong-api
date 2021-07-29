@@ -326,18 +326,18 @@ ${watermark}
 ╭─「 STATUS BOT 」
 │
 │• Nama: Kuhong Bot
-│• Device: ${user.get('User-Agent').split('(')[1].split(')')[0]}
+│• Device: ${user.get('User-Agent').split('(')[1].split(')')[0].replace(/[;]/g, '')}
 │• Platform: ${platform.slice(0, 1).toUpperCase() + platform.slice(1)}
-│• Battery:  %battery%%
+│• Battery: %battery%%
 │• Ram: ${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})
 │• Storage: ${driveUsed} GB / ${driveTotal} (${drivePer} Used)
 │• CPU: ${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)
 │• Incoming Network: ${netsIn}
 │• Outgoing Network: ${netsOut}
-│• Application: ${appPackageName}
-│• Program: Node JavaScript
+│• Application: Node JavaScript
 │• Port: ${process.env.PORT || 8000 || 5000 || 3000}
-│• Ping: ${performance.now() - performance.now()}ms
+│• Ping:
+│${Math.floor(performance.now() - performance.now()).replace(/[-]/g, '')}ms
 ╰────
 `.trim()
       return reply(result)
@@ -560,10 +560,8 @@ ${watermark}
                 outputPath
          ])
          .on('error', () => reply('Error!'))
-         .on('exit', async() => {
-         var result = await saveToMedia(outputPath)
-           return reply('Nihh hasilnya maaf via link yaa,, karna inimah Bot jadul. Jdi gk bisa ngirim pesan media :v\n\n' + result)
-         })
+         .on('exit', () => fs.writeFileSync(__path + '/public/media/nulis.png', fs.readFileSync(outputPath)))
+           return reply('Nihh hasilnya:\n\nhttps://kuhong-api.herokuapp.com/media/nulis.png')
 
   } else if (/^play|yt(s|search|play)/i.test(command)) {
         var query = command.split('ytsearch ')[1] || command.split('yts ')[1] || command.split('play ')[1]
@@ -686,7 +684,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
   } else if (/^info(covid|bmkg|gempa)/i.test(command)) {
       if (/covid/i.test(command)) {
       	var json = await (await fetch(`https://api.kawalcorona.com/indonesia`)).json()
-          var result = `Positif: ${json[0].positif}\nSembuh: ${json[0].sembuh}\nMeninggal: ${json[0].menginggal}\nDirawat: ${json[0].dirawat}`
+          var result = `Positif: ${json[0].positif.replace(/[,]/g, '.')}\nSembuh: ${json[0].sembuh.replace(/[,]/g, '.')}\nMeninggal: ${json[0].meninggal.replace(/[,]/g, '.')}\nDirawat: ${json[0].dirawat.replace(/[,]/g, '.')}`
             return reply(result)
       } else {
       	await Gempa().then(json => {
@@ -1259,13 +1257,16 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       var txt = command.split('zodiak ')[1] || command.split('zodiac ')[1]
       if (!txt) return reply(loghandler.notName)
       var [name, dates] = txt.split('|')
-      if (!date) return reply(loghandler.notDate)
-      if (!date.includes('-')) return reply('Gunakan "-" disetiap tanggalnya\n\nContoh: 27-10-04')
+      if (!dates) return reply(loghandler.notDate)
+      if (!dates.includes('-')) return reply('Gunakan "-" disetiap tanggalnya\n\nContoh: 27-10-04')
       var tggl = dates.split('-')[0]
       var bln = dates.split('-')[1]
       var thn = dates.split('-')[2]
+      if (isNaN(tggl)) return reply(loghandler.number)
+      if (isNaN(bln)) return reply(loghandler.number)
+      if (isNaN(thn)) return reply(loghandler.number)
       var date = new Date(tggl, bln, thn)
-      if (date == 'Invalid Date') throw date
+      if (date == 'Invalid Date') return reply('Tanggal tidak valid')
       var d = new Date()
       var [tahun, bulan, tanggal] = [d.getFullYear(), d.getMonth() + 1, d.getDate()]
       var birth = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
@@ -1283,21 +1284,21 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       if (/jawa/i.test(command)) pilihan = 'orang, semut, gajah'
       if (!you) return reply('Silahkan masukan pilihannya :\n\n' + pilihan)
       var bot = Math.random()
-      if (bot < 0.34) bot = !/jawa/i.test(command) ? 'batu' : 'orang'
-      else if (bot > 0.34 && bot < 0.67) bot = !/jawa/i.test(command) ? 'gunting' : 'semut'
-      else bot = !/jawa/i.test(command) ? 'kertas' : 'gajah'
+      if (bot < 0.34) bot = /jawa/i.test(command) ? 'orang' : 'batu'
+      else if (bot > 0.34 && bot < 0.67) bot = /jawa/i.test(command) ? 'semut' : 'gunting'
+      else bot = /jawa/i.test(command) ? 'gajah' : 'kertas'
 
       var hasil
       if (you.toLowerCase() == bot) {
           hasil = `Seri!\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
-      } else if (you.toLowerCase() == !/jawa/i.test(command) ? 'batu' : 'orang') {
-          if (bot == !/jawa/i.test(command) ? 'gunting' : 'semut') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
+      } else if (you.toLowerCase() == /jawa/i.test(command) ? 'orang' : 'batu') {
+          if (bot == /jawa/i.test(command) ? 'semut' : 'gunting') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
           else hasil = `Kamu Kalah!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
-      } else if (you.toLowerCase() == !/jawa/i.test(command) ? 'gunting' : 'semut') {
-          if (bot == !/jawa/i.test(command) ? 'kertas' : 'gajah') hasil = `Kamu Menang!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
+      } else if (you.toLowerCase() == /jawa/i.test(command) ? 'semut' : 'gunting') {
+          if (bot == /jawa/i.test(command) ? 'gajah' : 'kertas') hasil = `Kamu Menang!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
           else hasil = `Kamu Kalah!\n\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
-      } else if (you.toLowerCase() == !/jawa/i.test(command) ? 'kertas' : 'gajah') {
-          if (bot == !/jawa/i.test(command) ? 'batu' : 'orang') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
+      } else if (you.toLowerCase() == /jawa/i.test(command) ? 'gajah' : 'kertas') {
+          if (bot == /jawa/i.test(command) ? 'orang' : 'batu') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
           else hasil = `Kamu Kalah!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
       } else hasil = 'Pilihan yang tersedia : ' + pilihan
         return reply(hasil)
