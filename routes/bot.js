@@ -186,7 +186,7 @@ try {
       return reply('Pesan dari server diterima!')
   } else if (!prefix.test(message)) return false
 
-  if (/^menu|help|start|\?/i.test(command)) {
+  if (/^menu|help|start/i.test(command)) {
       var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => reply('Server Bot sedang Error!'))
       var d = new Date(new Date + 3600000)
       var weton = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'][Math.floor(d / 84600000) % 5]
@@ -304,6 +304,7 @@ ${watermark}
     return reply('Ngapain Chat ke Owner? inikan no Ownernya_-', 'Yaudah Klik aja nihh\nhttps://wa.me/62895337278647?text=Halo+bang+jago!')
 
   } else if (/^status$/i.test(command)) {
+  	var ip = await (await fetch('https://kuhong-api.herokuapp.com/ip')).json()
       var NotDetect = 'Tidak Terdeteksi',
       cpu = osu.cpu,
       cpuCore = cpu.count(),
@@ -335,9 +336,9 @@ ${watermark}
 │• Outgoing Network: ${netsOut}
 │• Application: Node JavaScript
 │• Port: ${process.env.PORT || 8000 || 5000 || 3000}
-│• IP: ${await (await fetch('https://kuhong-api.herokuapp.com/ip')).json().result}
+│• IP: ${ip.result}
 │• Ping:
-│${Math.floor(performance.now() - performance.now()).toString().replace(/[-]/g, '')}ms
+│${(performance.now() - performance.now()).toString().replace(/[-]/g, '')}ms
 ╰────
 `.trim()
       return reply(result)
@@ -524,12 +525,12 @@ ${watermark}
         if (!result) result = result
           return reply('Hasil: ' + result)
 
-  } else if (/^kerang/i.test(command) || /(?<=\S+)\?$/gi.test(command)) {
-        var text = command.split('kerang ')[1]
+  } else if (/^kerang|(?<=\S+)\?/gi/i.test(command)) {
+        var text = command.split('kerang ')[1] || command.split('?')[0]
         if (!text) return reply(loghandler.notText)
         var ranName = pickRandom(['Aliando', 'Saya', 'Bukan Saya', 'Bukan Bot', 'Cwek', 'Cwok', 'Cowok', 'Cewek', 'Doimu', 'Doi', 'Febian', 'Putri', 'Fadil', 'Helin', 'Annisa', 'Cantika', 'Rizki', 'Zidan', 'Budi', 'Udin', 'Ibnu', 'Samarrr', 'Ular', 'Patrick', 'Patung', 'Hayabusa', 'Gatotkaca', 'ejenali', 'qaqaa', 'xd', 'Arnold', 'Master', 'Chef', 'Orang', 'Mikey', 'Agil', 'Awoakakak', 'Helmi', 'Dika', 'Suster', 'Anak', 'Ridwan', 'Razz', 'P cari doi', 'Hmm', 'Si Manis', 'Kacung', 'sygg', '86', 'Pajar', 'Ardian', 'Septian', 'Jungkook', 'Ryan', 'alboOwkdiw', 'Y', 'Reza', 'Kang copas', 'Tukang Seblak', 'Pikri', 'Manusia', 'Wibu-Lovers', 'FF Burik', 'Ardjoena', 'Selfia', 'Kenzo', 'Rafli', 'Dean', 'Felita', 'Wili', 'Putra', 'F', 'Gamers', 'Ipin', 'Botak', 'Hehe', 'Gunawan', 'Jin', 'Masha', 'Sadboy', 'Sofian', 'Mega', 'Zaky', 'Orang Ganteng', 'Wildan', 'Dhani', 'Pak Eko', 'Dzikri', 'Bapak', 'Pak Guru', 'PP Mikey', 'Om Deddy', 'Mas Botak', 'Tirta', 'Gak Ada Nama', 'Fio', 'Cakra', 'Rull', 'Kemal', 'Rama', 'Nenek', 'Siska', 'Abi', 'Ini Saya', 'RRQ Lemon', 'EVOS ajlh', 'EVOS', '@', 'User', 'Pengguna Google', 'Pengguna HP', 'Pengguna EpEp', 'Bot EpEp']);
         var answer
-        if (!/^apa|bisa|kapan|siapa|berapa/i.test(text)) answer = 'Kata tanya yang tersedia : apa, apakah, kapan, kapankah, siapa, siapakah, bisa, bisakah, berapa dan berapakah'
+        if (!/^apa|bisa|kapan|siapa|berapa/i.test(text)) return reply('Kata tanya yang tersedia : apa, apakah, kapan, kapankah, siapa, siapakah, bisa, bisakah, berapa dan berapakah')
         else if (/^apa/i.test(text)) answer = pickRandom(['Ya', 'Mungkin iya', 'Mungkin', 'Mungkin tidak', 'Tidak', 'Tidak mungkin'])
         else if (/^bisa/i.test(text)) answer = pickRandom(['Iya', 'Bisa', 'Tentu saja bisa', 'Tentu bisa', 'Sudah pasti', 'Sudah pasti bisa', 'Tidak', 'Tidak bisa', 'Tentu tidak', 'tentu tidak bisa', 'Sudah pasti tidak'])
         else if (/^kapan/i.test(text)) answer = Math.floor(Math.random() * 100) + pickRandom([' detik', ' menit', ' jam', ' hari', ' pekan', ' minggu', ' bulan', ' tahun', ' dekade', ' windu', ' abad']) + ' lagi ...'
@@ -563,8 +564,8 @@ ${watermark}
          .on('exit', () => fs.writeFileSync(__path + '/public/media/nulis.png', fs.readFileSync(outputPath)))
            return reply('Nihh hasilnya:\n\nhttps://kuhong-api.herokuapp.com/media/nulis.png')
 
-  } else if (/^play/i.test(command)) {
-        var query = command.split('play ')[1]
+  } else if (/^play|yt(s|search|play)/i.test(command)) {
+        var query = command.split('ytsearch ')[1] || command.split('yts ')[1] || command.split('play ')[1]
         if (!query) return reply(loghandler.notQuery)
         var res = await yts(query)
         var data = res.all.find(video => video.seconds < 3600)
@@ -577,29 +578,6 @@ ${watermark}
         } = /play/i.test(command) ? await yta(data.url, 'id4') : await ytv(data.url, 'id4')
         var result = `Title: ${title}\nDuration: ${data.timestamp}\nViews: ${data.views}\nUploaded: ${data.ago}\nThumb: ${thumb}\nSource: ${data.url}\nSize: ${filesizeF}\nUploader: ${data.author.name}\nChannel Link:\n${data.author.url}\nDownload MP4:\n${dl_link}`
           return reply(result)
-
-  } else if (/^yt(s|search)/i.test(command)) {
-	var query = command.split('ytsearch ')[1] || command.split('yts ')[1]
-        if (!query) return reply(loghandler.notQuery)
-	var res = await yts(query)
-        var result = res.all.map(v => {
-            switch (v.type) {
-            case 'video': return `
-Title: ${v.title}
-Url: ${v.url}
-Duration: ${v.timestamp}
-Uploaded: ${v.ago}
-Views: ${v.views} views
-`.trim()
-      case 'channel': return `
-Channel: ${v.name}
-Url: ${v.url}
-Subscribers: ${v.subCountLabel} ${v.subCount}) subscribers
-Videos: ${v.videoCount} video
-`.trim()
-    }
-  }).filter(v => v).join('\n========================\n')
-     reply(result)
 
   } else if (/^google|search/i.test(command)) {
         var query = command.split('google ')[1] || command.split('search ')[1]
@@ -1323,11 +1301,11 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       } else if (you.toLowerCase() == /jawa/i.test(command) ? 'gajah' : 'kertas') {
           if (bot == /jawa/i.test(command) ? 'orang' : 'batu') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
           else hasil = `Kamu Kalah!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
-      } else hasil = 'Pilihan yang tersedia : ' + pilihan
+      } else if (!/gunting|kertas|batu|semut|orang|gajah/i.test(command)) hasil = 'Pilihan yang tersedia : ' + pilihan
         return reply(hasil)
 
   } else if (/^modapk|apkdownload$/i.test(command)) {
-      var str = `
+      var result = `
 ╭─「 MOD APK 」
 │
 │• Minecraft (Original)
@@ -1432,7 +1410,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
 │https://realsht.mobi/hrTdE
 ╰────
 `.trim()
-    return reply(str)
+    return reply(result)
 
   } else if (/^dona(te|si)$/i.test(command)) {
     var str = `
@@ -1454,7 +1432,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       await axios.get('https://masak-apa.tomorisakura.vercel.app/api/search/?q=' + query).then(async(res) => {
       var { results } = await res.data
       var random = Math.floor(Math.random() * 16)
-      axios.get('https://masak-apa.tomorisakura.vercel.app/api/recipe/' + results[random].key).then(async(result) => {
+      await axios.get('https://masak-apa.tomorisakura.vercel.app/api/recipe/' + results[random].key).then(async(result) => {
       var { results } = await result.data
       var bahannya = await results.ingredient
       var bahan = bahannya.replace(/,/g,'\n')
@@ -1493,11 +1471,11 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       else end = 'Kamu Kalah!, Yang Sabar yaa. Anggap aja ini Ujian :)', poin = 5
         return reply(`${x[0]} | ${y[0]} | ${z[0]}\n${x[1]} | ${y[1]} | ${z[1]} <===\n${x[2]} | ${y[2]} | ${z[2]}\n\n${end}`)
 
-  } else return reply(`*「 TIDAK DITEMUKAN 」*\n\nPerintah tidak ditemukan!\nSilahkan ketik ${usedPrefix + 'menu'} untuk melihat list menu yang tersedia`)
+  } else return reply(`*「 TIDAK DITEMUKAN 」*\n\nPerintah tidak temukan!\nSilahkan ketik *${usedPrefix}menu* untuk melihat list menu yang tersedia`)
 } catch (e) {
   var err = e.message
   var urlRegex = /http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi
-  if (urlRegex) {
+  if (urlRegex.test(err)) {
       err = e.message.replace(urlRegex, function (match) {
       var censored = ''
       for (var i = 0; i < match.length; i++) censored += '*'
