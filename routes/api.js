@@ -622,31 +622,43 @@ router.all('/bot.js', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-    var apikeyInput = req.query.apikey,
-    app = req.body.app,
-    sender = req.body.sender,
-    message = req.body.message,
-    group_name = req.body.group_name,
-    phone = req.body.phone;
+    var apikey = req.query.apikey,
+    appPackageName = req.body.appPackageName,
+    messengerPackageName = req.body.messengerPackageName,
+    sender = req.body.query.sender,
+    message = req.body.query.message,
+    isGroup = req.body.query.isGroup,
+    ruleId = req.body.query.ruleId;
 
         var maintenance = false
         if (maintenance) return res.status(500).send(mtc)
-	if (!(app || sender || message || group_name || phone || apikeyInput)) return res.json({ status: false, creator: creator, reply: 'Input Parameter tidak lengkap' })
-        if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) return res.json({ status: false, creator: creator, reply: '*「 AKSES DITOLAK 」*\n\nApikey Bot Tidak Valid!\n\nSilahkan beli apikeynya ke Owner:\nhttps://wa.me/62895337278647' })
+	var reply = (message, message2, message3) => {
+	if (!message) return false
+	console.log(`Kuhong: ${message}`)
+	await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json()
+	var messages = { message: message }
+	if (message && message2) messages = { message: message }, { message: message2 }
+	if (message && message2 && message3) messages = { message: message }, { message: message2 }, { message: message3 }
+	  return res.json({
+	       status: true,
+	       creator: creator,
+	       replies: [messages]
+	  })
+	}
+	if (!(appPackageName || messengerPackageName || sender || message || isGroup || ruleId || apikeyInput)) return reply('Input Parameter tidak lengkap!')
+        if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) return reply('*「 AKSES DITOLAK 」*\n\nApikey Bot Tidak Valid!\n\nSilahkan beli apikeynya ke Owner:\nhttps://wa.me/62895337278647')
 
 try {
-        var reply = (message) => {
-	console.info(`Kuhong: ${message}`)
-	  return res.json({ status: true, creator: creator, reply: message })
-	}
 	var command = message.slice(1)
         var usedPrefix = message.slice(0, 1)
-	console.info(`${sender}: ${message}`)
-        await handler(message, req, reply, {
-      	   app: app,
+	console.log(`${sender}: ${message}`)
+        await handler(reply, {
+      	   app: appPackageName,
+           package: messengerPackageName,
            sender: sender,
-           group_name: group_name,
-           phone: phone,
+	   message: message,
+           isGroup: isGroup,
+           ruleId: ruleId,
            usedPrefix: usedPrefix,
 	   command: command
         })
