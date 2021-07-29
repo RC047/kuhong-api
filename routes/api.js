@@ -622,6 +622,7 @@ router.all('/bot.js', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
+    if (req.method.toUpperCase() !== 'POST') return res.status(404).send(notfound)
     var apikeyInput = req.query.apikey,
     appPackageName = req.body.appPackageName,
     messengerPackageName = req.body.messengerPackageName,
@@ -632,7 +633,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 
         var maintenance = false
         if (maintenance) return res.status(500).send(mtc)
-	var reply = (message, message2, message3) => {
+	if (!(appPackageName || messengerPackageName || sender || message || isGroup || ruleId || apikeyInput)) return reply('Input Parameter tidak lengkap!')
+        if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) return reply('*「 AKSES DITOLAK 」*\n\nApikey Bot Tidak Valid!\n\nSilahkan beli apikeynya ke Owner:\nhttps://wa.me/62895337278647')
+	function reply(message, message2, message3) {
 	if (!message) return false
 	console.log(`${sender}: ${message}`)
 	console.log(`Kuhong: ${message}`)
@@ -646,8 +649,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 	       replies: messages
 	  })
 	}
-	if (!(appPackageName || messengerPackageName || sender || message || isGroup || ruleId || apikeyInput)) return reply('Input Parameter tidak lengkap!')
-        if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) return reply('*「 AKSES DITOLAK 」*\n\nApikey Bot Tidak Valid!\n\nSilahkan beli apikeynya ke Owner:\nhttps://wa.me/62895337278647')
 
 try {
 	var command = message.slice(1)
