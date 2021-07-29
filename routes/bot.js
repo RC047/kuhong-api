@@ -563,8 +563,8 @@ ${watermark}
          .on('exit', () => fs.writeFileSync(__path + '/public/media/nulis.png', fs.readFileSync(outputPath)))
            return reply('Nihh hasilnya:\n\nhttps://kuhong-api.herokuapp.com/media/nulis.png')
 
-  } else if (/^play|yt(s|search|play)/i.test(command)) {
-        var query = command.split('ytsearch ')[1] || command.split('yts ')[1] || command.split('play ')[1]
+  } else if (/^play/i.test(command)) {
+        var query = command.split('play ')[1]
         if (!query) return reply(loghandler.notQuery)
         var res = await yts(query)
         var data = res.all.find(video => video.seconds < 3600)
@@ -577,6 +577,29 @@ ${watermark}
         } = /play/i.test(command) ? await yta(data.url, 'id4') : await ytv(data.url, 'id4')
         var result = `Title: ${title}\nDuration: ${data.timestamp}\nViews: ${data.views}\nUploaded: ${data.ago}\nThumb: ${thumb}\nSource: ${data.url}\nSize: ${filesizeF}\nUploader: ${data.author.name}\nChannel Link:\n${data.author.url}\nDownload MP4:\n${dl_link}`
           return reply(result)
+
+  } else if (/^yt(s|search)/i.test(command)) {
+	var query = command.split('ytsearch ')[1] || command.split('yts ')[1]
+        if (!query) return reply(loghandler.notQuery)
+	var res = await yts(query)
+        var result = res.all.map(v => {
+            switch (v.type) {
+            case 'video': return `
+Title: ${v.title}
+Url: ${v.url}
+Duration: ${v.timestamp}
+Uploaded: ${v.ago}
+Views: ${v.views} views
+`.trim()
+      case 'channel': return `
+Channel: ${v.name}
+Url: ${v.url}
+Subscribers: ${v.subCountLabel} ${v.subCount}) subscribers
+Videos: ${v.videoCount} video
+`.trim()
+    }
+  }).filter(v => v).join('\n========================\n')
+     reply(result)
 
   } else if (/^google|search/i.test(command)) {
         var query = command.split('google ')[1] || command.split('search ')[1]
