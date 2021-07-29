@@ -164,7 +164,7 @@ var loghandler = {
 
 
 var handler = async (message, user, reply, { app, sender, group_name, phone, usedPrefix, command }) => {
-var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => { return false })
+var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => { return 0 })
 
   var prefix = new RegExp('^[xzXZ/¡!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?¿&.\\-]', 'gi')
   var date = new Date()
