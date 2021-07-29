@@ -664,7 +664,7 @@ try {
         })
 } catch (e) {
     console.error(e)
-  res.json({ status: true, creator: creator, reply: formatLogs(e) })
+  res.status(403).send(error)
   }
 })
 
