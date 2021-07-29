@@ -303,9 +303,6 @@ ${watermark}
   } else if (/^owner$/i.test(command)) {
     return reply('https://wa.me/62895337278647?text=Halo+bang+jago!')
 
-  } else if (/^test$/i.test(command)) {
-     return reply('Reading...', `Bateraimu: %battery%`)
-
   } else if (/^status$/i.test(command)) {
       var NotDetect = 'Not Detected',
       cpu = osu.cpu,
@@ -331,12 +328,13 @@ ${watermark}
 │• Nama: Kuhong Bot
 │• Device: ${user.get('User-Agent').split('(')[1].split(')')[0]}
 │• Platform: ${platform.slice(0, 1).toUpperCase() + platform.slice(1)}
+│• Battery:  %battery%%
 │• Ram: ${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})
 │• Storage: ${driveUsed} GB / ${driveTotal} (${drivePer} Used)
 │• CPU: ${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)
 │• Incoming Network: ${netsIn}
 │• Outgoing Network: ${netsOut}
-│• Application: ${messengerPackageName}
+│• Application: ${appPackageName}
 │• Program: Node JavaScript
 │• Port: ${process.env.PORT || 8000 || 5000 || 3000}
 │• Ping: ${performance.now() - performance.now()}ms
