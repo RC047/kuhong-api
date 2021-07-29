@@ -163,8 +163,7 @@ var loghandler = {
 }
 
 
-var handler = async (message, user, reply, { app, sender, group_name, phone, usedPrefix, command }) => {
-var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => { return 0 })
+var handler = async (user, reply, { appPackageName, messengerPackageName, sender, message, isGroup, ruleId, usedPrefix, command }) => {
 
   var prefix = new RegExp('^[xzXZ/¡!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?¿&.\\-]', 'gi')
   var date = new Date()
@@ -173,10 +172,9 @@ var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.heroku
   var isURL = (url) => /^http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi.test(url)
   var isGroupLink = /chat.whatsapp.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/gi
   var isToxic = /(a(s[uw]|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/gi
-  var device = user.get('User-Agent')
 
 try {
-  if (isGroupLink.test(message)) {
+  if (isGroup && isGroupLink.test(message)) {
       var matched = message.match(isGroupLink).join('\n')
       return reply(`*「 ANTI LINK 」*\n\nDari: ${sender}\nLink:\n${matched}\nPesan:\n${message}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
   } else if (isToxic.test(message)) {
@@ -188,14 +186,15 @@ try {
       return reply('Pesan dari server diterima!')
   } else if (!prefix.test(message)) return false
 
-  if (/^(menu|help|start|\?)/i.test(command)) {
+  if (/^menu|help|start|\?/i.test(command)) {
       var d = new Date(new Date + 3600000)
       var weton = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'][Math.floor(d / 84600000) % 5]
       var islamic = Intl.DateTimeFormat('id-TN-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' }).format(d)
       var menu = `
 ╭─「 KUHONG BOT 」
 │
-│• ${sender.startsWith('+') ? 'Phone: ' + sender : 'Name: ' + sender}
+│• ${isGroup ? 'Group: ' + sender : 'Name: ' + sender}
+│• Location: ${isGroup ? 'Group' : 'Private'} Chat
 │• Prefix: [ ${usedPrefix} ]
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
@@ -307,6 +306,7 @@ ${watermark}
      return reply('{nama}')
 
   } else if (/^status$/i.test(command)) {
+      var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => 'Tidak Terdeteksi')
       var NotDetect = 'Not Detected',
       cpu = osu.cpu,
       cpuCore = cpu.count(),
@@ -329,14 +329,14 @@ ${watermark}
 ╭─「 STATUS BOT 」
 │
 │• Nama: Kuhong Bot
-│• Device: ${device.split('(')[1].split(')')[0]}
+│• Device: ${user.get('User-Agent').split('(')[1].split(')')[0]}
 │• Platform: ${platform.slice(0, 1).toUpperCase() + platform.slice(1)}
 │• Ram: ${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})
 │• Storage: ${driveUsed} GB / ${driveTotal} (${drivePer} Used)
 │• CPU: ${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)
 │• Incoming Network: ${netsIn}
 │• Outgoing Network: ${netsOut}
-│• Application: ${app}
+│• Application: ${messengerPackageName}
 │• Program: Node JavaScript
 │• Port: ${process.env.PORT || 8000 || 5000 || 3000}
 │• Ping: ${performance.now() - performance.now()}ms
