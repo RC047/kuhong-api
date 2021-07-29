@@ -163,7 +163,7 @@ var loghandler = {
 }
 
 
-var handler = async (user, reply, { appPackageName, messengerPackageName, sender, message, isGroup, ruleId, usedPrefix, command }) => {
+var handler = async (user, reply, { receiveMessageAppId, receiveMessagePattern, isMessageFromGroup, messageDateTime, senderMessage, groupName, senderName, usedPrefix, command }) => {
 
   var prefix = new RegExp('^[xzXZ/¡!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?¿&.\\-]', 'gi')
   var date = new Date()
@@ -174,15 +174,15 @@ var handler = async (user, reply, { appPackageName, messengerPackageName, sender
   var isToxic = /(a(s[uw]|nj(([ie])ng|([ie])r)?)|me?me?k|ko?nto?l|ba?bi|fu?ck|ta(e|i)k|bangsat|g([iueo])bl([iueo])(k|g)|g([iueo])bl([iueo])(k|g)|a(nj(ing|ir)?)su|col(i|ay)|an?jg|b([ia])ngs([ia])?t|t([iuo])l([iuo])l)/gi
 
 try {
-  if (isGroup && isGroupLink.test(message)) {
-      var matched = message.match(isGroupLink).join('\n')
-      return reply(`*「 ANTI LINK 」*\n\nDari: ${sender}\nLink:\n${matched}\nPesan:\n${message}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
+  if (isMessageFromGroup && isGroupLink.test(message)) {
+      var matched = senderMessage.match(isGroupLink).join('\n')
+      return reply(`*「 ANTI LINK 」*\n\nDari: ${senderName}\nLink:\n${matched}\nPesan:\n${senderMessage}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
   } else if (isToxic.test(message)) {
-      var matched = message.match(isToxic).join(', ')
-      return reply(`*「 ANTI TOXIC 」*\n\nDari: ${sender}\nKata Kasar: ${matched}\nPesan:\n${message}\n\n_Biasakan Jangan Toxic ya!_`)
+      var matched = senderMessage.match(isToxic).join(', ')
+      return reply(`*「 ANTI TOXIC 」*\n\nDari: ${senderName}\nKata Kasar: ${matched}\nPesan:\n${senderMessage}\n\n_Biasakan Jangan Toxic ya!_`)
   } else if (/kuhong/gi.test(message)) {
       return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
-  } else if (message.toLowerCase() == 'pesan uji') {
+  } else if (senderMessage.toLowerCase() == 'pesan uji') {
       return reply('Pesan dari server diterima!')
   } else if (!prefix.test(message)) return false
 
@@ -194,7 +194,7 @@ try {
       var menu = `
 ╭─「 KUHONG BOT 」
 │
-│• ${isGroup ? 'Group: ' + sender : 'Name: ' + sender}
+│• ${isMessageFromGroup ? 'Group: ' + groupName : 'Name: ' + senderName}
 │• Location: ${isGroup ? 'Group' : 'Private'} Chat
 │• Prefix: [ ${usedPrefix} ]
 │• Time: ${time}
