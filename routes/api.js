@@ -636,13 +636,13 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
 	if (!message) return false
 	console.log(`Kuhong: ${message}`)
 	await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json()
-	var messages = { message: message }
-	if (message && message2) messages = { message: message }, { message: message2 }
-	if (message && message2 && message3) messages = { message: message }, { message: message2 }, { message: message3 }
+	var messages = [{ message: message }]
+	if (message && message2) messages.push({ message: message2 })
+	if (message && message2 && message3) messages.push({ message: message3 })
 	  return res.json({
 	       status: true,
 	       creator: creator,
-	       replies: [messages]
+	       replies: messages
 	  })
 	}
 	if (!(appPackageName || messengerPackageName || sender || message || isGroup || ruleId || apikeyInput)) return reply('Input Parameter tidak lengkap!')
