@@ -301,10 +301,10 @@ ${watermark}
        return reply(menu)
 
   } else if (/^owner$/i.test(command)) {
-    return reply('https://wa.me/62895337278647?text=Halo+bang+jago!')
+    return reply('Ngapain Chat ke Owner? inikan no Ownernya_-', 'Yaudah Klik aja nihh\nhttps://wa.me/62895337278647?text=Halo+bang+jago!')
 
   } else if (/^status$/i.test(command)) {
-      var NotDetect = 'Not Detected',
+      var NotDetect = 'Tidak Terdeteksi',
       cpu = osu.cpu,
       cpuCore = cpu.count(),
       drive = osu.drive,
@@ -321,7 +321,6 @@ ${watermark}
       var netsIn, netsOut
       var p4 = netstat.inOut().then(info => { netsIn = (info.total.inputMb + ' MB'), netsOut = (info.total.outputMb + ' MB') }).catch(() => netsIn = NotDetect, netsOut = NotDetect)
       await Promise.all([p1, p2, p3, p4])
-      var _ramTotal = (ramTotal + ' MB')
       var result = `
 ╭─「 STATUS BOT 」
 │
@@ -329,7 +328,7 @@ ${watermark}
 │• Device: ${user.get('User-Agent').split('(')[1].split(')')[0].replace(/[;]/g, '')}
 │• Platform: ${platform.slice(0, 1).toUpperCase() + platform.slice(1)}
 │• Battery: %battery%%
-│• Ram: ${ramUsed} MB / ${_ramTotal} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})
+│• Ram: ${ramUsed} MB / ${ramTotal + ' MB'} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})
 │• Storage: ${driveUsed} GB / ${driveTotal} (${drivePer} Used)
 │• CPU: ${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)
 │• Incoming Network: ${netsIn}
