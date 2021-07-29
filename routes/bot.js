@@ -303,7 +303,7 @@ ${watermark}
     return reply('https://wa.me/62895337278647?text=Halo+bang+jago!')
 
   } else if (/^test$/i.test(command)) {
-     return reply('{nama}')
+     return reply('Reading...', `Bateraimu: %battery%`)
 
   } else if (/^status$/i.test(command)) {
       var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => 'Tidak Terdeteksi')
