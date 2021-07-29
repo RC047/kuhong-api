@@ -187,6 +187,7 @@ try {
   } else if (!prefix.test(message)) return false
 
   if (/^menu|help|start|\?/i.test(command)) {
+      var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => reply('Server Bot sedang Error!'))
       var d = new Date(new Date + 3600000)
       var weton = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'][Math.floor(d / 84600000) % 5]
       var islamic = Intl.DateTimeFormat('id-TN-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' }).format(d)
@@ -306,7 +307,6 @@ ${watermark}
      return reply('Reading...', `Bateraimu: %battery%`)
 
   } else if (/^status$/i.test(command)) {
-      var replies = await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply')).json().catch(() => 'Tidak Terdeteksi')
       var NotDetect = 'Not Detected',
       cpu = osu.cpu,
       cpuCore = cpu.count(),
@@ -342,6 +342,7 @@ ${watermark}
 │• Ping: ${performance.now() - performance.now()}ms
 ╰────
 `.trim()
+      return reply(result)
 
   } else if (/^ytmp(3|4)/i.test(command)) {
   	var url = command.split('ytmp3 ')[1] || command.split('ytmp4 ')[1]
