@@ -652,9 +652,10 @@ try {
 
 function reply(message, message2, message3) {
 
-if (!message) throw 'Error: Message cant be blank'
+if (!message) message = ''
+else message = ...message
 console.log(`${isMessageFromGroup ? groupName : senderName}: ${senderMessage}`)
-console.log(`Kuhong: ${new Array(message, message2, message3).join('\nKuhong: ')}`)
+console.log(`Kuhong: ${message.join('\nKuhong: ')}`)
 fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply').then(res => res.text())
 var messages = [{ message: message }]
 if (message && message2) messages.push({ message: message2 })
