@@ -324,7 +324,7 @@ ${watermark}
       var p4 = netstat.inOut().then(info => { netsIn = (info.total.inputMb + ' MB'), netsOut = (info.total.outputMb + ' MB') }).catch(() => netsIn = NotDetect, netsOut = NotDetect)
       await Promise.all([p1, p2, p3, p4])
       var battery = '#BatteryLevel'
-      var deviceName = user.get('User-Agent') ? user.get('User-Agent').split('(')[1].split(')')[0].replace(/[;]/g, '') : 'Unknown'
+      var deviceName = user.get('User-Agent').split('(')[1] ? user.get('User-Agent').split('(')[1].split(')')[0] : 'Windows NT 10.0; Win64; x64 (AppleWebKit/537.36)'
       var result = `
 ╭─「 STATUS BOT 」
 │
@@ -1490,7 +1490,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
   var err = e.message || e
   var urlRegex = /http(s)?:\/\/(\w+:?\w*@)?(\S+)(:\d+)?((?<=\.)\w+)+(\/([\w#!:.?+=&%@!\-/])*)?/gi
   if (urlRegex.test(err)) {
-      err = e.message.replace(urlRegex, function (match) {
+      err = err.replace(urlRegex, function (match) {
       var censored = ''
       for (var i = 0; i < match.length; i++) censored += '*'
       return censored
