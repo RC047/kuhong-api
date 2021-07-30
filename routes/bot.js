@@ -182,7 +182,7 @@ try {
       return reply(`*「 ANTI TOXIC 」*\n\nDari: ${senderName}\nKata Kasar: ${matched}\nPesan:\n${senderMessage}\n\n_Biasakan Jangan Toxic ya!_`)
   } else if (/kuhong/gi.test(senderMessage)) {
       return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
-  } else if (/(P)$/gi.test(senderMessage)) {
+  } else if (/P$/gi.test(senderMessage)) {
       return reply('Dilarang P! Biasakan salam')
   } else if (/Assa?lamualaikum/gi.test(senderMessage)) {
       return reply('Waalaikumussalam')
@@ -335,7 +335,7 @@ ${watermark}
 │• Nama: Kuhong Bot
 │• Device: ${deviceName}
 │• Platform: ${platform.slice(0, 1).toUpperCase() + platform.slice(1)}
-│• Battery: ${battery.split('aaa')[1]}
+│• Battery: ${battery.split('🔋')[1]}
 │• Ram: ${ramUsed} MB / ${ramTotal + ' MB'} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})
 │• Storage: ${driveUsed} GB / ${driveTotal} (${drivePer} Used)
 │• CPU: ${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)
@@ -347,7 +347,7 @@ ${watermark}
 │• Ping: ${date.getMilliseconds()}ms
 ╰────
 `.trim()
-      return reply(result.replace(/🔋/g, ''))
+      return reply(result)
 
   } else if (/^exec|eval/i.test(command)) {
   	var text = command.split('exec ')[1] || command.split('eval ')[1]
