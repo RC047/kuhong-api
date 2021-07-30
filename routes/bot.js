@@ -1488,7 +1488,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       else end = 'Kamu Kalah!, Yang Sabar yaa. Anggap aja ini Ujian :)', poin = 5
         return reply(`${x[0]} | ${y[0]} | ${z[0]}\n${x[1]} | ${y[1]} | ${z[1]} <===\n${x[2]} | ${y[2]} | ${z[2]}\n\n${end}`)
 
-  } else return reply(`*「 TIDAK DITEMUKAN 」*\n\nPerintah *${command}* tidak temukan!\nSilahkan ketik *${usedPrefix}menu* untuk melihat list menu yang tersedia`)
+  } else return reply(`*「 TIDAK DITEMUKAN 」*\n\nPerintah *${senderMessage}* tidak temukan!\nSilahkan ketik *${usedPrefix}menu* untuk melihat list menu yang tersedia`)
 } catch (e) {
   console.error(e)
   var err = e.message || e
