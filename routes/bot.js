@@ -176,15 +176,15 @@ var handler = async (user, reply, { receiveMessageAppId, receiveMessagePattern, 
 try {
   if (isMessageFromGroup && isGroupLink.test(senderMessage)) {
       var matched = senderMessage.match(isGroupLink).join('\n')
-      return reply(`*「 ANTI LINK 」*\n\nDari: ${senderName}\nLink:\n${matched}\nPesan:\n${senderMessage}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
+      return reply(`*「 ANTI LINK 」*\n\nDari: ${senderName}\nLink:\n${matched}\nPesan:\n${senderMessage.replace(/📷/g, '[MEDIA MESSAGE]\n')}\n\n_Sebelum share link mohon izin keadmin dulu ya!_`)
   } else if (isToxic.test(senderMessage)) {
       var matched = senderMessage.match(isToxic).join(', ')
-      return reply(`*「 ANTI TOXIC 」*\n\nDari: ${senderName}\nKata Kasar: ${matched}\nPesan:\n${senderMessage}\n\n_Biasakan Jangan Toxic ya!_`)
+      return reply(`*「 ANTI TOXIC 」*\n\nDari: ${senderName}\nKata Kasar: ${matched}\nPesan:\n${senderMessage.replace(/📷/g, '[MEDIA MESSAGE]\n')}\n\n_Biasakan Jangan Toxic ya!_`)
   } else if (/kuhong/gi.test(senderMessage)) {
       return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
   } else if (/^P$/gi.test(senderMessage)) {
       return reply('Dilarang P! Biasakan salam')
-  } else if (/Assa?lamualaikum/gi.test(senderMessage)) {
+  } else if (/Ass?alamualaikum/gi.test(senderMessage)) {
       return reply('Waalaikumussalam')
   } else if (!prefix.test(senderMessage)) return false
 
@@ -224,6 +224,7 @@ ${readMore}
 │• ${usedPrefix}readmore <text>
 │• ${usedPrefix}spoiler <text>
 │• ${usedPrefix}nulis <text>
+│• ${usedPrefix}nulis2 <text>
 │• ${usedPrefix}google <query>
 │• ${usedPrefix}ytsearch <query>
 │• ${usedPrefix}play <query>
@@ -354,9 +355,10 @@ ${watermark}
       if (!text) return reply(loghandler.notText)
       if (/^exec/i.test(command)) {
       	await exec(text, (stdout, stderr, err) => {
-      	if (err) return reply(err.message)
+      	  if (err) return reply(err.message)
           else if (stdout) return reply(stdout)
           else if (stderr) return reply(stderr)
+	  else return reply('undefined')
           })
        } else return reply(eval(text))
 
@@ -556,7 +558,7 @@ ${watermark}
           return reply(`Pertanyaan: ${text}\nJawaban: ${answer}`)
 
   } else if (/^nulis/i.test(command)) {
-  	var text = command.split('nulis ')[1]
+      var text = command.split('nulis ')[1]
       if (!text) return reply(loghandler.notText)
       var fontPath = __path + '/lib/font/Zahraaa.ttf'
       var inputPath = __path + '/lib/kertas/nulis.jpg'
@@ -581,8 +583,58 @@ ${watermark}
          .on('exit', () => fs.writeFileSync(__path + '/public/media/nulis.png', fs.readFileSync(outputPath)))
            return reply('Nihh hasilnya:\n\nhttps://kuhong-api.herokuapp.com/media/nulis.png')
 
-  } else if (/^play|yt(s|search|play)/i.test(command)) {
-        var query = command.split('ytsearch ')[1] || command.split('yts ')[1] || command.split('play ')[1]
+  } else if (/^nulis2/i.test(command)) {
+      var text = command.split('nulis2 ')[1]
+      if (!text) return reply(loghandler.notText)
+      var tgl = date.toLocaleDateString('id-Id')
+      var hari = date.toLocaleDateString('id-Id', { weekday: 'long' })
+      var fontPath = __path + '/lib/font/Zahraaa.ttf'
+      var inputPath = __path + '/lib/kertas/nulis2.jpg'
+      var outputPath = __path + '/tmp/hasil2.jpg'
+      var fixedText = await textWrap(text, 55)
+      await spawn('convert', [
+                inputPath,
+                '-font',
+                fontPath,
+                '-size',
+                '1024x784',
+                '-pointsize',
+                '20',
+                '-interline-spacing',
+                '1',
+                '-annotate',
+                '+806+78',
+                hari,
+                '-font',
+                fontPath,
+                '-size',
+                '1024x784',
+                '-pointsize',
+                '18',
+                '-interline-spacing',
+                '1',
+                '-annotate',
+                '+806+102',
+                tgl,
+                '-font',
+                fontPath,
+                '-size',
+                '1024x784',
+                '-pointsize',
+                '20',
+                '-interline-spacing',
+                '-7.5',
+                '-annotate',
+                '+344+142',
+                fixedText,
+                outputPath
+         ])
+         .on('error', () => reply('Error!'))
+         .on('exit', () => fs.writeFileSync(__path + '/public/media/nulis2.png', fs.readFileSync(outputPath)))
+           return reply('Nihh hasilnya:\n\nhttps://kuhong-api.herokuapp.com/media/nulis2.png')
+
+  } else if (/^yts(earch)?/i.test(command)) {
+        var query = command.split('ytsearch ')[1] || command.split('yts ')[1]
         if (!query) return reply(loghandler.notQuery)
         var res = await yts(query)
         var data = res.all.find(video => video.seconds < 3600)
@@ -596,6 +648,28 @@ ${watermark}
         var result = `Title: ${title}\nDuration: ${data.timestamp}\nViews: ${data.views}\nUploaded: ${data.ago}\nThumb: ${thumb}\nSource: ${data.url}\nSize: ${filesizeF}\nUploader: ${data.author.name}\nChannel Link:\n${data.author.url}\nDownload MP4:\n${dl_link}`
           return reply(result)
 
+  } else if (/^yts(earch)?/i.test(command)) {
+        var query = command.split('ytsearch ')[1] || command.split('yts ')[1]
+        if (!query) return reply(loghandler.notQuery)
+        var res = await yts(query)
+        var result = res.all.map(v => {
+        switch (v.type) {
+        case 'video': return `
+Title: ${v.title}
+Url: ${v.url}
+Duration: ${v.timestamp}
+Uploaded: ${v.ago}
+Views: ${v.views}
+`.trim()
+         case 'channel': return `
+Channel: ${v.name}
+Url: ${v.url}
+Subscriber: ${v.subCountLabel} (${v.subCount})
+Videos: ${v.videoCount}
+`.trim()
+}}).filter(v => v).join('\n========================\n')
+  return reply(result)
+
   } else if (/^google|search/i.test(command)) {
         var query = command.split('google ')[1] || command.split('search ')[1]
         if (!query) return reply(loghandler.notQuery)
@@ -603,8 +677,8 @@ ${watermark}
         var result = search.map(({ title, link, snippet }) => `*${title}*\n\n${link}\n${snippet}`).join('\n\n')
           return reply(result)
 
-  } else if (/^g(ithub|h)?search/i.test(command)) {
-  	  var query = command.split('hub ')[1] || command.split('search ')[1]
+  } else if (/^github/i.test(command)) {
+  	var query = command.split('github ')[1]
         if (!query) return reply(loghandler.notQuery)
         var json = await (await fetch(`https://api.github.com/search/repositories?q=${query}`)).json()
         var result = json.items.map((repo, index) => `
