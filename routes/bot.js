@@ -196,7 +196,7 @@ try {
       var menu = `
 ╭─「 KUHONG BOT 」
 │
-│• Name: ${senderName + isMessageFromGroup ? '\n│• Group: ' + groupName : ''}
+│• Name: ${senderName}${isMessageFromGroup ? '\n│• Group: ' + groupName : ''}
 │• Location: ${isMessageFromGroup ? 'Group' : 'Private'} Chat
 │• Prefix: [ ${usedPrefix} ]
 │• Time: ${time}
@@ -328,15 +328,13 @@ ${watermark}
       var netsIn, netsOut
       var p4 = netstat.inOut().then(info => { netsIn = (info.total.inputMb + ' MB'), netsOut = (info.total.outputMb + ' MB') }).catch(() => netsIn = NotDetect, netsOut = NotDetect)
       await Promise.all([p1, p2, p3, p4])
-      var battery = '#BatteryLevel'
-      var deviceName = user.get('User-Agent').split('(')[1] ? user.get('User-Agent').split('(')[1].split(')')[0] : 'Windows NT 10.0; Win64; x64 (AppleWebKit/537.36)'
       var result = `
 ╭─「 STATUS BOT 」
 │
 │• Nama: Kuhong Bot
-│• Device: ${deviceName}
+│• Device: ${user.get('User-Agent').split('(')[1] ? user.get('User-Agent').split('(')[1].split(')')[0] : 'Windows NT 10.0; Win64; x64 (AppleWebKit/537.36)'}
 │• Platform: ${platform.slice(0, 1).toUpperCase() + platform.slice(1)}
-│• Battery: ${battery.split('🔋')[1]}
+│• Battery: #BatteryLevel
 │• Ram: ${ramUsed} MB / ${ramTotal + ' MB'} (${/[0-9.+/]/g.test(ramUsed) &&  /[0-9.+/]/g.test(ramTotal) ? Math.round(100 * (ramUsed / ramTotal)) + '% Used' : NotDetect})
 │• Storage: ${driveUsed} GB / ${driveTotal} (${drivePer} Used)
 │• CPU: ${cpuModel} - ${cpuCore} Core (${cpuPer}% Used)
@@ -348,7 +346,7 @@ ${watermark}
 │• Ping: ${date.getMilliseconds() * 10}ms
 ╰────
 `.trim()
-      return reply(result)
+      return reply(result.replace(/🔋/g, ''))
 
   } else if (/^exec|eval/i.test(command)) {
   	var text = command.split('exec ')[1] || command.split('eval ')[1]
