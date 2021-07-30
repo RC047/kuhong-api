@@ -818,7 +818,7 @@ router.get('/jadwalbioskop', async (req, res, next) => {
     if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey || apikeyInput == blocked_apikey)) return res.status(406).send(invalidKey)
     if (apikeyInput == blocked_apikey) return res.json(loghandler.blockedKey)
 
-    await axios.get('https://jadwalnonton.com/now-playing').then((result) => {
+    axios.get('https://jadwalnonton.com/now-playing').then((result) => {
         var $ = cheerio.load(result.data)
         var title = []
         var url = []
