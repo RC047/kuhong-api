@@ -201,7 +201,8 @@ try {
 │• Prefix: [ ${usedPrefix} ]
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
-│• Total Reply: ${replies.value} message
+│• Total Features: 102
+│• Total Reply: ${replies.value}
 │• Weton: ${weton}
 │• Islamic: ${islamic}
 │• Date: ${date.toString().split(' (')[0]}
