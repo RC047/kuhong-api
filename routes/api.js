@@ -38,7 +38,6 @@ var {
     generateBase64,
     generateHash
 } = require(__path + '/lib/generator.js');
-var { handler } = require('./bot.js');
 var express = require('express');
 var router = express.Router();
 var database = require(__path + '/lib/database.js');
@@ -615,62 +614,6 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     } catch (e) {
     	console.error(e)
       res.status(403).send(error)
-  }
-})
-
-router.post('/bot.js', async (req, res, next) => {
-await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
-var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
-    if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-    var apikeyInput = req.query.apikey,
-    receiveMessageAppId = req.body.receiveMessageAppId,
-    receiveMessagePattern = req.body.receiveMessagePattern,
-    isMessageFromGroup = req.body.isMessageFromGroup,
-    messageDateTime = req.body.messageDateTime,
-    senderMessage = req.body.senderMessage,
-    groupName = req.body.groupName,
-    senderName = req.body.senderName;
-
-        var maintenance = false
-        if (maintenance) return res.status(500).send(mtc)
-        if (!(apikeyInput == owner_apikey || apikeyInput == free_apikey || apikeyInput == apikey || apikeyInput == custom_apikey)) return reply('*「 AKSES DITOLAK 」*\n\nApikey Bot Tidak Valid!\n\nSilahkan beli apikeynya ke Owner:\nhttps://wa.me/62895337278647')
-
-try {
-	var command = senderMessage.slice(1)
-        var usedPrefix = senderMessage.slice(0, 1)
-        await handler(req, reply, {
-      	   receiveMessageAppId: receiveMessageAppId,
-           receiveMessagePattern: receiveMessagePattern,
-           isMessageFromGroup: isMessageFromGroup,
-           messageDateTime: messageDateTime,
-           senderMessage: senderMessage,
-           groupName: groupName,
-           senderName: senderName,
-           usedPrefix: usedPrefix,
-	   command: command
-        })
-
-function reply(message, message2, message3) {
-
-if (!message) message = ''
-console.log(`${isMessageFromGroup ? groupName : senderName}: ${senderMessage}`)
-console.log(`Kuhong: ${message}`)
-if (message && message2) console.log(`Kuhong: ${message2}`)
-if (message && message2 && message3) console.log(`Kuhong: ${message3}`)
-fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply').then(res => res.text())
-var messages = [{ message: message }]
-if (message && message2) messages.push({ message: message2 })
-if (message && message2 && message3) messages.push({ message: message3 })
-
-   return res.json({
-              status: true,
-	      creator: creator,
-	      data: messages
-        })
-    }
-} catch (e) {
-    console.error(e)
-  res.status(403).send(error)
   }
 })
 
