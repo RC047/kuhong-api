@@ -182,7 +182,7 @@ try {
       return reply(`*「 ANTI TOXIC 」*\n\nDari: ${senderName}\nKata Kasar: ${matched}\nPesan:\n${senderMessage}\n\n_Biasakan Jangan Toxic ya!_`)
   } else if (/kuhong/gi.test(senderMessage)) {
       return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
-  } else if (/P$/gi.test(senderMessage)) {
+  } else if (/^P$/gi.test(senderMessage)) {
       return reply('Dilarang P! Biasakan salam')
   } else if (/Assa?lamualaikum/gi.test(senderMessage)) {
       return reply('Waalaikumussalam')
@@ -196,7 +196,7 @@ try {
       var menu = `
 ╭─「 KUHONG BOT 」
 │
-│• ${isMessageFromGroup ? 'Group: ' + groupName : 'Name: ' + senderName}
+│• Name: ${senderName + isMessageFromGroup ? '\n│• Group: ' + groupName : ''}
 │• Location: ${isMessageFromGroup ? 'Group' : 'Private'} Chat
 │• Prefix: [ ${usedPrefix} ]
 │• Time: ${time}
@@ -542,7 +542,7 @@ ${watermark}
         if (!result) result = result
           return reply('Hasil: ' + result)
 
-  } else if (/^kerang|(?<=\S+)\?/i.test(command)) {
+  } else if (/^kerang/i.test(command) || command.endsWith('?')) {
         var text = command.split('kerang ')[1] || command.split('?')[0]
         if (!text) return reply(loghandler.notText)
         var ranName = pickRandom(['Aliando', 'Saya', 'Bukan Saya', 'Bukan Bot', 'Cwek', 'Cwok', 'Cowok', 'Cewek', 'Doimu', 'Doi', 'Febian', 'Putri', 'Fadil', 'Helin', 'Annisa', 'Cantika', 'Rizki', 'Zidan', 'Budi', 'Udin', 'Ibnu', 'Samarrr', 'Ular', 'Patrick', 'Patung', 'Hayabusa', 'Gatotkaca', 'ejenali', 'qaqaa', 'xd', 'Arnold', 'Master', 'Chef', 'Orang', 'Mikey', 'Agil', 'Awoakakak', 'Helmi', 'Dika', 'Suster', 'Anak', 'Ridwan', 'Razz', 'P cari doi', 'Hmm', 'Si Manis', 'Kacung', 'sygg', '86', 'Pajar', 'Ardian', 'Septian', 'Jungkook', 'Ryan', 'alboOwkdiw', 'Y', 'Reza', 'Kang copas', 'Tukang Seblak', 'Pikri', 'Manusia', 'Wibu-Lovers', 'FF Burik', 'Ardjoena', 'Selfia', 'Kenzo', 'Rafli', 'Dean', 'Felita', 'Wili', 'Putra', 'F', 'Gamers', 'Ipin', 'Botak', 'Hehe', 'Gunawan', 'Jin', 'Masha', 'Sadboy', 'Sofian', 'Mega', 'Zaky', 'Orang Ganteng', 'Wildan', 'Dhani', 'Pak Eko', 'Dzikri', 'Bapak', 'Pak Guru', 'PP Mikey', 'Om Deddy', 'Mas Botak', 'Tirta', 'Gak Ada Nama', 'Fio', 'Cakra', 'Rull', 'Kemal', 'Rama', 'Nenek', 'Siska', 'Abi', 'Ini Saya', 'RRQ Lemon', 'EVOS ajlh', 'EVOS', '@', 'User', 'Pengguna Google', 'Pengguna HP', 'Pengguna EpEp', 'Bot EpEp']);
@@ -1488,7 +1488,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       else end = 'Kamu Kalah!, Yang Sabar yaa. Anggap aja ini Ujian :)', poin = 5
         return reply(`${x[0]} | ${y[0]} | ${z[0]}\n${x[1]} | ${y[1]} | ${z[1]} <===\n${x[2]} | ${y[2]} | ${z[2]}\n\n${end}`)
 
-  } else return reply(`*「 TIDAK DITEMUKAN 」*\n\nPerintah *${usedPrefix + command}* tidak temukan!\nSilahkan ketik *${usedPrefix}menu* untuk melihat list menu yang tersedia`)
+  } else return reply(`*「 TIDAK DITEMUKAN 」*\n\nPerintah *${usedPrefix + command.split(' ')[0] || command}* tidak temukan!\nSilahkan ketik *${usedPrefix}menu* untuk melihat list menu yang tersedia`)
 } catch (e) {
   console.error(e)
   var err = e.message || e
