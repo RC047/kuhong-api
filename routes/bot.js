@@ -182,6 +182,10 @@ try {
       return reply(`*「 ANTI TOXIC 」*\n\nDari: ${senderName}\nKata Kasar: ${matched}\nPesan:\n${senderMessage}\n\n_Biasakan Jangan Toxic ya!_`)
   } else if (/kuhong/gi.test(senderMessage)) {
       return reply('Yaa Aku Disini??\n\nIngin Memulai Bot? Ketik !help atau !menu yaa ;)')
+  } else if (/(P)$/gi.test(senderMessage)) {
+      return reply('Dilarang P! Biasakan salam')
+  } else if (/Assa?lamualaikum/gi.test(senderMessage)) {
+      return reply('Waalaikumussalam')
   } else if (!prefix.test(senderMessage)) return false
 
   if (/^menu|help|start/i.test(command)) {
