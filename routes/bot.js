@@ -201,7 +201,7 @@ try {
 │• Prefix: [ ${usedPrefix} ]
 │• Time: ${time}
 │• Uptime: ${muptime(process.uptime())}
-│• Total Features: 102
+│• Total Features: 103
 │• Total Reply: ${replies.value}
 │• Weton: ${weton}
 │• Islamic: ${islamic}
@@ -257,6 +257,7 @@ ${readMore}
 │• ${usedPrefix}infobmkg
 │• ${usedPrefix}infocovid
 │• ${usedPrefix}resep <query>
+│• ${usedPrefix}bokep
 │• ${usedPrefix}md4 <text>
 │• ${usedPrefix}md5 <text>
 │• ${usedPrefix}sha1 <text>
@@ -362,11 +363,12 @@ ${watermark}
 │• Ping: ${date.getMilliseconds() * 10}ms
 ╰────
 `.trim()
-      return reply(result.replace(/🔋/g, ''))
+      return reply(result)
 
-  } else if (/^exec|eval/i.test(command)) {
-  	var text = command.split('exec ')[1] || command.split('eval ')[1]
+  } else if (/^exec(ute)?|eval/i.test(command)) {
+  	var text = command.split('execute ')[1] || command.split('exec ')[1] || command.split('eval ')[1]
       if (!text) return reply(loghandler.notText)
+      if (/^cat|more|rm|cp/i.test(text)) return reply('Akses ditolak')
       if (/^exec/i.test(command)) {
       	await exec(text, (stdout, stderr, err) => {
       	  if (err) return reply(err.message)
@@ -1384,8 +1386,8 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       var result = `Nama: ${nama}\nLahir: ${birth.join('-')}\nUltah: ${birthday.join('-')}\nUsia: ${umur}\nZodiak: ${zodiac}`
         return reply(result)
 
-  } else if (/^suit|suitjawa/i.test(command)) {
-      var you = command.split('suit ')[1] || command.split('jawa ')[1]
+  } else if (/^suit(jawa)?/i.test(command)) {
+      var you = command.split('suit ')[1] || command.split('suitjawa ')[1]
       var pilihan = 'gunting, kertas, batu'
       if (/jawa/i.test(command)) pilihan = 'orang, semut, gajah'
       if (!you) return reply('Silahkan masukan pilihannya :\n\n' + pilihan)
@@ -1394,8 +1396,9 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       else if (bot > 0.34 && bot < 0.67) bot = /jawa/i.test(command) ? 'semut' : 'gunting'
       else bot = /jawa/i.test(command) ? 'gajah' : 'kertas'
 
-      var hasil
-      if (you.toLowerCase() == bot) {
+      var hasil = null
+      if (!/gunting|kertas|batu|semut|orang|gajah/i.test(you)) hasil = 'Pilihan yang tersedia : ' + pilihan
+      else if (you.toLowerCase() == bot) {
           hasil = `Seri!\nKamu : ${you.toLowerCase()}\nBot : ${bot}`
       } else if (you.toLowerCase() == /jawa/i.test(command) ? 'orang' : 'batu') {
           if (bot == /jawa/i.test(command) ? 'semut' : 'gunting') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
@@ -1406,8 +1409,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       } else if (you.toLowerCase() == /jawa/i.test(command) ? 'gajah' : 'kertas') {
           if (bot == /jawa/i.test(command) ? 'orang' : 'batu') hasil = `Kamu Menang!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
           else hasil = `Kamu Kalah!\n\nKamu: ${you.toLowerCase()}\nBot: ${bot}`
-      } else if (!/gunting|kertas|batu|semut|orang|gajah/i.test(command)) hasil = 'Pilihan yang tersedia : ' + pilihan
-        return reply(hasil)
+      } return reply(hasil)
 
   } else if (/^modapk|apkdownload$/i.test(command)) {
       var result = `
@@ -1573,10 +1575,15 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       else end = 'Kamu Kalah!, Yang Sabar yaa. Anggap aja ini Ujian :)', poin = 5
         return reply(`${x[0]} | ${y[0]} | ${z[0]}\n${x[1]} | ${y[1]} | ${z[1]} <===\n${x[2]} | ${y[2]} | ${z[2]}\n\n${end}`)
 
-  } else if (/^(how|cek)|(gay|pintar|bodoh?|cantik|ganteng|baper|gabut|gila|lesbi|stress?|bucin|jones|sad|tolol|sange)$/i.test(command)) {
+  } else if (/^(how|cek)|(gay|pintar|bodoh?|cantik|ganteng|baper|gabut|gila|lesbi|stress?|bucin|jones|sad|tolol|sange)/i.test(command)) {
        var nama = command.split('how')[1].split(' ')[1] || command.split('cek')[1].split(' ')[1]
        if (!nama) return reply(loghandler.notName)
        var result = `${nama} itu *${Math.floor(Math.random() * 100)}%* ${command.split('how')[1].split(' ')[0]}!`
+
+  } else if (/^boke(h|p)|porno?$/i.test(command)) {
+       var json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/pussy`)).json()
+       var result = await saveToMedia(await getBuffer(json.result))
+         return reply('Lewat link biar gk terlalu ngebuka\n\n' + result)
 
   } else return reply(`*「 TIDAK DITEMUKAN 」*\n\nPerintah *${usedPrefix + command.split(' ')[0] || command}* tidak temukan!\nSilahkan ketik *${usedPrefix}menu* untuk melihat list menu yang tersedia`)
 } catch (e) {
