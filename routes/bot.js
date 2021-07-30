@@ -308,7 +308,7 @@ ${watermark}
     return reply('Ngapain Chat ke Owner? inikan no Ownernya_-', 'Yaudah Klik aja nihh\nhttps://wa.me/62895337278647?text=Halo+bang+jago!')
 
   } else if (/^status$/i.test(command)) {
-  	var ip = await (await fetch('https://kuhong-api.herokuapp.com/ip')).json()
+      var ip = await (await fetch('https://kuhong-api.herokuapp.com/ip')).json()
       var port = process.env.PORT || 8000 || 5000 || 3000
       var NotDetect = 'Tidak Terdeteksi',
       cpu = osu.cpu,
@@ -344,7 +344,7 @@ ${watermark}
 │• Application: Node JavaScript
 │• Port: ${port}
 │• IP: ${ip.result}
-│• Ping: ${date.getMilliseconds()}ms
+│• Ping: ${date.getMilliseconds() * 10}ms
 ╰────
 `.trim()
       return reply(result)
