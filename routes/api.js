@@ -654,7 +654,9 @@ function reply(message, message2, message3) {
 
 if (!message) message = ''
 console.log(`${isMessageFromGroup ? groupName : senderName}: ${senderMessage}`)
-console.log(`Kuhong: ${message + '\n' + message2 + '\n + message3}`)
+console.log(`Kuhong: ${message}`)
+if (message && message2) console.log(`Kuhong: ${message2}`)
+if (message && message2 && message3) console.log(`Kuhong: ${message3}`)
 fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/botreply').then(res => res.text())
 var messages = [{ message: message }]
 if (message && message2) messages.push({ message: message2 })
