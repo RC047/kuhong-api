@@ -287,6 +287,7 @@ ${readMore}
 │• ${usedPrefix}howlesbi
 │• ${usedPrefix}howstres
 │• ${usedPrefix}howjones
+│• ${usedPrefix}howsange
 │• ${usedPrefix}quotes
 │• ${usedPrefix}katabijak
 │• ${usedPrefix}faktaunik
@@ -1571,7 +1572,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       else end = 'Kamu Kalah!, Yang Sabar yaa. Anggap aja ini Ujian :)', poin = 5
         return reply(`${x[0]} | ${y[0]} | ${z[0]}\n${x[1]} | ${y[1]} | ${z[1]} <===\n${x[2]} | ${y[2]} | ${z[2]}\n\n${end}`)
 
-  } else if (/^(how|cek)|(gay|pintar|bodoh?|cantik|ganteng|baper|gabut|gila|lesbi|stress?|bucin|jones|sad|tolol)$/i.test(command)) {
+  } else if (/^(how|cek)|(gay|pintar|bodoh?|cantik|ganteng|baper|gabut|gila|lesbi|stress?|bucin|jones|sad|tolol|sange)$/i.test(command)) {
        var nama = command.split('how')[1].split(' ')[1] || command.split('cek')[1].split(' ')[1]
        if (!nama) return reply(loghandler.notName)
        var result = `${nama} itu *${Math.floor(Math.random() * 100)}%* ${command.split('how')[1].split(' ')[1]}!`
