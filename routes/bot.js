@@ -603,7 +603,7 @@ ${watermark}
         var result = search.map(({ title, link, snippet }) => `*${title}*\n\n${link}\n${snippet}`).join('\n\n')
           return reply(result)
 
-  } else if (/^github|g(ithub|h)search/i.test(command)) {
+  } else if (/^g(ithub|h)?search/i.test(command)) {
   	  var query = command.split('hub ')[1] || command.split('search ')[1]
         if (!query) return reply(loghandler.notQuery)
         var json = await (await fetch(`https://api.github.com/search/repositories?q=${query}`)).json()
@@ -623,7 +623,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
 `.trim()).join('\n\n')
           return reply(result)
 
-  } else if (/^cerpen/i.test(command)) {
+  } else if (/^cer(ita)?pen(dek)?/i.test(command)) {
         var cerita = ['cerpen-horor-hantu', 'cerpen-bahasa-inggris', 'cerpen-cinta', 'cerpen-cinta-dalam-hati-terpendam', 'cerpen-cinta-islami']
         var category = cerita[Math.floor(Math.random() * cerita.length)]
         var page = Math.floor(Math.random() * 30)
@@ -715,8 +715,8 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
       var nomor = command.split('spamcall ')[1] || command.split('spamsms ')[1]
       if (!nomor) return reply(loghandler.notNumber)
       var json = {}
-      if (/call/i.test(command)) json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/spamcall?no=${nomor.split('62')[1].split('0')[1]}`)).json()
-      if (/sms/i.test(command)) json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/spamsms?no=${nomor.split('62')[1].split('0')[1]}&jum=20`)).json()
+      if (/call/i.test(command)) json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/spamcall?no=${nomor}`)).json()
+      if (/sms/i.test(command)) json = await (await fetch(`https://mhankbarbar.herokuapp.com/api/spamsms?no=${nomor}&jum=20`)).json()
       if (!json.logs) return reply(json.msg)
         return reply(json.logs)
 
@@ -1446,16 +1446,13 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
   } else if (/^resep|masakan/i.test(command)) {
       var query = command.split('resep ')[1] || command.split('masakan ')[1]
       if (!query) return reply(loghandler.notQuery)
-      await axios.get('https://masak-apa.tomorisakura.vercel.app/api/search/?q=' + query).then(async(res) => {
-      var { results } = await res.data
+      axios.get('https://masak-apa.tomorisakura.vercel.app/api/search/?q=' + query).then(res => {
+      var result = res.data
       var random = Math.floor(Math.random() * 16)
-      await axios.get('https://masak-apa.tomorisakura.vercel.app/api/recipe/' + results[random].key).then(async(result) => {
-      var { results } = await result.data
-      var bahannya = await results.ingredient
-      var bahan = bahannya.replace(/,/g,'\n')
-      var tutornya = await results.step
-      var tutornih = tutornya.replace(/,/g,'\n')
-      var tutor = tutornih.replace(/.,/g,'\n')
+      axios.get('https://masak-apa.tomorisakura.vercel.app/api/recipe/' + result[random].key).then(result => {
+      var results = result.data
+      var bahan = results.ingredient.replace(/,/g, '\n')
+      var tutor = results.step.replace(/,/g, '\n').replace(/.,/g, '\n')
       var hasil = `Title: ${results.title}\nAuthor: ${results.author.user}\nDipublikasikan: ${results.author.datePublished}\nTingkat: ${results.dificulty}\nWaktu: ${results.times}\nPorsi: ${results.servings}\n\nBahan-bahan:\n${bahan}\n\nLangkah2:\n${tutor}`
         return reply(hasil)
         })
