@@ -1575,7 +1575,7 @@ Clone: \`\`\`$ git clone ${repo.clone_url}\`\`\`
   } else if (/^(how|cek)|(gay|pintar|bodoh?|cantik|ganteng|baper|gabut|gila|lesbi|stress?|bucin|jones|sad|tolol|sange)$/i.test(command)) {
        var nama = command.split('how')[1].split(' ')[1] || command.split('cek')[1].split(' ')[1]
        if (!nama) return reply(loghandler.notName)
-       var result = `${nama} itu *${Math.floor(Math.random() * 100)}%* ${command.split('how')[1].split(' ')[1]}!`
+       var result = `${nama} itu *${Math.floor(Math.random() * 100)}%* ${command.split('how')[1].split(' ')[0]}!`
 
   } else return reply(`*「 TIDAK DITEMUKAN 」*\n\nPerintah *${usedPrefix + command.split(' ')[0] || command}* tidak temukan!\nSilahkan ketik *${usedPrefix}menu* untuk melihat list menu yang tersedia`)
 } catch (e) {
