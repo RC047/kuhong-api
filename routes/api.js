@@ -429,7 +429,9 @@ router.get('/getmusic', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-    res.sendFile(__path + '/src/music/' + pickRandom(await fs.readdirSync(__path + '/src/music')))
+    var musics = await fs.readdirSync(__path + '/src/music')
+    res.sendFile(__path + '/src/music/' + pickRandom(musics))
+    await fs.unlinkSync(musics)
 })
 
 router.post('/getinfo', async (req, res, next) => {
