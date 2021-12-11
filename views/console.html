@@ -56,9 +56,9 @@ function runConsole() {
 var data = document.querySelector('textarea[class=data]').value;
 if (!data) return alert('Input your JavaScript code!');
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/console', {
-	    method: 'POST',
-	    headers: 'application/x-www-form-urlencoded',
-        body: 'data=' + data.trim()
+       method: 'POST',
+       headers: 'application/x-www-form-urlencoded',
+       body: 'data=' + data.trim()
    });
    return document.querySelector('textarea[class=logs]').placeholder = res.data.result.trim();
 }
