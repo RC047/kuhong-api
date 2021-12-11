@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" name="og:image" content="https://i.ibb.co/frhZmyZ/pp.jpg">
+    <meta property="og:description" content="Test your JavaScript code here">
+    <title>Run Console</title>
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="UTF-8"></script>
+    <script src="js/fetcher.js"></script>
+</head>
+<body>
+    <h2 class="title" style="text-align:center">Run Console</h2>
+    <br><br>
+    <div class="data">Input Code Here:</div>
+    <br>
+    <textarea class="data" style="width:100%;height:75%"></textarea>
+    <br>
+    <button class="run" onclick="runConsole();" style="width:50%;height:5%">Run</button><button class="clear" onclick="clearConsole();" style="width:50%;height:5%">Clear</button>
+    <br><br><br><br>
+    <div class="logs">Output Code Here:</div>
+    <br>
+    <textarea class="logs" style="width:100%;height:75%"></textarea>
+    <br><br>
+    <p style="text-align:center">© CopyRight 2021.</p>
+    <script>
+window.setTimeout('autoClear();', 1);
+function autoClear() {
+document.querySelector('textarea[class=logs]').value = '';
+window.setTimeout('autoClear();', 1);
+}
+
+document.querySelector('textarea[class=data]').placeholder = `
+const fetch = require('node-fetch');
+
+fetch('https://kuhong-bot.herokuapp.com')
+   .then(res => res.json())
+   .then(console.log)
+   .catch(console.error);
+
+
+// example code
+`.trim()
+
+document.querySelector('textarea[class=logs]').placeholder = `
+{
+   "status": true,
+   "creator": "RC047",
+   "result": "example result"
+}
+`.trim()
+
+function clearConsole() {
+document.querySelector('textarea[class=data]').value = '';
+document.querySelector('textarea[class=logs]').placeholder = '...';
+}
+
+function runConsole() {
+var data = document.querySelector('textarea[class=data]').value;
+if (!data) return alert('Input your JavaScript code!');
+var res = fetchURI('https://kuhong-api.herokuapp.com/console', {
+       method: 'POST',
+       headers: 'application/x-www-form-urlencoded',
+       body: 'data=' + data.trim()
+   });
+   return document.querySelector('textarea[class=logs]').placeholder = res.data.result.trim();
+}
+    </script>
+</body>
+</html>
