@@ -60,7 +60,7 @@ document.querySelector('textarea[class=logs]').placeholder = '...';
 
 function runConsole() {
 var data = document.querySelector('textarea[class=data]').value;
-if (!data) return alert('Input your JavaScript code!');
+if (!data) return alert('Silahkan masukan kode JavaScript anda');
 var res = fetchURI('https://kuhong-api.herokuapp.com/console', {
        method: 'POST',
        headers: 'application/x-www-form-urlencoded',
