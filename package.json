@@ -37,6 +37,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
+    "filesize": "^8.0.6",
     "form-data": "^3.0.0",
     "formidable": "^1.2.2",
     "file-type": "^16.1.0",
