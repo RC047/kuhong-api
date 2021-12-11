@@ -573,26 +573,23 @@ router.post('/console', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-    var code = req.body.code,
-          fullLogs = req.body.full;
+    var data = req.body.data;
 
     try {
-    if (!code) return res.json({ message: 'Masukan parameter code' })
+    if (!data) return res.json({ status: false, result: 'TypeError: param "data" cant be blank' })
+    await fs.writeFileSync('./console.js', data.trim())
+    await exec('node ./console.js', (stdout, stderr, err) => {
+    var result
+    if (stderr) result = stderr
+    if (stdout) result = stdout
+    if (err) result = err
 
-      await fs.writeFileSync('./console.js', code)
-      await exec('node ./console.js', (stdout, stderr, err) => {
-      var result
-      if (code.length > 1000) result = 'Kode yang anda masukan terlalu panjang!'
-      if (stderr) result = stderr
-      if (stdout) result = stdout
-      if (err) result = fullLogs == 'true' ? err.message : formatLogs(err.message)
-
-           res.json({ result: result })
-       })
+      return res.json({ status: true, result: util.format(result).trim() })
+      })
     } catch (e) {
-    	console.error(e)
-      res.json({ result: fullLogs == 'true' ? e.message : formatLogs(e.message) })
-  }
+      console.error(e)
+        return res.json({ status: true, result: util.format(e).trim() })
+    }
 })
 
 router.post('/send', async (req, res, next) => {
