@@ -58,7 +58,7 @@ if (!data) return alert('Masukan kode JavaScript Anda!');
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/console', {
        method: 'POST',
        headers: 'application/x-www-form-urlencoded',
-       body: 'data=' + data.trim()
+       body: 'data=' + encodeURIComponent(data)
    });
    return document.querySelector('textarea[class=logs]').placeholder = res.data.result.trim();
 }
