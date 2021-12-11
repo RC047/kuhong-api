@@ -36,7 +36,7 @@ window.setTimeout('autoClear();', 1);
 document.querySelector('textarea[class=data]').placeholder = `
 const fetch = require('node-fetch');
 
-fetch('https://kuhong-bot.herokuapp.com')
+fetch('http://api.ipify.org/?format=json')
    .then(res => res.json())
    .then(console.log)
    .catch(console.error);
@@ -45,13 +45,7 @@ fetch('https://kuhong-bot.herokuapp.com')
 // example code
 `.trim()
 
-document.querySelector('textarea[class=logs]').placeholder = `
-{
-   "status": true,
-   "creator": "RC047",
-   "result": "example result"
-}
-`.trim()
+document.querySelector('textarea[class=logs]').placeholder = `{ ip: '44.200.215.67' }`
 
 function clearConsole() {
 document.querySelector('textarea[class=data]').value = '';
@@ -60,11 +54,11 @@ document.querySelector('textarea[class=logs]').placeholder = '...';
 
 function runConsole() {
 var data = document.querySelector('textarea[class=data]').value;
-if (!data) return alert('Silahkan masukan kode JavaScript anda');
-var res = fetchURI('https://kuhong-api.herokuapp.com/console', {
-       method: 'POST',
-       headers: 'application/x-www-form-urlencoded',
-       body: 'data=' + data.trim()
+if (!data) return alert('Input your JavaScript code!');
+var res = fetchURI('https://kuhong-api.herokuapp.com/api/console', {
+	    method: 'POST',
+	    headers: 'application/x-www-form-urlencoded',
+        body: 'data=' + data.trim()
    });
    return document.querySelector('textarea[class=logs]').placeholder = res.data.result.trim();
 }
