@@ -8,48 +8,41 @@
     <meta property="og:description" content="Test your JavaScript code here">
     <title>Run Console</title>
     <meta name="msapplication-TileColor" content="#ffffff">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="UTF-8"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/a11y-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
     <script src="js/fetcher.js"></script>
 </head>
 <body>
     <h2 class="title" style="text-align:center">Run Console</h2>
     <br><br>
-    <div class="data">Input Code Here:</div>
+    <div class="title-data">Input Code:</div>
     <br>
-    <textarea class="data" style="width:100%;height:75%"></textarea>
+    <textarea class="data" style="background-color:#2b2b2b;color:white;width:100%;height:50%;font-size:12px;border:2px solid blue"></textarea>
     <br>
     <button class="run" onclick="runConsole();" style="width:50%;height:5%">Run</button><button class="clear" onclick="clearConsole();" style="width:50%;height:5%">Clear</button>
     <br><br><br><br>
-    <div class="logs">Output Code Here:</div>
-    <br>
-    <textarea class="logs" style="width:100%;height:75%"></textarea>
-    <br><br>
-    <p style="text-align:center">© CopyRight 2021.</p>
+    <div class="title-logs">Output Code:</div>
+    <pre class="logs" style="background-color:#2b2b2b;color:#2b2b2b;font-size:12px;height:6%;border:2px solid blue"><code></code></pre>
+    <br><br><br><br>
+    <p class="watermark" style="text-align:center">Made with <i class="fas fa-heart" style="color:red"></i> by RC047.</p>
     <script>
-window.setTimeout('autoClear();', 1);
-function autoClear() {
-document.querySelector('textarea[class=logs]').value = '';
-window.setTimeout('autoClear();', 1);
-}
+var { highlight, highlightAuto, highlightAll, highlightElement, highlightBlock } = hljs;
+
 
 document.querySelector('textarea[class=data]').placeholder = `
-const fetch = require('node-fetch');
+function base64(str) {
+  return Buffer
+    .from(str, 'utf-8')
+    .toString('base64');
+}
 
-fetch('http://api.ipify.org/?format=json')
-   .then(res => res.json())
-   .then(console.log)
-   .catch(console.error);
-
-
-// example code
-`.trim()
-
-document.querySelector('textarea[class=logs]').placeholder = `{ ip: '44.200.215.67' }`
+console.log(base64('example'));
+`.trim();
 
 function clearConsole() {
 document.querySelector('textarea[class=data]').value = '';
-document.querySelector('textarea[class=logs]').placeholder = '...';
+document.querySelector('code').textContent = '...';
 }
 
 function runConsole() {
@@ -60,7 +53,9 @@ var res = fetchURI('https://kuhong-api.herokuapp.com/api/console', {
        headers: 'application/x-www-form-urlencoded',
        body: 'data=' + encodeURIComponent(data)
    });
-   return document.querySelector('textarea[class=logs]').placeholder = res.data.result.trim();
+   document.querySelector('code').textContent = res.data.result.trim();
+   document.querySelector('pre[class=logs]').style.height = '';
+   return highlightAll();
 }
     </script>
 </body>
