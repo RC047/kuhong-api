@@ -573,13 +573,19 @@ router.post('/console', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
     if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
-    var data = req.body.data;
+    var data = req.body.data,
+           type = req.body.type;
 
     try {
     if (!data) return res.json({ status: false, result: 'TypeError: param "data" cant be blank' })
-    await fs.writeFileSync('./console.js', data.trim())
-    await exec('node ./console.js', (stdout, stderr, err) => {
-    var result
+    if (!type) return res.json({ status: false, result: 'TypeError: param "type" cant be blank' })
+    var cmd, ext, result
+    if (/^node(js)?$/i.test(type)) cmd = 'node', ext = 'js'
+    else if (/^python$/i.test(type)) cmd = 'python', ext = 'py'
+    else if (/^php$/i.test(type)) cmd = 'php', ext = 'php'
+    else return res.json({ status: false, result: `Error: language "${type}" is not supported` })
+    await fs.writeFileSync(`console.${ext}`, data.trim())
+    await exec(`${cmd} ./console.${ext}`, (stdout, stderr, err) => {
     if (stderr) result = stderr
     if (stdout) result = stdout
     if (err) result = err
