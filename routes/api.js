@@ -580,14 +580,14 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     if (!data) return res.json({ status: false, result: 'TypeError: param "data" cant be blank' })
     if (!type) return res.json({ status: false, result: 'TypeError: param "type" cant be blank' })
     var cmd, ext, result
-    if (/^node(js)?$/i.test(type)) cmd = 'node', ext = 'js'
+    if (/^node(js)?|javascript$/i.test(type)) cmd = 'node', ext = 'js'
     else if (/^python$/i.test(type)) cmd = 'python', ext = 'py'
     else if (/^php$/i.test(type)) cmd = 'php', ext = 'php'
     else return res.json({ status: false, result: `Error: language "${type}" is not supported` })
     await fs.writeFileSync(`console.${ext}`, data.trim())
     await exec(`${cmd} ./console.${ext}`, (stdout, stderr, err) => {
-    if (stderr) result = stderr
     if (stdout) result = stdout
+    if (stderr) result = stderr
     if (err) result = err
 
       return res.json({ status: true, result: util.format(result).trim() })
