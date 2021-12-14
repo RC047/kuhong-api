@@ -1,0 +1,13 @@
+{
+  "name": "kuhong-api",
+  "description": "Just A Simple API",
+  "repository": "https://github.com/RC047/kuhong-api",
+  "keywords": ["python", "kuhong"],
+  "addons": ["heroku-postgresql"],
+  "env": {
+    "SECRET_KEY": {
+      "description": "Secrect key for API",
+      "generator": "JustOneKeys"
+    }
+  }
+}
