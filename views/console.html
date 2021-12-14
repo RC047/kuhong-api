@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- A simple api for run a console -->
 
 <html lang="en">
 <head>
@@ -10,19 +11,27 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/a11y-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
     <script src="js/fetcher.js"></script>
 </head>
 <body>
     <h2 class="title" style="text-align:center">Run Console</h2>
     <br><br>
-    <div class="title-data">Input Code:</div>
+    <label for="language">Select Language:</label>
+    <select class="language" name="language" oninput="onSelect();">
+    	<option value="javascript">JavaScript</option>
+        <option value="python">Python</option>
+        <option value="php">PHP</option>
+    </select>
+    <br><br>
+    <div class="title-data">Input Code Here:</div>
     <br>
     <textarea class="data" style="background-color:#2b2b2b;color:white;width:100%;height:50%;font-size:12px;border:2px solid blue"></textarea>
     <br>
     <button class="run" onclick="runConsole();" style="width:50%;height:5%">Run</button><button class="clear" onclick="clearConsole();" style="width:50%;height:5%">Clear</button>
     <br><br><br><br>
-    <div class="title-logs">Output Code:</div>
+    <div class="title-logs">Output Code Here:</div>
     <pre class="logs" style="background-color:#2b2b2b;color:#2b2b2b;font-size:12px;height:6%;border:2px solid blue"><code></code></pre>
     <br><br><br><br>
     <p class="watermark" style="text-align:center">Made with <i class="fas fa-heart" style="color:red"></i> by RC047.</p>
@@ -30,15 +39,19 @@
 var { highlight, highlightAuto, highlightAll, highlightElement, highlightBlock } = hljs;
 
 
-document.querySelector('textarea[class=data]').placeholder = `
-function base64(str) {
-  return Buffer
-    .from(str, 'utf-8')
-    .toString('base64');
+document.querySelector('textarea[class=data]').placeholder = unescape('function%20base64%28str%29%20%7B%0A%20%20return%20Buffer%0A%20%20%20%20.from%28str%2C%20%27utf-8%27%29%0A%20%20%20%20.toString%28%27base64%27%29%3B%0A%7D%0A%0Avar%20res%20%3D%20base64%28%27example%27%29%3B%0Aconsole.log%28res%29%3B');
+
+function onSelect() {
+var nodejs = unescape('function%20base64%28str%29%20%7B%0A%20%20return%20Buffer%0A%20%20%20%20.from%28str%2C%20%27utf-8%27%29%0A%20%20%20%20.toString%28%27base64%27%29%3B%0A%7D%0A%0Avar%20res%20%3D%20base64%28%27example%27%29%3B%0Aconsole.log%28res%29%3B');
+var python = unescape('from%20requests%20import%20get%0Aurl%20%3D%20get%28%27http%3A//kuhong-api.herokuapp.com/status%27%29.json%28%29%0A%0A%20%20%20print%28url%29');
+var php = unescape('%24url%20%3D%20%27http%3A//kuhong-api.herokuapp.com/status%27%3B%0A%24curl%20%3D%20curl_init%28%24url%29%3B%0Acurl_setopt%28%24curl%2C%20CURLOPT_RETURNTRANSFER%2C%20true%29%3B%0Acurl_setopt%28%24curl%2C%20CURLOPT_HTTPHEADER%2C%20%5B%0A%20%20%20%27Content-Type%3A%20application/json%27%0A%5D%29%3B%0A%24response%20%3D%20curl_exec%28%24curl%29%3B%0Acurl_close%28%24curl%29%3B%0Aecho%20%24response%20.%20PHP_EOL%3B');
+var language = document.querySelector('select[class=language]').value;
+document.querySelector('textarea[class=data]').placeholder = language == 'nodejs' ? nodejs : language == 'python' ? python : language == 'php' ? php : '...';
 }
 
-console.log(base64('example'));
-`.trim();
+function capital(text) {
+  return text.slice(0, 1).toUpperCase() + text.slice(1);
+}
 
 function clearConsole() {
 document.querySelector('textarea[class=data]').value = '';
@@ -46,14 +59,17 @@ document.querySelector('code').textContent = '...';
 }
 
 function runConsole() {
+var type = document.querySelector('select[class=language]').value;
 var data = document.querySelector('textarea[class=data]').value;
-if (!data) return alert('Masukan kode JavaScript Anda!');
+if (!data) return alert(`Silahkan masukan kode ${capital(type)} Anda`);
+if (!type) return alert('Bahasa aplikasi tidak valid!');
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/console', {
        method: 'POST',
        headers: 'application/x-www-form-urlencoded',
-       body: 'data=' + encodeURIComponent(data)
+       body: `type=${type}&data=${encodeURIComponent(data)}`
    });
-   document.querySelector('code').textContent = res.data.result.trim();
+   document.querySelector('code').textContent = res.data.result;
+   document.querySelector('code').class = 'language-' + type;
    document.querySelector('pre[class=logs]').style.height = '';
    return highlightAll();
 }
