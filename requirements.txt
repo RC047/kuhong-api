@@ -1,4 +1,1 @@
-bob-builder
-boto
-docopt
 requests
