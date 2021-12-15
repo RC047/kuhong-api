@@ -49,23 +49,23 @@ if (!language) return alert('Upss... Terjadi Kesalahan!');
 document.querySelector('textarea[class=data]').placeholder = language == 'javascript' ? javascript : language == 'python' ? python : language == 'php' ? php : 'Language not supported...';
 }
 
-function capital(text) {
+function capitalText(text) {
    return text.slice(0, 1).toUpperCase() + text.slice(1).toLowerCase();
 }
 
-function tilt(text) {
+function tiltText(text) {
    return unescape('%3Cvar%3E') + text + unescape('%3C/var%3E');
 }
 
 function clearConsole() {
 document.querySelector('textarea[class=data]').value = '';
-document.querySelector('code').textContent = tilt('Console has been cleared');
+document.querySelector('code').textContent = '...';
 }
 
 function runConsole() {
 var type = document.querySelector('select[class=language]').value;
 var data = document.querySelector('textarea[class=data]').value;
-if (!data) return alert(`Silahkan masukan kode ${capital(type)} Anda`);
+if (!data) return alert(`Silahkan masukan kode ${capitalText(type)} Anda`);
 if (!type) return alert('Upss... Terjadi Kesalahan!');
 var res = fetchURI('https://kuhong-api.herokuapp.com/api/console', {
        method: 'POST',
