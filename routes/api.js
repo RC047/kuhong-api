@@ -588,9 +588,9 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     await fs.writeFileSync(`console.${ext}`, data.trim())
     await exec(`${cmd} ./console.${ext}`, (stdout, stderr, err) => {
     if (stdout) result = stdout
-    else if (stderr) result = stderr
-    else if (err) result = err
-    if (/^php$/i.test(type) && !data.startsWith('<?php')) result = 'Please start the script with [ <?php ]'
+    if (stderr) result = stderr
+    if (err) result = err
+    if (/^php$/i.test(type) && !data.startsWith('<?php')) result = 'PHP Parse error: Please start the script with [ <?php ]'
 
       return res.json({ status: true, result: util.format(result).trim() })
       })
