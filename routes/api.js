@@ -582,14 +582,15 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var cmd, ext, result
     if (/^node(js)?|javascript$/i.test(type)) cmd = 'node', ext = 'js'
     else if (/^python$/i.test(type)) cmd = 'python', ext = 'py'
-    else if (/^php$/i.test(type)) cmd = 'php', ext = 'php', data = data.startsWith('<?php') ? data : unescape('Please%20start%20the%20script%20with%20%5B%20%3C%3Fphp%20%5D')
+    else if (/^php$/i.test(type)) cmd = 'php', ext = 'php'
     else return res.json({ status: false, result: `Error: language "${type}" is not supported` })
     
     await fs.writeFileSync(`console.${ext}`, data.trim())
     await exec(`${cmd} ./console.${ext}`, (stdout, stderr, err) => {
     if (stdout) result = stdout
-    if (stderr) result = stderr
-    if (err) result = err
+    else if (stderr) result = stderr
+    else if (err) result = err
+    if (/^php$/i.test(type) && !data.startsWith('<?php')) result = 'Please start the script with [ <?php ]'
 
       return res.json({ status: true, result: util.format(result).trim() })
       })
