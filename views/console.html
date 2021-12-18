@@ -41,7 +41,7 @@ var { highlight, highlightAuto, highlightAll, highlightElement, highlightBlock }
 
 var javascript = unescape('const%20fetch%20%3D%20require%28%27node-fetch%27%29%3B%0A%0Aconst%20url%20%3D%20%27https%3A//kuhong-api.herokuapp.com/status%27%3B%0Afetch%28url%29%0A%20%20%20%20.then%28res%20%3D%3E%20res.json%28%29%29%0A%20%20%20%20.then%28console.log%29%0A%20%20%20%20.catch%28console.error%29%3B');
 var python = unescape('from%20requests%20import%20get%3B%0A%0Aurl%20%3D%20%27https%3A//kuhong-api.herokuapp.com/status%27%3B%0Aresponse%20%3D%20get%28url%29.json%28%29%3B%0A%20%20print%28response%29%3B');
-var php = unescape('%24url%20%3D%20%27https%3A//kuhong-api.herokuapp.com/status%27%3B%0A%24curl%20%3D%20curl_init%28%24url%29%3B%0Acurl_setopt%28%24curl%2C%20CURLOPT_RETURNTRANSFER%2C%20true%29%3B%0Acurl_setopt%28%24curl%2C%20CURLOPT_HTTPHEADER%2C%20%5B%0A%20%20%20%27Content-Type%3A%20application/json%27%0A%5D%29%3B%0A%24response%20%3D%20curl_exec%28%24curl%29%3B%0Acurl_close%28%24curl%29%3B%0A%0A%20%20echo%20%24response.PHP_EOL%3B');
+var php = unescape('%3C%3Fphp%0A%24url%20%3D%20%27https%3A//kuhong-api.herokuapp.com/status%27%3B%0A%24curl%20%3D%20curl_init%28%24url%29%3B%0Acurl_setopt%28%24curl%2C%20CURLOPT_RETURNTRANSFER%2C%20true%29%3B%0Acurl_setopt%28%24curl%2C%20CURLOPT_HTTPHEADER%2C%20%5B%0A%20%20%20%27Content-Type%3A%20application/json%27%0A%5D%29%3B%0A%24response%20%3D%20curl_exec%28%24curl%29%3B%0Acurl_close%28%24curl%29%3B%0A%0A%20%20echo%20%24response.PHP_EOL%3B');
 
 function onSelect() {
 var language = document.querySelector('select[class=language]').value;
