@@ -611,7 +611,7 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
     var data = JSON.parse(await fs.readFileSync(__path + '/database.json').toString())
     if (req.body.request) message = `REQUEST :\n\nDari: ${data.name}\nIP: ${data.ip}\nAkun: ${data.accountType}\nPesan: ${req.body.request}`
     if (req.body.report) message = `REPORT :\n\nDari: ${data.name}\nIP: ${data.ip}\nAkun: ${data.accountType}\nPesan: ${req.body.report}`
-    await (await fetch(`https://api.callmebot.com/whatsapp.php?phone=+62895337278647&text=${message}&apikey=${callmebot_key}`)).text()
+    await (await fetch(`https://kuhong-api-v2.herokuapp.com/?target=62895337278647&type=text&message=${encodeURIComponent(message)}`)).text()
 
 	res.json({
 	    status: true,
