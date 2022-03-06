@@ -1,7 +1,7 @@
 // Just an ordinary custom made ads viewer script
 
 var ranGames = pickRandom(['dino', 'tetris', 'suit', 'suitjawa', 'tebakhuruf', 'tebakangka', 'pingpong', 'kuis']);
-var listAds = [
+var ads = pickRandom([
 'Bosan? Main game aja di Kuhong API! url:https://kuhong-api.herokuapp.com/game/' + ranGames,
 'Dijual SC Bot WhatsApp 400+ fitur dengan harga 50K! url:https://wa.me/62895337278647?text=Min+saya+minat+mau+beli+sc+bot+wa',
 'Jangan lupa donasi biar update tiap hari! url:https://saweria.co/RC047',
@@ -45,9 +45,7 @@ var listAds = [
 'FT SILLENT KILLER\nCEPET DAFTAR NGAB KEBURU FULL\n\n1. 15k\n2. 10k\n3. 10k\nFEE 5K || 3 MATCH\n\nSkuy lah ngab 6slot Gc lah url:https://wa.me/6287780169340?text=Min+Daftar+Ft+5k',
 'BIRU_CRAFT SHOP\n\n\nMenjual:\no Banner youtube: 5k doang\no Logo Youtube, DLL: 5k kok\no Thumnails Youtube: 5k dapat 2/3!!!\n\nJasa Edit video youtube/editor:\nSewa:\no Harian\no Mingguan\no Bulanan\no Menetap\n\nHarga: Sesuai Menit Video\nPEMBAYARAN VIA:\no Pulsa Axis\n\no Testi: ada\no Contoh: ada\no Contoh video: ada\n\n\nMINAT?\nLangsung saja Chat! url:http://wa.me/+6283125579825',
 'Ponsel anda terdeteksi tidak aman! Install aplikasi ini sekarang juga url:https://cleanphonefast.com/landers/external/cleaner-update-id/landing.html?device_name=Generic%20Android%202.0&language=id-ID&device_brand=Generic&device_model=Android%202.0&uclick=ejsyu3a5fe&uclickhash=ejsyu3a5fe-ejsyu3a5fe-h98n-ojbz-168p-fvft-fv1z-3f0c90#'
-];
-
-var ads = pickRandom(listAds);
+]);
 var a = Math.floor(Math.random() * 10);
 var b = Math.floor(Math.random() * 7);
 if (a == b || b == a) {
