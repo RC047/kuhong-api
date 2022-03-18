@@ -2,16 +2,14 @@
 
 var ranGames = pickRandom(['dino', 'tetris', 'suit', 'suitjawa', 'tebakhuruf', 'tebakangka', 'pingpong', 'kuis']);
 var ads = pickRandom([
-'Bosan? Main game aja di Kuhong API! url:https://kuhong-api.herokuapp.com/game/' + ranGames,
+'Bosan? Main game aja di Kuhong API! url:https://kuhong-api.herokuapp.com/games/' + ranGames,
 'Dijual SC Bot WhatsApp 400+ fitur dengan harga 50K! url:https://wa.me/62895337278647?text=Min+saya+minat+mau+beli+sc+bot+wa',
 'Jangan lupa donasi biar update tiap hari! url:https://saweria.co/RC047',
 'Selamat! Anda memenangkan iPhone 11 dalam undian kami! url:https://luckyexperiences.com/id_id/tr_lzidnopre?clickid=q38gi5QBIL-60f29e551766da09f0258d9a&networkid=101846&publisher=877_124122&c6=&c7=&s_id=&s_type=&ept2=48a1c96a-105c-4e5b-80e1-ea6da7a1b3d0',
 'Selamat! Anda memenangkan Motor dalam undian kami tahun ini! url:https://luckyexperiences.com/id_id/tr_lzidnopre?clickid=q38gi5QBIL-60f29e551766da09f0258d9a&networkid=101846&publisher=877_124122&c6=&c7=&s_id=&s_type=&ept2=48a1c96a-105c-4e5b-80e1-ea6da7a1b3d0',
 'Jangan lupa subscribe channel Owner! url:https://youtube.com/c/RC047',
 'Jangan lupa subscribe channel Owner! url:https://youtube.com/c/RC047',
-'Bosan? Main game aja di Kuhong API! url:https://kuhong-api.herokuapp.com/game/' + ranGames,
-'Gak ada temen? Chat aja yuk sama Bot diwebsite resmi kami! url:https://kuhong-api.herokuapp.com/botchat',
-'Gak ada temen? Chat aja yuk sama Bot diwebsite resmi kami! url:https://kuhong-api.herokuapp.com/botchat',
+'Bosan? Main game aja di Kuhong API! url:https://kuhong-api.herokuapp.com/games/' + ranGames,
 'Dijual SC Bot WhatsApp 400+ fitur dengan harga 50K! url:https://wa.me/62895337278647?text=Min+saya+minat+mau+beli+sc+bot+wa',
 'Jangan lupa donasi biar update tiap hari! url:https://saweria.co/RC047',
 'Selamat! Anda memenangkan iPhone 11 dalam undian kami! url:https://luckyexperiences.com/id_id/tr_lzidnopre?clickid=q38gi5QBIL-60f29e551766da09f0258d9a&networkid=101846&publisher=877_124122&c6=&c7=&s_id=&s_type=&ept2=48a1c96a-105c-4e5b-80e1-ea6da7a1b3d0',
