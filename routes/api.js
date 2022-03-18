@@ -624,6 +624,19 @@ var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || r
   }
 })
 
+router.all('/post', async (req, res, next) => {
+await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
+var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
+    if (blocked.test(ip) || ip.startsWith(blocked.source) || ip.endsWith(blocked.source)) return res.json(loghandler.blocked)
+
+if (req.method !== 'POST') return res.json({ status: false, creator: creator, result: 'No data posted' })
+    res.json({
+        status: true,
+	creator: creator,
+        result: req.body
+    })
+})
+
 router.get('/tiktok', async (req, res, next) => {
 await (await fetch('https://api.countapi.xyz/hit/kuhong-api.herokuapp.com/hits')).json()
 var ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress
