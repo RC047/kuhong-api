@@ -17,7 +17,7 @@ if (/json/i.test(xhr.getAllResponseHeaders())) data = JSON.parse(data);
 	    status: xhr.status,
 	    statusText: xhr.statusText,
 	    headers:{
-                    requested: opts.headers ? opts.headers : 'default (text/html)',
+                    requested: opts.headers ? opts.headers : 'text/html (default)',
 		    userAgent: navigator.userAgent,
 		    contentLength: xhr.getAllResponseHeaders().split('content-length: ')[1].split('content-type: ')[0],
 		    contentType: xhr.getAllResponseHeaders().split('content-type: ')[1].split(';')[0]
