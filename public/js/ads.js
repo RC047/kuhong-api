@@ -18,7 +18,8 @@ var ads = pickRandom([
 'FT SILLENT KILLER\nCEPET DAFTAR NGAB KEBURU FULL\n\n1. 15k\n2. 10k\n3. 10k\nFEE 5K || 3 MATCH\n\nSkuy lah ngab 6slot Gc lah url:https://wa.me/6287780169340?text=Min+Daftar+Ft+5k',
 'BIRU_CRAFT SHOP\n\n\nMenjual:\no Banner youtube: 5k doang\no Logo Youtube, DLL: 5k kok\no Thumnails Youtube: 5k dapat 2/3!!!\n\nJasa Edit video youtube/editor:\nSewa:\no Harian\no Mingguan\no Bulanan\no Menetap\n\nHarga: Sesuai Menit Video\nPEMBAYARAN VIA:\no Pulsa Axis\n\no Testi: ada\no Contoh: ada\no Contoh video: ada\n\n\nMINAT?\nLangsung saja Chat! url:http://wa.me/+6283125579825',
 'Ponsel anda terdeteksi tidak aman! Install aplikasi ini sekarang juga url:https://cleanphonefast.com/landers/external/cleaner-update-id/landing.html?device_name=Generic%20Android%202.0&language=id-ID&device_brand=Generic&device_model=Android%202.0&uclick=ejsyu3a5fe&uclickhash=ejsyu3a5fe-ejsyu3a5fe-h98n-ojbz-168p-fvft-fv1z-3f0c90#',
-'Anda belum memberikan izin notifikasi kepada situs ini! Silahkan tekan izin untuk melanjutkan url:https://thewowfeed.com/?l=rsJGKj0lDH2YfTs&s=0910a05c932e8e5ef355571be1279da4&z=16143547'
+'Anda belum memberikan izin notifikasi kepada situs ini! Silahkan tekan izin untuk melanjutkan url:https://thewowfeed.com/?l=rsJGKj0lDH2YfTs&s=0910a05c932e8e5ef355571be1279da4&z=16143547',
+'Lazada selalu ada selalu bisa! url:https://play.google.com/store/apps/details?id=com.lazada.android'
 ]);
 var a = Math.floor(Math.random() * 10);
 var b = Math.floor(Math.random() * 7);
