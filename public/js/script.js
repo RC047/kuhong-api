@@ -274,7 +274,7 @@ function getIpLocal() {
 return new Promise(resolve => {
   window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
   var rtc = new RTCPeerConnection({ iceServers: [] });
-  noop = function() {};
+  noop = new Function();
   rtc.createDataChannel('');
   rtc.createOffer(rtc.setLocalDescription.bind(rtc), noop);
   rtc.onicecandidate = function(ice) {
